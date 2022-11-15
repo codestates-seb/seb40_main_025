@@ -18,6 +18,9 @@ public class Gallery extends Auditable {
     private Long galleryId;
     private String title;
     private String content;
+
+    //enum의 이름을 컬럼에 저장
+    @Enumerated(EnumType.STRING)
     private GalleryStatus status = GalleryStatus.OPEN;
 
     @ManyToOne
