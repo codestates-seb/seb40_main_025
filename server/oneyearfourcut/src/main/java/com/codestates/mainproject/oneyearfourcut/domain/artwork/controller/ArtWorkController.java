@@ -2,7 +2,7 @@ package com.codestates.mainproject.oneyearfourcut.domain.artwork.controller;
 
 import com.codestates.mainproject.oneyearfourcut.domain.artwork.dto.ArtWorkRequestDto;
 import com.codestates.mainproject.oneyearfourcut.domain.artwork.dto.ArtWorkResponseDto;
-import com.codestates.mainproject.oneyearfourcut.domain.artwork.dto.ArtWorkResponseDtos;
+import com.codestates.mainproject.oneyearfourcut.domain.artwork.dto.ArtWorkListResponseDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -30,7 +30,7 @@ public class ArtWorkController {
                 new ArtWorkResponseDto(2L, "타이틀2", "설명2", "이미지경로2", 3, false, 3)
                 );
 
-        ArtWorkResponseDtos response = new ArtWorkResponseDtos(galleryId, "원강님의 전시관", artworks);
+        ArtWorkListResponseDto response = new ArtWorkListResponseDto(galleryId, "원강님의 전시관", artworks);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
