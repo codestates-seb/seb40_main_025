@@ -1,3 +1,5 @@
+
+
 package com.codestates.mainproject.oneyearfourcut.domain.comment.entity;
 
 
@@ -28,12 +30,12 @@ public class Comment extends Auditable {
     private Member memberId; // 작성자 회원 id
 
     @ManyToOne
-    @JoinColumn(name = "galley_id")
-    private Gallery galleryId;  //작품이 아닌 전시관 전체 댓글일때
-
-    @ManyToOne
     @JoinColumn(name = "artwork_id")
     private ArtWork artWorkId;  //작품에 달린 댓글일때.
+
+    @ManyToOne
+    @JoinColumn(name = "galley_id")
+    private Gallery galleryId;  //작품이 아닌 전시관 전체 댓글일때
 
     @Builder
     public Comment(Long commentId, String content, Member memberId, Gallery galleryId, ArtWork artWorkId){
