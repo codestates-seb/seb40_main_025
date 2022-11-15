@@ -1,6 +1,9 @@
 package com.codestates.mainproject.oneyearfourcut.domain.member.entity;
 
 
+import com.codestates.mainproject.oneyearfourcut.domain.alarm.entity.Alarm;
+import com.codestates.mainproject.oneyearfourcut.domain.artwork.entity.ArtWork;
+import com.codestates.mainproject.oneyearfourcut.domain.comment.entity.Comment;
 import com.codestates.mainproject.oneyearfourcut.domain.gallery.entity.Gallery;
 import com.codestates.mainproject.oneyearfourcut.domain.vote.entity.Vote;
 import com.codestates.mainproject.oneyearfourcut.global.auditable.Auditable;
@@ -31,4 +34,13 @@ public class Member extends Auditable {
 
     @OneToMany(mappedBy = "member")
     private List<Vote> voteList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member")
+    private List<ArtWork> artWorkList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member")
+    private List<Comment> commentList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member")
+    private List<Alarm> alarmList = new ArrayList<>();
 }
