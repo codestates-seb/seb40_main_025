@@ -30,7 +30,7 @@ public class ArtWorkController {
                 new ArtWorkResponseDto(2L, "타이틀2", "설명2", "이미지경로2", 3, false, 3)
                 );
 
-        ArtWorkListResponseDto response = new ArtWorkListResponseDto(galleryId, "원강님의 전시관", artworks);
+        ArtWorkListResponseDto response = new ArtWorkListResponseDto("원강님의 전시관", "나의 전시관을 소개합니다!", artworks);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 

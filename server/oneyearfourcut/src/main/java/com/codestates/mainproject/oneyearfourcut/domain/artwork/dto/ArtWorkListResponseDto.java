@@ -12,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ArtWorkListResponseDto {
-    private long galleryId;
     private String galleryTitle;
+    private String galleryContent;
     private List<ArtWorkResponseDto> artWorkList;
 }
