@@ -27,8 +27,6 @@ public class Member extends Auditable {
 
     private String email;
 
-//    private LocalTime lastLoginAT = LocalTime.now(); 확인 후 추가
-
     @OneToMany(mappedBy = "member")
     private List<Gallery> galleryList = new ArrayList<>();
 
