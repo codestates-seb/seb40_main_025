@@ -43,10 +43,10 @@ public class CommentController {
     public ResponseEntity<?> getCommentOnGallery(@PathVariable("gallery-id") Long galleryId) {
 
         List<GalleryCommentResponseDto> comments = List.of(
-                new GalleryCommentResponseDto(1L, "홍길동", "댓글입니다@@", 1L),
-                new GalleryCommentResponseDto(2L, "홍길동", "댓글입니다@@", 1L),
-                new GalleryCommentResponseDto(3L, "홍길동", "댓글입니다@@", 2L),
-                new GalleryCommentResponseDto(4L, "홍길동", "댓글입니다@@", null)
+                new GalleryCommentResponseDto(1L,1L, "홍길동", "댓글입니다@@", 1L),
+                new GalleryCommentResponseDto(2L,1L, "홍길동", "댓글입니다@@", 1L),
+                new GalleryCommentResponseDto(3L,1L, "홍길동", "댓글입니다@@", 2L),
+                new GalleryCommentResponseDto(4L,1L, "홍길동", "댓글입니다@@", null)
         );
         GalleryCommentListResponseDto response = new GalleryCommentListResponseDto(1L, comments);
 
@@ -58,8 +58,8 @@ public class CommentController {
     public ResponseEntity<?> getCommentOnArtWork(@PathVariable Map<Long, Long> pathIdMap) {
 
         List<ArtWorkCommentResponseDto> comments = List.of(
-                new ArtWorkCommentResponseDto(1L, "홍길동", "댓글입니다@@"),
-                new ArtWorkCommentResponseDto(2L, "홍길동", "댓글입니다@@")
+                new ArtWorkCommentResponseDto(1L, 1L,"홍길동", "댓글입니다@@"),
+                new ArtWorkCommentResponseDto(2L, 1L,"홍길동", "댓글입니다@@")
         );
         ArtWorkCommentListResponseDto response = new ArtWorkCommentListResponseDto(1L, comments);
         return new ResponseEntity<>(response, HttpStatus.OK);
