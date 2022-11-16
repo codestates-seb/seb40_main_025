@@ -11,8 +11,9 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CommentArtWorkResponseDto extends Auditable {
+public class GalleryCommentResponseDto extends Auditable {
     private Long commentId;
     private String nickname;
     private String content;
+    private Long artWorkId; //it can be NULL
 }

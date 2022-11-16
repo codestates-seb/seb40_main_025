@@ -1,6 +1,5 @@
 package com.codestates.mainproject.oneyearfourcut.domain.comment.dto;
 
-import com.codestates.mainproject.oneyearfourcut.global.auditable.Auditable;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,7 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
-public class CommentListGalleryResponseDto{
-    private Long galleryId;
-    private List<CommentGalleryResponseDto> commentList;
+public class ArtWorkCommentListResponseDto {
+    private Long artWorkId;
+    private List<ArtWorkCommentResponseDto> commentList;
 }
