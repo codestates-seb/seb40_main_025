@@ -70,7 +70,7 @@ public class CommentService {
     //Pagination method
     public Page<Comment> pageComments(int page, int size){
         PageRequest pr = PageRequest.of(page -1, size);
-        return cRepo.findAllByOrderByCommentIdDesc(pr);
+        return  cRepo.findAllByOrderByCommentIdDesc(pr);
     }
 
 
