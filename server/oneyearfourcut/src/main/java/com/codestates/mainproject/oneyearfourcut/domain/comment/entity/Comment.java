@@ -26,8 +26,6 @@ public class Comment extends Auditable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long commentId;
 
-    @OneToMany(mappedBy = "member")
-    private List<Comment> commentList = new ArrayList<>();  //댓글 리스트, targetEntity
 
     private String content; // 댓글 내용
 
