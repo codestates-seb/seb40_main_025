@@ -75,10 +75,4 @@ public class ArtworkRepositoryTest {
         assertEquals(exceptedWriterName, actualWriterName);
         assertEquals(exceptedGalleryId, actualGalleryId);
     }
-
-    @Test
-    @DisplayName("과연?")
-    public void test() {
-
-    }
 }
