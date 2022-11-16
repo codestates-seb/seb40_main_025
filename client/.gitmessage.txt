@@ -7,3 +7,6 @@
 # 🔧REFACTOR: 코드 리펙토링
 # ☔️TEST: 테스트 코트, 리펙토링 테스트 코드 추가
 # 🔨CHORE: 빌드 업무 수정, 패키지 매니저 수정(ex .gitignore 수정 같은 경우)
+# 💄DESIGN: 스타일 변경
+# 🚚RENAME: 폴더 구조 변경, 파일명, 폴더명 수정
+# ➖REMOVE: 파일 삭제
