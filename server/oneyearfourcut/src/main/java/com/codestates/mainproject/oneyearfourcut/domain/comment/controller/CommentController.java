@@ -1,7 +1,14 @@
 package com.codestates.mainproject.oneyearfourcut.domain.comment.controller;
 
 import com.codestates.mainproject.oneyearfourcut.domain.comment.dto.*;
+
 import lombok.extern.slf4j.Slf4j;
+import com.codestates.mainproject.oneyearfourcut.domain.comment.entity.Comment;
+import com.codestates.mainproject.oneyearfourcut.global.page.PageInfo;
+import com.codestates.mainproject.oneyearfourcut.global.page.PageResponseDto;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -42,6 +49,7 @@ public class CommentController {
                 new GalleryCommentResponseDto(4L, "홍길동", "댓글입니다@@", null)
         );
         GalleryCommentListResponseDto response = new GalleryCommentListResponseDto(1L, comments);
+
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
