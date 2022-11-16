@@ -14,6 +14,7 @@ public class Alarm extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long alarmId;
+
     @ManyToOne
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
