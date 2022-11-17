@@ -7,14 +7,18 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class GalleryCommentSingleResponseDto extends Auditable {
+public class GalleryCommentResponseDto extends Auditable {
+    private Long galleryId;
     private Long commentId;
     private Long memberId;
     private String nickname;
     private String content;
     private Long artworkId; //it can be NULL
+    private List<ReplyResponseDto> replyList;
 }

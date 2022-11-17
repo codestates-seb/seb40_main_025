@@ -1,9 +1,14 @@
 package com.codestates.mainproject.oneyearfourcut.domain.comment.controller;
 
+import com.codestates.mainproject.oneyearfourcut.domain.artwork.entity.Artwork;
+import com.codestates.mainproject.oneyearfourcut.domain.artwork.service.ArtworkService;
 import com.codestates.mainproject.oneyearfourcut.domain.comment.dto.*;
 
+import com.codestates.mainproject.oneyearfourcut.domain.comment.entity.Comment;
 import com.codestates.mainproject.oneyearfourcut.domain.comment.mapper.CommentMapper;
 import com.codestates.mainproject.oneyearfourcut.domain.comment.service.CommentService;
+import com.codestates.mainproject.oneyearfourcut.domain.member.entity.Member;
+import com.codestates.mainproject.oneyearfourcut.domain.member.service.MemberService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -23,7 +28,10 @@ import java.util.Map;
 @AllArgsConstructor
 public class CommentController {
     private final CommentService commentService;
+    private final ArtworkService artworkService;
     private final CommentMapper commentMapper;
+
+    private final MemberService memberService;
 
 /*    //댓글 등록 - 전체 작품(Gallery)
     @PostMapping("/{gallery-id}/comments")
@@ -40,21 +48,43 @@ public class CommentController {
 
     //댓글 등록 - 개별 작품(Artwork)
     @PostMapping("/{gallery-id}/artworks/{artwork-id}/comments")
-    public ResponseEntity<Object> postCommentOnArtwork(@PathVariable("gallery-id") Long galleryId,
-                                         @ModelAttribute CommentRequestDto commentRequestDto) {
-        return new ResponseEntity<>(HttpStatus.CREATED);
+    public ResponseEntity<Object> postCommentOnArtwork(
+                @PathVariable("gallery-id") Long galleryId,
+                @PathVariable("artwork-id") Long artworkId,
+                @RequestBody CommentRequestDto commentRequestDto) {
+        //comment 생성
+        Comment comment = commentMapper.commentRequestDtoToComment(commentRequestDto);
+        comment = commentService.createCommentOnArtwork(comment, artworkId);
+        Artwork artwork = artworkService.findArtwork(artworkId);
+        artwork.addCommentList(comment);
+        ArtworkCommentResponseDto response =
+                commentMapper.commentToArtworkCommentResponseDto(comment);
+
+        return new ResponseEntity<>(response, (HttpStatus.CREATED)); //생성 댓글 response
     }
+
+    //댓글 리스트 조회 - 개별 작품(Artwork)
+    @GetMapping("/{gallery-id}/artworks/{artwork-id}/comments")
+    public ResponseEntity<Object> getCommentOnArtwork(@PathVariable("artwork-id") Long artworkId) {
+        //artwork에 달린 댓글 조회
+        Artwork artwork = artworkService.findArtwork(artworkId);
+        ArtworkCommentResponseDto response =
+                (ArtworkCommentResponseDto)
+                        commentMapper.commentToArtworkCommentResponseDtoList(artwork.getCommentList());
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
 
 /*
     //댓글 리스트 조회 - 전체 작품(Gallery)
     @GetMapping("/{gallery-id}/comments")
     public ResponseEntity<Object> getCommentOnGallery(@PathVariable("gallery-id") Long galleryId) {
 
-        List<GalleryCommentSingleResponseDto> comments = List.of(
-                new GalleryCommentSingleResponseDto(1L,1L, "홍길동", "댓글입니다@@", 1L),
-                new GalleryCommentSingleResponseDto(2L,1L, "홍길동", "댓글입니다@@", 1L),
-                new GalleryCommentSingleResponseDto(3L,1L, "홍길동", "댓글입니다@@", 2L),
-                new GalleryCommentSingleResponseDto(4L,1L, "홍길동", "댓글입니다@@", null)
+        List<GalleryCommentResponseDto> comments = List.of(
+                new GalleryCommentResponseDto(1L,1L, "홍길동", "댓글입니다@@", 1L),
+                new GalleryCommentResponseDto(2L,1L, "홍길동", "댓글입니다@@", 1L),
+                new GalleryCommentResponseDto(3L,1L, "홍길동", "댓글입니다@@", 2L),
+                new GalleryCommentResponseDto(4L,1L, "홍길동", "댓글입니다@@", null)
         );
         GalleryCommentMultiResponseDto response = new GalleryCommentMultiResponseDto(1L, comments);
 
@@ -67,9 +97,9 @@ public class CommentController {
     @GetMapping("/{gallery-id}/artworks/{artwork-id}/comments")
     public ResponseEntity<Object> getCommentOnArtwork(@PathVariable Map<Long, Long> pathIdMap) {
 
-        List<ArtworkCommentSingleResponseDto> comments = List.of(
-                new ArtworkCommentSingleResponseDto(1L, 1L,"홍길동", "댓글입니다@@"),
-                new ArtworkCommentSingleResponseDto(2L, 1L,"홍길동", "댓글입니다@@")
+        List<ArtworkCommentResponseDto> comments = List.of(
+                new ArtworkCommentResponseDto(1L, 1L,"홍길동", "댓글입니다@@"),
+                new ArtworkCommentResponseDto(2L, 1L,"홍길동", "댓글입니다@@")
         );
         ArtworkCommentMultiResponseDto response = new ArtworkCommentMultiResponseDto(1L, comments);
 
@@ -84,8 +114,8 @@ public class CommentController {
 
         Page<Comment> commentPage = commentService.pageComments(page, size);
         List<Comment> comments = commentPage.getContent();
-        List<GalleryCommentSingleResponseDto> response =
-                (List<GalleryCommentSingleResponseDto>) commentMapper.toGalleryCommentListResponseDto((CommentRequestDto) comments);
+        List<GalleryCommentResponseDto> response =
+                (List<GalleryCommentResponseDto>) commentMapper.toGalleryCommentListResponseDto((CommentRequestDto) comments);
         PageInfo pageInfo = new PageInfo(page, size, (int) commentPage.getTotalElements(), commentPage.getTotalPages());
 
         return new ResponseEntity<>(new PageResponseDto<>(response, pageInfo), HttpStatus.OK);

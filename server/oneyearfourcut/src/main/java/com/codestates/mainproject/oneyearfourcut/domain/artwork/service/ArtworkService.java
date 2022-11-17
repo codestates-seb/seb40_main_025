@@ -56,7 +56,7 @@ public class ArtworkService {
         artworkRepository.save(artwork);
     }
     
-    public Gallery findArtwork(Long artworkId) {
+    public Artwork findArtwork(Long artworkId) {
         return null;
     }
 }

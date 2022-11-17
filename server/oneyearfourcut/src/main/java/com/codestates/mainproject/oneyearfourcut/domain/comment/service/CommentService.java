@@ -35,6 +35,18 @@ public class CommentService {
     private final ArtworkService aService;
 
 
+
+    //Create method(Artwork comment)
+    public Comment createCommentOnArtwork(Comment comment,Long artworkId){
+        Member member = mService.findMember(comment.getMember().getMemberId()); //해당 memberId 존재 확인, JWT
+        comment.setArtwork(aService.findArtwork(artworkId));  //artWorkId를찾아 comment 생성
+        comment.setMember(member); //Member에 저장.
+
+
+        return cRepo.save(comment);
+    }
+
+
     //Create method(Gallery comment)
     public Comment createCommentOnGallery(Comment comment, Long galleryId){
         Member member = mService.findMember(comment.getMember().getMemberId()); //해당 memberId 존재 확인, JWT
@@ -43,13 +55,7 @@ public class CommentService {
         return cRepo.save(comment);
     }
 
-    //Create method(Artwork comment)
-    public Comment createCommentOnArtwork(Comment comment,Long artworkId){
-        Member member = mService.findMember(comment.getMember().getMemberId()); //해당 memberId 존재 확인, JWT
-        comment.setGallery(aService.findArtwork(artworkId));  //gallerId를찾아 comment 생성
-        comment.setMember(member); //Member에 저장.
-        return cRepo.save(comment);
-    }
+
 
     //Read(find) method
     public Comment findComment(Long commentId){
@@ -74,7 +80,6 @@ public class CommentService {
 
         }
         return cRepo.save(comment);
-
     }
 
     //Delete method

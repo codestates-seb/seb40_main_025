@@ -1,13 +1,13 @@
 package com.codestates.mainproject.oneyearfourcut.domain.artwork.entity;
 
+import com.codestates.mainproject.oneyearfourcut.domain.comment.entity.Comment;
 import com.codestates.mainproject.oneyearfourcut.domain.gallery.entity.Gallery;
 import com.codestates.mainproject.oneyearfourcut.domain.member.entity.Member;
 import com.codestates.mainproject.oneyearfourcut.domain.vote.entity.Vote;
 import com.codestates.mainproject.oneyearfourcut.global.auditable.Auditable;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
@@ -45,6 +45,13 @@ public class Artwork extends Auditable {
     @OneToMany(mappedBy = "artwork")
     private List<Vote> voteList = new ArrayList<>();
 
+    //CommentList만들기위해 추가하였음,
+    @OneToMany(mappedBy = "artwork", cascade = CascadeType.REMOVE, targetEntity = Comment.class)
+    @ToString.Exclude
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<Comment> commentList = new ArrayList<>();
+
+
     public void setGallery(Gallery gallery) {
         if (this.gallery != null) {
             this.gallery.getArtworkList().remove(this);
@@ -61,6 +68,14 @@ public class Artwork extends Auditable {
         member.getArtworkList().add(this);
     }
 
+
+    //Commentlist getter setter 생성자
+    public void addCommentList(Comment comment) {
+        this.commentList.add(comment);
+        if (comment.getArtwork() != this) {
+            comment.setArtwork(this);
+        }
+    }
 
 
 
