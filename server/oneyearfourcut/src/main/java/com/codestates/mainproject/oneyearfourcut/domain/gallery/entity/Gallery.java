@@ -13,7 +13,9 @@ import java.util.List;
 
 @Entity
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Gallery extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,19 +26,9 @@ public class Gallery extends Auditable {
     @Enumerated(EnumType.STRING) //enum의 이름을 컬럼에 저장
     private GalleryStatus status = GalleryStatus.OPEN;
 
-    @Builder
-    public Gallery(String title, String content) {
-        this.title = title;
-        this.content = content;
-    }
-
     @ManyToOne
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
-
-    public void setMember(Member member) {
-        this.member = member;
-    }
 
     @OneToMany(mappedBy = "gallery")
     private List<Artwork> artworkList = new ArrayList<>();
