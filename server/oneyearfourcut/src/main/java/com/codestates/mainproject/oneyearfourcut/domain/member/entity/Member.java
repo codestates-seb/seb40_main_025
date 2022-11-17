@@ -15,8 +15,9 @@ import java.util.List;
 
 @Entity
 @Getter
-//@Setter   //setter 대신 의미있는 메서드를 사용하는 것이 좋다
-@NoArgsConstructor(access = AccessLevel.PROTECTED)  // entity 생성하려면 필요한데 사용할 수 없도록 설정
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Member extends Auditable {
 
     @Id
@@ -27,11 +28,6 @@ public class Member extends Auditable {
 
     private String email;
 
-    @Builder    //@AllArgsConstructor를 대신
-    public Member(String nickname, String email) {
-        this.nickname = nickname;
-        this.email = email;
-    }
 
     @OneToMany(mappedBy = "member")
     private List<Gallery> galleryList = new ArrayList<>();
