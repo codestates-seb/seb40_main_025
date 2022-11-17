@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class MemberService {
+
     public Member findMember(Long memberId) {
         return null;
     }
