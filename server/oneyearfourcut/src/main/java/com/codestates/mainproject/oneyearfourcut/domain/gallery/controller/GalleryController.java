@@ -19,9 +19,24 @@ public class GalleryController {
         GalleryResponseDto galleryResponseDto = GalleryResponseDto.builder()
                 .createdAt(LocalDateTime.now())
                 .galleryId(1L)
+                .title(galleryRequestDto.getTitle())
+                .content(galleryRequestDto.getContent())
                 .build();
 
         return new ResponseEntity<>(galleryResponseDto, HttpStatus.CREATED);
+    }
+
+    //전시관 조회
+    @GetMapping("/{gallery-id}")
+    public ResponseEntity getGallery(@PathVariable("gallery-id") Long galleryId) {
+        GalleryResponseDto galleryResponseDto = GalleryResponseDto.builder()
+                .createdAt(LocalDateTime.now())
+                .galleryId(1L)
+                .title("승필의 전시회")
+                .content("어서오세요")
+                .build();
+
+        return new ResponseEntity<>(galleryResponseDto, HttpStatus.OK);
     }
 
     //전시관 수정

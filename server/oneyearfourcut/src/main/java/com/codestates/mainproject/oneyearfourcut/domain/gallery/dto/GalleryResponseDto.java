@@ -9,5 +9,7 @@ import java.time.LocalDateTime;
 @Builder
 public class GalleryResponseDto {
     private Long galleryId;
+    private String title;
+    private String content;
     private LocalDateTime createdAt;
 }
