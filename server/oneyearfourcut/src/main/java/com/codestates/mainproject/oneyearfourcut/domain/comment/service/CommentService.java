@@ -1,6 +1,7 @@
 package com.codestates.mainproject.oneyearfourcut.domain.comment.service;
 
 import com.codestates.mainproject.oneyearfourcut.domain.artwork.repository.ArtworkRepository;
+import com.codestates.mainproject.oneyearfourcut.domain.comment.dto.GalleryCommentListResponseDto;
 import com.codestates.mainproject.oneyearfourcut.domain.comment.entity.Comment;
 import com.codestates.mainproject.oneyearfourcut.domain.comment.repository.CommentRepository;
 import com.codestates.mainproject.oneyearfourcut.domain.gallery.repository.GalleryRepository;
@@ -19,8 +20,6 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.Objects;
 import java.util.Optional;
-
-import static org.springframework.data.repository.util.ClassUtils.ifPresent;
 
 
 @Service
@@ -62,6 +61,7 @@ public class CommentService {
         return comment.get();
     }
 
+
     //Update method
     public Comment updateComment(Comment comment, Long memberId){
         Comment foundComment = findComment(comment.getCommentId());
@@ -94,8 +94,6 @@ public class CommentService {
         PageRequest pr = PageRequest.of(page -1, size);
         return  cRepo.findAllByOrderByCommentIdDesc(pr);
     }
-
-
 
 
 }

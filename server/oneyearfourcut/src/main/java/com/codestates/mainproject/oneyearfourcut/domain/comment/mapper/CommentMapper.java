@@ -7,16 +7,50 @@ import com.codestates.mainproject.oneyearfourcut.domain.gallery.entity.Gallery;
 import com.codestates.mainproject.oneyearfourcut.domain.member.entity.Member;
 import org.mapstruct.Mapper;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Mapper(componentModel = "spring")
 public interface CommentMapper {
 
-    default GalleryCommentListResponseDto toGalleryCommentListResponseDto(Comment comment){
-        if ( comment == null ) {
+/*
+
+    List<GalleryCommentListResponseDto> toGalleryCommentListResponseDtos(List<GalleryCommentResponseDto> commentList);
+
+    default List<GalleryCommentListResponseDto> toGalleryCommentListResponseDtos(List<GalleryCommentResponseDto> commentList) {
+        if ( commentList == null ) {
+            return null;
+        }
+
+        galleryCommentListResponseDto.setGalleryId( gallery.getGalleryId());
+
+        List<GalleryCommentListResponseDto> list = new ArrayList<GalleryCommentListResponseDto>( commentList.size() );
+        for ( GalleryCommentResponseDto galleryCommentResponseDto : commentList ) {
+            list.add( galleryCommentResponseDtoToGalleryCommentListResponseDto( galleryCommentResponseDto ) );
+        }
+
+        return list;
+    }
+
+    default GalleryCommentListResponseDto galleryCommentResponseDtoToGalleryCommentListResponseDto(GalleryCommentResponseDto galleryCommentResponseDto) {
+        if ( galleryCommentResponseDto == null ) {
+            return null;
+        }
+
+        GalleryCommentListResponseDto galleryCommentListResponseDto = new GalleryCommentListResponseDto();
+
+        return galleryCommentListResponseDto;
+    }
+
+
+    default GalleryCommentListResponseDto toGalleryCommentListResponseDto(CommentRequestDto commentRequestDto){
+        if ( commentRequestDto == null ) {
             return null;
         }
         Member member = new Member();
         Gallery gallery = new Gallery();
+        Comment comment = new Comment();
         GalleryCommentResponseDto galleryCommentResponseDto = new GalleryCommentResponseDto();
         GalleryCommentListResponseDto galleryCommentListResponseDto = new GalleryCommentListResponseDto();
 
@@ -31,12 +65,13 @@ public interface CommentMapper {
         return galleryCommentListResponseDto;
     }
 
-    default ArtworkCommentListResponseDto toArtworkCommentListResponseDto(Comment comment){
-        if ( comment == null ) {
+    default ArtworkCommentListResponseDto toArtworkCommentListResponseDto(CommentRequestDto commentRequestDto){
+        if ( commentRequestDto == null ) {
             return null;
         }
         Member member = new Member();
         Artwork artwork = new Artwork();
+        Comment comment = new Comment();
         ArtworkCommentListResponseDto artworkCommentListResponseDto = new ArtworkCommentListResponseDto();
         ArtworkCommentResponseDto artworkCommentResponseDto = new ArtworkCommentResponseDto();
 
@@ -59,9 +94,6 @@ public interface CommentMapper {
 
         return comment;
     }
-
-
-
-
+*/
 
 }
