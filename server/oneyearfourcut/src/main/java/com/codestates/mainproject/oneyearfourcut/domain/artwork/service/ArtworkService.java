@@ -9,6 +9,7 @@ import com.codestates.mainproject.oneyearfourcut.domain.member.repository.Member
 import com.codestates.mainproject.oneyearfourcut.global.exception.exception.BusinessLogicException;
 import com.codestates.mainproject.oneyearfourcut.global.exception.exception.ExceptionCode;
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -54,5 +55,8 @@ public class ArtworkService {
 
         artworkRepository.save(artwork);
     }
-
+    
+    public Gallery findArtwork(Long artworkId) {
+        return null;
+    }
 }
