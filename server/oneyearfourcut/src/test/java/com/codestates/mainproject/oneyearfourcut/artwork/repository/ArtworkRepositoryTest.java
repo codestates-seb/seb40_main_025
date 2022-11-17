@@ -38,10 +38,11 @@ public class ArtworkRepositoryTest {
         member2.setNickname("작성자");
         Member writer = memberRepository.save(member2);
 
-        Gallery gallery = new Gallery();
-        gallery.setMember(admin);
-        gallery.setTitle("길동의 전시관");
-        gallery.setContent("환영합니다.");
+        Gallery gallery = Gallery.builder()
+                .title("길동의 전시관")
+                .content("환영합니다")
+                .build();
+        gallery.setMember(admin);;
         Gallery savedGallery = galleryRepository.save(gallery);
 
         Artwork artwork = new Artwork();
