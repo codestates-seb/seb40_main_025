@@ -7,11 +7,12 @@ import lombok.Setter;
 
 import java.util.List;
 
-@AllArgsConstructor
-@NoArgsConstructor
 @Getter
 @Setter
-public class GalleryCommentListResponseDto {
+@AllArgsConstructor
+@NoArgsConstructor
+public class GalleryCommentMultiResponseDto {
     private Long galleryId;
-    private List<GalleryCommentResponseDto> commentList;
+    private List<GalleryCommentSingleResponseDto> commentList;
+    private List<ReplyResponseDto> replyList;
 }

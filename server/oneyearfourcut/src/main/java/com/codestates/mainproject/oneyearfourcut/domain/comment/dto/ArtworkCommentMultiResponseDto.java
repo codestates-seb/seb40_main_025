@@ -11,7 +11,8 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
-public class ArtworkCommentListResponseDto {
+public class ArtworkCommentMultiResponseDto {
     private Long artworkId;
-    private List<ArtworkCommentResponseDto> commentList;
+    private List<ArtworkCommentSingleResponseDto> commentList;
+    private List<ReplyResponseDto> replyList;
 }
