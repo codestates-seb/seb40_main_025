@@ -2,16 +2,12 @@ package com.codestates.mainproject.oneyearfourcut.domain.comment.dto;
 
 
 import com.codestates.mainproject.oneyearfourcut.global.auditable.Auditable;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
 public class GalleryCommentResponseDto extends Auditable {
     private Long galleryId;
@@ -21,4 +17,15 @@ public class GalleryCommentResponseDto extends Auditable {
     private String content;
     private Long artworkId; //it can be NULL
     private List<ReplyResponseDto> replyList;
+
+    @Builder
+    public GalleryCommentResponseDto(Long galleryId, Long commentId, Long memberId, String nickname, String content, Long artworkId, List<ReplyResponseDto> replyList) {
+        this.galleryId = galleryId;
+        this.commentId = commentId;
+        this.memberId = memberId;
+        this.nickname = nickname;
+        this.content = content;
+        this.artworkId = artworkId;
+        this.replyList = replyList;
+    }
 }

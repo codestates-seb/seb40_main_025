@@ -12,5 +12,5 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
  /*   Optional<Comment> findByEmail(String email);*/
 
     //Pagination
-    Page<Comment> findAllByOrderByCommentIdDesc(Pageable pageable);
+    Page<Comment> findAllByOrderByCreatedDateAsc(Pageable pageable);
 }

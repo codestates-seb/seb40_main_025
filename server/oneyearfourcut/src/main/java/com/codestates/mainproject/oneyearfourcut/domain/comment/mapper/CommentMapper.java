@@ -31,7 +31,6 @@ public interface CommentMapper {
 
         return comment.build();
     }
-
     default ArtworkCommentResponseDto commentToArtworkCommentResponseDto(Comment comment) {
         if ( comment == null ) {
             return null;
@@ -45,6 +44,25 @@ public interface CommentMapper {
         artworkCommentResponseDto.nickname(comment.getMember().getNickname());
 
         return artworkCommentResponseDto.build();
+    }
+    default GalleryCommentResponseDto commentToGalleryCommentResponseDto(Comment comment){
+        if ( comment == null ) {
+            return null;
+        }
+        GalleryCommentResponseDto.GalleryCommentResponseDtoBuilder galleryCommentResponseDto
+                = GalleryCommentResponseDto.builder();
+        if(comment.getArtwork() == null){
+            galleryCommentResponseDto.artworkId(null);
+        } //오류가능성있음...!!
+        galleryCommentResponseDto.artworkId(comment.getArtwork().getArtworkId());
+        galleryCommentResponseDto.galleryId(comment.getGallery().getGalleryId());
+        galleryCommentResponseDto.commentId(comment.getCommentId());
+        galleryCommentResponseDto.content( comment.getContent() );
+        galleryCommentResponseDto.memberId(comment.getMember().getMemberId());
+        galleryCommentResponseDto.nickname(comment.getMember().getNickname());
+
+        return galleryCommentResponseDto.build();
+
     }
 
 

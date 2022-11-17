@@ -39,4 +39,12 @@ public class Gallery extends Auditable {
     @OneToMany(mappedBy = "gallery")
     private List<Comment> commentList = new ArrayList<>();
 
+    //Commentlist getter setter 생성자
+    public void addCommentList(Comment comment) {
+        this.commentList.add(comment);
+        if (comment.getGallery() != this) {
+            comment.setGallery(this);
+        }
+    }
+
 }
