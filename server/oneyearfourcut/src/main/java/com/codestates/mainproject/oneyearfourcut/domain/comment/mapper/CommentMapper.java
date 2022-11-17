@@ -8,6 +8,7 @@ import com.codestates.mainproject.oneyearfourcut.domain.gallery.entity.Gallery;
 import com.codestates.mainproject.oneyearfourcut.domain.member.entity.Member;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.factory.Mappers;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,9 +17,12 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface CommentMapper {
 
+    CommentMapper INSTANCE = Mappers.getMapper(CommentMapper.class);
 
+    // no.1 mapper
     CommentRequestDto commentRequestDtoToComment(Comment comment);
 
+    // no.2 mapper
     default ArtworkCommentSingleResponseDto commentToArtworkCommentSingleResponseDto(Comment comment) {
         if ( comment == null ) {
             return null;
@@ -32,6 +36,8 @@ public interface CommentMapper {
 
         return artworkCommentSingleResponseDto;
     }
+
+    // no.3 mapper
     default GalleryCommentSingleResponseDto commentToGalleryCommentSingleResponseDto(Comment comment) {
         if ( comment == null ) {
             return null;
@@ -44,18 +50,22 @@ public interface CommentMapper {
         gallaryCommentSingleResponseDto.setNickname( comment.getMember().getNickname() );
         gallaryCommentSingleResponseDto.setMemberId( comment.getMember().getMemberId() );
         if ( artwork.getArtworkId() == null ) {
-            return null;
+            gallaryCommentSingleResponseDto.setArtworkId(null);
         }
-        gallaryCommentSingleResponseDto.setArtworkId( artwork.getArtworkId() );
+        gallaryCommentSingleResponseDto.setArtworkId( comment.getArtworkId() );
 
         return gallaryCommentSingleResponseDto;
     }
 
+    // no.4 mapper
     ArtworkCommentMultiResponseDto artworkCommentSingleResponseDtoToArtworkCommentMultiResponseDto(
             ArtworkCommentMultiResponseDto artworkCommentMultiResponseDto);
+
+    // no.5 mapper
     GalleryCommentMultiResponseDto gallaryCommentSingleResponseDtoToArtworkCommentMultiResponseDto(
             GalleryCommentMultiResponseDto galleryCommentMultiResponseDto);
 
+    // no.6 mapper
     default ReplyRequestDto replyRequestDtoToReply(Reply reply) {
         if ( reply == null ) {
             return null;
@@ -65,6 +75,8 @@ public interface CommentMapper {
         replyRequestDto.setCommentId( reply.getComment().getCommentId());
         return replyRequestDto;
     }
+
+    // no.7 mapper
     default ReplyResponseDto replyToReplyResponseDto(Reply reply) {
         if ( reply == null ) {
             return null;
