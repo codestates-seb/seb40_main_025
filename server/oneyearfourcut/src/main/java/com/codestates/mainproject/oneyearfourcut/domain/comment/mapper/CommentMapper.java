@@ -1,16 +1,11 @@
 package com.codestates.mainproject.oneyearfourcut.domain.comment.mapper;
 
-import com.codestates.mainproject.oneyearfourcut.domain.artwork.entity.Artwork;
 import com.codestates.mainproject.oneyearfourcut.domain.comment.dto.*;
 import com.codestates.mainproject.oneyearfourcut.domain.comment.entity.Comment;
-import com.codestates.mainproject.oneyearfourcut.domain.comment.entity.Reply;
-import com.codestates.mainproject.oneyearfourcut.domain.gallery.entity.Gallery;
 import com.codestates.mainproject.oneyearfourcut.domain.member.entity.Member;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -19,31 +14,91 @@ public interface CommentMapper {
 
     CommentMapper INSTANCE = Mappers.getMapper(CommentMapper.class);
 
-    // no.1 mapper
-    CommentRequestDto commentRequestDtoToComment(Comment comment);
+    List<ArtworkCommentResponseDto> commentToArtworkCommentResponseDtoList(List<Comment> commentList);
 
-    // no.2 mapper
-    default ArtworkCommentSingleResponseDto commentToArtworkCommentSingleResponseDto(Comment comment) {
+    List<GalleryCommentResponseDto> commentToGalleryCommentResponseDtoList(List<Comment> commentList);
+
+    default Comment commentRequestDtoToComment(CommentRequestDto commentRequestDto){
+        if(commentRequestDto == null){
+            return null;
+        }
+        Member member = new Member();
+        member.setMemberId(commentRequestDto.getMemberId());
+
+        Comment.CommentBuilder comment = Comment.builder();
+        comment.member(member);
+        comment.content(commentRequestDto.getContent());
+
+        return comment.build();
+    }
+
+    default ArtworkCommentResponseDto commentToArtworkCommentResponseDto(Comment comment) {
         if ( comment == null ) {
             return null;
         }
-        ArtworkCommentSingleResponseDto artworkCommentSingleResponseDto = new ArtworkCommentSingleResponseDto();
+        ArtworkCommentResponseDto.ArtworkCommentResponseDtoBuilder artworkCommentResponseDto
+                = ArtworkCommentResponseDto.builder();
+        artworkCommentResponseDto.artworkId(comment.getArtwork().getArtworkId());
+        artworkCommentResponseDto.commentId(comment.getCommentId());
+        artworkCommentResponseDto.content( comment.getContent() );
+        artworkCommentResponseDto.memberId(comment.getMember().getMemberId());
+        artworkCommentResponseDto.nickname(comment.getMember().getNickname());
 
-        artworkCommentSingleResponseDto.setCommentId( comment.getCommentId() );
-        artworkCommentSingleResponseDto.setContent( comment.getContent() );
-        artworkCommentSingleResponseDto.setNickname( comment.getMember().getNickname() );
-        artworkCommentSingleResponseDto.setMemberId( comment.getMember().getMemberId() );
-
-        return artworkCommentSingleResponseDto;
+        return artworkCommentResponseDto.build();
     }
 
-    // no.3 mapper
-    default GalleryCommentSingleResponseDto commentToGalleryCommentSingleResponseDto(Comment comment) {
+
+
+}
+
+
+
+
+
+    // no.1 mapper //test pass
+/*    default Comment commentRequestDtoToComment(CommentRequestDto commentRequestDto) {
+        if ( commentRequestDto == null ) {
+            return null;
+        }
+        Member member = new Member();
+        member.setMemberId(commentRequestDto.getMemberId());
+        Comment.CommentBuilder commentBuilder = Comment.builder();
+            commentBuilder.member(member);
+            commentBuilder.content(commentRequestDto.getContent() );
+
+        return commentBuilder.build();
+    }
+
+ List<GalleryCommentResponseDto> commentToGalleryCommentSingleResponseDtoList(List<Comment> commentList);
+
+
+    // no.2 mapper
+    default ArtworkCommentResponseDto commentToArtworkCommentResponseDto(
+            Comment comment) {
+        if ( comment == null ) {
+            return null;
+        }
+        ArtworkCommentResponseDto.ArtworkCommentResponseDtoBuilder aCSResponseDto =
+                ArtworkCommentResponseDto.builder();
+                aCSResponseDto.memberId(comment.getMember().getMemberId());
+                aCSResponseDto.nickname(comment.getMember().getNickname());
+                aCSResponseDto.commentId(comment.getCommentId());
+                aCSResponseDto.content(comment.getContent());
+
+                return aCSResponseDto.build();
+    }
+}*/
+
+
+
+
+/*    // no.3 mapper
+    default GalleryCommentResponseDto commentToGalleryCommentSingleResponseDto(Comment comment) {
         if ( comment == null ) {
             return null;
         }
         Artwork artwork = new Artwork();
-        GalleryCommentSingleResponseDto gallaryCommentSingleResponseDto = new GalleryCommentSingleResponseDto();
+        GalleryCommentResponseDto gallaryCommentSingleResponseDto = new GalleryCommentResponseDto();
 
         gallaryCommentSingleResponseDto.setCommentId( comment.getCommentId() );
         gallaryCommentSingleResponseDto.setContent( comment.getContent() );
@@ -59,11 +114,11 @@ public interface CommentMapper {
 
     // no.4 mapper
     ArtworkCommentMultiResponseDto artworkCommentSingleResponseDtoToArtworkCommentMultiResponseDto(
-            ArtworkCommentMultiResponseDto artworkCommentMultiResponseDto);
+            ArtworkCommentMultiResponseDto artworkCommentSingleResponseDto);
 
     // no.5 mapper
     GalleryCommentMultiResponseDto gallaryCommentSingleResponseDtoToArtworkCommentMultiResponseDto(
-            GalleryCommentMultiResponseDto galleryCommentMultiResponseDto);
+            GalleryCommentMultiResponseDto gallaryCommentSingleResponseDto);
 
     // no.6 mapper
     default ReplyRequestDto replyRequestDtoToReply(Reply reply) {
@@ -89,7 +144,7 @@ public interface CommentMapper {
         replyResponseDto.setMemberId( reply.getMember().getMemberId() );
 
         return replyResponseDto;
-    }
+    }*/
 
-}
+
 
