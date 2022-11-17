@@ -1,7 +1,6 @@
 package com.codestates.mainproject.oneyearfourcut.domain.comment.service;
 
 import com.codestates.mainproject.oneyearfourcut.domain.artwork.repository.ArtworkRepository;
-import com.codestates.mainproject.oneyearfourcut.domain.comment.dto.GalleryCommentListResponseDto;
 import com.codestates.mainproject.oneyearfourcut.domain.comment.entity.Comment;
 import com.codestates.mainproject.oneyearfourcut.domain.comment.repository.CommentRepository;
 import com.codestates.mainproject.oneyearfourcut.domain.gallery.repository.GalleryRepository;

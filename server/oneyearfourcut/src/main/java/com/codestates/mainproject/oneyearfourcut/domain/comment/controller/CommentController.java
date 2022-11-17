@@ -2,15 +2,11 @@ package com.codestates.mainproject.oneyearfourcut.domain.comment.controller;
 
 import com.codestates.mainproject.oneyearfourcut.domain.comment.dto.*;
 
-import com.codestates.mainproject.oneyearfourcut.domain.comment.entity.Comment;
 import com.codestates.mainproject.oneyearfourcut.domain.comment.mapper.CommentMapper;
 import com.codestates.mainproject.oneyearfourcut.domain.comment.service.CommentService;
-import com.codestates.mainproject.oneyearfourcut.global.page.PageInfo;
-import com.codestates.mainproject.oneyearfourcut.global.page.PageResponseDto;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -18,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 
 @RestController
@@ -50,17 +45,18 @@ public class CommentController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+/*
     //댓글 리스트 조회 - 전체 작품(Gallery)
     @GetMapping("/{gallery-id}/comments")
     public ResponseEntity<Object> getCommentOnGallery(@PathVariable("gallery-id") Long galleryId) {
 
-        List<GalleryCommentResponseDto> comments = List.of(
-                new GalleryCommentResponseDto(1L,1L, "홍길동", "댓글입니다@@", 1L),
-                new GalleryCommentResponseDto(2L,1L, "홍길동", "댓글입니다@@", 1L),
-                new GalleryCommentResponseDto(3L,1L, "홍길동", "댓글입니다@@", 2L),
-                new GalleryCommentResponseDto(4L,1L, "홍길동", "댓글입니다@@", null)
+        List<GalleryCommentSingleResponseDto> comments = List.of(
+                new GalleryCommentSingleResponseDto(1L,1L, "홍길동", "댓글입니다@@", 1L),
+                new GalleryCommentSingleResponseDto(2L,1L, "홍길동", "댓글입니다@@", 1L),
+                new GalleryCommentSingleResponseDto(3L,1L, "홍길동", "댓글입니다@@", 2L),
+                new GalleryCommentSingleResponseDto(4L,1L, "홍길동", "댓글입니다@@", null)
         );
-        GalleryCommentListResponseDto response = new GalleryCommentListResponseDto(1L, comments);
+        GalleryCommentMultiResponseDto response = new GalleryCommentMultiResponseDto(1L, comments);
 
 
 
@@ -71,15 +67,16 @@ public class CommentController {
     @GetMapping("/{gallery-id}/artworks/{artwork-id}/comments")
     public ResponseEntity<Object> getCommentOnArtwork(@PathVariable Map<Long, Long> pathIdMap) {
 
-        List<ArtworkCommentResponseDto> comments = List.of(
-                new ArtworkCommentResponseDto(1L, 1L,"홍길동", "댓글입니다@@"),
-                new ArtworkCommentResponseDto(2L, 1L,"홍길동", "댓글입니다@@")
+        List<ArtworkCommentSingleResponseDto> comments = List.of(
+                new ArtworkCommentSingleResponseDto(1L, 1L,"홍길동", "댓글입니다@@"),
+                new ArtworkCommentSingleResponseDto(2L, 1L,"홍길동", "댓글입니다@@")
         );
-        ArtworkCommentListResponseDto response = new ArtworkCommentListResponseDto(1L, comments);
+        ArtworkCommentMultiResponseDto response = new ArtworkCommentMultiResponseDto(1L, comments);
 
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+*/
 
 /*
     @GetMapping
@@ -87,8 +84,8 @@ public class CommentController {
 
         Page<Comment> commentPage = commentService.pageComments(page, size);
         List<Comment> comments = commentPage.getContent();
-        List<GalleryCommentResponseDto> response =
-                (List<GalleryCommentResponseDto>) commentMapper.toGalleryCommentListResponseDto((CommentRequestDto) comments);
+        List<GalleryCommentSingleResponseDto> response =
+                (List<GalleryCommentSingleResponseDto>) commentMapper.toGalleryCommentListResponseDto((CommentRequestDto) comments);
         PageInfo pageInfo = new PageInfo(page, size, (int) commentPage.getTotalElements(), commentPage.getTotalPages());
 
         return new ResponseEntity<>(new PageResponseDto<>(response, pageInfo), HttpStatus.OK);
