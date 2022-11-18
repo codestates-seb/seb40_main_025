@@ -75,7 +75,6 @@ public class CommentController {
     @GetMapping("/{gallery-id}/comments")
     public ResponseEntity<Object> getCommentOnGallery(@PathVariable("gallery-id") Long galleryId){
         List<Comment> commentList = commentService.findCommentOnGallery(galleryId);
-
         List<GalleryCommentResponse> response = commentMapper.commentToGalleryCommentResponseList(commentList);
 
         return new ResponseEntity<>(response, (HttpStatus.OK));

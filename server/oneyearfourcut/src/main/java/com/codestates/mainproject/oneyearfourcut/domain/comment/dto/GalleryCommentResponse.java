@@ -12,6 +12,8 @@ import java.util.List;
 @NoArgsConstructor
 public class GalleryCommentResponse extends Auditable {
 
+
+
     private Long commentId;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;

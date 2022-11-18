@@ -32,7 +32,6 @@ public interface CommentMapper {
 
         return comment.build();
     }
-    
 
     default GalleryCommentResponse commentToGalleryCommentResponse(Comment comment) {
         if ( comment == null ) {
@@ -54,8 +53,6 @@ public interface CommentMapper {
         return galleryCommentResponse;
     }
 
-
-
     List<GalleryCommentResponse> commentToGalleryCommentResponseList(List<Comment> commentList);
 
 
@@ -66,43 +63,6 @@ public interface CommentMapper {
 
 
 
-
-
-
-/*default ArtworkCommentResponse commentToArtworkCommentResponseDto(Comment comment) {
-        if ( comment == null ) {
-            return null;
-        }
-
-        ArtworkCommentResponse.Dto.Builder artworkCommentResponseDto
-                = ArtworkCommentResponseDto.Dto.builder();
-        *//*artworkCommentResponseDto.artworkId(comment.getArtwork().getArtworkId());*//*
-        artworkCommentResponseDto.commentId(comment.getCommentId());
-        artworkCommentResponseDto.content( comment.getContent() );
-        artworkCommentResponseDto.memberId(comment.getMember().getMemberId());
-        artworkCommentResponseDto.nickname(comment.getMember().getNickname());
-
-        return artworkCommentResponseDto.build();
-    }
-    default GalleryCommentResponseDto commentToGalleryCommentResponseDto(Comment comment){
-        if ( comment == null ) {
-            return null;
-        }
-        GalleryCommentResponseDto.GalleryCommentResponseDtoBuilder galleryCommentResponseDto
-                = GalleryCommentResponseDto.builder();
-        *//*if(comment.getArtwork() == null){
-            galleryCommentResponseDto.artworkId(null);
-        } //오류가능성있음...!!
-        galleryCommentResponseDto.artworkId(comment.getArtwork().getArtworkId());*//*
-        galleryCommentResponseDto.galleryId(comment.getGallery().getGalleryId());
-        galleryCommentResponseDto.commentId(comment.getCommentId());
-        galleryCommentResponseDto.content( comment.getContent() );
-        galleryCommentResponseDto.memberId(comment.getMember().getMemberId());
-        galleryCommentResponseDto.nickname(comment.getMember().getNickname());
-
-        return galleryCommentResponseDto.build();
-
-    }*/
 
 
 
