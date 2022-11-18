@@ -1,6 +1,7 @@
 package com.codestates.mainproject.oneyearfourcut.domain.gallery.service;
 
 import com.codestates.mainproject.oneyearfourcut.domain.gallery.entity.Gallery;
+import com.codestates.mainproject.oneyearfourcut.domain.gallery.entity.GalleryStatus;
 import com.codestates.mainproject.oneyearfourcut.domain.gallery.repository.GalleryRepository;
 import com.codestates.mainproject.oneyearfourcut.domain.member.entity.Member;
 import com.codestates.mainproject.oneyearfourcut.domain.member.service.MemberService;
@@ -21,6 +22,27 @@ public class GalleryService {
     private final GalleryRepository galleryRepository;
     private final MemberService memberService;
 
+    public Gallery createGallery(Gallery postGallery, Long memberId) {
+        //초기상태가 open이므로 넣어줘야함
+        postGallery.setStatus(OPEN);
+
+        Member member = new Member();
+        member.setMemberId(memberId);
+        postGallery.setMember(member);
+
+        return galleryRepository.save(postGallery);
+    }
+
+    public Gallery modifyGallery(Gallery requestGallery) {
+        Gallery gallery = findGallery(requestGallery.getGalleryId());
+        Optional.ofNullable(requestGallery.getTitle())
+                .ifPresent(gallery::setTitle);
+        Optional.ofNullable(requestGallery.getContent())
+                .ifPresent(gallery::setContent);
+
+        return galleryRepository.save(gallery);
+    }
+
     public Gallery findGallery(Long galleryId) {
         Optional<Gallery> optionalGallery = galleryRepository.findById(galleryId);
 
@@ -33,7 +55,8 @@ public class GalleryService {
         return findGallery;
     }
 
-    public void verifiedGalleryExist(Long memberId) {
+
+    public void verifiedOpenGalleryExist(Long memberId) {
         Member loginMember = memberService.findMember(memberId);
         List<Gallery> galleryList = loginMember.getGalleryList();
         if (Optional.ofNullable(galleryList).isPresent()) {
@@ -44,9 +67,5 @@ public class GalleryService {
                         }
                     });
         }
-    }
-
-    public Gallery createGallery(Gallery postGallery) {
-        return galleryRepository.save(postGallery);
     }
 }

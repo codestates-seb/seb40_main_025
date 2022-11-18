@@ -11,6 +11,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Builder
 @Entity
 @Getter
 @Setter
@@ -24,7 +25,7 @@ public class Gallery extends Auditable {
     private String content;
 
     @Enumerated(EnumType.STRING) //enum의 이름을 컬럼에 저장
-    private GalleryStatus status = GalleryStatus.OPEN;
+    private GalleryStatus status;
 
     @ManyToOne
     @JoinColumn(name = "MEMBER_ID")
