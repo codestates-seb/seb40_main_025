@@ -18,6 +18,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class Artwork extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,7 +31,7 @@ public class Artwork extends Auditable {
     private String content;
 
     @Column(length = 255, nullable = false)
-    private String imgPath;
+    private String imagePath;
 
     @Transient
     private MultipartFile img;
@@ -61,7 +62,19 @@ public class Artwork extends Auditable {
         member.getArtworkList().add(this);
     }
 
+    // Mapper - Response에 memberId 담으려면 아래 getter를 추가해야 함... (toEntity 고려해봐야 할까요...)
+    public Long getMemberId() {
+        return this.member.getMemberId();
+    }
 
-
-
+    @Override
+    public String toString() {
+        return "Artwork{" +
+                "artworkId=" + artworkId +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", imgPath='" + imagePath + '\'' +
+                ", createdAt='" + this.getCreatedDate() + '\'' +
+                '}';
+    }
 }
