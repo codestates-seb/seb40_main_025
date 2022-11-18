@@ -44,11 +44,13 @@ public class CommentService {
         /*Member member = memberService.findMember(comment.getMember().getMemberId()); //해당 memberId 존재 확인, JWT*/
         /*comment.setGallery(galleryService.findGallery(galleryId)); //gallerId를찾아 comment 생성*/
         Optional<Member> tempMember = memberRepository.findById(memberId);
+        Optional<Gallery> tempGallery = galleryRepository.findById(galleryId);
+
         Member member = tempMember.orElseThrow(
                 () -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
-        Optional<Gallery> tempGallery = galleryRepository.findById(galleryId);
         Gallery gallery = tempGallery.orElseThrow(
                 () -> new BusinessLogicException(ExceptionCode.GALLERY_NOT_FOUND));
+
         comment.setGallery(gallery);
         comment.setMember(member);  //Member에 저장.
         return commentRepository.save(comment);
