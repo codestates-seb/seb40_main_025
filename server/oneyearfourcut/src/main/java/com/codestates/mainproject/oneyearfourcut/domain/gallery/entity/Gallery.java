@@ -25,7 +25,9 @@ public class Gallery extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long galleryId;
+
     private String title;
+
     private String content;
 
     //enum의 이름을 컬럼에 저장
@@ -43,13 +45,5 @@ public class Gallery extends Auditable {
     @ToString.Exclude
     @LazyCollection(LazyCollectionOption.TRUE)
     private List<Comment> commentList = new ArrayList<>();
-
-    //Commentlist getter setter 생성자
-    public void addCommentList(Comment comment) {
-        this.commentList.add(comment);
-        if (comment.getGallery() != this) {
-            comment.setGallery(this);
-        }
-    }
 
 }

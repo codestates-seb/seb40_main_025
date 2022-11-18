@@ -15,11 +15,15 @@ import com.codestates.mainproject.oneyearfourcut.global.exception.exception.Exce
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+
+import static org.springframework.data.domain.Sort.Order.asc;
 
 
 @Service
@@ -65,13 +69,14 @@ public class CommentService {
     }
 
     @Transactional
-    public Comment findComment(Long commentId){
-        Optional<Comment> comment = commentRepository.findById(commentId);
-        if(comment.isEmpty()){
-            throw new BusinessLogicException(ExceptionCode.COMMENT_NOT_FOUND);
-        }
-        return comment.get();
+    public List<Comment> findCommentOnGallery(Long galleryId){
+        List<Comment> commentList =
+                commentRepository.findAllByGallery_GalleryId(galleryId, Sort.by(asc("createdAt")));
 
+        if(commentList.isEmpty()){
+            throw new BusinessLogicException(ExceptionCode.GALLERY_NOT_FOUND);
+        }
+        return commentList;
 
     }
 

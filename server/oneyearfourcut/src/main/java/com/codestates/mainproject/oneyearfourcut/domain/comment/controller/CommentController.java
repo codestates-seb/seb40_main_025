@@ -72,6 +72,16 @@ public class CommentController {
 
     }
 
+    @GetMapping("/{gallery-id}/comments")
+    public ResponseEntity<Object> getCommentOnGallery(@PathVariable("gallery-id") Long galleryId){
+        List<Comment> commentList = commentService.findCommentOnGallery(galleryId);
+
+        List<GalleryCommentResponse> response = commentMapper.commentToGalleryCommentResponseList(commentList);
+
+        return new ResponseEntity<>(response, (HttpStatus.OK));
+    }
+
+
 /*
     //댓글 리스트 조회 - 개별 작품(Artwork) with 페이지네이션
     @GetMapping("/{gallery-id}/artworks/{artwork-id}/comments")

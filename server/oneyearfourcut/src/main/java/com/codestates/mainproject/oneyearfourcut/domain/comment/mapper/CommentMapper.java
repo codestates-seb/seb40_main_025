@@ -2,6 +2,7 @@ package com.codestates.mainproject.oneyearfourcut.domain.comment.mapper;
 
 import com.codestates.mainproject.oneyearfourcut.domain.comment.dto.*;
 import com.codestates.mainproject.oneyearfourcut.domain.comment.entity.Comment;
+import com.codestates.mainproject.oneyearfourcut.domain.comment.entity.Reply;
 import com.codestates.mainproject.oneyearfourcut.domain.member.entity.Member;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
@@ -17,12 +18,8 @@ public interface CommentMapper {
 
     CommentMapper INSTANCE = Mappers.getMapper(CommentMapper.class);
 
-    List<ArtworkCommentResponseDto> commentToArtworkCommentResponseDtoList(List<Comment> commentList);
-
-    List<GalleryCommentResponseDto> commentToGalleryCommentResponseDtoList(List<Comment> commentList);
-
-    default Comment commentRequestDtoToComment(CommentRequestDto commentRequestDto){
-        if(commentRequestDto == null){
+    default Comment commentRequestDtoToComment(CommentRequestDto commentRequestDto) {
+        if ( commentRequestDto == null ) {
             return null;
         }
         Member member = new Member();
@@ -30,17 +27,56 @@ public interface CommentMapper {
 
         Comment.CommentBuilder comment = Comment.builder();
         comment.member(member);
-        comment.content(commentRequestDto.getContent());
+
+        comment.content( commentRequestDto.getContent() );
 
         return comment.build();
     }
-    default ArtworkCommentResponseDto commentToArtworkCommentResponseDto(Comment comment) {
+    
+
+    default GalleryCommentResponse commentToGalleryCommentResponse(Comment comment) {
         if ( comment == null ) {
             return null;
         }
-        ArtworkCommentResponseDto.ArtworkCommentResponseDtoBuilder artworkCommentResponseDto
-                = ArtworkCommentResponseDto.builder();
-        /*artworkCommentResponseDto.artworkId(comment.getArtwork().getArtworkId());*/
+
+        GalleryCommentResponse galleryCommentResponse = new GalleryCommentResponse();
+
+        galleryCommentResponse.setCommentId( comment.getCommentId() );
+        galleryCommentResponse.setCreatedAt( comment.getCreatedAt() );
+        galleryCommentResponse.setModifiedAt( comment.getModifiedAt() );
+        galleryCommentResponse.setContent( comment.getContent() );
+        galleryCommentResponse.setArtworkId( comment.getArtworkId() );
+        galleryCommentResponse.setMemberId(comment.getMember().getMemberId());
+        galleryCommentResponse.setNickname(comment.getMember().getNickname());
+        galleryCommentResponse.setGalleryId(comment.getGallery().getGalleryId());
+        galleryCommentResponse.setReplyList( null );
+
+        return galleryCommentResponse;
+    }
+
+
+
+    List<GalleryCommentResponse> commentToGalleryCommentResponseList(List<Comment> commentList);
+
+
+
+}
+
+
+
+
+
+
+
+
+/*default ArtworkCommentResponse commentToArtworkCommentResponseDto(Comment comment) {
+        if ( comment == null ) {
+            return null;
+        }
+
+        ArtworkCommentResponse.Dto.Builder artworkCommentResponseDto
+                = ArtworkCommentResponseDto.Dto.builder();
+        *//*artworkCommentResponseDto.artworkId(comment.getArtwork().getArtworkId());*//*
         artworkCommentResponseDto.commentId(comment.getCommentId());
         artworkCommentResponseDto.content( comment.getContent() );
         artworkCommentResponseDto.memberId(comment.getMember().getMemberId());
@@ -54,10 +90,10 @@ public interface CommentMapper {
         }
         GalleryCommentResponseDto.GalleryCommentResponseDtoBuilder galleryCommentResponseDto
                 = GalleryCommentResponseDto.builder();
-        /*if(comment.getArtwork() == null){
+        *//*if(comment.getArtwork() == null){
             galleryCommentResponseDto.artworkId(null);
         } //오류가능성있음...!!
-        galleryCommentResponseDto.artworkId(comment.getArtwork().getArtworkId());*/
+        galleryCommentResponseDto.artworkId(comment.getArtwork().getArtworkId());*//*
         galleryCommentResponseDto.galleryId(comment.getGallery().getGalleryId());
         galleryCommentResponseDto.commentId(comment.getCommentId());
         galleryCommentResponseDto.content( comment.getContent() );
@@ -66,10 +102,7 @@ public interface CommentMapper {
 
         return galleryCommentResponseDto.build();
 
-    }
-
-
-}
+    }*/
 
 
 
