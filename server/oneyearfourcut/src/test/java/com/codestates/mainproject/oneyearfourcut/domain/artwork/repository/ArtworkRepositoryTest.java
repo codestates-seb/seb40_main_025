@@ -180,7 +180,7 @@ public class ArtworkRepositoryTest {
         Artwork savedArtwork2_2 = artworkRepository.save(artwork2_2);
 
         Artwork findArtwork = artworkRepository.findByGallery_GalleryIdAndArtworkId(
-                savedGallery1.getGalleryId(), savedArtwork1_1.getArtworkId());
+                savedGallery1.getGalleryId(), savedArtwork1_1.getArtworkId()).get();
 
         Long actualGalleryId = findArtwork.getGallery().getGalleryId();
         Long expectedGalleryId = savedGallery1.getGalleryId();

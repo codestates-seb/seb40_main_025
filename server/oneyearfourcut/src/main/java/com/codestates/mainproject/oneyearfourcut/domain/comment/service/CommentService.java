@@ -1,7 +1,6 @@
 package com.codestates.mainproject.oneyearfourcut.domain.comment.service;
 
 import com.codestates.mainproject.oneyearfourcut.domain.artwork.repository.ArtworkRepository;
-import com.codestates.mainproject.oneyearfourcut.domain.comment.dto.GalleryCommentListResponseDto;
 import com.codestates.mainproject.oneyearfourcut.domain.comment.entity.Comment;
 import com.codestates.mainproject.oneyearfourcut.domain.comment.repository.CommentRepository;
 import com.codestates.mainproject.oneyearfourcut.domain.gallery.repository.GalleryRepository;
@@ -45,12 +44,12 @@ public class CommentService {
     }
 
     //Create method(Artwork comment)
-    public Comment createCommentOnArtwork(Comment comment,Long artworkId){
-        Member member = mService.findMember(comment.getMember().getMemberId()); //해당 memberId 존재 확인, JWT
-        comment.setGallery(aService.findArtwork(artworkId));  //gallerId를찾아 comment 생성
-        comment.setMember(member); //Member에 저장.
-        return cRepo.save(comment);
-    }
+//    public Comment createCommentOnArtwork(Comment comment,Long artworkId){
+//        Member member = mService.findMember(comment.getMember().getMemberId()); //해당 memberId 존재 확인, JWT
+//        comment.setGallery(aService.findArtwork(artworkId));  //gallerId를찾아 comment 생성
+//        comment.setMember(member); //Member에 저장.
+//        return cRepo.save(comment);
+//    }
 
     //Read(find) method
     public Comment findComment(Long commentId){
