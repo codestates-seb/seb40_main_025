@@ -1,5 +1,6 @@
 package com.codestates.mainproject.oneyearfourcut.domain.comment.mapper;
 
+import com.codestates.mainproject.oneyearfourcut.domain.artwork.entity.Artwork;
 import com.codestates.mainproject.oneyearfourcut.domain.comment.dto.*;
 import com.codestates.mainproject.oneyearfourcut.domain.comment.entity.Comment;
 import com.codestates.mainproject.oneyearfourcut.domain.comment.entity.Reply;
@@ -55,6 +56,26 @@ public interface CommentMapper {
 
     List<GalleryCommentResponse> commentToGalleryCommentResponseList(List<Comment> commentList);
 
+    default ArtworkCommentResponse commentToArtworkCommentResponse(Comment comment) {
+        if ( comment == null ) {
+            return null;
+        }
+
+        ArtworkCommentResponse artworkCommentResponse = new ArtworkCommentResponse();
+
+        artworkCommentResponse.setCommentId( comment.getCommentId() );
+        artworkCommentResponse.setCreatedAt( comment.getCreatedAt() );
+        artworkCommentResponse.setModifiedAt( comment.getModifiedAt() );
+        artworkCommentResponse.setContent( comment.getContent() );
+        artworkCommentResponse.setArtworkId( comment.getArtworkId() );
+        artworkCommentResponse.setMemberId(comment.getMember().getMemberId());
+        artworkCommentResponse.setNickname(comment.getMember().getNickname());
+        artworkCommentResponse.setReplyList( null );
+
+        return artworkCommentResponse;
+    }
+
+    List<ArtworkCommentResponse> commentToArtworkCommentResponseList(List<Comment> commentList);
 
 
 }

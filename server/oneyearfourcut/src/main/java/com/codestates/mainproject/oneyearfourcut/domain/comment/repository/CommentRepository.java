@@ -15,4 +15,7 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
     Page<Comment> findAllByOrderByCreatedAtAsc(Pageable pageable);
 
     List<Comment> findAllByGallery_GalleryId(Long galleryId, Sort sort);
+
+
+    List<Comment> findAllByArtworkId(Long artworkId, Sort sort);
 }

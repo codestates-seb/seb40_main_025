@@ -70,52 +70,26 @@ public class CommentService {
 
     @Transactional
     public List<Comment> findCommentOnGallery(Long galleryId){
-        List<Comment> commentList =
+        List<Comment> commentList1 =
                 commentRepository.findAllByGallery_GalleryId(galleryId, Sort.by(asc("createdAt")));
-
-        if(commentList.isEmpty()){
+        if(commentList1.isEmpty()){
             throw new BusinessLogicException(ExceptionCode.GALLERY_NOT_FOUND);
         }
-        return commentList;
-
+        return commentList1;
     }
 
-
-
-
-/*
-    //Create method(Artwork comment)
-    public Comment createCommentOnArtwork(Comment comment,Long artworkId){
-        Member member = mService.findMember(comment.getMember().getMemberId()); //해당 memberId 존재 확인, JWT
-        comment.setArtwork(aService.findArtwork(artworkId));  //artWorkId를찾아 comment 생성
-        comment.setMember(member); //Member에 저장.
-
-
-        return cRepo.save(comment);
-    }
-
-
-    //Create method(Gallery comment)
-    public Comment createCommentOnGallery(Comment comment, Long galleryId){
-        Member member = mService.findMember(comment.getMember().getMemberId()); //해당 memberId 존재 확인, JWT
-        comment.setGallery(gService.findGallery(galleryId));  //gallerId를찾아 comment 생성
-        comment.setMember(member); //Member에 저장.
-        return cRepo.save(comment);
-    }
-
-
-
-    //Read(find) method
-    public Comment findComment(Long commentId){
-        Optional<Comment> comment = cRepo.findById(commentId);
-        if(comment.isEmpty()){
-            throw new BusinessLogicException(ExceptionCode.COMMENT_NOT_FOUND);
+    @Transactional
+    public List<Comment> findCommentOnArtwork(Long artworkId){
+        List<Comment> commentList2 =
+                commentRepository.findAllByArtworkId(artworkId,Sort.by(asc("createdAt")));
+        if(commentList2.isEmpty()){
+            throw new BusinessLogicException(ExceptionCode.GALLERY_NOT_FOUND);
         }
-        return comment.get();
+        return commentList2;
     }
 
 
-    //Update method
+ /*   //Update method
     public Comment updateComment(Comment comment, Long memberId){
         Comment foundComment = findComment(comment.getCommentId());
 
@@ -145,8 +119,8 @@ public class CommentService {
     public Page<Comment> pageComments(int page, int size){
         PageRequest pr = PageRequest.of(page -1, size);
         return  cRepo.findAllByOrderByCreatedDateAsc(pr);
-    }
-*/
+    }*/
+
 
 
 }
