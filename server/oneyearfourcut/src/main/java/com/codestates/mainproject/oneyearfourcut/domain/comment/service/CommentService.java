@@ -38,7 +38,7 @@ public class CommentService {
     private final GalleryService galleryService;
     private final ArtworkService artworkService;
 
-
+    //댓글 생성 메소드, 1)galleryservice 통해서 회원/갤러리검증, 2)댓글VALID설정 3)memberid, gallery set(양쪽) 4)artwork set 5)save
     public void createComment(Comment comment, Long galleryId, Long artworkId, Long memberId) {
         galleryService.verifiedGalleryExist(memberId);
         comment.setCommentStatus(VALID);
@@ -52,6 +52,7 @@ public class CommentService {
         commentRepository.save(comment);
     }
 
+    //댓글 리스트 받아오는 메소드 --> 1)gallery 댓글은 else로 넘어감, 2)jpa메소드를 통해서 VALID 한 댓글 List로 조회, 3) exceptioncode
     public List<Comment> findCommentList(Long galleryId, Long artworkId) {
         if (artworkId == null) {
             List<Comment> commentList =
@@ -71,6 +72,8 @@ public class CommentService {
             return commentList;
         }
     }
+
+    //comment jpa레포 존재여부 검증 메소드
     public Comment findComment(Long commentId){
         Optional<Comment> comment = commentRepository.findById(commentId);
         Comment foundComment = comment.orElseThrow(()->new BusinessLogicException(ExceptionCode.COMMENT_NOT_FOUND));
@@ -78,51 +81,37 @@ public class CommentService {
         return foundComment;
     }
 
-    public boolean checkCommentExistOn(Long placeId, CommentType commentType){
+/*    //comment가 artwork인지, gallery인지 판별하는 메소드
+    public boolean checkCommentExistOn(Long commentId, Long placeId, CommentType commentType){
         if(commentType == CommentType.ARTWORK){
-            Optional<Artwork> artwork = artworkRepository.findById(placeId);
-            artwork.orElseThrow(()->new BusinessLogicException(ExceptionCode.COMMENT_NOT_FOUND));
+            Optional<Comment> commentOnArtwork = commentRepository.findAllByArtworkId(placeId);
+            commentOnArtwork.orElseThrow(()->new BusinessLogicException(ExceptionCode.COMMENT_NOT_FOUND));
         } else{
             Gallery gallery = galleryService.findGallery(placeId);
             List<Comment> commentList = gallery.getCommentList();
-            return Optional.ofNullable(commentList).isPresent(); //return true
+            Optional.ofNullable(commentList).ifPresent(return true);
+            Optional.ofNullable(commentId).ifPresent();
         }
-        return false;
-    }
+    }*/
 
-    public void deleteComment(Long galleryId, Long commentId) {
-        checkCommentExistOn(galleryId,CommentType.GALLERY);
+
+    //comment 삭제 메소드, 1)pathvariable를 통해서 gallery존재 확인, 2)repo존재 확인 3)status deleted 4)save
+    public void deleteComment(Long commentId) {
         Comment comment = findComment(commentId);
         comment.setCommentStatus(DELETED);
         commentRepository.save(comment);
     }
 
-
-
-
-
- /*   //Update method
-    public Comment updateComment(Comment comment, Long memberId){
-        Comment foundComment = findComment(comment.getCommentId());
-
-        //member 검증. JWT 수정 필요.
-        Long foundMember = mService.findMember(comment.getMember().getMemberId()).getMemberId();
-        if(Objects.equals(memberId, foundMember)){
-
-            Optional.ofNullable(comment.getContent())
-                    .ifPresent(foundComment::setContent);
-
-        }
-        return cRepo.save(comment);
+    //comment update
+    public Comment modifyComment(Comment reqeustComment, Comment foundComment){
+        Optional.ofNullable(reqeustComment.getContent())
+                .ifPresent(foundComment::setContent);
+        return commentRepository.save(foundComment);
     }
 
-
-    //Pagination method
+/*    //Pagination method
     public Page<Comment> pageComments(int page, int size){
         PageRequest pr = PageRequest.of(page -1, size);
         return  cRepo.findAllByOrderByCreatedDateAsc(pr);
     }*/
-
-
-
 }

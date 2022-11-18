@@ -90,17 +90,26 @@ public class CommentController {
         return new ResponseEntity<>(response, (HttpStatus.OK));
     }
 
+    @PatchMapping("/{gallery-id}/artworks/comments/{comment-id}")
+    public ResponseEntity<Object> patchComment(@PathVariable("gallery-id") Long galleryId,
+                                               @PathVariable("comment-id") Long commentId,
+                                               @RequestBody CommentRequestDto commentRequestDto){
+        Comment foundComment = commentService.findComment(commentId);
+        Comment requestComment = commentMapper.commentRequestDtoToComment(commentRequestDto);
+        commentService.modifyComment(requestComment,foundComment);
+        String response = "댓글수정완료!!";
+        return new ResponseEntity<>(response, (HttpStatus.OK));
+    }
+
     @DeleteMapping("/{gallery-id}/artworks/comments/{comment-id}")
     public ResponseEntity<Object> deleteComment(@PathVariable("gallery-id") Long galleryId,
                                                 @PathVariable("comment-id") Long commentId){
-        commentService.deleteComment(galleryId,commentId);
+        commentService.deleteComment(commentId);
         String response = "댓글삭제완료!!!";
         return new ResponseEntity<>(response,(HttpStatus.NO_CONTENT));
     }
 
-
 }
-
 
 /*
     //댓글 리스트 조회 - 개별 작품(Artwork) with 페이지네이션
@@ -119,7 +128,6 @@ public class CommentController {
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }*/
-
 
 /*
     //https://wbluke.tistory.com/18

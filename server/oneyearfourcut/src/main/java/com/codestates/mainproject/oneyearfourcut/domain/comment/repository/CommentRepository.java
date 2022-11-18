@@ -19,4 +19,8 @@ public interface CommentRepository extends JpaRepository<Comment, Long>, PagingA
 
     List<Comment> findAllByCommentStatusAndGallery_GalleryId(CommentStatus commentStatus,Long galleryId, Sort sort);
     List<Comment> findAllByCommentStatusAndArtworkId(CommentStatus commentStatus, Long artworkId, Sort sort);
+
+    Optional<Comment> findAllByArtworkId(Long artworkId);
+
+
 }
