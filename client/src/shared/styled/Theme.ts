@@ -8,7 +8,8 @@ const colors = {
     black_005: '#CBCBCB',
     black_006: '#E5E5E5',
     black_007: '#FCFCFC',
-
+    black_008: '#F4F4F4',
+    black_009: '#AFAFAF',
 
     beige_001: '#FFF6CA',
     beige_002: '#FDFAEB',
@@ -36,8 +37,12 @@ const colors = {
     green_004: '#8BB88C'
 }
 
+const flex ={
+    center: "display: flex; align-items: center; justify-content: center"
+}
 export type ColorsTypes = typeof colors;
 
 export const theme: DefaultTheme = {
     colors,
+    flex,
 }
