@@ -36,22 +36,18 @@ public class Comment extends Auditable {
     @JoinColumn(name = "galley_id")
     private Gallery gallery;  //작품이 아닌 전시관 전체 댓글일때
 
-
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "artwork_id")
-    @JsonBackReference
-    private Artwork artwork;  //작품에 달린 댓글일때. 비식별관계
+    private Long artworkId;  //작품에 달린 댓글일때. 비식별관계
 
     @OneToMany(mappedBy = "comment")
     public List<Reply> replyList = new ArrayList<>(); // 대댓글, targetEntity
 
     @Builder
-    public Comment(Long commentId, String content, Member member, Gallery gallery, Artwork artwork, List<Reply> replyList) {
+    public Comment(Long commentId, String content, Member member, Gallery gallery, Long artworkId, List<Reply> replyList) {
         this.commentId = commentId;
         this.content = content;
         this.member = member;
         this.gallery = gallery;
-        this.artwork = artwork;
+        this.artworkId = artworkId;
         this.replyList = replyList;
     }
 }

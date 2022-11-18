@@ -45,13 +45,6 @@ public class Artwork extends Auditable {
     @OneToMany(mappedBy = "artwork")
     private List<Vote> voteList = new ArrayList<>();
 
-    //CommentList만들기위해 추가하였음,
-    @OneToMany(mappedBy = "artwork", cascade = CascadeType.REMOVE, targetEntity = Comment.class)
-    @ToString.Exclude
-    @LazyCollection(LazyCollectionOption.FALSE)
-    private List<Comment> commentList = new ArrayList<>();
-
-
     public void setGallery(Gallery gallery) {
         if (this.gallery != null) {
             this.gallery.getArtworkList().remove(this);
@@ -68,14 +61,6 @@ public class Artwork extends Auditable {
         member.getArtworkList().add(this);
     }
 
-
-    //Commentlist getter setter 생성자
-    public void addCommentList(Comment comment) {
-        this.commentList.add(comment);
-        if (comment.getArtwork() != this) {
-            comment.setArtwork(this);
-        }
-    }
 
 
 

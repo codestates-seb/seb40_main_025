@@ -8,7 +8,10 @@ import org.mapstruct.factory.Mappers;
 
 import java.util.List;
 
-
+//https://meetup.toast.com/posts/213
+//https://www.youtube.com/watch?v=6n4iL5E-Rwo&list=PLF5X0J2bZ_k42wt16-EWfOa2QEGFfPmMS&index=7
+//https://stackoverflow.com/questions/59333845/mapstruct-many-to-one-mapping
+//https://mapstruct.org/documentation/stable/reference/html/
 @Mapper(componentModel = "spring")
 public interface CommentMapper {
 

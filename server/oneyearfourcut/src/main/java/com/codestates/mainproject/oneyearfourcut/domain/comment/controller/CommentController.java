@@ -43,7 +43,7 @@ public class CommentController {
 
 
     //댓글 등록 - 개별 작품(Artwork)
-    @PostMapping("/{gallery-id}/artworks/{artwork-id}/comments")
+    @PostMapping("/artworks/{artwork-id}/comments")
     public ResponseEntity<Object> postCommentOnArtwork(
                 @PathVariable("gallery-id") Long galleryId,
                 @PathVariable("artwork-id") Long artworkId,
