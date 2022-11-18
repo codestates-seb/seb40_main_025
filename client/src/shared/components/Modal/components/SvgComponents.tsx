@@ -1,13 +1,14 @@
-import {rem} from 'polished';
+import { rem } from 'polished';
 
 const ApplySVG = () => {
   return (
     <svg
-      width={rem(70)}
-      height={rem(70)}
+      width={rem(46)}
+      height={rem(46)}
       viewBox='0 0 46 46'
       fill='none'
       xmlns='http://www.w3.org/2000/svg'
+      className='ApplySVG'
     >
       <circle cx='23' cy='23' r='23' fill='white' />
       <path

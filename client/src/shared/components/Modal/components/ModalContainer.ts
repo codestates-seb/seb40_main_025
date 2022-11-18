@@ -12,15 +12,43 @@ const ModalBackdrop = styled.div`
 `
 
 const ModalViewBox = styled.div`
+
+    ${({theme}) => theme.flex.center}
+    flex-direction: column;
     width: ${rem(327)};
     height: ${rem(122)};
-    border: solid 1px red;
+    background-color: white;
+    border-radius: ${rem(10)};
     z-index: 100;
-    ${({theme}) => theme.flex.center}
+    position: relative;
+    .ApplySVG{
+        position: absolute;
+        top: -20%;
+        left: 40%;
+        path{
+            fill: ${({theme,color})=>color === "green" ? theme.colors.green_002 : theme.colors.red_002 };
+        }
+    }
+    .Progressbtn{
+        background-color: ${({theme,color})=>color === "green" ? theme.colors.green_005 : theme.colors.red_005 };
+        color: ${({theme,color})=>color === "green" ? theme.colors.green_002 : theme.colors.red_002 };
+    }
 `
 
 const ModalbtnBox = styled.div`
+    ${({theme}) => theme.flex.center}
     width: ${rem(259)};
     height: ${rem(34)};
+    margin-top: ${rem(10)};
+    button{
+        width: ${rem(113)};
+        height: ${rem(34)};
+        border-radius: ${rem(5)};
+        border: none;
+        margin: ${rem(7)};
+        font-weight: bold;
+        background-color: white;
+    }
+
 `
 export { ModalBackdrop, ModalViewBox, ModalbtnBox };
