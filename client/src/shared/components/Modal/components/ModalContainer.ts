@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import {rem} from 'polished';
 
+//모달 배경(투명한 검은색)
 const ModalBackdrop = styled.div`
     width: ${rem(428)};
     height: 100vh;
@@ -10,7 +11,7 @@ const ModalBackdrop = styled.div`
     z-index: 99;
     ${({theme}) => theme.flex.center}
 `
-
+//모달창안에 있는 버튼이 들어있는 박스
 const ModalViewBox = styled.div`
 
     ${({theme}) => theme.flex.center}

@@ -10,7 +10,7 @@ const HeaderBox = styled.div`
   display: flex;
   align-items: center;
   padding: 0 ${rem('18px')} 0 ${rem(18)};
-  
+  z-index:50;
   .HeaderBackbtn {
     margin-right: ${rem(135)};
   }
