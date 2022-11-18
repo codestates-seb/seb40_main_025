@@ -6,6 +6,7 @@ import com.codestates.mainproject.oneyearfourcut.domain.artwork.service.ArtworkS
 import com.codestates.mainproject.oneyearfourcut.domain.comment.dto.*;
 
 import com.codestates.mainproject.oneyearfourcut.domain.comment.entity.Comment;
+import com.codestates.mainproject.oneyearfourcut.domain.comment.entity.CommentType;
 import com.codestates.mainproject.oneyearfourcut.domain.comment.mapper.CommentMapper;
 import com.codestates.mainproject.oneyearfourcut.domain.comment.service.CommentService;
 import com.codestates.mainproject.oneyearfourcut.domain.gallery.entity.Gallery;
@@ -55,7 +56,7 @@ public class CommentController {
         Comment comment = commentMapper.commentRequestDtoToComment(commentRequestDto);
         Long memberId = 3L;
 
-        commentService.createGalleryComment(comment, galleryId, memberId);  //저장
+        commentService.createComment(comment, galleryId, null, memberId);  //저장
         String response = "댓글등록성공";
         return new ResponseEntity<>(response,HttpStatus.CREATED);
     }
@@ -71,7 +72,7 @@ public class CommentController {
             @RequestBody CommentRequestDto commentRequestDto){
         Comment comment = commentMapper.commentRequestDtoToComment(commentRequestDto);
         Long memberId = 3L;
-        commentService.createArtworkComment(comment, galleryId, artworkId, memberId);
+        commentService.createComment(comment, galleryId, artworkId, memberId);
         String response = "댓글등록성공";
         return new ResponseEntity<>(response, (HttpStatus.CREATED)); //생성 댓글 response
 
@@ -79,7 +80,7 @@ public class CommentController {
 
     @GetMapping("/{gallery-id}/comments")
     public ResponseEntity<Object> getCommentOnGallery(@PathVariable("gallery-id") Long galleryId){
-        List<Comment> commentList = commentService.findComment(galleryId, CommentService.CommentType.GALLERY);
+        List<Comment> commentList = commentService.findComment(galleryId, CommentType.GALLERY);
         List<GalleryCommentResponse> response = commentMapper.commentToGalleryCommentResponseList(commentList);
         return new ResponseEntity<>(response, (HttpStatus.OK));
     }
@@ -89,7 +90,7 @@ public class CommentController {
                                                       @PathVariable("artwork-id") Long artworkId){
         Optional<Gallery> givenGallery = galleryRepository.findById(galleryId);
         givenGallery.orElseThrow(() -> new BusinessLogicException(ExceptionCode.GALLERY_NOT_FOUND));
-        List<Comment> commentList = commentService.findComment(artworkId, CommentService.CommentType.ARTWORK);
+        List<Comment> commentList = commentService.findComment(artworkId, CommentType.ARTWORK);
         List<ArtworkCommentResponse> response = commentMapper.commentToArtworkCommentResponseList(commentList);
         return new ResponseEntity<>(response, (HttpStatus.OK));
     }

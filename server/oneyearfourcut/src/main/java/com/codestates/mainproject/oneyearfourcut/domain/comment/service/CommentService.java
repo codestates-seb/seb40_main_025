@@ -1,7 +1,10 @@
 package com.codestates.mainproject.oneyearfourcut.domain.comment.service;
 
+import com.codestates.mainproject.oneyearfourcut.domain.artwork.entity.Artwork;
 import com.codestates.mainproject.oneyearfourcut.domain.artwork.repository.ArtworkRepository;
 import com.codestates.mainproject.oneyearfourcut.domain.comment.entity.Comment;
+import com.codestates.mainproject.oneyearfourcut.domain.comment.entity.CommentStatus;
+import com.codestates.mainproject.oneyearfourcut.domain.comment.entity.CommentType;
 import com.codestates.mainproject.oneyearfourcut.domain.comment.repository.CommentRepository;
 import com.codestates.mainproject.oneyearfourcut.domain.gallery.entity.Gallery;
 import com.codestates.mainproject.oneyearfourcut.domain.gallery.repository.GalleryRepository;
@@ -23,6 +26,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+import static com.codestates.mainproject.oneyearfourcut.domain.comment.entity.CommentStatus.VALID;
 import static org.springframework.data.domain.Sort.Order.asc;
 import static org.springframework.data.domain.Sort.Order.desc;
 
@@ -39,44 +43,21 @@ public class CommentService {
     private final GalleryService galleryService;
     private final ArtworkService artworkService;
 
-    @Transactional //comment on gallery
-    public Comment createGalleryComment(Comment comment,Long galleryId,Long memberId){
-        /*Member member = memberService.findMember(comment.getMember().getMemberId()); //해당 memberId 존재 확인, JWT*/
-        /*comment.setGallery(galleryService.findGallery(galleryId)); //gallerId를찾아 comment 생성*/
-        Optional<Member> tempMember = memberRepository.findById(memberId);
-        Optional<Gallery> tempGallery = galleryRepository.findById(galleryId);
 
-        Member member = tempMember.orElseThrow(
-                () -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
-        Gallery gallery = tempGallery.orElseThrow(
-                () -> new BusinessLogicException(ExceptionCode.GALLERY_NOT_FOUND));
-
-        comment.setGallery(gallery);
-        comment.setMember(member);  //Member에 저장.
-        return commentRepository.save(comment);
-    }
-    @Transactional //comment on artwork
-    public Comment createArtworkComment(Comment comment,Long galleryId, Long artworkId, Long memberId){
-        /*Member member = memberService.findMember(comment.getMember().getMemberId());
-        comment.setGallery(galleryService.findGallery(galleryId));*/
-        Optional<Member> tempMember = memberRepository.findById(memberId);
-        Optional<Gallery> tempGallery = galleryRepository.findById(galleryId);
-
-        Member member = tempMember.orElseThrow(
-                () -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
-        Gallery gallery = tempGallery.orElseThrow(
-                () -> new BusinessLogicException(ExceptionCode.GALLERY_NOT_FOUND));
-
-        comment.setGallery(gallery);
+    public void createComment(Comment comment, Long galleryId, Long artworkId, Long memberId) {
+        galleryService.verifiedGalleryExist(memberId);
+        comment.setStatus(VALID);
+        Member member = new Member();
+        member.setMemberId(memberId);
         comment.setMember(member);
-        comment.setArtworkId(artworkId); //comment db에 저장.
-        return commentRepository.save(comment); //save
+        comment.setGallery(galleryService.findGallery(galleryId));
+        if(artworkId != null){
+            comment.setArtworkId(artworkId);
+        }
+        commentRepository.save(comment);
     }
 
-    public enum CommentType{
-        ARTWORK,
-        GALLERY
-    }
+
     public List<Comment> findComment(Long placeId, CommentType commentType) {
         if (commentType == CommentType.GALLERY) {
             List<Comment> commentList = commentRepository.findAllByGallery_GalleryId(placeId, Sort.by(desc("createdAt")));
@@ -92,7 +73,6 @@ public class CommentService {
             }
             return commentList;
         }
-
     }
 
 

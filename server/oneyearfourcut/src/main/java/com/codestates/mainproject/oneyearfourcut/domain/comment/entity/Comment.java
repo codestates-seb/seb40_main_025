@@ -43,13 +43,17 @@ public class Comment extends Auditable {
     @OneToMany(mappedBy = "comment")
     public List<Reply> replyList = new ArrayList<>(); // 대댓글, targetEntity
 
+    @Enumerated(EnumType.STRING)
+    private CommentStatus status;
+
     @Builder
-    public Comment(Long commentId, String content, Member member, Gallery gallery, Long artworkId, List<Reply> replyList) {
+    public Comment(Long commentId, String content, Member member, Gallery gallery, Long artworkId, List<Reply> replyList, CommentStatus status) {
         this.commentId = commentId;
         this.content = content;
         this.member = member;
         this.gallery = gallery;
         this.artworkId = artworkId;
         this.replyList = replyList;
+        this.status = status;
     }
 }
