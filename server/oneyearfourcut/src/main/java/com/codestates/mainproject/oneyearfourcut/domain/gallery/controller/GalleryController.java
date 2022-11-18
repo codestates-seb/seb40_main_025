@@ -5,6 +5,7 @@ import com.codestates.mainproject.oneyearfourcut.domain.gallery.dto.GalleryRespo
 import com.codestates.mainproject.oneyearfourcut.domain.gallery.entity.Gallery;
 import com.codestates.mainproject.oneyearfourcut.domain.gallery.mapper.GalleryMapper;
 import com.codestates.mainproject.oneyearfourcut.domain.gallery.service.GalleryService;
+import com.codestates.mainproject.oneyearfourcut.domain.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,20 +19,14 @@ import java.time.LocalDateTime;
 public class GalleryController {
     private final GalleryService galleryService;
     private final GalleryMapper galleryMapper;
+
     //전시관 등록
     @PostMapping
     public ResponseEntity postGallery(@RequestBody GalleryRequestDto galleryRequestDto) {
-        // jwt 토큰으로 회원id를 조회
-        Long memberId = 1L;
+        Long memberId = 1L; // jwt 토큰으로 회원id를 조회
 
-        // 활성화된 전시관이 이미 존재하는지 확인하고 있으면 에러, 없으면 전시관 생성
-        galleryService.verifiedOpenGalleryExist(memberId);
-
-        Gallery postGallery = galleryMapper.galleryRequestDtoToGallery(galleryRequestDto);
-
-        Gallery savedGallery = galleryService.createGallery(postGallery, memberId);
-
-        //원래는 이 객체 반환
+        Gallery requestGallery = galleryMapper.galleryRequestDtoToGallery(galleryRequestDto);
+        Gallery savedGallery = galleryService.createGallery(requestGallery, memberId);
         GalleryResponseDto galleryResponseDto = galleryMapper.galleryToGalleryResponseDto(savedGallery);
 
         return new ResponseEntity<>(galleryResponseDto, HttpStatus.CREATED);
@@ -51,17 +46,18 @@ public class GalleryController {
     @PatchMapping("/{gallery-id}")
     public ResponseEntity patchGallery(@RequestBody GalleryRequestDto galleryRequestDto,
                                        @PathVariable("gallery-id") Long galleryId) {
+        Gallery findGallery = galleryService.findGallery(galleryId);
         Gallery requestGallery = galleryMapper.galleryRequestDtoToGallery(galleryRequestDto);
-        requestGallery.setGalleryId(galleryId);
-        galleryService.modifyGallery(requestGallery);
 
+        galleryService.modifyGallery(requestGallery, findGallery);
         return new ResponseEntity(HttpStatus.OK);
     }
 
     //전시관 폐쇄
     @DeleteMapping("/{gallery-id}")
     public ResponseEntity deleteGallery(@PathVariable("gallery-id") Long galleryId) {
-        // 전시관 폐쇄하는 로직
+        galleryService.deleteGallery(galleryId);
+
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 }

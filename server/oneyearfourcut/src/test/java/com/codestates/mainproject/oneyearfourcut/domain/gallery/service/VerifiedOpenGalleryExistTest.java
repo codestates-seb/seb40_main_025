@@ -2,12 +2,10 @@ package com.codestates.mainproject.oneyearfourcut.domain.gallery.service;
 
 import com.codestates.mainproject.oneyearfourcut.domain.gallery.entity.Gallery;
 import com.codestates.mainproject.oneyearfourcut.domain.gallery.entity.GalleryStatus;
-import com.codestates.mainproject.oneyearfourcut.domain.gallery.repository.GalleryRepository;
 import com.codestates.mainproject.oneyearfourcut.domain.member.entity.Member;
 import com.codestates.mainproject.oneyearfourcut.domain.member.service.MemberService;
 import com.codestates.mainproject.oneyearfourcut.global.exception.exception.BusinessLogicException;
 import com.codestates.mainproject.oneyearfourcut.global.exception.exception.ExceptionCode;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -15,86 +13,37 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
-import java.util.Optional;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+import static org.assertj.core.api.Assertions.assertThatNoException;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
-class GalleryServiceMockTest {
-    @Mock
-    private GalleryRepository galleryRepository;
+public class VerifiedOpenGalleryExistTest {
     @Mock
     private MemberService memberService;
     @InjectMocks
     private GalleryService galleryService;
 
+    //테스트용 데이터
     Long closedGalleryId1 = 1L;
-    Long closedGalleryId2 = 2L;
-    Long openGalleryId = 3L;
-    Gallery closedGallery1 = Gallery.builder()
+    Long openGalleryId = 2L;
+    Gallery closedGallery = Gallery.builder()
             .title("test gallery1")
             .galleryId(closedGalleryId1)
             .content("test content1")
             .status(GalleryStatus.CLOSED)
             .build();
-    Gallery closedGallery2 = Gallery.builder()
-            .title("test gallery2")
-            .galleryId(closedGalleryId2)
-            .content("test content2")
-            .status(GalleryStatus.CLOSED)
-            .build();
     Gallery openGallery = Gallery.builder()
-            .title("test gallery3")
+            .title("test gallery2")
             .galleryId(openGalleryId)
-            .content("test content3")
+            .content("test content2")
             .status(GalleryStatus.OPEN)
             .build();
 
-    @Test
-    @DisplayName("폐쇄 갤러리 조회 테스트")
-    void findClosedGallery() {
-        //given
-
-        given(galleryRepository.findById(closedGalleryId1))
-                .willReturn(Optional.ofNullable(closedGallery1));
-
-        //when
-        //then
-        assertThatThrownBy(() -> galleryService.findGallery(closedGalleryId1))
-                .isInstanceOf(BusinessLogicException.class)
-                .hasMessage(ExceptionCode.CLOSED_GALLERY.getMessage());
-    }
-    @Test
-    @DisplayName("오픈 갤러리 조회 테스트")
-    void findOpenGallery() {
-        //given
-
-        given(galleryRepository.findById(openGalleryId))
-                .willReturn(Optional.ofNullable(openGallery));
-
-        //when
-        //then
-        assertThat(galleryService.findGallery(openGalleryId)).isEqualTo(openGallery);
-    }
-    @Test
-    @DisplayName("없는 갤러리 조회 테스트")
-    void findNullGallery() {
-        //given
-        Long nullGalleryId = 100L;
-        given(galleryRepository.findById(nullGalleryId))
-                .willReturn(Optional.empty());
-
-        //when
-        //then
-        assertThatThrownBy(() -> galleryService.findGallery(nullGalleryId))
-                .isInstanceOf(BusinessLogicException.class)
-                .hasMessage(ExceptionCode.GALLERY_NOT_FOUND.getMessage());
-    }
 
     @Test
-    @DisplayName("갤러리 없는 회원_갤러리 검증 테스트")
-    void verifiedGalleryExist1() {
+    void 갤러리_없는_회원은_통과한다() {
         // given
         Long emptyMemberId = 1L;
 
@@ -114,8 +63,7 @@ class GalleryServiceMockTest {
     }
 
     @Test
-    @DisplayName("폐쇄 갤러리 회원_갤러리 검증 테스트")
-    void verifiedGalleryExist2() {
+    void 폐쇄_갤러리만_가진_회원은_통과한다() {
         // given
         Long closedGalleryMemberId = 1L;
 
@@ -123,7 +71,7 @@ class GalleryServiceMockTest {
                 .memberId(closedGalleryMemberId)
                 .email("test2@gmail.com")
                 .nickname("nickname2")
-                .galleryList(List.of(closedGallery1, closedGallery2))
+                .galleryList(List.of(closedGallery))
                 .build();
 
         given(memberService.findMember(closedGalleryMemberId))
@@ -135,8 +83,7 @@ class GalleryServiceMockTest {
     }
 
     @Test
-    @DisplayName("오픈 갤러리 회원_갤러리 검증 테스트")
-    void verifiedGalleryExist3() {
+    void 이미_오픈된_갤러리를_가진_회원은_예외가_발생한다() {
         // given
         Long openGalleryMemberId = 1L;
 
@@ -144,7 +91,7 @@ class GalleryServiceMockTest {
                 .memberId(openGalleryMemberId)
                 .email("test3@gmail.com")
                 .nickname("nickname3")
-                .galleryList(List.of(closedGallery1, closedGallery2, openGallery))
+                .galleryList(List.of(closedGallery, openGallery))
                 .build();
 
 

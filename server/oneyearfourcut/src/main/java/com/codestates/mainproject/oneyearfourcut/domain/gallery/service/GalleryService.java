@@ -22,25 +22,27 @@ public class GalleryService {
     private final GalleryRepository galleryRepository;
     private final MemberService memberService;
 
-    public Gallery createGallery(Gallery postGallery, Long memberId) {
+    public Gallery createGallery(Gallery requestGallery, Long memberId) {
+        // 오픈된 전시관이 이미 존재하는지 확인하고 있으면 에러
+        verifiedOpenGalleryExist(memberId);
+
         //초기상태가 open이므로 넣어줘야함
-        postGallery.setStatus(OPEN);
+        requestGallery.setStatus(OPEN);
 
         Member member = new Member();
         member.setMemberId(memberId);
-        postGallery.setMember(member);
+        requestGallery.setMember(member);
 
-        return galleryRepository.save(postGallery);
+        return galleryRepository.save(requestGallery);
     }
 
-    public Gallery modifyGallery(Gallery requestGallery) {
-        Gallery gallery = findGallery(requestGallery.getGalleryId());
+    public Gallery modifyGallery(Gallery requestGallery, Gallery findGallery) {
         Optional.ofNullable(requestGallery.getTitle())
-                .ifPresent(gallery::setTitle);
+                .ifPresent(findGallery::setTitle);
         Optional.ofNullable(requestGallery.getContent())
-                .ifPresent(gallery::setContent);
+                .ifPresent(findGallery::setContent);
 
-        return galleryRepository.save(gallery);
+        return galleryRepository.save(findGallery);
     }
 
     public Gallery findGallery(Long galleryId) {
@@ -55,6 +57,12 @@ public class GalleryService {
         return findGallery;
     }
 
+    public void deleteGallery(Long galleryId) {
+        Gallery gallery = findGallery(galleryId);
+        gallery.setStatus(CLOSED);
+
+        galleryRepository.save(gallery);
+    }
 
     public void verifiedOpenGalleryExist(Long memberId) {
         Member loginMember = memberService.findMember(memberId);
