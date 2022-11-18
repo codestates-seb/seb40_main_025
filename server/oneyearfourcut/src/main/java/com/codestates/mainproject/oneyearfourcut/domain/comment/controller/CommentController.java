@@ -55,13 +55,10 @@ public class CommentController {
                                                        @RequestBody CommentRequestDto commentRequestDto) {
         Comment comment = commentMapper.commentRequestDtoToComment(commentRequestDto);
         Long memberId = 3L;
-
         commentService.createComment(comment, galleryId, null, memberId);  //저장
         String response = "댓글등록성공";
         return new ResponseEntity<>(response,HttpStatus.CREATED);
     }
-
-
 
 
     //댓글 등록 - 개별 작품(Artwork)
@@ -80,7 +77,7 @@ public class CommentController {
 
     @GetMapping("/{gallery-id}/comments")
     public ResponseEntity<Object> getCommentOnGallery(@PathVariable("gallery-id") Long galleryId){
-        List<Comment> commentList = commentService.findComment(galleryId, CommentType.GALLERY);
+        List<Comment> commentList = commentService.findCommentList(galleryId,null);
         List<GalleryCommentResponse> response = commentMapper.commentToGalleryCommentResponseList(commentList);
         return new ResponseEntity<>(response, (HttpStatus.OK));
     }
@@ -88,22 +85,18 @@ public class CommentController {
     @GetMapping("/{gallery-id}/artworks/{artwork-id}/comments")
     public ResponseEntity<Object> getCommentOnArtwork(@PathVariable("gallery-id") Long galleryId,
                                                       @PathVariable("artwork-id") Long artworkId){
-        Optional<Gallery> givenGallery = galleryRepository.findById(galleryId);
-        givenGallery.orElseThrow(() -> new BusinessLogicException(ExceptionCode.GALLERY_NOT_FOUND));
-        List<Comment> commentList = commentService.findComment(artworkId, CommentType.ARTWORK);
+        List<Comment> commentList = commentService.findCommentList(galleryId, artworkId);
         List<ArtworkCommentResponse> response = commentMapper.commentToArtworkCommentResponseList(commentList);
         return new ResponseEntity<>(response, (HttpStatus.OK));
     }
 
-/*    @DeleteMapping("/{gallery-id}/artworks/comments/{comment-id}")
+    @DeleteMapping("/{gallery-id}/artworks/comments/{comment-id}")
     public ResponseEntity<Object> deleteComment(@PathVariable("gallery-id") Long galleryId,
                                                 @PathVariable("comment-id") Long commentId){
-        Optional<Gallery> givenGallery = galleryRepository.findById(galleryId);
-        givenGallery.orElseThrow(() -> new BusinessLogicException(ExceptionCode.GALLERY_NOT_FOUND));
-
-
-        return new ResponseEntity<>(response,(HttpStatus.NO_CONTENT);
-    }*/
+        commentService.deleteComment(galleryId,commentId);
+        String response = "댓글삭제완료!!!";
+        return new ResponseEntity<>(response,(HttpStatus.NO_CONTENT));
+    }
 
 
 }

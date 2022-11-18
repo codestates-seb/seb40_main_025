@@ -3,7 +3,6 @@ package com.codestates.mainproject.oneyearfourcut.domain.comment.service;
 import com.codestates.mainproject.oneyearfourcut.domain.artwork.entity.Artwork;
 import com.codestates.mainproject.oneyearfourcut.domain.artwork.repository.ArtworkRepository;
 import com.codestates.mainproject.oneyearfourcut.domain.comment.entity.Comment;
-import com.codestates.mainproject.oneyearfourcut.domain.comment.entity.CommentStatus;
 import com.codestates.mainproject.oneyearfourcut.domain.comment.entity.CommentType;
 import com.codestates.mainproject.oneyearfourcut.domain.comment.repository.CommentRepository;
 import com.codestates.mainproject.oneyearfourcut.domain.gallery.entity.Gallery;
@@ -16,18 +15,14 @@ import com.codestates.mainproject.oneyearfourcut.domain.artwork.service.ArtworkS
 import com.codestates.mainproject.oneyearfourcut.global.exception.exception.BusinessLogicException;
 import com.codestates.mainproject.oneyearfourcut.global.exception.exception.ExceptionCode;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
+import static com.codestates.mainproject.oneyearfourcut.domain.comment.entity.CommentStatus.DELETED;
 import static com.codestates.mainproject.oneyearfourcut.domain.comment.entity.CommentStatus.VALID;
-import static org.springframework.data.domain.Sort.Order.asc;
 import static org.springframework.data.domain.Sort.Order.desc;
 
 
@@ -46,7 +41,7 @@ public class CommentService {
 
     public void createComment(Comment comment, Long galleryId, Long artworkId, Long memberId) {
         galleryService.verifiedGalleryExist(memberId);
-        comment.setStatus(VALID);
+        comment.setCommentStatus(VALID);
         Member member = new Member();
         member.setMemberId(memberId);
         comment.setMember(member);
@@ -57,23 +52,52 @@ public class CommentService {
         commentRepository.save(comment);
     }
 
-
-    public List<Comment> findComment(Long placeId, CommentType commentType) {
-        if (commentType == CommentType.GALLERY) {
-            List<Comment> commentList = commentRepository.findAllByGallery_GalleryId(placeId, Sort.by(desc("createdAt")));
+    public List<Comment> findCommentList(Long galleryId, Long artworkId) {
+        if (artworkId == null) {
+            List<Comment> commentList =
+                    commentRepository.findAllByCommentStatusAndGallery_GalleryId(VALID,galleryId, Sort.by(desc("createdAt")));
             if (commentList.isEmpty()) {
                 throw new BusinessLogicException(ExceptionCode.GALLERY_NOT_FOUND);
             }
             return commentList;
         }
         else {
-            List<Comment> commentList = commentRepository.findAllByArtworkId(placeId, Sort.by(desc("createdAt")));
+            Optional<Gallery> givenGallery = galleryRepository.findById(galleryId);
+            givenGallery.orElseThrow(() -> new BusinessLogicException(ExceptionCode.GALLERY_NOT_FOUND));
+            List<Comment> commentList = commentRepository.findAllByCommentStatusAndArtworkId(VALID, artworkId, Sort.by(desc("createdAt")));
             if (commentList.isEmpty()) {
                 throw new BusinessLogicException(ExceptionCode.ARTWORK_NOT_FOUND);
             }
             return commentList;
         }
     }
+    public Comment findComment(Long commentId){
+        Optional<Comment> comment = commentRepository.findById(commentId);
+        Comment foundComment = comment.orElseThrow(()->new BusinessLogicException(ExceptionCode.COMMENT_NOT_FOUND));
+        if(foundComment.getCommentStatus() == DELETED) throw new BusinessLogicException(ExceptionCode.COMMENT_DELETED);
+        return foundComment;
+    }
+
+    public boolean checkCommentExistOn(Long placeId, CommentType commentType){
+        if(commentType == CommentType.ARTWORK){
+            Optional<Artwork> artwork = artworkRepository.findById(placeId);
+            artwork.orElseThrow(()->new BusinessLogicException(ExceptionCode.COMMENT_NOT_FOUND));
+        } else{
+            Gallery gallery = galleryService.findGallery(placeId);
+            List<Comment> commentList = gallery.getCommentList();
+            return Optional.ofNullable(commentList).isPresent(); //return true
+        }
+        return false;
+    }
+
+    public void deleteComment(Long galleryId, Long commentId) {
+        checkCommentExistOn(galleryId,CommentType.GALLERY);
+        Comment comment = findComment(commentId);
+        comment.setCommentStatus(DELETED);
+        commentRepository.save(comment);
+    }
+
+
 
 
 
