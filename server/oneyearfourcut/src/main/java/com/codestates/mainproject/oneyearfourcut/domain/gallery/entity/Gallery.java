@@ -4,23 +4,19 @@ import com.codestates.mainproject.oneyearfourcut.domain.artwork.entity.Artwork;
 import com.codestates.mainproject.oneyearfourcut.domain.comment.entity.Comment;
 import com.codestates.mainproject.oneyearfourcut.domain.member.entity.Member;
 import com.codestates.mainproject.oneyearfourcut.global.auditable.Auditable;
-import lombok.Getter;
-import lombok.Setter;
-
-import lombok.NoArgsConstructor;
-import lombok.ToString;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
-
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@NoArgsConstructor
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Gallery extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,8 +26,7 @@ public class Gallery extends Auditable {
 
     private String content;
 
-    //enum의 이름을 컬럼에 저장
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.STRING) //enum의 이름을 컬럼에 저장
     private GalleryStatus status = GalleryStatus.OPEN;
 
     @ManyToOne
