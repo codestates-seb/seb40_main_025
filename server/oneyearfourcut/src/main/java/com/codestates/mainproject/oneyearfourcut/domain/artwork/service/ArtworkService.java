@@ -70,7 +70,12 @@ public class ArtworkService {
                 Sort.by(desc("createdAt")));
         return artworkList;
     }
-    
+
+
+    public Artwork findArtwork(long galleryId, long artworkId) {
+        // 특정 갤러리에 해당하는 특정 작품
+        return null;
+    }
     public Gallery findArtwork(Long artworkId) {
         return null;
     }
