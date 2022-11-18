@@ -49,11 +49,12 @@ public class CommentController {
     public ResponseEntity<Object> postCommentOnGallery(@PathVariable("gallery-id") Long galleryId,
                                                        @RequestBody CommentRequestDto commentRequestDto) {
         Comment comment = commentMapper.commentRequestDtoToComment(commentRequestDto);
-        long memberId = commentRequestDto.getMemberId(); //requestbody 멤버 번호
-        comment = commentService.createComment(comment, galleryId, memberId);  //저장
+        /*long memberId = commentRequestDto.getMemberId(); //requestbody 멤버 번호*/
         /*Gallery gallery = galleryService.findGallery(galleryId); //검증 및 매핑 과정.
         gallery.addCommentList(comment);
         GalleryCommentResponseDto response = commentMapper.commentToGalleryCommentResponseDto(comment)*/;
+        Long memberId = 3L;
+        comment = commentService.createComment(comment, galleryId, memberId);  //저장
         String response = "댓글등록성공";
         return new ResponseEntity<>(response,HttpStatus.CREATED);
     }
@@ -65,12 +66,13 @@ public class CommentController {
             @PathVariable("artwork-id") Long artworkId,
             @RequestBody CommentRequestDto commentRequestDto){
         Comment comment = commentMapper.commentRequestDtoToComment(commentRequestDto);
-        long memberId = commentRequestDto.getMemberId(); //requestbody 멤버 번호
-        comment = commentService.createComment(comment, galleryId, artworkId,memberId);;
+        /*long memberId = commentRequestDto.getMemberId(); //requestbody 멤버 번호*/
         /*Gallery gallery = galleryService.findGallery(galleryId);//검증 및 매핑 과정.
         gallery.addCommentList(comment);
         ArtworkCommentResponseDto response =
                 commentMapper.commentToArtworkCommentResponseDto(comment);*/
+        Long memberId = 3L;
+        comment = commentService.createComment(comment, galleryId, artworkId,memberId);;
         String response = "댓글등록성공";
         return new ResponseEntity<>(response, (HttpStatus.CREATED)); //생성 댓글 response
 
@@ -94,4 +96,58 @@ public class CommentController {
     }
 
 }
+
+
+/*
+    //댓글 리스트 조회 - 개별 작품(Artwork) with 페이지네이션
+    @GetMapping("/{gallery-id}/artworks/{artwork-id}/comments")
+    public ResponseEntity<Object> getCommentOnArtwork(@PathVariable("artwork-id") Long artworkId,
+                                                      @RequestParam int page, @RequestParam int size) {
+
+        Page<Comment> commentPage = commentService.pageComments(page, size);
+        List<Comment> comments = commentPage.getContent();
+        PageInfo pageInfo = new PageInfo(page, size, (int) commentPage.getTotalElements(), commentPage.getTotalPages());
+
+        //artwork에 달린 댓글 조회
+        Artwork artwork = artworkService.findArtwork(artworkId);
+        List<ArtworkCommentResponseDto> response =
+                        commentMapper.commentToArtworkCommentResponseDtoList(artwork.getCommentList());
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }*/
+
+
+/*
+    //https://wbluke.tistory.com/18
+    //댓글 리스트 조회 - 개별 작품(Gallery) with Pagination
+    @GetMapping("/{gallery-id}/comments")
+    public ResponseEntity<Object> getGalleryCommentOnGallery(
+            @PathVariable("gallery-id") Long galleryId,
+            @RequestBody CommentRequestDto commentRequestDto,
+            @RequestParam int page, @RequestParam int size) {
+
+Page<Comment> commentPage = commentService.pageComments(page, size);
+        List<Comment> comments = commentPage.getContent();
+        PageInfo pageInfo = new PageInfo(page, size, (int) commentPage.getTotalElements(), commentPage.getTotalPages());
+
+
+        //gallery에 달린 댓글 조회
+        Gallery gallery = galleryService.findGallery(galleryId);
+
+        List<GalleryCommentResponseDto> response =
+                commentMapper.commentToGalleryCommentResponseDtoList(gallery.getCommentList());
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }*/
+
+
+
+/*    @GetMapping  //Gallery Comment 페이지네이션
+    public ResponseEntity<Object> getCommentPages( @RequestParam int page, @RequestParam int size) {
+        Page<Comment> commentPage = commentService.pageComments(page, size);
+        List<Comment> comments = commentPage.getContent();
+        List<GalleryCommentResponseDto> response =
+                commentMapper.commentToGalleryCommentResponseDtoList(comments);
+        PageInfo pageInfo = new PageInfo(page, size, (int) commentPage.getTotalElements(), commentPage.getTotalPages());
+        return new ResponseEntity<>(new PageResponseDto<>(response, pageInfo), HttpStatus.OK);
+    }*/
 

@@ -6,6 +6,5 @@ import lombok.*;
 @Getter
 @Setter
 public class CommentRequestDto{
-    private Long memberId;
     private String content;
 }
