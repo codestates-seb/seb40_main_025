@@ -74,7 +74,7 @@ public class Artwork extends Auditable {
                 ", title='" + title + '\'' +
                 ", content='" + content + '\'' +
                 ", imgPath='" + imagePath + '\'' +
-                ", createdAt='" + this.getCreatedDate() + '\'' +
+                ", createdAt='" + this.getCreatedAt() + '\'' +
                 '}';
     }
 }

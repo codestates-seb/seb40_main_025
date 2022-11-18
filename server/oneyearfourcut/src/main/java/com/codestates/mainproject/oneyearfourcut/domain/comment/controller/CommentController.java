@@ -54,7 +54,7 @@ public class CommentController {
         gallery.addCommentList(comment);
         GalleryCommentResponseDto response = commentMapper.commentToGalleryCommentResponseDto(comment)*/;
         Long memberId = 3L;
-        comment = commentService.createComment(comment, galleryId, memberId);  //저장
+        comment = commentService.createGalleryComment(comment, galleryId, memberId);  //저장
         String response = "댓글등록성공";
         return new ResponseEntity<>(response,HttpStatus.CREATED);
     }
@@ -72,7 +72,7 @@ public class CommentController {
         ArtworkCommentResponseDto response =
                 commentMapper.commentToArtworkCommentResponseDto(comment);*/
         Long memberId = 3L;
-        comment = commentService.createComment(comment, galleryId, artworkId,memberId);;
+        comment = commentService.createArtworkComment(comment, galleryId, artworkId,memberId);;
         String response = "댓글등록성공";
         return new ResponseEntity<>(response, (HttpStatus.CREATED)); //생성 댓글 response
 

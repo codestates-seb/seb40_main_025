@@ -24,6 +24,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 import static org.springframework.data.domain.Sort.Order.asc;
+import static org.springframework.data.domain.Sort.Order.desc;
 
 
 @Service
@@ -39,7 +40,7 @@ public class CommentService {
     private final ArtworkService artworkService;
 
     @Transactional //comment on gallery
-    public Comment createComment(Comment comment,Long galleryId,Long memberId){
+    public Comment createGalleryComment(Comment comment,Long galleryId,Long memberId){
         /*Member member = memberService.findMember(comment.getMember().getMemberId()); //해당 memberId 존재 확인, JWT*/
         /*comment.setGallery(galleryService.findGallery(galleryId)); //gallerId를찾아 comment 생성*/
         Optional<Member> tempMember = memberRepository.findById(memberId);
@@ -53,7 +54,7 @@ public class CommentService {
         return commentRepository.save(comment);
     }
     @Transactional //comment on artwork
-    public Comment createComment(Comment comment,Long galleryId, Long artworkId, Long memberId){
+    public Comment createArtworkComment(Comment comment,Long galleryId, Long artworkId, Long memberId){
         /*Member member = memberService.findMember(comment.getMember().getMemberId());
         comment.setGallery(galleryService.findGallery(galleryId));*/
         Optional<Member> tempMember = memberRepository.findById(memberId);
@@ -71,7 +72,7 @@ public class CommentService {
     @Transactional
     public List<Comment> findCommentOnGallery(Long galleryId){
         List<Comment> commentList1 =
-                commentRepository.findAllByGallery_GalleryId(galleryId, Sort.by(asc("createdAt")));
+                commentRepository.findAllByGallery_GalleryId(galleryId, Sort.by(desc("createdAt")));
         if(commentList1.isEmpty()){
             throw new BusinessLogicException(ExceptionCode.GALLERY_NOT_FOUND);
         }
@@ -81,7 +82,7 @@ public class CommentService {
     @Transactional
     public List<Comment> findCommentOnArtwork(Long artworkId){
         List<Comment> commentList2 =
-                commentRepository.findAllByArtworkId(artworkId,Sort.by(asc("createdAt")));
+                commentRepository.findAllByArtworkId(artworkId,Sort.by(desc("createdAt")));
         if(commentList2.isEmpty()){
             throw new BusinessLogicException(ExceptionCode.GALLERY_NOT_FOUND);
         }
