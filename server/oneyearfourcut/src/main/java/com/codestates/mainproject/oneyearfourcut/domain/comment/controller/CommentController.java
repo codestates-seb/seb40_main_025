@@ -40,35 +40,57 @@ public class CommentController {
 
     private final MemberService memberService;
 
+    //댓글 등록 - 전체 작품(Gallery)
+    @PostMapping("/{gallery-id}/comments")
+    public ResponseEntity<Object> postCommentOnGallery(@PathVariable("gallery-id") Long galleryId,
+                                                       @RequestBody CommentRequestDto commentRequestDto) {
+        Comment comment = commentMapper.commentRequestDtoToComment(commentRequestDto);
+        comment = commentService.createComment(comment, galleryId);  //저장
 
+        //검증 및 매핑 과정.
+        /*Gallery gallery = galleryService.findGallery(galleryId);
+        gallery.addCommentList(comment);
+        GalleryCommentResponseDto response = commentMapper.commentToGalleryCommentResponseDto(comment)*/;
+
+        String response = "저장성공";
+        return new ResponseEntity<>(response,HttpStatus.CREATED);
+    }
 
     //댓글 등록 - 개별 작품(Artwork)
-    @PostMapping("/artworks/{artwork-id}/comments")
+    @PostMapping("/{gallery-id}/artworks/{artwork-id}/comments")
     public ResponseEntity<Object> postCommentOnArtwork(
-                @PathVariable("gallery-id") Long galleryId,
-                @PathVariable("artwork-id") Long artworkId,
-                @RequestBody CommentRequestDto commentRequestDto) {
-        //comment 생성
-        Comment comment = commentMapper.commentRequestDtoToComment(commentRequestDto);
-        comment = commentService.createCommentOnArtwork(comment, artworkId); //저장
-        Artwork artwork = artworkService.findArtwork(artworkId);
-        artwork.addCommentList(comment);
-        ArtworkCommentResponseDto response =
-                commentMapper.commentToArtworkCommentResponseDto(comment);
+            @PathVariable("gallery-id") Long galleryId,
+            @PathVariable("artwork-id") Long artworkId,
+            @RequestBody CommentRequestDto commentRequestDto){
 
+        Comment comment = commentMapper.commentRequestDtoToComment(commentRequestDto);
+        comment = commentService.createComment(comment,galleryId,artworkId);
+
+        //검증 및 매핑 과정.
+        /*Gallery gallery = galleryService.findGallery(galleryId);
+        gallery.addCommentList(comment);
+        ArtworkCommentResponseDto response =
+                commentMapper.commentToArtworkCommentResponseDto(comment);*/
+
+        String response = "저장성공";
         return new ResponseEntity<>(response, (HttpStatus.CREATED)); //생성 댓글 response
+
     }
 
 
+/*
     //댓글 리스트 조회 - 개별 작품(Artwork) with 페이지네이션
     @GetMapping("/{gallery-id}/artworks/{artwork-id}/comments")
     public ResponseEntity<Object> getCommentOnArtwork(@PathVariable("artwork-id") Long artworkId,
                                                       @RequestParam int page, @RequestParam int size) {
 
 
-/*        Page<Comment> commentPage = commentService.pageComments(page, size);
+
+
+        Page<Comment> commentPage = commentService.pageComments(page, size);
         List<Comment> comments = commentPage.getContent();
-        PageInfo pageInfo = new PageInfo(page, size, (int) commentPage.getTotalElements(), commentPage.getTotalPages());*/
+        PageInfo pageInfo = new PageInfo(page, size, (int) commentPage.getTotalElements(), commentPage.getTotalPages());
+
 
         //artwork에 달린 댓글 조회
         Artwork artwork = artworkService.findArtwork(artworkId);
@@ -77,23 +99,10 @@ public class CommentController {
 
 
         return new ResponseEntity<>(response, HttpStatus.OK);
-    }
+    }*/
 
-    //댓글 등록 - 전체 작품(Gallery)
-    @PostMapping("/{gallery-id}/comments")
-    public ResponseEntity<Object> postCommentOnGallery(@PathVariable("gallery-id") Long galleryId,
-                                         @RequestBody CommentRequestDto commentRequestDto) {
 
-        Comment comment = commentMapper.commentRequestDtoToComment(commentRequestDto);
-        comment = commentService.createCommentOnGallery(comment, galleryId);  //저장
-        Gallery gallery = galleryService.findGallery(galleryId);
-        gallery.addCommentList(comment);
-        GalleryCommentResponseDto response =
-                commentMapper.commentToGalleryCommentResponseDto(comment);
-
-        return new ResponseEntity<>(response,HttpStatus.CREATED);
-    }
-
+/*
     //https://wbluke.tistory.com/18
     //댓글 리스트 조회 - 개별 작품(Gallery) with Pagination
     @GetMapping("/{gallery-id}/comments")
@@ -101,9 +110,12 @@ public class CommentController {
             @PathVariable("gallery-id") Long galleryId,
             @RequestBody CommentRequestDto commentRequestDto,
             @RequestParam int page, @RequestParam int size) {
-        /*Page<Comment> commentPage = commentService.pageComments(page, size);
+
+
+Page<Comment> commentPage = commentService.pageComments(page, size);
         List<Comment> comments = commentPage.getContent();
-        PageInfo pageInfo = new PageInfo(page, size, (int) commentPage.getTotalElements(), commentPage.getTotalPages());*/
+        PageInfo pageInfo = new PageInfo(page, size, (int) commentPage.getTotalElements(), commentPage.getTotalPages());
+
 
         //gallery에 달린 댓글 조회
         Gallery gallery = galleryService.findGallery(galleryId);
@@ -111,12 +123,13 @@ public class CommentController {
         List<GalleryCommentResponseDto> response =
                 commentMapper.commentToGalleryCommentResponseDtoList(gallery.getCommentList());
         return new ResponseEntity<>(response, HttpStatus.OK);
-    }
+    }*/
 
 
 
-/*
-    @GetMapping  //Gallery Comment 페이지네이션
+
+
+/*    @GetMapping  //Gallery Comment 페이지네이션
     public ResponseEntity<Object> getCommentPages( @RequestParam int page, @RequestParam int size) {
         Page<Comment> commentPage = commentService.pageComments(page, size);
         List<Comment> comments = commentPage.getContent();
@@ -124,8 +137,9 @@ public class CommentController {
                 commentMapper.commentToGalleryCommentResponseDtoList(comments);
         PageInfo pageInfo = new PageInfo(page, size, (int) commentPage.getTotalElements(), commentPage.getTotalPages());
         return new ResponseEntity<>(new PageResponseDto<>(response, pageInfo), HttpStatus.OK);
-    }
-*/
+    }*/
+
+
 
 
 }

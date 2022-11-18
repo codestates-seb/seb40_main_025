@@ -26,6 +26,7 @@ public class Comment extends Auditable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long commentId;
 
+    @Column(columnDefinition = "TEXT", nullable = false)
     private String content; // 댓글 내용
 
     @ManyToOne
@@ -33,9 +34,10 @@ public class Comment extends Auditable {
     private Member member; // 작성자 회원 id
 
     @ManyToOne
-    @JoinColumn(name = "galley_id")
+    @JoinColumn(name = "gallery_id")
     private Gallery gallery;  //작품이 아닌 전시관 전체 댓글일때
 
+    @Column
     private Long artworkId;  //작품에 달린 댓글일때. 비식별관계
 
     @OneToMany(mappedBy = "comment")

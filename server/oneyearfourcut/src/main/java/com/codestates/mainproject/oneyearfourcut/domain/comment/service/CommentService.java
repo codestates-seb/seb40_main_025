@@ -23,19 +23,48 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-@Transactional
 public class CommentService {
-    private final CommentRepository cRepo;
-    private final MemberRepository mRepo;
-    private final GalleryRepository gRepo;
-    private final ArtworkRepository aRepo;
+    private final CommentRepository commentRepository;
+    private final MemberRepository memberRepository;
+    private final GalleryRepository galleryRepository;
+    private final ArtworkRepository artworkRepository;
 
-    private final MemberService mService;
-    private final GalleryService gService;
-    private final ArtworkService aService;
+    private final MemberService memberService;
+    private final GalleryService galleryService;
+    private final ArtworkService artworkService;
+
+    @Transactional //comment on gallery
+    public Comment createComment(Comment comment,Long galleryId){
+        /*Member member = memberService.findMember(comment.getMember().getMemberId()); //해당 memberId 존재 확인, JWT*/
+        Member member = new Member();
+        comment.setGallery(galleryService.findGallery(galleryId)); //gallerId를찾아 comment 생성
+        comment.setMember(member);  //Member에 저장.
+        return commentRepository.save(comment);
+    }
+    @Transactional //comment on artwork
+    public Comment createComment(Comment comment,Long galleryId, Long artworkId ){
+        Member member = memberService.findMember(comment.getMember().getMemberId());
+        comment.setGallery(galleryService.findGallery(galleryId));
+        comment.setMember(member);
+        comment.setArtworkId(artworkId); //comment db에 저장.
+        return commentRepository.save(comment); //save
+    }
+
+    @Transactional
+    public Comment findComment(Long commentId){
+        Optional<Comment> comment = commentRepository.findById(commentId);
+        if(comment.isEmpty()){
+            throw new BusinessLogicException(ExceptionCode.COMMENT_NOT_FOUND);
+        }
+        return comment.get();
+
+
+    }
 
 
 
+
+/*
     //Create method(Artwork comment)
     public Comment createCommentOnArtwork(Comment comment,Long artworkId){
         Member member = mService.findMember(comment.getMember().getMemberId()); //해당 memberId 존재 확인, JWT
@@ -98,6 +127,7 @@ public class CommentService {
         PageRequest pr = PageRequest.of(page -1, size);
         return  cRepo.findAllByOrderByCreatedDateAsc(pr);
     }
+*/
 
 
 }

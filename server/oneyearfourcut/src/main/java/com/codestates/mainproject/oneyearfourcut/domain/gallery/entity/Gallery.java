@@ -8,6 +8,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 import lombok.NoArgsConstructor;
+import lombok.ToString;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 
 import javax.persistence.*;
@@ -36,7 +39,9 @@ public class Gallery extends Auditable {
     @OneToMany(mappedBy = "gallery")
     private List<Artwork> artworkList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "gallery")
+    @OneToMany(mappedBy = "gallery", cascade = CascadeType.REMOVE, targetEntity = Comment.class)
+    @ToString.Exclude
+    @LazyCollection(LazyCollectionOption.TRUE)
     private List<Comment> commentList = new ArrayList<>();
 
     //Commentlist getter setter 생성자
