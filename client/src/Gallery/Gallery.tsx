@@ -1,8 +1,7 @@
-import React from 'react';
 import styled from 'styled-components';
 import GalleryInfo from './components/GalleryInfo';
 import FourCut from './components/FourCut';
-
+import ButtonBox from './components/ButtonBox';
 
 const Container = styled.div`
   width: 100vw;
@@ -13,6 +12,7 @@ const Gallery = () => {
   return (
     <Container>
       <GalleryInfo />
+      <ButtonBox />
       <FourCut />
     </Container>
   );

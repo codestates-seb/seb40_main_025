@@ -46,16 +46,16 @@ const Btn = styled.button`
   height: ${rem(40)};
   ${({ theme }) => theme.mixins.flexBox('row', 'center', 'center', 'nowrap')}
   background-color: ${({ theme }) => theme.colors.green_002};
-  border:  ${rem(2)} solid ${({ theme }) => theme.colors.green_002};
-  border-radius:  ${rem(20)};
+  border: ${rem(2)} solid ${({ theme }) => theme.colors.green_002};
+  border-radius: ${rem(20)};
   color: ${({ theme }) => theme.colors.black_007};
   font-size: ${rem(14)};
   text-align: center;
-  padding:  ${rem(5)};
+  padding: ${rem(5)};
   line-height: 120%;
 
   &.square {
-    border-radius:  ${rem(5)};
+    border-radius: ${rem(5)};
   }
 
   &.white {

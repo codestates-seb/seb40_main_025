@@ -1,4 +1,4 @@
-import { rem } from "polished";
+import { rem } from 'polished';
 
 export default function Camera() {
   return (
