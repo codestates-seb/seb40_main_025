@@ -3,6 +3,7 @@ package com.codestates.mainproject.oneyearfourcut.domain.comment.service;
 import com.codestates.mainproject.oneyearfourcut.domain.artwork.repository.ArtworkRepository;
 import com.codestates.mainproject.oneyearfourcut.domain.comment.entity.Comment;
 import com.codestates.mainproject.oneyearfourcut.domain.comment.repository.CommentRepository;
+import com.codestates.mainproject.oneyearfourcut.domain.gallery.entity.Gallery;
 import com.codestates.mainproject.oneyearfourcut.domain.gallery.repository.GalleryRepository;
 import com.codestates.mainproject.oneyearfourcut.domain.gallery.service.GalleryService;
 import com.codestates.mainproject.oneyearfourcut.domain.member.entity.Member;
@@ -34,17 +35,30 @@ public class CommentService {
     private final ArtworkService artworkService;
 
     @Transactional //comment on gallery
-    public Comment createComment(Comment comment,Long galleryId){
+    public Comment createComment(Comment comment,Long galleryId,Long memberId){
         /*Member member = memberService.findMember(comment.getMember().getMemberId()); //해당 memberId 존재 확인, JWT*/
-        Member member = new Member();
-        comment.setGallery(galleryService.findGallery(galleryId)); //gallerId를찾아 comment 생성
+        /*comment.setGallery(galleryService.findGallery(galleryId)); //gallerId를찾아 comment 생성*/
+        Optional<Member> tempMember = memberRepository.findById(memberId);
+        Member member = tempMember.orElseThrow(
+                () -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+        Optional<Gallery> tempGallery = galleryRepository.findById(galleryId);
+        Gallery gallery = tempGallery.orElseThrow(
+                () -> new BusinessLogicException(ExceptionCode.GALLERY_NOT_FOUND));
+        comment.setGallery(gallery);
         comment.setMember(member);  //Member에 저장.
         return commentRepository.save(comment);
     }
     @Transactional //comment on artwork
-    public Comment createComment(Comment comment,Long galleryId, Long artworkId ){
-        Member member = memberService.findMember(comment.getMember().getMemberId());
-        comment.setGallery(galleryService.findGallery(galleryId));
+    public Comment createComment(Comment comment,Long galleryId, Long artworkId, Long memberId){
+        /*Member member = memberService.findMember(comment.getMember().getMemberId());
+        comment.setGallery(galleryService.findGallery(galleryId));*/
+        Optional<Member> tempMember = memberRepository.findById(memberId);
+        Member member = tempMember.orElseThrow(
+                () -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+        Optional<Gallery> tempGallery = galleryRepository.findById(galleryId);
+        Gallery gallery = tempGallery.orElseThrow(
+                () -> new BusinessLogicException(ExceptionCode.GALLERY_NOT_FOUND));
+        comment.setGallery(gallery);
         comment.setMember(member);
         comment.setArtworkId(artworkId); //comment db에 저장.
         return commentRepository.save(comment); //save

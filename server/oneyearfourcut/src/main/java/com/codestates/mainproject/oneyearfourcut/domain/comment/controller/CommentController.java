@@ -45,14 +45,15 @@ public class CommentController {
     public ResponseEntity<Object> postCommentOnGallery(@PathVariable("gallery-id") Long galleryId,
                                                        @RequestBody CommentRequestDto commentRequestDto) {
         Comment comment = commentMapper.commentRequestDtoToComment(commentRequestDto);
-        comment = commentService.createComment(comment, galleryId);  //저장
+        long memberId = commentRequestDto.getMemberId(); //requestbody 멤버 번호
+        comment = commentService.createComment(comment, galleryId, memberId);  //저장
 
         //검증 및 매핑 과정.
         /*Gallery gallery = galleryService.findGallery(galleryId);
         gallery.addCommentList(comment);
         GalleryCommentResponseDto response = commentMapper.commentToGalleryCommentResponseDto(comment)*/;
 
-        String response = "저장성공";
+        String response = "댓글등록성공";
         return new ResponseEntity<>(response,HttpStatus.CREATED);
     }
 
@@ -64,7 +65,8 @@ public class CommentController {
             @RequestBody CommentRequestDto commentRequestDto){
 
         Comment comment = commentMapper.commentRequestDtoToComment(commentRequestDto);
-        comment = commentService.createComment(comment,galleryId,artworkId);
+        long memberId = commentRequestDto.getMemberId(); //requestbody 멤버 번호
+        comment = commentService.createComment(comment, galleryId, artworkId,memberId);;
 
         //검증 및 매핑 과정.
         /*Gallery gallery = galleryService.findGallery(galleryId);
@@ -72,7 +74,7 @@ public class CommentController {
         ArtworkCommentResponseDto response =
                 commentMapper.commentToArtworkCommentResponseDto(comment);*/
 
-        String response = "저장성공";
+        String response = "댓글등록성공";
         return new ResponseEntity<>(response, (HttpStatus.CREATED)); //생성 댓글 response
 
     }
