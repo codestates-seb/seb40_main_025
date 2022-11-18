@@ -9,7 +9,7 @@ INSERT INTO GALLERY (title, content ,created_at, last_modified_at, member_id) va
 ('commentPerson님의 전시관', '설명글', '2022-11-16T23:41:57.764644', '2022-11-16T23:41:57.764644', 3),
 ('galleryPerson님의 전시관', '설명글', '2022-11-16T23:41:57.764644', '2022-11-16T23:41:57.764644', 1);
 
-INSERT INTO ARTWORK (title, content ,created_at, last_modified_at, member_id, img_path) values
+INSERT INTO ARTWORK (title, content ,created_at, last_modified_at, member_id, image_path) values
 ('commentPerson님의 전시관', '설명글', '2022-11-16T23:41:57.764644', '2022-11-16T23:41:57.764644', 3, '/파일명.확장자');
 
 INSERT INTO COMMENT (content ,created_at, last_modified_at, artwork_id, gallery_id, member_id) values

@@ -58,11 +58,13 @@ public class CommentService {
         /*Member member = memberService.findMember(comment.getMember().getMemberId());
         comment.setGallery(galleryService.findGallery(galleryId));*/
         Optional<Member> tempMember = memberRepository.findById(memberId);
+        Optional<Gallery> tempGallery = galleryRepository.findById(galleryId);
+
         Member member = tempMember.orElseThrow(
                 () -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
-        Optional<Gallery> tempGallery = galleryRepository.findById(galleryId);
         Gallery gallery = tempGallery.orElseThrow(
                 () -> new BusinessLogicException(ExceptionCode.GALLERY_NOT_FOUND));
+
         comment.setGallery(gallery);
         comment.setMember(member);
         comment.setArtworkId(artworkId); //comment db에 저장.

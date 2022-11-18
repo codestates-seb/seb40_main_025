@@ -1,6 +1,7 @@
 package com.codestates.mainproject.oneyearfourcut.domain.comment.controller;
 
 import com.codestates.mainproject.oneyearfourcut.domain.artwork.entity.Artwork;
+import com.codestates.mainproject.oneyearfourcut.domain.artwork.repository.ArtworkRepository;
 import com.codestates.mainproject.oneyearfourcut.domain.artwork.service.ArtworkService;
 import com.codestates.mainproject.oneyearfourcut.domain.comment.dto.*;
 
@@ -11,6 +12,7 @@ import com.codestates.mainproject.oneyearfourcut.domain.gallery.entity.Gallery;
 import com.codestates.mainproject.oneyearfourcut.domain.gallery.repository.GalleryRepository;
 import com.codestates.mainproject.oneyearfourcut.domain.gallery.service.GalleryService;
 import com.codestates.mainproject.oneyearfourcut.domain.member.entity.Member;
+import com.codestates.mainproject.oneyearfourcut.domain.member.repository.MemberRepository;
 import com.codestates.mainproject.oneyearfourcut.domain.member.service.MemberService;
 import com.codestates.mainproject.oneyearfourcut.global.exception.exception.BusinessLogicException;
 import com.codestates.mainproject.oneyearfourcut.global.exception.exception.ExceptionCode;
@@ -43,21 +45,23 @@ public class CommentController {
 
     private final MemberService memberService;
     private final GalleryRepository galleryRepository;
+    private final MemberRepository memberRepository;
+    private final ArtworkRepository artworkRepository;
 
     //댓글 등록 - 전체 작품(Gallery)
     @PostMapping("/{gallery-id}/comments")
     public ResponseEntity<Object> postCommentOnGallery(@PathVariable("gallery-id") Long galleryId,
                                                        @RequestBody CommentRequestDto commentRequestDto) {
         Comment comment = commentMapper.commentRequestDtoToComment(commentRequestDto);
-        /*long memberId = commentRequestDto.getMemberId(); //requestbody 멤버 번호*/
-        /*Gallery gallery = galleryService.findGallery(galleryId); //검증 및 매핑 과정.
-        gallery.addCommentList(comment);
-        GalleryCommentResponseDto response = commentMapper.commentToGalleryCommentResponseDto(comment)*/;
         Long memberId = 3L;
-        comment = commentService.createGalleryComment(comment, galleryId, memberId);  //저장
+
+        commentService.createGalleryComment(comment, galleryId, memberId);  //저장
         String response = "댓글등록성공";
         return new ResponseEntity<>(response,HttpStatus.CREATED);
     }
+
+
+
 
     //댓글 등록 - 개별 작품(Artwork)
     @PostMapping("/{gallery-id}/artworks/{artwork-id}/comments")
@@ -66,13 +70,8 @@ public class CommentController {
             @PathVariable("artwork-id") Long artworkId,
             @RequestBody CommentRequestDto commentRequestDto){
         Comment comment = commentMapper.commentRequestDtoToComment(commentRequestDto);
-        /*long memberId = commentRequestDto.getMemberId(); //requestbody 멤버 번호*/
-        /*Gallery gallery = galleryService.findGallery(galleryId);//검증 및 매핑 과정.
-        gallery.addCommentList(comment);
-        ArtworkCommentResponseDto response =
-                commentMapper.commentToArtworkCommentResponseDto(comment);*/
         Long memberId = 3L;
-        comment = commentService.createArtworkComment(comment, galleryId, artworkId,memberId);;
+        commentService.createArtworkComment(comment, galleryId, artworkId, memberId);
         String response = "댓글등록성공";
         return new ResponseEntity<>(response, (HttpStatus.CREATED)); //생성 댓글 response
 
