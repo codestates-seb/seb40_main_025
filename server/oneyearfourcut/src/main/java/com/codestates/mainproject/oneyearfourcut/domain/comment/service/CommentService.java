@@ -116,16 +116,6 @@ public class CommentService {
         return cRepo.save(comment);
     }
 
-    //Delete method
-    public void deleteComment(Long commentId, Long memberId) {
-        Comment comment = findComment(commentId);
-        //member 검증. JWT 수정 필요.
-        Long foundMember = mService.findMember(comment.getMember().getMemberId()).getMemberId();
-        if (Objects.equals(memberId, foundMember)) {//member검증. JWT 수정 필요.
-            cRepo.delete(comment);
-        }
-    }
-
 
     //Pagination method
     public Page<Comment> pageComments(int page, int size){
