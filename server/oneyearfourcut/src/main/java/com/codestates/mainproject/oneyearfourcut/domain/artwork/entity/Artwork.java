@@ -43,7 +43,7 @@ public class Artwork extends Auditable {
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
 
-    @OneToMany(mappedBy = "artwork")
+    @OneToMany(mappedBy = "artwork", cascade = CascadeType.REMOVE)
     private List<Vote> voteList = new ArrayList<>();
 
     public void setGallery(Gallery gallery) {
