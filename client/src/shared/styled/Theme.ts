@@ -9,6 +9,8 @@ const colors = {
   black_005: '#CBCBCB',
   black_006: '#E5E5E5',
   black_007: '#FCFCFC',
+  black_008: '#F4F4F4',
+  black_009: '#AFAFAF',
 
   beige_001: '#FFF6CA',
   beige_002: '#FDFAEB',
@@ -38,7 +40,12 @@ const colors = {
 
 const mixins = {
   // flex
-  flexBox: (direction = 'row', align = 'center', justify = 'center', wrap = 'nowrap') => `
+  flexBox: (
+    direction = 'row',
+    align = 'center',
+    justify = 'center',
+    wrap = 'nowrap',
+  ) => `
         display: flex;
         flex-direction: ${direction};
         align-items: ${align};
@@ -46,8 +53,6 @@ const mixins = {
         flex-wrap: ${wrap};
       `,
 };
-
-
 
 export type ColorsTypes = typeof colors;
 
