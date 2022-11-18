@@ -67,7 +67,7 @@ public class ArtworkService {
 
         // 정렬 기준 : 생성일자 - 내림차순 (수정일자는 배제함 - 프론트)
         List<Artwork> artworkList = artworkRepository.findAllByGallery_GalleryId(galleryId,
-                Sort.by(desc("createdDate")));
+                Sort.by(desc("createdAt")));
         return artworkList;
     }
     

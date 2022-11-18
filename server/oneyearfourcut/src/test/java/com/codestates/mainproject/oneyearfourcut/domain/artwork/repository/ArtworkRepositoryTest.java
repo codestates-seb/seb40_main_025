@@ -120,7 +120,7 @@ public class ArtworkRepositoryTest {
         artworkRepository.save(artwork2_1);
 
         List<Artwork> actualArtworkList = artworkRepository.findAllByGallery_GalleryId(savedGallery1.getGalleryId(),
-                Sort.by(desc("createdDate")));
+                Sort.by(desc("createdAt")));
         List<Gallery> actual = actualArtworkList.stream().map(m -> m.getGallery()).collect(Collectors.toList());
 
         int exceptedArtworkListCount = gallery1.getArtworkList().size();
@@ -128,8 +128,8 @@ public class ArtworkRepositoryTest {
 
         LocalDateTime exceptedLatestCreatedDate = artworkRepository.findAll().stream().
                 filter(f -> f.getGallery().getGalleryId().equals(savedGallery1.getGalleryId()))
-                .map(m -> m.getCreatedDate()).reduce((x, y) -> x.isAfter(y) ? x : y).get();
-        LocalDateTime actualLatestCreatedDate = actualArtworkList.get(0).getCreatedDate();
+                .map(m -> m.getCreatedAt()).reduce((x, y) -> x.isAfter(y) ? x : y).get();
+        LocalDateTime actualLatestCreatedDate = actualArtworkList.get(0).getCreatedAt();
 
         // DB에 저장한 특정 갤러리 id를 가진 작품의 수와 해당 갤러리 id에 속한 작품의 수가 일치하는지?
         assertThat(actualArtworkListCount).isEqualTo(exceptedArtworkListCount);
