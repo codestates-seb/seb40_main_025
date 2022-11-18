@@ -58,27 +58,27 @@ public class ArtworkRepositoryTest {
         Artwork savedArtwork = artworkRepository.save(artwork);
 
         // when
-        Long exceptedAdminId = admin.getMemberId();
+        Long expectedAdminId = admin.getMemberId();
         Long actualAdminId = savedArtwork.getGallery().getMember().getMemberId();
 
-        String exceptedAdminName = admin.getNickname();
+        String expectedAdminName = admin.getNickname();
         String actualAdminName = savedArtwork.getGallery().getMember().getNickname();
 
-        Long exceptedWriterId = writer.getMemberId();
+        Long expectedWriterId = writer.getMemberId();
         Long actualWriterId = savedArtwork.getMember().getMemberId();
 
-        String exceptedWriterName = writer.getNickname();
+        String expectedWriterName = writer.getNickname();
         String actualWriterName = savedArtwork.getMember().getNickname();
 
-        Long exceptedGalleryId = savedGallery.getGalleryId();
+        Long expectedGalleryId = savedGallery.getGalleryId();
         Long actualGalleryId = savedArtwork.getGallery().getGalleryId();
 
         // than
-        assertEquals(exceptedAdminId, actualAdminId);
-        assertEquals(exceptedAdminName, actualAdminName);
-        assertEquals(exceptedWriterId, actualWriterId);
-        assertEquals(exceptedWriterName, actualWriterName);
-        assertEquals(exceptedGalleryId, actualGalleryId);
+        assertEquals(expectedAdminId, actualAdminId);
+        assertEquals(expectedAdminName, actualAdminName);
+        assertEquals(expectedWriterId, actualWriterId);
+        assertEquals(expectedWriterName, actualWriterName);
+        assertEquals(expectedGalleryId, actualGalleryId);
     }
 
     @Test
@@ -123,20 +123,20 @@ public class ArtworkRepositoryTest {
                 Sort.by(desc("createdAt")));
         List<Gallery> actual = actualArtworkList.stream().map(m -> m.getGallery()).collect(Collectors.toList());
 
-        int exceptedArtworkListCount = gallery1.getArtworkList().size();
+        int expectedArtworkListCount = gallery1.getArtworkList().size();
         int actualArtworkListCount = actualArtworkList.size();
 
-        LocalDateTime exceptedLatestCreatedDate = artworkRepository.findAll().stream().
+        LocalDateTime expectedLatestCreatedDate = artworkRepository.findAll().stream().
                 filter(f -> f.getGallery().getGalleryId().equals(savedGallery1.getGalleryId()))
                 .map(m -> m.getCreatedAt()).reduce((x, y) -> x.isAfter(y) ? x : y).get();
         LocalDateTime actualLatestCreatedDate = actualArtworkList.get(0).getCreatedAt();
 
         // DB에 저장한 특정 갤러리 id를 가진 작품의 수와 해당 갤러리 id에 속한 작품의 수가 일치하는지?
-        assertThat(actualArtworkListCount).isEqualTo(exceptedArtworkListCount);
+        assertThat(actualArtworkListCount).isEqualTo(expectedArtworkListCount);
         // 특정 갤러리 id를 제외한 다른 갤러리 id를 가진 작품은 없는가?
         assertThat(actual).extracting("galleryId").doesNotContain(savedGallery2.getGalleryId());
         // 생성시간 - 내림차순 정렬이 제대로 되는지?
-        assertThat(actualLatestCreatedDate).isEqualTo(exceptedLatestCreatedDate);
+        assertThat(actualLatestCreatedDate).isEqualTo(expectedLatestCreatedDate);
     }
 
     @Test
