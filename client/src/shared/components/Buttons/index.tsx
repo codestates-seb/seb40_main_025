@@ -42,21 +42,20 @@ const GreenBtn: React.FC<Props> = ({
 };
 
 const Btn = styled.button`
-  width: 185px;
-  height: 40px;
-  ${({ theme }) => theme.mixins.flexBox('column', 'center', 'center')}
-  background-color: ${({ color, theme }) => {
-    return color ? theme.colors.black_007 : theme.colors.green_002;
-  }};
-  border: 1px solid ${({ theme }) => theme.colors.green_002};
-  border-radius: 20px;
+  width: ${rem(185)};
+  height: ${rem(40)};
+  ${({ theme }) => theme.mixins.flexBox('row', 'center', 'center', 'nowrap')}
+  background-color: ${({ theme }) => theme.colors.green_002};
+  border:  ${rem(2)} solid ${({ theme }) => theme.colors.green_002};
+  border-radius:  ${rem(20)};
   color: ${({ theme }) => theme.colors.black_007};
-  font-size: ${rem('14px')};
+  font-size: ${rem(14)};
   text-align: center;
-  padding: 5px;
+  padding:  ${rem(5)};
+  line-height: 120%;
 
   &.square {
-    border-radius: 5px;
+    border-radius:  ${rem(5)};
   }
 
   &.white {
@@ -65,4 +64,19 @@ const Btn = styled.button`
   }
 `;
 
-export { GreenBtn, Btn };
+interface IconBtnInterface {
+  className: string;
+  icon?: JSX.Element;
+  children?: React.ReactNode;
+}
+
+const IconBtn = ({ className, children, icon }: IconBtnInterface) => {
+  return (
+    <Btn className={className}>
+      {children}
+      {icon}
+    </Btn>
+  );
+};
+
+export { GreenBtn, Btn, IconBtn };
