@@ -79,7 +79,7 @@ public class CommentController {
 
     @GetMapping("/{gallery-id}/comments")
     public ResponseEntity<Object> getCommentOnGallery(@PathVariable("gallery-id") Long galleryId){
-        List<Comment> commentList = commentService.findCommentOnGallery(galleryId);
+        List<Comment> commentList = commentService.findComment(galleryId, CommentService.CommentType.GALLERY);
         List<GalleryCommentResponse> response = commentMapper.commentToGalleryCommentResponseList(commentList);
         return new ResponseEntity<>(response, (HttpStatus.OK));
     }
@@ -89,10 +89,21 @@ public class CommentController {
                                                       @PathVariable("artwork-id") Long artworkId){
         Optional<Gallery> givenGallery = galleryRepository.findById(galleryId);
         givenGallery.orElseThrow(() -> new BusinessLogicException(ExceptionCode.GALLERY_NOT_FOUND));
-        List<Comment> commentList = commentService.findCommentOnArtwork(artworkId);
+        List<Comment> commentList = commentService.findComment(artworkId, CommentService.CommentType.ARTWORK);
         List<ArtworkCommentResponse> response = commentMapper.commentToArtworkCommentResponseList(commentList);
         return new ResponseEntity<>(response, (HttpStatus.OK));
     }
+
+/*    @DeleteMapping("/{gallery-id}/artworks/comments/{comment-id}")
+    public ResponseEntity<Object> deleteComment(@PathVariable("gallery-id") Long galleryId,
+                                                @PathVariable("comment-id") Long commentId){
+        Optional<Gallery> givenGallery = galleryRepository.findById(galleryId);
+        givenGallery.orElseThrow(() -> new BusinessLogicException(ExceptionCode.GALLERY_NOT_FOUND));
+
+
+        return new ResponseEntity<>(response,(HttpStatus.NO_CONTENT);
+    }*/
+
 
 }
 

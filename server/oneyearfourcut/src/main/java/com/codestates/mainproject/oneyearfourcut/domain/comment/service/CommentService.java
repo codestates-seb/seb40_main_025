@@ -73,25 +73,28 @@ public class CommentService {
         return commentRepository.save(comment); //save
     }
 
-    @Transactional
-    public List<Comment> findCommentOnGallery(Long galleryId){
-        List<Comment> commentList1 =
-                commentRepository.findAllByGallery_GalleryId(galleryId, Sort.by(desc("createdAt")));
-        if(commentList1.isEmpty()){
-            throw new BusinessLogicException(ExceptionCode.GALLERY_NOT_FOUND);
+    public enum CommentType{
+        ARTWORK,
+        GALLERY
+    }
+    public List<Comment> findComment(Long placeId, CommentType commentType) {
+        if (commentType == CommentType.GALLERY) {
+            List<Comment> commentList = commentRepository.findAllByGallery_GalleryId(placeId, Sort.by(desc("createdAt")));
+            if (commentList.isEmpty()) {
+                throw new BusinessLogicException(ExceptionCode.GALLERY_NOT_FOUND);
+            }
+            return commentList;
         }
-        return commentList1;
+        else {
+            List<Comment> commentList = commentRepository.findAllByArtworkId(placeId, Sort.by(desc("createdAt")));
+            if (commentList.isEmpty()) {
+                throw new BusinessLogicException(ExceptionCode.ARTWORK_NOT_FOUND);
+            }
+            return commentList;
+        }
+
     }
 
-    @Transactional
-    public List<Comment> findCommentOnArtwork(Long artworkId){
-        List<Comment> commentList2 =
-                commentRepository.findAllByArtworkId(artworkId,Sort.by(desc("createdAt")));
-        if(commentList2.isEmpty()){
-            throw new BusinessLogicException(ExceptionCode.GALLERY_NOT_FOUND);
-        }
-        return commentList2;
-    }
 
 
  /*   //Update method
