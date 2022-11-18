@@ -63,14 +63,14 @@ public class ArtworkService {
 
     @Transactional(readOnly = true)
     public Artwork findArtwork(long galleryId, long artworkId) {
-        // 존재하는 galleryId 인지 검증
-        galleryService.findGallery(galleryId);
-        // 유효한 artworkId 인지 검증
-        verifyArtworkId(artworkId);
+        galleryService.findGallery(galleryId).getGalleryId();
 
-        return findVerifiedArtwork(galleryId, artworkId);
+        Artwork findArtwork = findVerifiedArtwork(artworkId);
+
+        verifyExistsArtworkInGallery(galleryId, findArtwork);
+
+        return findArtwork;
     }
-
 
     // ================= 검증 관련 메서드 =================
     @Transactional(readOnly = true)
@@ -83,21 +83,16 @@ public class ArtworkService {
     }
 
     @Transactional(readOnly = true)
-    public Artwork findVerifiedArtwork(long galleryId, long artworkId) {
-        Optional<Artwork> artworkOptional =
-                artworkRepository.findByGallery_GalleryIdAndArtworkId(galleryId,artworkId);
-
-        Artwork verifiedArtwork = artworkOptional.orElseThrow(
-                () -> new BusinessLogicException(ExceptionCode.ARTWORK_NOT_FOUND_FROM_GALLERY));
-        return verifiedArtwork;
-    }
-
-    @Transactional(readOnly = true)
     public void verifyArtworkId(long artworkId) {
         Optional<Artwork> artworkOptional
                 = artworkRepository.findById(artworkId);
         artworkOptional.orElseThrow(
                 () -> new BusinessLogicException(ExceptionCode.ARTWORK_NOT_FOUND));
 
+    }
+    private void verifyExistsArtworkInGallery(long galleryId, Artwork artwork) {
+        if (galleryId != artwork.getGallery().getGalleryId()) {
+            throw new BusinessLogicException(ExceptionCode.ARTWORK_NOT_FOUND_FROM_GALLERY);
+        }
     }
 }
