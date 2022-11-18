@@ -9,8 +9,6 @@ import java.util.Optional;
 
 public interface CommentRepository extends JpaRepository<Comment, Long> {
 
- /*   Optional<Comment> findByEmail(String email);*/
-
     //Pagination
     Page<Comment> findAllByOrderByCreatedDateAsc(Pageable pageable);
 }

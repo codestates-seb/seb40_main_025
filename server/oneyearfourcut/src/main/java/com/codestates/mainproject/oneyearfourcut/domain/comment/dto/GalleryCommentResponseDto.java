@@ -17,7 +17,6 @@ public class GalleryCommentResponseDto extends Auditable {
     private String content;
     private Long artworkId; //it can be NULL
     private List<ReplyResponseDto> replyList;
-
     @Builder
     public GalleryCommentResponseDto(Long galleryId, Long commentId, Long memberId, String nickname, String content, Long artworkId, List<ReplyResponseDto> replyList) {
         this.galleryId = galleryId;
