@@ -69,6 +69,8 @@ public class ArtworkController {
     public ResponseEntity<?> deleteArtwork(@PathVariable("gallery-id") long galleryId,
                                         @PathVariable("artwork-id") long artworkId) {
 
+        artworkService.deleteArtwork(galleryId, artworkId);
+
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

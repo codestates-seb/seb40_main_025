@@ -89,6 +89,13 @@ public class ArtworkService {
         return artworkRepository.save(findArtwork);
     }
 
+    public void deleteArtwork(long galleryId, long artworkId) {
+        Artwork findArtwork = findVerifiedArtwork(artworkId);
+        verifyExistsArtworkInGallery(galleryId, findArtwork);
+
+        artworkRepository.delete(findArtwork);
+    }
+
     // ================= 검증 관련 메서드 =================
     @Transactional(readOnly = true)
     public Artwork findVerifiedArtwork(long artworkId) {
