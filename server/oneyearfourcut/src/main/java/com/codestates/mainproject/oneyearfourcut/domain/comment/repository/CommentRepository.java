@@ -2,6 +2,7 @@ package com.codestates.mainproject.oneyearfourcut.domain.comment.repository;
 
 import com.codestates.mainproject.oneyearfourcut.domain.comment.entity.Comment;
 import com.codestates.mainproject.oneyearfourcut.domain.comment.entity.CommentStatus;
+import com.codestates.mainproject.oneyearfourcut.domain.comment.entity.Reply;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
