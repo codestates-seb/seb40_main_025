@@ -11,7 +11,6 @@ import com.codestates.mainproject.oneyearfourcut.global.exception.exception.Exce
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -74,6 +73,18 @@ public class ArtworkService {
         return findArtwork;
     }
 
+    public List<Artwork> findOneYearFourCut(long galleryId) {
+        // 좋아요 로직에 따라 변경될 수 있음.
+        List<Artwork> oneYearFourCut = artworkRepository.findTop4ByGallery_GalleryId(galleryId,
+                // 정렬 기준은 좋아요 순, 만약 좋아요 수가 같을 경우 생성일 순
+                Sort.by(desc("voteCount"), desc("createdAt")));
+        if (oneYearFourCut.size() == 0) {
+            throw new BusinessLogicException(ExceptionCode.ARTWORK_NOT_FOUND);
+        }
+
+        return oneYearFourCut;
+    }
+
     public Artwork updateArtwork(long galleryId, long artworkId, Artwork artwork) {
         Artwork findArtwork = findVerifiedArtwork(artworkId);
 
@@ -90,6 +101,7 @@ public class ArtworkService {
     }
 
     public void deleteArtwork(long galleryId, long artworkId) {
+        // 삭제 정책에 따를 예정
         Artwork findArtwork = findVerifiedArtwork(artworkId);
         verifyExistsArtworkInGallery(galleryId, findArtwork);
 
