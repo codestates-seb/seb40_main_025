@@ -15,9 +15,12 @@ import com.codestates.mainproject.oneyearfourcut.domain.artwork.service.ArtworkS
 import com.codestates.mainproject.oneyearfourcut.global.exception.exception.BusinessLogicException;
 import com.codestates.mainproject.oneyearfourcut.global.exception.exception.ExceptionCode;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -51,27 +54,57 @@ public class CommentService {
         }
         commentRepository.save(comment);
     }
-
+    // findCommentByPage Page<Comment> commentPage 에 저장
+    // List<Comment> comment ListcommentPage.makeCommentList (getContent, getMemberId 등..
     //댓글 리스트 받아오는 메소드 --> 1)gallery 댓글은 else로 넘어감, 2)jpa메소드를 통해서 VALID 한 댓글 List로 조회, 3) exceptioncode
-    public List<Comment> findCommentList(Long galleryId, Long artworkId) {
+    /*public Page<Comment> findCommentPage(int page, int size) {
+        PageRequest pr = PageRequest.of(page - 1, size);
+        return commentRepository.findAllByCommentStatusAndArtworkId(pr);
+    }*/
+    public Page<Comment> findCommentByPage(Long galleryId, Long artworkId, int page, int size) {
+        PageRequest pr = PageRequest.of(page - 1, size);
+        Page<Comment> commentPage;
         if (artworkId == null) {
-            List<Comment> commentList =
-                    commentRepository.findAllByCommentStatusAndGallery_GalleryId(VALID,galleryId, Sort.by(desc("createdAt")));
-            if (commentList.isEmpty()) {
+            commentPage =
+                    commentRepository.findAllByCommentStatusAndGallery_GalleryIdOrderByCommentIdDesc(VALID,galleryId, pr);
+            if (commentPage.isEmpty()) {
                 throw new BusinessLogicException(ExceptionCode.GALLERY_NOT_FOUND);
             }
-            return commentList;
         }
         else {
             Optional<Gallery> givenGallery = galleryRepository.findById(galleryId);
             givenGallery.orElseThrow(() -> new BusinessLogicException(ExceptionCode.GALLERY_NOT_FOUND));
-            List<Comment> commentList = commentRepository.findAllByCommentStatusAndArtworkId(VALID, artworkId, Sort.by(desc("createdAt")));
+            commentPage = commentRepository.findAllByCommentStatusAndArtworkIdOrderByCommentIdDesc(VALID, artworkId, pr);
+            if (commentPage.isEmpty()) {
+                throw new BusinessLogicException(ExceptionCode.ARTWORK_NOT_FOUND);
+            }
+        }
+        return commentPage;
+    }
+
+
+/*    public List<Comment> findCommentList(Long galleryId, Long artworkId) {
+        List<Comment> commentList;
+        if (artworkId == null) {
+            commentList =
+                    commentRepository.findAllByCommentStatusAndGallery_GalleryId(VALID,galleryId, Sort.by(desc("createdAt")));
+            if (commentList.isEmpty()) {
+                throw new BusinessLogicException(ExceptionCode.GALLERY_NOT_FOUND);
+            }
+        }
+        else {
+            Optional<Gallery> givenGallery = galleryRepository.findById(galleryId);
+            givenGallery.orElseThrow(() -> new BusinessLogicException(ExceptionCode.GALLERY_NOT_FOUND));
+            commentList = commentRepository.findAllByCommentStatusAndArtworkId(VALID, artworkId, Sort.by(desc("createdAt")));
             if (commentList.isEmpty()) {
                 throw new BusinessLogicException(ExceptionCode.ARTWORK_NOT_FOUND);
             }
-            return commentList;
         }
-    }
+        return commentList;
+    }*/
+
+    //Pagination method
+
 
     //comment jpa레포 존재여부 검증 메소드
     public Comment findComment(Long commentId){
@@ -109,9 +142,6 @@ public class CommentService {
         return commentRepository.save(foundComment);
     }
 
-/*    //Pagination method
-    public Page<Comment> pageComments(int page, int size){
-        PageRequest pr = PageRequest.of(page -1, size);
-        return  cRepo.findAllByOrderByCreatedDateAsc(pr);
-    }*/
+
+
 }

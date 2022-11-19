@@ -28,6 +28,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -74,21 +76,46 @@ public class CommentController {
         return new ResponseEntity<>(response, (HttpStatus.CREATED)); //생성 댓글 response
 
     }
-
-    @GetMapping("/{gallery-id}/comments")
-    public ResponseEntity<Object> getCommentOnGallery(@PathVariable("gallery-id") Long galleryId){
+    //오리지널
+/*    @GetMapping("/{gallery-id}/comments")
+    public ResponseEntity<Object> getCommentOnGallery(@PathVariable("gallery-id") Long galleryId,){
         List<Comment> commentList = commentService.findCommentList(galleryId,null);
         List<GalleryCommentResponse> response = commentMapper.commentToGalleryCommentResponseList(commentList);
         return new ResponseEntity<>(response, (HttpStatus.OK));
+    }*/
+
+    //pagenation
+    @GetMapping("/pages/{gallery-id}/comments")
+    public ResponseEntity<Object> getCommentOnGallery(@PathVariable("gallery-id") Long galleryId,
+                                                      @RequestParam int page, @RequestParam int size){
+        Page<Comment> commentPage = commentService.findCommentByPage(galleryId, null, page, size);
+        List<Comment> commentList = commentPage.getContent();
+
+
+        PageInfo pageInfo = new PageInfo(page, size, (int) commentPage.getTotalElements(), commentPage.getTotalPages());
+
+        List<GalleryCommentResponse> response = commentMapper.commentToGalleryCommentResponseList(commentList);
+
+        return new ResponseEntity<>(new PageResponseDto<>(response, pageInfo), (HttpStatus.OK));
     }
 
-    @GetMapping("/{gallery-id}/artworks/{artwork-id}/comments")
+  /*  @GetMapping  //Gallery Comment 페이지네이션
+    public ResponseEntity<Object> getCommentPages( @RequestParam int page, @RequestParam int size) {
+        Page<Comment> commentPage = commentService.pageComments(page, size);
+        List<Comment> comments = commentPage.getContent();
+        List<GalleryCommentResponseDto> response =
+                commentMapper.commentToGalleryCommentResponseDtoList(comments);
+        PageInfo pageInfo = new PageInfo(page, size, (int) commentPage.getTotalElements(), commentPage.getTotalPages());
+        return new ResponseEntity<>(new PageResponseDto<>(response, pageInfo), HttpStatus.OK);
+    }*/
+
+/*    @GetMapping("/{gallery-id}/artworks/{artwork-id}/comments")
     public ResponseEntity<Object> getCommentOnArtwork(@PathVariable("gallery-id") Long galleryId,
                                                       @PathVariable("artwork-id") Long artworkId){
         List<Comment> commentList = commentService.findCommentList(galleryId, artworkId);
         List<ArtworkCommentResponse> response = commentMapper.commentToArtworkCommentResponseList(commentList);
         return new ResponseEntity<>(response, (HttpStatus.OK));
-    }
+    }*/
 
     @PatchMapping("/{gallery-id}/artworks/comments/{comment-id}")
     public ResponseEntity<Object> patchComment(@PathVariable("gallery-id") Long galleryId,
@@ -108,6 +135,8 @@ public class CommentController {
         String response = "댓글삭제완료!!!";
         return new ResponseEntity<>(response,(HttpStatus.NO_CONTENT));
     }
+
+
 
 }
 
@@ -153,13 +182,5 @@ Page<Comment> commentPage = commentService.pageComments(page, size);
 
 
 
-/*    @GetMapping  //Gallery Comment 페이지네이션
-    public ResponseEntity<Object> getCommentPages( @RequestParam int page, @RequestParam int size) {
-        Page<Comment> commentPage = commentService.pageComments(page, size);
-        List<Comment> comments = commentPage.getContent();
-        List<GalleryCommentResponseDto> response =
-                commentMapper.commentToGalleryCommentResponseDtoList(comments);
-        PageInfo pageInfo = new PageInfo(page, size, (int) commentPage.getTotalElements(), commentPage.getTotalPages());
-        return new ResponseEntity<>(new PageResponseDto<>(response, pageInfo), HttpStatus.OK);
-    }*/
+
 
