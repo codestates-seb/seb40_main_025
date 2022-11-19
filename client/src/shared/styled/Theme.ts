@@ -40,8 +40,6 @@ const colors = {
   green_005: '#B1EEB2',
 };
 
-
-
 const mixins = {
   // flex
   flexBox: (
@@ -58,13 +56,13 @@ const mixins = {
       `,
 };
 
-const flex ={
-    center: "display: flex; align-items: center; justify-content: center;"
-}
+const flex = {
+  center: 'display: flex; align-items: center; justify-content: center;',
+};
 export type ColorsTypes = typeof colors;
 
 export const theme: DefaultTheme = {
-    colors,
-    mixins,
-    flex,
+  colors,
+  mixins,
+  flex,
 };
