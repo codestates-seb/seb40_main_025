@@ -54,13 +54,8 @@ public class CommentService {
         }
         commentRepository.save(comment);
     }
-    // findCommentByPage Page<Comment> commentPage 에 저장
-    // List<Comment> comment ListcommentPage.makeCommentList (getContent, getMemberId 등..
-    //댓글 리스트 받아오는 메소드 --> 1)gallery 댓글은 else로 넘어감, 2)jpa메소드를 통해서 VALID 한 댓글 List로 조회, 3) exceptioncode
-    /*public Page<Comment> findCommentPage(int page, int size) {
-        PageRequest pr = PageRequest.of(page - 1, size);
-        return commentRepository.findAllByCommentStatusAndArtworkId(pr);
-    }*/
+
+    //Pagination method
     public Page<Comment> findCommentByPage(Long galleryId, Long artworkId, int page, int size) {
         PageRequest pr = PageRequest.of(page - 1, size);
         Page<Comment> commentPage;
@@ -82,8 +77,8 @@ public class CommentService {
         return commentPage;
     }
 
-
-/*    public List<Comment> findCommentList(Long galleryId, Long artworkId) {
+    //findByListMethod
+    public List<Comment> findCommentList(Long galleryId, Long artworkId) {
         List<Comment> commentList;
         if (artworkId == null) {
             commentList =
@@ -101,9 +96,8 @@ public class CommentService {
             }
         }
         return commentList;
-    }*/
+    }
 
-    //Pagination method
 
 
     //comment jpa레포 존재여부 검증 메소드
@@ -141,7 +135,6 @@ public class CommentService {
                 .ifPresent(foundComment::setContent);
         return commentRepository.save(foundComment);
     }
-
 
 
 }
