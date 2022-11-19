@@ -1,6 +1,6 @@
+import { rem } from 'polished';
 import styled from 'styled-components';
 import GalleryInfo from './components/GalleryInfo';
-import FilterBox from './components/FilterBox';
 import DynamicGallery from './components/DynamicGallery';
 
 const Container = styled.div`
@@ -12,7 +12,6 @@ const GalleryAllPic = () => {
   return (
     <Container>
       <GalleryInfo />
-      <FilterBox />
       <DynamicGallery />
     </Container>
   );
