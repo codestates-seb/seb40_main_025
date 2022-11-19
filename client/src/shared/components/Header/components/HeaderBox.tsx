@@ -15,7 +15,7 @@ const HeaderBox = styled.div`
     margin-right: ${rem(135)};
   }
   h2{
-    color: ${({theme}) => theme.colors.green_002}
+    color: ${({ theme }) => theme.colors.green_002}
   }
   .HeaderBellbtn{
     margin-left: ${rem(84)};
