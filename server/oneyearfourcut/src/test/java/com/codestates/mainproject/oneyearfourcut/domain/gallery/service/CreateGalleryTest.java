@@ -19,7 +19,6 @@ public class CreateGalleryTest {
     @InjectMocks
     private GalleryService galleryService;
 
-
     @Test
     void 전시_등록이_성공한다() {
         //given
