@@ -24,14 +24,14 @@ class FindGalleryTest {
     private GalleryService galleryService;
 
     //테스트용 데이터
-    Long closedGalleryId1 = 1L;
-    Long openGalleryId = 2L;
+    Long closedGalleryId = 1L;
     Gallery closedGallery = Gallery.builder()
             .title("test gallery1")
-            .galleryId(closedGalleryId1)
+            .galleryId(closedGalleryId)
             .content("test content1")
             .status(GalleryStatus.CLOSED)
             .build();
+    Long openGalleryId = 2L;
     Gallery openGallery = Gallery.builder()
             .title("test gallery2")
             .galleryId(openGalleryId)
@@ -43,12 +43,12 @@ class FindGalleryTest {
     void 폐쇄된_갤러리_조회시_예외가_발생한다() {
         //given
 
-        given(galleryRepository.findById(closedGalleryId1))
+        given(galleryRepository.findById(closedGalleryId))
                 .willReturn(Optional.ofNullable(closedGallery));
 
         //when
         //then
-        assertThatThrownBy(() -> galleryService.findGallery(closedGalleryId1))
+        assertThatThrownBy(() -> galleryService.findGallery(closedGalleryId))
                 .isInstanceOf(BusinessLogicException.class)
                 .hasMessage(ExceptionCode.CLOSED_GALLERY.getMessage());
     }
@@ -77,6 +77,4 @@ class FindGalleryTest {
                 .isInstanceOf(BusinessLogicException.class)
                 .hasMessage(ExceptionCode.GALLERY_NOT_FOUND.getMessage());
     }
-
-
 }

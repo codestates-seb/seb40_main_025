@@ -2,17 +2,21 @@ package com.codestates.mainproject.oneyearfourcut.domain.gallery.service;
 
 import com.codestates.mainproject.oneyearfourcut.domain.gallery.entity.Gallery;
 import com.codestates.mainproject.oneyearfourcut.domain.gallery.entity.GalleryStatus;
+import com.codestates.mainproject.oneyearfourcut.domain.gallery.repository.GalleryRepository;
 import com.codestates.mainproject.oneyearfourcut.domain.member.entity.Member;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
 public class ModifyGalleryTest {
-
+    @Mock
+    private GalleryRepository galleryRepository;
     @InjectMocks
     private GalleryService galleryService;
 
@@ -36,6 +40,9 @@ public class ModifyGalleryTest {
                 .content(modifiedContent)
                 .build();
 
+        given(galleryRepository.save(findGallery))
+                .willReturn(findGallery);
+
         //when
         Gallery allModifiedGallery = galleryService.modifyGallery(allRequestGallery, findGallery);
 
@@ -50,6 +57,9 @@ public class ModifyGalleryTest {
         Gallery titleRequestGallery = Gallery.builder()
                 .title(modifiedTitle)
                 .build();
+
+        given(galleryRepository.save(findGallery))
+                .willReturn(findGallery);
 
         //when
         Gallery titleModifiedGallery = galleryService.modifyGallery(titleRequestGallery, findGallery);
@@ -66,6 +76,10 @@ public class ModifyGalleryTest {
                 .content(modifiedContent)
                 .build();
 
+        given(galleryRepository.save(findGallery))
+                .willReturn(findGallery);
+
+        //when
         Gallery contentModifiedGallery = galleryService.modifyGallery(contentRequestGallery, findGallery);
 
         //then
@@ -78,6 +92,9 @@ public class ModifyGalleryTest {
         //given
         Gallery nullRequestGallery = Gallery.builder()
                 .build();
+
+        given(galleryRepository.save(findGallery))
+                .willReturn(findGallery);
 
         //when
         Gallery nullModifiedGallery = galleryService.modifyGallery(nullRequestGallery, findGallery);

@@ -23,9 +23,6 @@ public class GalleryService {
     private final MemberService memberService;
 
     public Gallery createGallery(Gallery requestGallery, Long memberId) {
-        // 오픈된 전시관이 이미 존재하는지 확인하고 있으면 에러
-        verifiedOpenGalleryExist(memberId);
-
         //초기상태가 open이므로 넣어줘야함
         requestGallery.setStatus(OPEN);
 
