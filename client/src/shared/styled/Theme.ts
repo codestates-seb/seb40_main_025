@@ -1,4 +1,5 @@
 import { DefaultTheme } from 'styled-components';
+import { rem } from 'polished';
 
 const colors = {
   black_001: '#121111',
@@ -39,12 +40,31 @@ const colors = {
   green_005: '#B1EEB2',
 };
 
-const flex = {
-  center: 'display: flex; align-items: center; justify-content: center;',
+
+
+const mixins = {
+  // flex
+  flexBox: (
+    direction = 'row',
+    align = 'center',
+    justify = 'center',
+    wrap = 'nowrap',
+  ) => `
+        display: flex;
+        flex-direction: ${direction};
+        align-items: ${align};
+        justify-content: ${justify};
+        flex-wrap: ${wrap};
+      `,
 };
+
+const flex ={
+    center: "display: flex; align-items: center; justify-content: center;"
+}
 export type ColorsTypes = typeof colors;
 
 export const theme: DefaultTheme = {
-  colors,
-  flex,
+    colors,
+    mixins,
+    flex,
 };
