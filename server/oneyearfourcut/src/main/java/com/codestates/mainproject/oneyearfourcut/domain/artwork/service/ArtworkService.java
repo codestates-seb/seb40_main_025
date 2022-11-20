@@ -69,15 +69,12 @@ public class ArtworkService {
 
     @Transactional(readOnly = true)
     public Artwork findArtwork(long galleryId, long artworkId) {
-        Artwork findArtwork = findVerifiedArtwork(artworkId);
-        verifyExistsArtworkInGallery(galleryId, findArtwork);
-        return findArtwork;
+        Artwork verifiedArtwork = findVerifiedArtwork(galleryId, artworkId);
+        return verifiedArtwork;
     }
 
     public List<Artwork> findOneYearFourCut(long galleryId) {
-        // 좋아요 로직에 따라 변경될 수 있음.
         List<Artwork> oneYearFourCut = artworkRepository.findTop4ByGallery_GalleryId(galleryId,
-                // 정렬 기준은 좋아요 순, 만약 좋아요 수가 같을 경우 생성일 순
                 Sort.by(desc("voteCount"), desc("createdAt")));
         if (oneYearFourCut.size() == 0) {
             throw new BusinessLogicException(ExceptionCode.ARTWORK_NOT_FOUND);
@@ -87,46 +84,48 @@ public class ArtworkService {
     }
 
     public Artwork updateArtwork(long galleryId, long artworkId, Artwork artwork) {
-        Artwork findArtwork = findVerifiedArtwork(artworkId);
+        Artwork verifiedArtwork = findVerifiedArtwork(galleryId, artworkId);
 
-        verifyExistsArtworkInGallery(galleryId, findArtwork);
         // ################# S3 설정 시 이미지 관련 변경 예정 ########################
         Optional.ofNullable(artwork.getImg())
-                .ifPresent(img -> findArtwork.setImagePath("/" + img.getOriginalFilename()));
+                .ifPresent(img -> verifiedArtwork.setImagePath("/" + img.getOriginalFilename()));
         Optional.ofNullable(artwork.getTitle())
-                .ifPresent(title -> findArtwork.setTitle(title));
+                .ifPresent(title -> verifiedArtwork.setTitle(title));
         Optional.ofNullable(artwork.getContent())
-                .ifPresent(content -> findArtwork.setContent(content));
+                .ifPresent(content -> verifiedArtwork.setContent(content));
 
-        return artworkRepository.save(findArtwork);
+        return artworkRepository.save(verifiedArtwork);
     }
 
     public void deleteArtwork(long galleryId, long artworkId) {
         // 삭제 정책에 따를 예정
-        Artwork findArtwork = findVerifiedArtwork(artworkId);
-        verifyExistsArtworkInGallery(galleryId, findArtwork);
+        Artwork findArtwork = findVerifiedArtwork(galleryId, artworkId);
 
         artworkRepository.delete(findArtwork);
     }
 
     // ================= 검증 관련 메서드 =================
     @Transactional(readOnly = true)
-    public Artwork findVerifiedArtwork(long artworkId) {
+    /*
+    검증되었다라는 조건이 특정 ArtworkId의 작품이 존재하는지도 있지만, 결국 해당 갤러리 안의 특정 작품이 존재하는지까지
+    포함되어있다고 생각하여 검증 메서드를 합쳤습니다.
+     */
+    public Artwork findVerifiedArtwork(long galleryId, long artworkId) {
         Optional<Artwork> artworkOptional = artworkRepository.findById(artworkId);
 
-        Artwork verifiedArtwork = artworkOptional.orElseThrow(
+        Artwork findArtwork = artworkOptional.orElseThrow(
                 () -> new BusinessLogicException(ExceptionCode.ARTWORK_NOT_FOUND));
-        return verifiedArtwork;
-    }
 
-    private void verifyExistsArtworkInGallery(long galleryId, Artwork artwork) {
-        if (galleryId != artwork.getGallery().getGalleryId()) {
+        if (galleryId != findArtwork.getGallery().getGalleryId()) {
             throw new BusinessLogicException(ExceptionCode.ARTWORK_NOT_FOUND_FROM_GALLERY);
         }
-        if (artwork.getGallery().getStatus() == GalleryStatus.CLOSED) {
+        if (findArtwork.getGallery().getStatus() == GalleryStatus.CLOSED) {
             throw new BusinessLogicException(ExceptionCode.CLOSED_GALLERY);
         }
+
+        return findArtwork;
     }
+
 }
 
 
