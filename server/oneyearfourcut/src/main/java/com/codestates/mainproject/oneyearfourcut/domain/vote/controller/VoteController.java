@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class VoteController {
+
     //좋아요 누르기
     @PostMapping("/galleries/{gallery-id}/artworks/{artwork-id}/vote")
     public ResponseEntity postVote(@PathVariable("gallery-id") Long galleryId,
