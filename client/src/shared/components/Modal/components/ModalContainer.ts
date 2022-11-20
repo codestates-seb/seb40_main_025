@@ -10,6 +10,8 @@ const ModalBackdropBox = styled.div`
   top: 0;
   left: 0;
   z-index: 99;
+  overflow: hidden;
+
   ${({ theme }) => theme.flex.center}
 `;
 //모달창안에 있는 버튼이 들어있는 박스
@@ -63,6 +65,18 @@ const HambergurBox = styled.div`
   align-items: center;
   background-color: ${({ theme }) => theme.colors.black_007};
   margin-left: ${rem(260)};
+  animation-name: slide;
+  animation-duration:0.5s;
+  @keyframes slide {
+    from {
+      transform: translateX(100%);
+    }
+  
+    to {
+      transform: translateX(0%);
+    }
+  };
+
   h3 {
     margin-top: ${rem(28)};
     .ModifyNickname {
@@ -86,6 +100,7 @@ const HambergurBox = styled.div`
   .Out {
     color: grey;
   }
+  
 `;
 
 const ProfileBox = styled.div`
