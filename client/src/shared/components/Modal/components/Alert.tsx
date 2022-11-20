@@ -10,20 +10,14 @@ interface Data {
 }
 
 const Alert = ({ data }: { data: Data }) => {
-  const { target, setModal } = ModalStore();
-
-  const handleCloseModal = () => {
-    const obj = { ...target };
-    obj.AlertModal = false;
-    setModal(obj);
-  };
+  const { closeModal } = ModalStore();
 
   return (
     <ModalViewBox color={data.color}>
       <S.ApplySVG></S.ApplySVG>
       <h3>{data.title}</h3>
       <ModalbtnBox>
-        <button onClick={handleCloseModal}>취소</button>
+        <button onClick={()=>closeModal("AlertModal")}>취소</button>
         <button className='Progressbtn' onClick={data.onClick}>
           {data.content}{' '}
         </button>

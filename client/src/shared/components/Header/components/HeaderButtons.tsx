@@ -42,13 +42,7 @@ const HeaderBellbtn = () => {
 };
 
 const HeaderHamburgerbtn = () => {
-  const { target, setModal } = ModalStore();
-
-  const handleOpenModal=() =>{
-    const obj = {...target};
-    obj.ProfileModal=true;
-    setModal(obj);
-  }
+  const { target, openModal } = ModalStore();
 
   return (
     <>
@@ -59,7 +53,7 @@ const HeaderHamburgerbtn = () => {
         fill='none'
         xmlns='http://www.w3.org/2000/svg'
         className='HeaderHamburgerbtn'
-        onClick={handleOpenModal}
+        onClick={()=>openModal("ProfileModal")}
       >
         <path
           fillRule='evenodd'

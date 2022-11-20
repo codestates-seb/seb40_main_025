@@ -5,20 +5,24 @@ interface ModalState {
   ProfileModal: boolean;
 }
 
-const initTarget : ModalState ={
+const initTarget: ModalState = {
   AlertModal: false,
   ProfileModal: false,
-}
+};
 
 interface Modal {
   target: ModalState;
-  setModal: (obj: ModalState) => void;
-  resetTarget: ()=>void;
+  openModal: (key: string) => void;
+  closeModal: (key: string) => void;
+  resetTarget: () => void;
 }
 
-const ModalStore = create<Modal>((set) => ({
-  target: {...initTarget},
-  setModal: (obj) => set({ target: obj }),
+const ModalStore = create<Modal>((set, get) => ({
+  target: { ...initTarget },
+  openModal: (key) =>
+    set({ target: { ...Object.assign({ ...get().target }, { [key]: true }) } }),
+  closeModal: (key) =>
+    set({ target: { ...Object.assign({ ...get().target }, { [key]: false }) } }),
   resetTarget: () =>
     set(() => {
       return { target: { ...initTarget } };
