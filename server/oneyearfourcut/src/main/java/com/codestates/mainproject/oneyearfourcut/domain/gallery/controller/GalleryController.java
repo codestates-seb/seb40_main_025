@@ -22,8 +22,6 @@ public class GalleryController {
     public ResponseEntity postGallery(@RequestBody GalleryRequestDto galleryRequestDto) {
         Long memberId = 1L; // jwt 토큰으로 회원id를 조회
 
-        // 오픈된 전시관이 이미 존재하는지 확인하고 있으면 에러
-        galleryService.verifiedOpenGalleryExist(memberId);
         Gallery requestGallery = galleryMapper.galleryRequestDtoToGallery(galleryRequestDto);
         Gallery savedGallery = galleryService.createGallery(requestGallery, memberId);
         GalleryResponseDto galleryResponseDto = galleryMapper.galleryToGalleryResponseDto(savedGallery);
