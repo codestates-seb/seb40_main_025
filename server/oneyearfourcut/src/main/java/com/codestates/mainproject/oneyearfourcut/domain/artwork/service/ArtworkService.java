@@ -11,6 +11,7 @@ import com.codestates.mainproject.oneyearfourcut.global.exception.exception.Exce
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
