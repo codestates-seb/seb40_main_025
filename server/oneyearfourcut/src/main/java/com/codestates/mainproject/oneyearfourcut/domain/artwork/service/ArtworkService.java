@@ -1,21 +1,30 @@
 package com.codestates.mainproject.oneyearfourcut.domain.artwork.service;
 
+import com.codestates.mainproject.oneyearfourcut.domain.artwork.dto.ArtworkListResponseDto;
+import com.codestates.mainproject.oneyearfourcut.domain.artwork.dto.ArtworkResponseDto;
+import com.codestates.mainproject.oneyearfourcut.domain.artwork.dto.OneYearFourCutResponseDto;
 import com.codestates.mainproject.oneyearfourcut.domain.artwork.entity.Artwork;
 import com.codestates.mainproject.oneyearfourcut.domain.artwork.repository.ArtworkRepository;
 import com.codestates.mainproject.oneyearfourcut.domain.gallery.entity.GalleryStatus;
 import com.codestates.mainproject.oneyearfourcut.domain.gallery.service.GalleryService;
 import com.codestates.mainproject.oneyearfourcut.domain.member.entity.Member;
 import com.codestates.mainproject.oneyearfourcut.domain.member.repository.MemberRepository;
+import com.codestates.mainproject.oneyearfourcut.domain.member.service.MemberService;
+import com.codestates.mainproject.oneyearfourcut.domain.vote.entity.Vote;
+import com.codestates.mainproject.oneyearfourcut.domain.vote.repository.VoteRepository;
 import com.codestates.mainproject.oneyearfourcut.global.exception.exception.BusinessLogicException;
 import com.codestates.mainproject.oneyearfourcut.global.exception.exception.ExceptionCode;
 import lombok.RequiredArgsConstructor;
+import org.apache.tomcat.util.digester.ArrayStack;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static org.springframework.data.domain.Sort.Order.desc;
 
@@ -27,6 +36,10 @@ public class ArtworkService {
     private final ArtworkRepository artworkRepository;
     private final GalleryService galleryService;
     private final MemberRepository memberRepository; // MemberRepository -> MemberService 로 변경 예정
+    private final VoteRepository voteRepository;
+
+    private final Long ARTWORK_PERSON_ID = 2L;
+    private final Long LOGIN_PERSON_ID = 5L;
 
     public void createArtwork(long galleryId, Artwork artwork) {
         artwork.setGallery(galleryService.findGallery(galleryId));
@@ -43,7 +56,7 @@ public class ArtworkService {
         */
 
         // AccessToken 구현시 아래 로직 수정 예정
-        Optional<Member> memberOptional = memberRepository.findById(2L);
+        Optional<Member> memberOptional = memberRepository.findById(ARTWORK_PERSON_ID);
         Member verifiedMember = memberOptional.orElseThrow(
                 () -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
         artwork.setMember(verifiedMember);
@@ -56,34 +69,53 @@ public class ArtworkService {
     }
 
     @Transactional(readOnly = true)
-    public List<Artwork> findArtworkList(long galleryId) {
+    public List<ArtworkResponseDto> findArtworkList(long galleryId) {
+
         List<Artwork> artworkList = artworkRepository.findAllByGallery_GalleryId(galleryId,
                 Sort.by(desc("createdAt")));
 
-        if (artworkList.size() == 0) {
+        if (artworkList.isEmpty()) {
             throw new BusinessLogicException(ExceptionCode.ARTWORK_NOT_FOUND);
         }
 
-        return artworkList;
+        List<ArtworkResponseDto> responseDtoList = new ArrayList<>();
+        /*
+        이렇게 로직을 짜니까 반복 횟수만큼 좋아요 조회 쿼리가 들어갑니다. -> 비효율 -> 미리 Vote List를 가져와 비교함.
+        artworkList.forEach(artwork -> responseDtoList.add(ArtworkResponseDto.of(
+                artwork, voteRepository.existsByMember_MemberIdAndArtwork_ArtworkId(memberId, artwork.getArtworkId()))));
+        */
+        List<Vote> voteList = voteRepository.findAllByMember_MemberId(LOGIN_PERSON_ID);
+        List<Artwork> votedArtworkList = voteList.stream().map(vote -> vote.getArtwork()).collect(Collectors.toList());
+
+        artworkList.forEach(artwork -> responseDtoList.add(ArtworkResponseDto.of(
+                artwork, votedArtworkList.contains(artwork)
+        )));
+
+
+        return responseDtoList;
     }
 
     @Transactional(readOnly = true)
-    public Artwork findArtwork(long galleryId, long artworkId) {
+    public ArtworkResponseDto findArtwork(long galleryId, long artworkId) {
+
+        boolean isVoted = voteRepository.existsByMember_MemberIdAndArtwork_ArtworkId(LOGIN_PERSON_ID, artworkId);
         Artwork verifiedArtwork = findVerifiedArtwork(galleryId, artworkId);
-        return verifiedArtwork;
+
+        return ArtworkResponseDto.of(verifiedArtwork, isVoted);
     }
 
-    public List<Artwork> findOneYearFourCut(long galleryId) {
-        List<Artwork> oneYearFourCut = artworkRepository.findTop4ByGallery_GalleryId(galleryId,
-                Sort.by(desc("voteCount"), desc("createdAt")));
-        if (oneYearFourCut.size() == 0) {
+    public List<OneYearFourCutResponseDto> findOneYearFourCut(long galleryId) {
+        List<Artwork> findArtworkList = artworkRepository.findTop4ByGallery_GalleryId(galleryId,
+                Sort.by(desc("likeCount"), desc("createdAt")));
+
+        if (findArtworkList.size() == 0) {
             throw new BusinessLogicException(ExceptionCode.ARTWORK_NOT_FOUND);
         }
 
-        return oneYearFourCut;
+        return OneYearFourCutResponseDto.of(findArtworkList);
     }
 
-    public Artwork updateArtwork(long galleryId, long artworkId, Artwork artwork) {
+    public ArtworkResponseDto updateArtwork(long galleryId, long artworkId, Artwork artwork) {
         Artwork verifiedArtwork = findVerifiedArtwork(galleryId, artworkId);
 
         // ################# S3 설정 시 이미지 관련 변경 예정 ########################
@@ -93,8 +125,10 @@ public class ArtworkService {
                 .ifPresent(title -> verifiedArtwork.setTitle(title));
         Optional.ofNullable(artwork.getContent())
                 .ifPresent(content -> verifiedArtwork.setContent(content));
+        boolean isLiked = voteRepository.existsByMember_MemberIdAndArtwork_ArtworkId(LOGIN_PERSON_ID, artworkId);
+        Artwork updatedArtwork = artworkRepository.save(verifiedArtwork);
 
-        return artworkRepository.save(verifiedArtwork);
+        return ArtworkResponseDto.of(updatedArtwork, isLiked);
     }
 
     public void deleteArtwork(long galleryId, long artworkId) {
