@@ -107,6 +107,7 @@ const ProfileBox = styled.div`
   width: ${rem(90)};
   height: ${rem(90)};
   margin-top: ${rem(41)};
+  margin-left:${rem(11)};
   position: relative;
   div {
     width: ${rem(74)};
