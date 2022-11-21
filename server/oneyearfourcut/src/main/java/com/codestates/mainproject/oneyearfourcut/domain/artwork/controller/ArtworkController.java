@@ -71,6 +71,7 @@ public class ArtworkController {
 
     }
 
+
     // 작품 삭제
     @DeleteMapping("{gallery-id}/artworks/{artwork-id}")
     public ResponseEntity<?> deleteArtwork(@PathVariable("gallery-id") long galleryId,
