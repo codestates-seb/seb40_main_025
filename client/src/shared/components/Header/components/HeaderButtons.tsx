@@ -23,7 +23,6 @@ const HeaderBackbtn = () => {
 
 const HeaderBellbtn = () => {
   const { isOpen, openAlarm } = AlarmStore();
-  console.log(isOpen);
   return (
     <>
       {isOpen ? null : (
