@@ -116,7 +116,7 @@ public class CommentController {
 
 
 
-    @PatchMapping("/{gallery-id}/artworks/comments/{comment-id}")
+    @PatchMapping("/{gallery-id}/comments/{comment-id}")
     public ResponseEntity<Object> patchComment(@PathVariable("gallery-id") Long galleryId,
                                                @PathVariable("comment-id") Long commentId,
                                                @RequestBody CommentRequestDto commentRequestDto){
@@ -127,7 +127,7 @@ public class CommentController {
         return new ResponseEntity<>(response, (HttpStatus.OK));
     }
 
-    @DeleteMapping("/{gallery-id}/artworks/comments/{comment-id}")
+    @DeleteMapping("/{gallery-id}/comments/{comment-id}")
     public ResponseEntity<Object> deleteComment(@PathVariable("gallery-id") Long galleryId,
                                                 @PathVariable("comment-id") Long commentId){
         commentService.deleteComment(commentId);

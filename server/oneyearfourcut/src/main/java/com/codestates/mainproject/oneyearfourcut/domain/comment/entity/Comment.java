@@ -45,7 +45,7 @@ public class Comment extends Auditable {
     public List<Reply> replyList = new ArrayList<>(); // 대댓글, targetEntity
 
     @Enumerated(EnumType.STRING)
-    private CommentStatus commentStatus = CommentStatus.VALID;
+    private CommentStatus commentStatus;
 
     @Builder
     public Comment(Long commentId, String content, Member member, Gallery gallery, Long artworkId, List<Reply> replyList, CommentStatus commentStatus) {

@@ -55,49 +55,23 @@ public class CommentService {
         commentRepository.save(comment);
     }
 
-    //Pagination method
+    //find & Pagination method
     public Page<Comment> findCommentByPage(Long galleryId, Long artworkId, int page, int size) {
         PageRequest pr = PageRequest.of(page - 1, size);
         Page<Comment> commentPage;
+        galleryService.findGallery(galleryId);
         if (artworkId == null) {
             commentPage =
                     commentRepository.findAllByCommentStatusAndGallery_GalleryIdOrderByCommentIdDesc(VALID,galleryId, pr);
-            if (commentPage.isEmpty()) {
-                throw new BusinessLogicException(ExceptionCode.GALLERY_NOT_FOUND);
-            }
         }
         else {
-            Optional<Gallery> givenGallery = galleryRepository.findById(galleryId);
-            givenGallery.orElseThrow(() -> new BusinessLogicException(ExceptionCode.GALLERY_NOT_FOUND));
             commentPage = commentRepository.findAllByCommentStatusAndArtworkIdOrderByCommentIdDesc(VALID, artworkId, pr);
-            if (commentPage.isEmpty()) {
-                throw new BusinessLogicException(ExceptionCode.ARTWORK_NOT_FOUND);
-            }
+        }
+        if (commentPage.isEmpty()) {
+            throw new BusinessLogicException(ExceptionCode.COMMENT_NOT_FOUND);
         }
         return commentPage;
     }
-
-    //findByListMethod
-    public List<Comment> findCommentList(Long galleryId, Long artworkId) {
-        List<Comment> commentList;
-        if (artworkId == null) {
-            commentList =
-                    commentRepository.findAllByCommentStatusAndGallery_GalleryId(VALID,galleryId, Sort.by(desc("createdAt")));
-            if (commentList.isEmpty()) {
-                throw new BusinessLogicException(ExceptionCode.GALLERY_NOT_FOUND);
-            }
-        }
-        else {
-            Optional<Gallery> givenGallery = galleryRepository.findById(galleryId);
-            givenGallery.orElseThrow(() -> new BusinessLogicException(ExceptionCode.GALLERY_NOT_FOUND));
-            commentList = commentRepository.findAllByCommentStatusAndArtworkId(VALID, artworkId, Sort.by(desc("createdAt")));
-            if (commentList.isEmpty()) {
-                throw new BusinessLogicException(ExceptionCode.ARTWORK_NOT_FOUND);
-            }
-        }
-        return commentList;
-    }
-
 
 
     //comment jpa레포 존재여부 검증 메소드
@@ -107,20 +81,6 @@ public class CommentService {
         if(foundComment.getCommentStatus() == DELETED) throw new BusinessLogicException(ExceptionCode.COMMENT_DELETED);
         return foundComment;
     }
-
-/*    //comment가 artwork인지, gallery인지 판별하는 메소드
-    public boolean checkCommentExistOn(Long commentId, Long placeId, CommentType commentType){
-        if(commentType == CommentType.ARTWORK){
-            Optional<Comment> commentOnArtwork = commentRepository.findAllByArtworkId(placeId);
-            commentOnArtwork.orElseThrow(()->new BusinessLogicException(ExceptionCode.COMMENT_NOT_FOUND));
-        } else{
-            Gallery gallery = galleryService.findGallery(placeId);
-            List<Comment> commentList = gallery.getCommentList();
-            Optional.ofNullable(commentList).ifPresent(return true);
-            Optional.ofNullable(commentId).ifPresent();
-        }
-    }*/
-
 
     //comment 삭제 메소드, 1)pathvariable를 통해서 gallery존재 확인, 2)repo존재 확인 3)status deleted 4)save
     public void deleteComment(Long commentId) {

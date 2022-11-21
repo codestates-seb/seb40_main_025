@@ -27,6 +27,6 @@ public class Reply extends Auditable {
     private Member member; // 작성자 회원 id
 
     @Enumerated(EnumType.STRING)
-    private CommentStatus replyStatus = CommentStatus.VALID; //삭제 여부
+    private CommentStatus replyStatus; //삭제 여부
 
 }
