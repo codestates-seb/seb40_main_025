@@ -5,8 +5,6 @@ import { AlarmStore } from 'store/store';
 const AlarmList = () => {
   
   const { isOpen } = AlarmStore();
-  console.log(isOpen);
-  console.log("hi");
 
   let data = [
     {
