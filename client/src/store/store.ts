@@ -22,11 +22,33 @@ const ModalStore = create<Modal>((set, get) => ({
   openModal: (key) =>
     set({ target: { ...Object.assign({ ...get().target }, { [key]: true }) } }),
   closeModal: (key) =>
-    set({ target: { ...Object.assign({ ...get().target }, { [key]: false }) } }),
+    set({
+      target: { ...Object.assign({ ...get().target }, { [key]: false }) },
+    }),
   resetTarget: () =>
     set(() => {
       return { target: { ...initTarget } };
     }),
 }));
 
-export { ModalStore };
+interface Alarm {
+  isOpen: boolean;
+  openAlarm: () => void;
+  closeAlarm: () => void;
+}
+
+const AlarmStore = create<Alarm>((set) => {
+  return {
+    isOpen: false,
+    openAlarm: () =>
+      set(() => {
+        return { isOpen: true };
+      }),
+    closeAlarm: () =>
+      set(() => {
+        return { isOpen: false };
+      }),
+  };
+});
+
+export { ModalStore, AlarmStore };

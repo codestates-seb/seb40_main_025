@@ -6,7 +6,6 @@ import { Alert } from 'shared/components/Modal/components/Alert';
 import ModalBackdrop from 'shared/components/Modal/components/ModalBackdrop';
 const UploadPicture = () => {
   const { target, openModal, closeModal } = ModalStore();
-
   const onClick = () => {
     //여기에 progressBtn을 눌렀을때 필요한 로직 작성
     closeModal("AlertModal");
