@@ -5,7 +5,7 @@ const Body = styled.div`
   width: ${rem(428)};
   height: ${rem(926)};
   height: 100vh;
-  max-height: ${rem('926px')};
+  max-height: ${rem(926)};
   max-width: ${rem(540)};
   padding-top: ${rem(50)};
   padding-bottom: 10vh;
