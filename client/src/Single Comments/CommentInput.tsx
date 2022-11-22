@@ -22,7 +22,7 @@ const InputZone = styled.div`
   border: 0;
   margin-bottom: ${rem(41)};
   padding: ${rem(12)};
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0 ${rem(5)} ${rem(15)};
   justify-content: space-between;
   background-color: ${({ theme }) => theme.colors.black_007};
   pointer-events: auto;
