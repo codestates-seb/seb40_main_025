@@ -35,7 +35,7 @@ const Comment = styled.div`
   font-weight: 400;
   font-size: ${rem(12)};
   line-height: ${rem(16)};
-  color: 1px solid ${({ theme }) => theme.colors.black_001};
+  color: ${rem(1)} solid ${({ theme }) => theme.colors.black_001};
   margin: ${rem(8)} 0;
 `;
 
