@@ -16,7 +16,7 @@ const Filter = () => {
           &gt;
         </div>
       </B.FilterBox>
-      {isOpen ? (
+      {isOpen && (
         <B.FilterListBox>
           <ul>
             <li onClick={() => handleOnClick('전체')}>전체</li>
@@ -26,7 +26,7 @@ const Filter = () => {
             <li onClick={() => handleOnClick('작품등록')}>작품등록</li>
           </ul>
         </B.FilterListBox>
-      ) : null}
+      )}
     </>
   );
 };

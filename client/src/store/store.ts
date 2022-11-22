@@ -32,21 +32,21 @@ const ModalStore = create<Modal>((set, get) => ({
 }));
 
 interface Alarm {
-  isOpen: boolean;
+  alarmIsOpen: boolean;
   openAlarm: () => void;
   closeAlarm: () => void;
 }
 
 const AlarmStore = create<Alarm>((set) => {
   return {
-    isOpen: false,
+    alarmIsOpen: false,
     openAlarm: () =>
       set(() => {
-        return { isOpen: true };
+        return { alarmIsOpen: true };
       }),
     closeAlarm: () =>
       set(() => {
-        return { isOpen: false };
+        return { alarmIsOpen: false };
       }),
   };
 });

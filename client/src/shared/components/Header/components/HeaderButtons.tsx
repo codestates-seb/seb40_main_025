@@ -22,10 +22,10 @@ const HeaderBackbtn = () => {
 };
 
 const HeaderBellbtn = () => {
-  const { isOpen, openAlarm } = AlarmStore();
+  const { alarmIsOpen, openAlarm } = AlarmStore();
   return (
     <>
-      {isOpen ? null : (
+      {!alarmIsOpen && (
         <svg
           width='18'
           height='20'
@@ -47,12 +47,12 @@ const HeaderBellbtn = () => {
 
 const HeaderHamburgerbtn = () => {
   const { openModal } = ModalStore();
-  const { isOpen } = AlarmStore();
+  const { alarmIsOpen } = AlarmStore();
   
 
   return (
     <>
-      {isOpen ? null : (
+      {!alarmIsOpen &&(
           <svg
             width='18'
             height='14'
