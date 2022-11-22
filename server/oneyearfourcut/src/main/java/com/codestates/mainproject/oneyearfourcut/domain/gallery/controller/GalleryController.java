@@ -20,11 +20,11 @@ public class GalleryController {
 
     //전시관 등록
     @PostMapping
-    public ResponseEntity postGallery(@RequestBody GalleryRequestDto galleryRequestDto,
-                                      @LoginMember Long memberId) { //@LoginMember -> 현재 로그인한 member id를 가져올 수 있음
+    public ResponseEntity postGallery(@RequestBody GalleryRequestDto galleryRequestDto) {
+        //@LoginMember -> 현재 로그인한 member id를 가져올 수 있다
 
         Gallery requestGallery = galleryMapper.galleryRequestDtoToGallery(galleryRequestDto);
-        Gallery savedGallery = galleryService.createGallery(requestGallery, memberId);
+        Gallery savedGallery = galleryService.createGallery(requestGallery, 1L);
         GalleryResponseDto galleryResponseDto = galleryMapper.galleryToGalleryResponseDto(savedGallery);
 
         return new ResponseEntity<>(galleryResponseDto, HttpStatus.CREATED);

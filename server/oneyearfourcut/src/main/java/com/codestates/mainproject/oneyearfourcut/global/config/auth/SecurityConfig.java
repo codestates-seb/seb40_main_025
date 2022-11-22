@@ -55,8 +55,12 @@ public class SecurityConfig {
                 .apply(new CustomFilterConfigurer())
                 .and()
                 .authorizeHttpRequests(authorize -> authorize
-                        .antMatchers(HttpMethod.POST, "/galleries").hasRole("USER")
-                        .anyRequest().permitAll()
+//                        .antMatchers(HttpMethod.PATCH, "/members/me").hasRole("USER")
+//                        .antMatchers(HttpMethod.DELETE, "/members/me").hasRole("USER")
+//                        .antMatchers(HttpMethod.POST, "/galleries").hasRole("USER")
+//                        .antMatchers(HttpMethod.PATCH, "/galleries/**").hasRole("USER")
+//                        .antMatchers(HttpMethod.DELETE, "/galleries/**").hasRole("USER")
+                        .anyRequest().permitAll() //일단 모두 허용
                 )
                 .oauth2Login(oauth2 -> oauth2
                         .successHandler(new OAuth2MemberSuccessHandler(jwtTokenizer, memberService)));
