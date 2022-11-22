@@ -6,7 +6,6 @@ import lombok.*;
 
 @NoArgsConstructor
 @Getter
-@Setter
 public class ArtworkResponseDto {
 
     private long artworkId;
@@ -28,25 +27,5 @@ public class ArtworkResponseDto {
         this.likeCount = likeCount;
         this.liked = liked;
         this.commentCount = commentCount;
-    }
-
-    public static ArtworkResponseDto of(Artwork artwork, boolean voted) {
-        return ArtworkResponseDto.builder()
-                .artworkId(artwork.getArtworkId())
-                .memberId(artwork.getMemberId())
-                .title(artwork.getTitle()).content(artwork.getContent())
-                .imagePath(artwork.getImagePath())
-                .likeCount(artwork.getLikeCount())
-                .liked(voted)
-                .commentCount(artwork.getCommentCount()) // 수정 예정
-                .build();
-    }
-
-    public static ArtworkResponseDto of(Artwork artwork) {
-        return ArtworkResponseDto.builder()
-                .artworkId(artwork.getArtworkId())
-                .imagePath(artwork.getImagePath())
-                .likeCount(artwork.getLikeCount())
-                .build();
     }
 }
