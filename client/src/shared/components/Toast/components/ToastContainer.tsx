@@ -1,7 +1,21 @@
 import styled from 'styled-components';
 import { rem } from 'polished';
 
-const ToastBox = styled.div`
+
+//toast 메세지들이 들어갈 공간
+const ToastRenderBox = styled.div`
+  width: ${rem(400)};
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  z-index: 53;
+  position: absolute;
+  top: 5;
+`;
+
+//실제 Toast 메세지
+const ToastBox = styled.div<{time:number}>`
   width: ${rem(395)};
   height: ${rem(64)};
   margin: ${rem(18)} ${rem(18)} 0 ${rem(18)};
@@ -10,7 +24,8 @@ const ToastBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  animation: ToastShow 2s linear forwards;
+  animation: ToastShow ${({time}) => time/1000}s linear forwards;
+  background-color: white;
 
   .ToastContent {
     width: ${rem(250)};
@@ -18,7 +33,7 @@ const ToastBox = styled.div`
     align-items: center;
     margin: ${rem(10)} 0 ${rem(5)} ${rem(100)};
 
-    label{
+    label {
       margin-right: ${rem(50)};
     }
   }
@@ -26,19 +41,20 @@ const ToastBox = styled.div`
     from {
       opacity: 0;
     }
-    30%{
+    10% {
       opacity: 1;
-    } 
-    70%{
-        opacity: 1;
     }
-    to{
+    80% {
+      opacity: 1;
+    }
+    to {
       opacity: 0;
     }
   }
 `;
 
-const ProgressBar = styled.div`
+//실제 Toast 메세지의 progress bar
+const ProgressBar = styled.div<{time:number}>`
   width: ${rem(395)};
   height: ${rem(4)};
   background-color: ${({ theme }) => theme.colors.green_007};
@@ -62,11 +78,15 @@ const ProgressBar = styled.div`
     width: 0;
     height: ${rem(4)};
     background-color: ${({ theme }) => theme.colors.green_006};
-    animation: progress 2s linear forwards;
+    animation: progress ${({time}) => time/1000}s linear forwards;
   }
 `;
 
-const OptionSVG = ({onClick} : {onClick: React.MouseEventHandler<SVGSVGElement>}) => {
+const OptionSVG = ({
+  onClick,
+}: {
+  onClick: React.MouseEventHandler<SVGSVGElement>;
+}) => {
   return (
     <svg
       width='24'
@@ -75,7 +95,7 @@ const OptionSVG = ({onClick} : {onClick: React.MouseEventHandler<SVGSVGElement>}
       fill='none'
       xmlns='http://www.w3.org/2000/svg'
       className='OptionSVG'
-      onClick = {onClick}
+      onClick={onClick}
     >
       <path
         d='M15.6258 11.8475L9.86016 7.67566C9.83214 7.65532 9.79903 7.64313 9.76451 7.64045C9.72999 7.63778 9.6954 7.64471 9.66457 7.66048C9.63375 7.67626 9.6079 7.70026 9.58988 7.72983C9.57186 7.7594 9.56239 7.79338 9.5625 7.82801V8.92723C9.5625 9.16629 9.67735 9.39363 9.87188 9.53426L13.2797 11.9999L9.87188 14.4655C9.67735 14.6061 9.5625 14.8311 9.5625 15.0725V16.1718C9.5625 16.3241 9.73594 16.4132 9.86016 16.3241L15.6258 12.1522C15.7289 12.0772 15.7289 11.9225 15.6258 11.8475Z'
@@ -89,4 +109,4 @@ const OptionSVG = ({onClick} : {onClick: React.MouseEventHandler<SVGSVGElement>}
   );
 };
 
-export { ToastBox, ProgressBar, OptionSVG };
+export { ToastRenderBox, ToastBox, ProgressBar, OptionSVG };

@@ -51,4 +51,34 @@ const AlarmStore = create<Alarm>((set) => {
   };
 });
 
-export { ModalStore, AlarmStore };
+interface ToastState {
+  time: number;
+  content: string[];
+  id: number;
+}
+
+interface Components {
+  ToastList: ToastState[];
+  addToast: (data: ToastState) => void;
+  removeToast: () => void;
+}
+
+const ToastStore = create<Components>((set, get) => ({
+  ToastList: [],
+  addToast: (data) =>
+    set(() => {
+      let arr = get().ToastList.slice();
+      arr.push({ ...data });
+      return {
+        ToastList: arr,
+      };
+    }),
+  removeToast: () =>
+    set(() => {
+      let arr = get().ToastList.slice();
+      arr.shift();
+      return { ToastList: [...arr] };
+    }),
+}));
+
+export { ModalStore, AlarmStore, ToastStore };

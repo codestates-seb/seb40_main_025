@@ -1,22 +1,19 @@
 import { useEffect, useState } from 'react';
 import * as T from './components/ToastContainer';
-const Toast = ({ time }: { time: number }) => {
-  const [show, setShow] = useState(false);
-  useEffect(() => {
-    setTimeout(() => setShow(true), time);
-    setTimeout(() => setShow(false), time+2000);
-  },[]);
+
+const Toast = ({ time, content }: { time: number, content: string[] }) => {
+  const [show, setShow] = useState(true);
   return (
     <>
       {show && (
-        <T.ToastBox>
+        <T.ToastBox time = {time}>
           <div className='ToastContent'>
             <label>
-              작품이 등록되었습니다! <br></br>내 전시관도 만들어보기
+              {content[0]} <br></br>{content[1]}
             </label>
             <T.OptionSVG onClick={() => setShow(false)} />
           </div>
-          <T.ProgressBar className='ProgressBar'></T.ProgressBar>
+          <T.ProgressBar className='ProgressBar' time = {time}></T.ProgressBar>
         </T.ToastBox>
       )}
     </>

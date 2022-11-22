@@ -4,8 +4,7 @@ const Filter = () => {
   const [filter, setFilter] = useState('전체');
   const [isOpen, setIsOpen] = useState(false);
 
-  const handleOnClick = (e: React.MouseEvent<HTMLElement>) => {
-    //innerHTML 가져오는 방법찾아서 적용해야함.
+  const handleOnClick = (innerHTML: string) => {
     setIsOpen(!isOpen);
   };
 
@@ -19,12 +18,12 @@ const Filter = () => {
       </B.FilterBox>
       {isOpen ? (
         <B.FilterListBox>
-          <ul >
-            <li id="1" onClick={handleOnClick} >전체</li>
-            <li >전시관 댓글 등록</li>
-            <li >작품 댓글 등록</li>
-            <li >좋아요</li>
-            <li >작품등록</li>
+          <ul>
+            <li onClick={() => handleOnClick('전체')}>전체</li>
+            <li onClick={() => handleOnClick('전시관 댓글 등록')}>전시관 댓글 등록</li>
+            <li onClick={() => handleOnClick('작품 댓글 등록')}>작품 댓글 등록</li>
+            <li onClick={() => handleOnClick('좋아요')}>좋아요</li>
+            <li onClick={() => handleOnClick('작품등록')}>작품등록</li>
           </ul>
         </B.FilterListBox>
       ) : null}

@@ -8,7 +8,7 @@ const ModalBackdropBox = styled.div`
   background-color: rgba(0, 0, 0, 0.4);
   position: absolute;
   top: 0;
-  z-index: 99;
+  z-index: 51;
   overflow: hidden;
   ${({ theme }) => theme.flex.center}
 `;
@@ -20,7 +20,7 @@ const ModalViewBox = styled.div`
   height: ${rem(122)};
   background-color: white;
   border-radius: ${rem(10)};
-  z-index: 100;
+  z-index: 52;
   position: relative;
   .ApplySVG {
     position: absolute;
