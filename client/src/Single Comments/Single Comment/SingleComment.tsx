@@ -27,7 +27,7 @@ const Time = styled.div`
   font-weight: 400;
   font-size: ${rem(12)};
   line-height: ${rem(16)};
-  color: 1px solid ${({ theme }) => theme.colors.black_003};
+  color: ${rem(1)} solid ${({ theme }) => theme.colors.black_003};
 `;
 
 const Comment = styled.div`
