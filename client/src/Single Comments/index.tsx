@@ -9,7 +9,7 @@ const Body = styled.div`
   height: 100vh;
   /* max-height: ${rem('926px')}; */
   max-width: ${rem(540)};
-  padding-top: 50px;
+  padding-top: ${rem(50)};
   overflow-x: hidden;
   overflow-y: scroll;
   background-color: ${({ theme }) => theme.colors.black_007};
