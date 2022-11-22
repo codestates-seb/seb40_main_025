@@ -4,22 +4,15 @@ import styled from 'styled-components';
 
 export const EnvelopeWrapper = styled.div`
   ${({ theme }) => theme.mixins.flexBox('column', 'center', 'center')};
-
-  body {
-    background-color: #a8e2ff;
-  }
-
-  height: 380px;
+  height: 100vh;
 `;
 
 export const Envelope = styled.div`
-  position: relative;
   width: 280px;
   height: 180px;
   border-bottom-left-radius: 6px;
   border-bottom-right-radius: 6px;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 auto;
   top: 150px;
   background-color: ${({ theme }) => theme.colors.red_006};
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
