@@ -3,7 +3,7 @@ import { rem } from 'polished';
 
 const Body = styled.div`
   height: ${rem(114)};
-  border-bottom: 1px solid ${({ theme }) => theme.colors.black_005};
+  border-bottom: ${rem(1)} solid ${({ theme }) => theme.colors.black_005};
   display: flex;
   flex-direction: column;
 `;
