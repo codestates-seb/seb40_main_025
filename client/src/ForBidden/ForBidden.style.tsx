@@ -2,12 +2,11 @@ import { rem } from 'polished';
 import styled from 'styled-components';
 
 const Body = styled.div`
-  width: ${rem('428px')};
-  /* height: ${rem('926px')}; */
+  width: ${rem(428)};
   height: 100vh;
-  max-height: ${rem('926px')};
+  max-height: ${rem(926)};
   max-width: ${rem(540)};
-  padding-top: 50px;
+  padding-top: ${rem(500)};
   padding-bottom: 10vh;
   background-color: ${({ theme }) => theme.colors.black_007};
   display: flex;
