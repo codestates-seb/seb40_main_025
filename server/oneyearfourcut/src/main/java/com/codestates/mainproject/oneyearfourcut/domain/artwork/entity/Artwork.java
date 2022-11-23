@@ -71,7 +71,7 @@ public class Artwork extends Auditable {
         member.getArtworkList().add(this);
     }
 
-    // Mapper - Response에 memberId 담으려면 아래 getter를 추가해야 함... (toEntity 고려해봐야 할까요...)
+    // ReplyMapper - Response에 memberId 담으려면 아래 getter를 추가해야 함... (toEntity 고려해봐야 할까요...)
     public Long getMemberId() {
         return this.member.getMemberId();
     }

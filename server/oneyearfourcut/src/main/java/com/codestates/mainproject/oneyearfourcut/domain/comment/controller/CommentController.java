@@ -55,9 +55,7 @@ public class CommentController {
     @PostMapping("/{gallery-id}/comments")
     public ResponseEntity<Object> postCommentOnGallery(@PathVariable("gallery-id") Long galleryId,
                                                        @RequestBody CommentRequestDto commentRequestDto) {
-        Comment comment = commentMapper.commentRequestDtoToComment(commentRequestDto);
-        Long memberId = 3L;
-        commentService.createComment(comment, galleryId, null, memberId);  //저장
+        commentService.createCommentOnGallery(commentRequestDto, galleryId, 3L); //저장
         String response = "댓글등록성공";
         return new ResponseEntity<>(response,HttpStatus.CREATED);
     }
@@ -69,9 +67,9 @@ public class CommentController {
             @PathVariable("gallery-id") Long galleryId,
             @PathVariable("artwork-id") Long artworkId,
             @RequestBody CommentRequestDto commentRequestDto){
-        Comment comment = commentMapper.commentRequestDtoToComment(commentRequestDto);
-        Long memberId = 3L;
-        commentService.createComment(comment, galleryId, artworkId, memberId);
+
+
+        commentService.createCommentOnArtwork(commentRequestDto, galleryId,artworkId,3L); //저장
         String response = "댓글등록성공";
         return new ResponseEntity<>(response, (HttpStatus.CREATED)); //생성 댓글 response
     }

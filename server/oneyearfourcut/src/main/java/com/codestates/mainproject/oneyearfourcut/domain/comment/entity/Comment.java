@@ -57,4 +57,22 @@ public class Comment extends Auditable {
         this.replyList = replyList;
         this.commentStatus = commentStatus;
     }
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public static Comment setComment(Gallery gallery, Long artworkId, Member member, String content, CommentStatus commentStatus){
+        Comment comment = new Comment();
+        comment.gallery = gallery;
+        comment.artworkId = artworkId;
+        comment.member = member;
+        comment.content = content;
+        comment.commentStatus = CommentStatus.VALID;
+
+        return comment;
+    }
+
+    public void setCommentStatus(CommentStatus commentStatus) {
+        this.commentStatus = commentStatus;
+    }
 }

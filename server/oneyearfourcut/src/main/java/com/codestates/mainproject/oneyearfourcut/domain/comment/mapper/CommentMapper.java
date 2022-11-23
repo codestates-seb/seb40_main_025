@@ -45,7 +45,7 @@ public interface CommentMapper {
         galleryCommentResponse.setMemberId(comment.getMember().getMemberId());
         galleryCommentResponse.setNickname(comment.getMember().getNickname());
         galleryCommentResponse.setGalleryId(comment.getGallery().getGalleryId());
-        galleryCommentResponse.setReplyList( null );
+
 
         return galleryCommentResponse;
     }
@@ -66,7 +66,7 @@ public interface CommentMapper {
         artworkCommentResponse.setArtworkId( comment.getArtworkId() );
         artworkCommentResponse.setMemberId(comment.getMember().getMemberId());
         artworkCommentResponse.setNickname(comment.getMember().getNickname());
-        artworkCommentResponse.setReplyList( null );
+
 
         return artworkCommentResponse;
     }

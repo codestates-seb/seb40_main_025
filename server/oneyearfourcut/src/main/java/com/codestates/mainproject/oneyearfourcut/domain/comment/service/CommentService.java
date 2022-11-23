@@ -2,6 +2,7 @@ package com.codestates.mainproject.oneyearfourcut.domain.comment.service;
 
 import com.codestates.mainproject.oneyearfourcut.domain.artwork.entity.Artwork;
 import com.codestates.mainproject.oneyearfourcut.domain.artwork.repository.ArtworkRepository;
+import com.codestates.mainproject.oneyearfourcut.domain.comment.dto.CommentRequestDto;
 import com.codestates.mainproject.oneyearfourcut.domain.comment.entity.Comment;
 import com.codestates.mainproject.oneyearfourcut.domain.comment.entity.CommentType;
 import com.codestates.mainproject.oneyearfourcut.domain.comment.repository.CommentRepository;
@@ -20,6 +21,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -42,19 +44,33 @@ public class CommentService {
     private final ArtworkService artworkService;
 
     //댓글 생성 메소드, 1)galleryservice 통해서 회원/갤러리검증, 2)댓글VALID설정 3)memberid, gallery set(양쪽) 4)artwork set 5)save
-    public void createComment(Comment comment, Long galleryId, Long artworkId, Long memberId) {
-        galleryService.verifiedGalleryExist(memberId);
-        comment.setCommentStatus(VALID);
-        Member member = new Member();
-        member.setMemberId(memberId);
-        comment.setMember(member);
-        comment.setGallery(galleryService.findGallery(galleryId));
-        if(artworkId != null){
-            comment.setArtworkId(artworkId);
-        }
-        commentRepository.save(comment);
+    @Transactional
+    public void createCommentOnGallery(CommentRequestDto requestDto, Long galleryId, Long memberId) {
+        commentRepository.save(
+                Comment.setComment(
+                        galleryService.findGallery(galleryId),  //galleryId
+                        null,  //artworkId
+                        memberService.findMember(memberId),  //memberId
+                        requestDto.getContent(), //Content
+                        VALID
+                )
+        );
     }
 
+    @Transactional
+    public void createCommentOnArtwork(CommentRequestDto requestDto, Long galleryId, Long artworkId, Long memberId) {
+        commentRepository.save(
+                Comment.setComment(
+                        galleryService.findGallery(galleryId),  //galleryId
+                        artworkId,  //artworkId
+                        memberService.findMember(memberId),  //memberId
+                        requestDto.getContent(), //Content
+                        VALID
+                )
+        );
+    }
+
+    @Transactional
     //find & Pagination method
     public Page<Comment> findCommentByPage(Long galleryId, Long artworkId, int page, int size) {
         PageRequest pr = PageRequest.of(page - 1, size);
@@ -74,6 +90,7 @@ public class CommentService {
     }
 
 
+    @Transactional
     //comment jpa레포 존재여부 검증 메소드
     public Comment findComment(Long commentId){
         Optional<Comment> comment = commentRepository.findById(commentId);
@@ -82,6 +99,7 @@ public class CommentService {
         return foundComment;
     }
 
+    @Transactional
     //comment 삭제 메소드, 1)pathvariable를 통해서 gallery존재 확인, 2)repo존재 확인 3)status deleted 4)save
     public void deleteComment(Long commentId) {
         Comment comment = findComment(commentId);
@@ -89,6 +107,7 @@ public class CommentService {
         commentRepository.save(comment);
     }
 
+    @Transactional
     //comment update
     public Comment modifyComment(Comment reqeustComment, Comment foundComment){
         Optional.ofNullable(reqeustComment.getContent())

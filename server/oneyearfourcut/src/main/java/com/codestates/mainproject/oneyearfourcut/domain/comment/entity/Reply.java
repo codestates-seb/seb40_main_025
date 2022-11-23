@@ -1,5 +1,6 @@
 package com.codestates.mainproject.oneyearfourcut.domain.comment.entity;
 
+import com.codestates.mainproject.oneyearfourcut.domain.gallery.entity.Gallery;
 import com.codestates.mainproject.oneyearfourcut.domain.member.entity.Member;
 import com.codestates.mainproject.oneyearfourcut.global.auditable.Auditable;
 import lombok.*;
@@ -7,7 +8,6 @@ import lombok.*;
 import javax.persistence.*;
 
 @Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -16,6 +16,7 @@ public class Reply extends Auditable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long replyId;
 
+    @Column
     private String content; // 댓글 내용
 
     @ManyToOne
@@ -29,4 +30,22 @@ public class Reply extends Auditable {
     @Enumerated(EnumType.STRING)
     private CommentStatus replyStatus; //삭제 여부
 
+    public static Reply setReply(String content, Comment comment, Member member, CommentStatus replyStatus) {
+        Reply reply = new Reply();
+
+        reply.content = content;
+        reply.comment = comment;
+        reply.member = member;
+        reply.replyStatus = CommentStatus.VALID;
+
+        return reply;
+    }
+
+    public void setReplyStatus(CommentStatus replyStatus) {
+        this.replyStatus = replyStatus;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
 }
