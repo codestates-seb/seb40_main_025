@@ -44,14 +44,8 @@ import java.util.Optional;
 @AllArgsConstructor
 public class CommentController {
     private final CommentService commentService;
-    private final ArtworkService artworkService;
-    private final GalleryService galleryService;
     private final CommentMapper commentMapper;
 
-    private final MemberService memberService;
-    private final GalleryRepository galleryRepository;
-    private final MemberRepository memberRepository;
-    private final ArtworkRepository artworkRepository;
 
     //댓글 등록 - 전체 작품(Gallery)
     @PostMapping("/{gallery-id}/comments")
@@ -70,27 +64,10 @@ public class CommentController {
             @PathVariable("artwork-id") Long artworkId,
             @RequestBody CommentRequestDto commentRequestDto){
 
-
         commentService.createCommentOnArtwork(commentRequestDto, galleryId,artworkId,3L); //저장
         String response = "댓글등록성공";
         return new ResponseEntity<>(response, (HttpStatus.CREATED)); //생성 댓글 response
     }
-
-/*    //오리지널
-    @GetMapping("/{gallery-id}/comments")
-    public ResponseEntity<Object> getCommentOnGallery(@PathVariable("gallery-id") Long galleryId,){
-        List<Comment> commentList = commentService.findCommentList(galleryId,null);
-        List<GalleryCommentResponse> response = commentMapper.commentToGalleryCommentResponseList(commentList);
-        return new ResponseEntity<>(response, (HttpStatus.OK));
-    }
-
-    @GetMapping("/{gallery-id}/artworks/{artwork-id}/comments")
-    public ResponseEntity<Object> getCommentOnArtwork(@PathVariable("gallery-id") Long galleryId,
-                                                      @PathVariable("artwork-id") Long artworkId) {
-        List<Comment> commentList = commentService.findCommentList(galleryId, artworkId);
-        List<ArtworkCommentResponse> response = commentMapper.commentToArtworkCommentResponseList(commentList);
-        return new ResponseEntity<>(response, (HttpStatus.OK));
-    }*/
 
     //pagination
     @GetMapping("/{gallery-id}/comments")
@@ -115,8 +92,6 @@ public class CommentController {
         List<ArtworkCommentResponse> response = commentMapper.commentToArtworkCommentResponseList(commentList);
         return new ResponseEntity<>(new ArtworkPageResponseDto<>(artworkId, response, pageInfo), (HttpStatus.OK));
     }
-
-
 
     @PatchMapping("/{gallery-id}/comments/{comment-id}")
     public ResponseEntity<Object> patchComment(@PathVariable("gallery-id") Long galleryId,

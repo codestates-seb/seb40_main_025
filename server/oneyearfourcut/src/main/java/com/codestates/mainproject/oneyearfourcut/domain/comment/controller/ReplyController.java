@@ -46,7 +46,6 @@ public class ReplyController {
     @PatchMapping("/comments/replies/{reply-id}")
     public ResponseEntity<Object> patchReply(@PathVariable("reply-id") Long replyId,
                                                @RequestBody CommentRequestDto requestDto){
-
         Reply foundReply = replyService.findReply(replyId);
         Reply requestReply = mapper.commentRequestDtoToReply(requestDto);
         replyService.modifyComment(requestReply, foundReply);
