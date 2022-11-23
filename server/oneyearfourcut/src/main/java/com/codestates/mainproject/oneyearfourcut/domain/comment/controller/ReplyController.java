@@ -22,21 +22,23 @@ import java.util.List;
 public class ReplyController {
 
     private final ReplyService replyService;
-    private final ReplyMapper mapper;
 
+    //POST (Create) Reply
     @PostMapping("/comments/{comment-id}/replies")
-    public ResponseEntity<Object> postReplyOnGallery(@PathVariable("comment-id") Long commentId,
+    public ResponseEntity<Object> postReply(@PathVariable("comment-id") Long commentId,
                                                        @RequestBody CommentReqDto replyRequestDto) {
         replyService.createReply(replyRequestDto, commentId, 3L);
         return new ResponseEntity<>("댓글등록성공", HttpStatus.CREATED);
     }
 
+    //GET (Read) Reply
     @GetMapping("/comments/{comment-id}/replies")
-    public ResponseEntity<Object> getReplyOnGallery(@PathVariable("comment-id") Long commentId) {
+    public ResponseEntity<Object> getReply(@PathVariable("comment-id") Long commentId) {
         List<ReplyResDto> response = replyService.getReplyList(commentId,3L);
         return new ResponseEntity<>(new ReplyListResponseDto<>(commentId, response), HttpStatus.CREATED);
     }
 
+    //PATCH (Update) Reply
     @PatchMapping("/comments/replies/{reply-id}")
     public ResponseEntity<Object> patchReply(@PathVariable("reply-id") Long replyId,
                                                @RequestBody CommentReqDto requestDto){
@@ -44,6 +46,7 @@ public class ReplyController {
         return new ResponseEntity<>("댓글수정완료!!", (HttpStatus.OK));
     }
 
+    //DELETE (Delete) Reply
     @DeleteMapping("/comments/replies/{reply-id}")
     public ResponseEntity<Object> deleteComment(@PathVariable("reply-id") Long replyId){
         replyService.deleteReply(replyId);

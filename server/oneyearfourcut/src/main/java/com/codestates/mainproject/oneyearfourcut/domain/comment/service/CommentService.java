@@ -1,5 +1,6 @@
 package com.codestates.mainproject.oneyearfourcut.domain.comment.service;
 
+import com.codestates.mainproject.oneyearfourcut.domain.comment.dto.CommentGalleryResDto;
 import com.codestates.mainproject.oneyearfourcut.domain.comment.dto.CommentReqDto;
 import com.codestates.mainproject.oneyearfourcut.domain.comment.entity.Comment;
 import com.codestates.mainproject.oneyearfourcut.domain.comment.mapper.CommentMapper;
@@ -8,12 +9,14 @@ import com.codestates.mainproject.oneyearfourcut.domain.gallery.service.GalleryS
 import com.codestates.mainproject.oneyearfourcut.domain.member.service.MemberService;
 import com.codestates.mainproject.oneyearfourcut.global.exception.exception.BusinessLogicException;
 import com.codestates.mainproject.oneyearfourcut.global.exception.exception.ExceptionCode;
+import com.codestates.mainproject.oneyearfourcut.global.page.PageInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 import static com.codestates.mainproject.oneyearfourcut.domain.comment.entity.CommentStatus.DELETED;
@@ -54,6 +57,8 @@ public class CommentService {
         );
     }
 
+
+
     @Transactional
     public Page<Comment> findCommentByPage(Long galleryId, Long artworkId, int page, int size) {
         PageRequest pr = PageRequest.of(page - 1, size);
@@ -93,6 +98,7 @@ public class CommentService {
         Optional.ofNullable(requestComment.getContent())
                 .ifPresent(foundComment::setContent);
     }
+
 
 
 }

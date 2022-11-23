@@ -16,5 +16,5 @@ public class CommentGalleryResDto extends Auditable {
     private Long memberId;
     private String nickname;
     private String content;
-    private Long artworkId; //it can be NULL
+    private Long artworkId; //NULL possible
 }

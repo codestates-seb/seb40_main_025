@@ -27,31 +27,27 @@ import java.util.List;
 @AllArgsConstructor
 public class CommentController {
     private final CommentService commentService;
-    private final CommentMapper commentMapper;
+    private final CommentMapper mapper;
 
-
-    //댓글 등록 - 전체 작품(Gallery)
+    //POST (Create) Comment On Gallery
     @PostMapping("/{gallery-id}/comments")
     public ResponseEntity<Object> postCommentOnGallery(@PathVariable("gallery-id") Long galleryId,
                                                        @RequestBody CommentReqDto commentReqDto) {
-
         commentService.createCommentOnGallery(commentReqDto, galleryId, 3L);
         return new ResponseEntity<>("댓글등록성공",HttpStatus.CREATED);
     }
 
-
-    //댓글 등록 - 개별 작품(Artwork)
+    //POST (Create) Comment On Artwork
     @PostMapping("/{gallery-id}/artworks/{artwork-id}/comments")
     public ResponseEntity<Object> postCommentOnArtwork(
             @PathVariable("gallery-id") Long galleryId,
             @PathVariable("artwork-id") Long artworkId,
             @RequestBody CommentReqDto commentReqDto){
-
         commentService.createCommentOnArtwork(commentReqDto, galleryId,artworkId,3L);
         return new ResponseEntity<>("댓글등록성공", (HttpStatus.CREATED));
     }
 
-    //pagination
+    //GET (Read) Comment on Gallery (with pagination)
     @GetMapping("/{gallery-id}/comments")
     public ResponseEntity<Object> getGalleryComment(@PathVariable("gallery-id") Long galleryId,
                                                       @RequestParam int page/*, @RequestParam int size*/){
@@ -59,10 +55,11 @@ public class CommentController {
         Page<Comment> commentPage = commentService.findCommentByPage(galleryId, null, page, size);
         List<Comment> commentList = commentPage.getContent();
         PageInfo pageInfo = new PageInfo(page, size, (int) commentPage.getTotalElements(), commentPage.getTotalPages());
-        List<CommentGalleryResDto> response = commentMapper.commentToGalleryCommentResponseList(commentList);
+        List<CommentGalleryResDto> response = mapper.commentToGalleryCommentResponseList(commentList);
         return new ResponseEntity<>(new GalleryPageResponseDto<>(galleryId, response, pageInfo), (HttpStatus.OK));
     }
 
+    //GET (Read) Comment on Artwork (with pagination)
     @GetMapping("/{gallery-id}/artworks/{artwork-id}/comments")
     public ResponseEntity<Object> getArtworkComment(@PathVariable("gallery-id") Long galleryId,
                                                       @PathVariable("artwork-id") Long artworkId,
@@ -71,10 +68,11 @@ public class CommentController {
         Page<Comment> commentPage = commentService.findCommentByPage(galleryId, artworkId, page, size);
         List<Comment> commentList = commentPage.getContent();
         PageInfo pageInfo = new PageInfo(page, size, (int) commentPage.getTotalElements(), commentPage.getTotalPages());
-        List<CommentArtworkResDto> response = commentMapper.commentToArtworkCommentResponseList(commentList);
+        List<CommentArtworkResDto> response = mapper.commentToArtworkCommentResponseList(commentList);
         return new ResponseEntity<>(new ArtworkPageResponseDto<>(artworkId, response, pageInfo), (HttpStatus.OK));
     }
 
+    //PATCH (Update) Comment
     @PatchMapping("/{gallery-id}/comments/{comment-id}")
     public ResponseEntity<Object> patchComment(@PathVariable("gallery-id") Long galleryId,
                                                @PathVariable("comment-id") Long commentId,
@@ -83,6 +81,7 @@ public class CommentController {
         return new ResponseEntity<>("댓글수정완료!!", (HttpStatus.OK));
     }
 
+    //Delete (Delete) Comment (Set Status DELETED)
     @DeleteMapping("/{gallery-id}/comments/{comment-id}")
     public ResponseEntity<Object> deleteComment(@PathVariable("gallery-id") Long galleryId,
                                                 @PathVariable("comment-id") Long commentId){
