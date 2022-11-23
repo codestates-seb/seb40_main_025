@@ -1,6 +1,6 @@
 import * as S from './Single Comments.style';
-import SingleComment from './SingleComment/SingleComment';
-import COMMENTS_SCRIPT from './SingleComment/sampledata';
+import SingleComment from 'SingleComments';
+import COMMENTS_SCRIPT from 'SingleComments/SingleComment/sampledata';
 
 const CommentsList = () => {
   return (
