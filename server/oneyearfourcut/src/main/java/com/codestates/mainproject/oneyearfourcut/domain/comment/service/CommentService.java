@@ -9,11 +9,17 @@ import com.codestates.mainproject.oneyearfourcut.domain.gallery.service.GalleryS
 import com.codestates.mainproject.oneyearfourcut.domain.member.service.MemberService;
 import com.codestates.mainproject.oneyearfourcut.global.exception.exception.BusinessLogicException;
 import com.codestates.mainproject.oneyearfourcut.global.exception.exception.ExceptionCode;
+import com.codestates.mainproject.oneyearfourcut.global.page.ArtworkPageResponseDto;
+import com.codestates.mainproject.oneyearfourcut.global.page.GalleryPageResponseDto;
 import com.codestates.mainproject.oneyearfourcut.global.page.PageInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -33,34 +39,29 @@ public class CommentService {
 
     @Transactional
     public void createCommentOnGallery(CommentReqDto requestDto, Long galleryId, Long memberId) {
-        commentRepository.save(
-                Comment.setComment(
-                        galleryService.findGallery(galleryId),  //galleryId
-                        null,  //artworkId
-                        memberService.findMember(memberId),  //memberId
-                        requestDto.getContent(), //Content
-                        VALID
-                )
-        );
+        Comment comment = Comment.builder()
+                .gallery(galleryService.findGallery(galleryId))
+                .member(memberService.findMember(memberId))
+                .content(requestDto.getContent())
+                .commentStatus(VALID)
+                .build();
+        commentRepository.save(comment);
     }
 
     @Transactional
     public void createCommentOnArtwork(CommentReqDto requestDto, Long galleryId, Long artworkId, Long memberId) {
-        commentRepository.save(
-                Comment.setComment(
-                        galleryService.findGallery(galleryId),  //galleryId
-                        artworkId,  //artworkId
-                        memberService.findMember(memberId),  //memberId
-                        requestDto.getContent(), //Content
-                        VALID
-                )
-        );
+        Comment comment = Comment.builder()
+                .gallery(galleryService.findGallery(galleryId))
+                .artworkId(artworkId)
+                .member(memberService.findMember(memberId))
+                .content(requestDto.getContent())
+                .commentStatus(VALID)
+                .build();
+        commentRepository.save(comment);
     }
 
-
-
     @Transactional
-    public Page<Comment> findCommentByPage(Long galleryId, Long artworkId, int page, int size) {
+    private Page<Comment> findCommentByPage(Long galleryId, Long artworkId, int page, int size) {
         PageRequest pr = PageRequest.of(page - 1, size);
         Page<Comment> commentPage;
         galleryService.findGallery(galleryId);
@@ -75,6 +76,21 @@ public class CommentService {
             throw new BusinessLogicException(ExceptionCode.COMMENT_NOT_FOUND);
         }
         return commentPage;
+    }
+
+    public GalleryPageResponseDto<Object> getGalleryCommentPage(Long galleryId, int page, int size){
+        Page<Comment> commentPage = findCommentByPage(galleryId, null, page, size);
+        List<Comment> commentList = commentPage.getContent();
+        PageInfo<Object> pageInfo = new PageInfo<>(page, size, (int) commentPage.getTotalElements(), commentPage.getTotalPages());
+        List<CommentGalleryResDto> response = mapper.commentToGalleryCommentResponseList(commentList);
+        return new GalleryPageResponseDto<>(galleryId, response, pageInfo);
+    }
+    public ArtworkPageResponseDto<Object> getArtworkCommentPage(Long galleryId, Long artworkId, int page, int size) {
+        Page<Comment> commentPage = findCommentByPage(galleryId, artworkId, page, size);
+        List<Comment> commentList = commentPage.getContent();
+        PageInfo<Object> pageInfo = new PageInfo<>(page, size, (int) commentPage.getTotalElements(), commentPage.getTotalPages());
+        List<CommentGalleryResDto> response = mapper.commentToGalleryCommentResponseList(commentList);
+        return new ArtworkPageResponseDto<>(galleryId, response, pageInfo);
     }
 
     @Transactional
@@ -98,7 +114,5 @@ public class CommentService {
         Optional.ofNullable(requestComment.getContent())
                 .ifPresent(foundComment::setContent);
     }
-
-
 
 }

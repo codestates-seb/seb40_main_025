@@ -28,14 +28,13 @@ public class ReplyService {
 
     @Transactional
     public void createReply(CommentReqDto requestDto, Long commentId, Long memberId) {
-        replyRepository.save(
-                Reply.setReply(
-                        requestDto.getContent(), //Content
-                        commentService.findComment(commentId), //commentId
-                        memberService.findMember(memberId),  //memberId
-                        VALID
-                )
-        );
+        Reply reply = Reply.builder()
+                .content(requestDto.getContent())
+                .comment(commentService.findComment(commentId))
+                .member(memberService.findMember(memberId))
+                .replyStatus(VALID)
+                .build();
+        replyRepository.save(reply);
     }
     public List<ReplyResDto> getReplyList(Long commentId, Long memberId)  {
         List<Reply> replyList = findReplyList(commentId, 3L);
@@ -80,6 +79,5 @@ public class ReplyService {
         }
         return replyList;
     }
-
 
 }

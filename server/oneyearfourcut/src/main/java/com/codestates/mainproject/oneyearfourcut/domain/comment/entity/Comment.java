@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
 @Entity
 public class Comment extends Auditable {
@@ -39,31 +41,13 @@ public class Comment extends Auditable {
     @Enumerated(EnumType.STRING)
     private CommentStatus commentStatus;
 
-    @Builder
-    public Comment(Long commentId, String content, Member member, Gallery gallery, Long artworkId, List<Reply> replyList, CommentStatus commentStatus) {
-        this.commentId = commentId;
-        this.content = content;
-        this.member = member;
-        this.gallery = gallery;
-        this.artworkId = artworkId;
-        this.replyList = replyList;
-        this.commentStatus = commentStatus;
-    }
     public void setContent(String content) {
         this.content = content;
-    }
-
-    public static Comment setComment(Gallery gallery, Long artworkId, Member member, String content, CommentStatus commentStatus){
-        Comment comment = new Comment();
-        comment.gallery = gallery;
-        comment.artworkId = artworkId;
-        comment.member = member;
-        comment.content = content;
-        comment.commentStatus = CommentStatus.VALID;
-        return comment;
     }
 
     public void setCommentStatus(CommentStatus commentStatus) {
         this.commentStatus = commentStatus;
     }
+
+
 }

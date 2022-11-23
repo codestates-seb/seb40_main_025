@@ -51,12 +51,8 @@ public class CommentController {
     @GetMapping("/{gallery-id}/comments")
     public ResponseEntity<Object> getGalleryComment(@PathVariable("gallery-id") Long galleryId,
                                                       @RequestParam int page/*, @RequestParam int size*/){
-        int size = 10;
-        Page<Comment> commentPage = commentService.findCommentByPage(galleryId, null, page, size);
-        List<Comment> commentList = commentPage.getContent();
-        PageInfo pageInfo = new PageInfo(page, size, (int) commentPage.getTotalElements(), commentPage.getTotalPages());
-        List<CommentGalleryResDto> response = mapper.commentToGalleryCommentResponseList(commentList);
-        return new ResponseEntity<>(new GalleryPageResponseDto<>(galleryId, response, pageInfo), (HttpStatus.OK));
+        GalleryPageResponseDto<Object> response = commentService.getGalleryCommentPage(galleryId, page, 10);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     //GET (Read) Comment on Artwork (with pagination)
@@ -64,12 +60,9 @@ public class CommentController {
     public ResponseEntity<Object> getArtworkComment(@PathVariable("gallery-id") Long galleryId,
                                                       @PathVariable("artwork-id") Long artworkId,
                                                       @RequestParam int page/*, @RequestParam int size*/) {
-        int size = 10;
-        Page<Comment> commentPage = commentService.findCommentByPage(galleryId, artworkId, page, size);
-        List<Comment> commentList = commentPage.getContent();
-        PageInfo pageInfo = new PageInfo(page, size, (int) commentPage.getTotalElements(), commentPage.getTotalPages());
-        List<CommentArtworkResDto> response = mapper.commentToArtworkCommentResponseList(commentList);
-        return new ResponseEntity<>(new ArtworkPageResponseDto<>(artworkId, response, pageInfo), (HttpStatus.OK));
+        ArtworkPageResponseDto<Object> response =
+                commentService.getArtworkCommentPage(galleryId, artworkId, page, 10);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     //PATCH (Update) Comment

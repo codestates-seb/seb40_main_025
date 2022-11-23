@@ -7,6 +7,7 @@ import lombok.*;
 import javax.persistence.*;
 
 @Getter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -30,17 +31,6 @@ public class Reply extends Auditable {
     @Enumerated(EnumType.STRING)
     private CommentStatus replyStatus; //삭제 여부
 
-    public static Reply setReply(String content, Comment comment, Member member, CommentStatus replyStatus) {
-        Reply reply = new Reply();
-
-        reply.content = content;
-        reply.comment = comment;
-        reply.member = member;
-        reply.replyStatus = CommentStatus.VALID;
-
-        return reply;
-    }
-
     public void setReplyStatus(CommentStatus replyStatus) {
         this.replyStatus = replyStatus;
     }
@@ -48,4 +38,5 @@ public class Reply extends Auditable {
     public void setContent(String content) {
         this.content = content;
     }
+
 }
