@@ -29,6 +29,14 @@ public class Member extends Auditable {
 
     private String email;
 
+<<<<<<< HEAD
+=======
+    private String profile;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
+>>>>>>> ac779368eac5adbac302f77d8edb1d5321e92a1a
     @OneToMany(mappedBy = "member")
     private List<Gallery> galleryList = new ArrayList<>();
 

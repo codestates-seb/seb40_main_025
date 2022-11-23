@@ -7,13 +7,10 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.persistence.Lob;
-
 @Setter
 @Getter
 public class ArtworkRequestDto {
 
-    @Lob
     private MultipartFile img;
     private String title;
     private String content;

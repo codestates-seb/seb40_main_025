@@ -21,6 +21,7 @@ public class OneYearFourCutResponseDto {
         this.likeCount = likeCount;
     }
 
+
     public static List<OneYearFourCutResponseDto> toListResponse (List<Artwork> artworkList) {
         return artworkList.stream()
                 .map(Artwork::toOneYearFourCutResponseDto)

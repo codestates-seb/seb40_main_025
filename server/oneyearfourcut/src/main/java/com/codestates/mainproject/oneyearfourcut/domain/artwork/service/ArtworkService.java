@@ -1,5 +1,6 @@
 package com.codestates.mainproject.oneyearfourcut.domain.artwork.service;
 
+
 import com.codestates.mainproject.oneyearfourcut.domain.Like.entity.ArtworkLike;
 import com.codestates.mainproject.oneyearfourcut.domain.Like.repository.ArtworkLikeRepository;
 import com.codestates.mainproject.oneyearfourcut.domain.artwork.dto.ArtworkRequestDto;
@@ -34,6 +35,7 @@ public class ArtworkService {
 
     private final ArtworkRepository artworkRepository;
     private final GalleryService galleryService;
+
     private final MemberService memberService;
     private final ArtworkLikeRepository artworkLikeRepository;
 
@@ -55,9 +57,9 @@ public class ArtworkService {
         */
 
         // AccessToken 구현시 아래 로직 수정 예정
+
         Long ARTWORK_PERSON_ID = 2L;
         artwork.setMember(Member.builder().memberId(ARTWORK_PERSON_ID).artworkList(new ArrayList<>()).build());
-
 
         // 이미지 - 로컬환경 : "/파일명.확장자"형태로 DB에 저장 (S3 설정 시 삭제 예정)
         String localImgRoot = "/" + artwork.getImage().getOriginalFilename();
@@ -136,6 +138,7 @@ public class ArtworkService {
         galleryService.verifiedGalleryExist(galleryId);
         Artwork findArtwork = findVerifiedArtwork(galleryId, artworkId);
         findArtwork.setStatus(ArtworkStatus.DELETED);
+
     }
 
     // ================= 검증 관련 메서드 =================

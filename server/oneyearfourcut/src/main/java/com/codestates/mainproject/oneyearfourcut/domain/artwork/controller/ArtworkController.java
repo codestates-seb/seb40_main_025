@@ -4,7 +4,6 @@ package com.codestates.mainproject.oneyearfourcut.domain.artwork.controller;
 import com.codestates.mainproject.oneyearfourcut.domain.artwork.dto.ArtworkRequestDto;
 import com.codestates.mainproject.oneyearfourcut.domain.artwork.dto.ArtworkResponseDto;
 import com.codestates.mainproject.oneyearfourcut.domain.artwork.dto.OneYearFourCutResponseDto;
-import com.codestates.mainproject.oneyearfourcut.domain.artwork.mapper.ArtworkMapper;
 import com.codestates.mainproject.oneyearfourcut.domain.artwork.service.ArtworkService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,7 +17,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ArtworkController {
 
-    private final ArtworkMapper mapper;
     private final ArtworkService artworkService;
 
     // 전시 작품 등록

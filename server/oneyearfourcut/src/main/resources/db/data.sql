@@ -20,7 +20,6 @@ INSERT INTO ARTWORK (title, content, image_path, status, created_at, last_modifi
 ('갤러리2-작품1', '다들 화이팅입니다!', '/4.jpg', 'REGISTRATION', '2022-11-16T23:45:57.764644', '2022-11-16T23:45:57.764644', 2, 8),
 ('갤러리2-작품2', '다들 화이팅입니다!', '/4.jpg', 'REGISTRATION', '2022-11-16T23:46:57.764644', '2022-11-16T23:46:57.764644', 2, 8);
 
-
 INSERT INTO COMMENT (content ,created_at, last_modified_at, artwork_id, gallery_id, member_id, COMMENT_STATUS) values
 ('comment1댓글대스', '2022-11-11T23:41:57.764644', '2022-11-16T23:41:57.764644', 1, 1, 1, 'VALID'),
 ('comment2', '2022-11-12T23:41:58.764644', '2022-11-16T23:41:57.764644', 2, 1, 1, 'VALID'),
@@ -33,5 +32,3 @@ INSERT INTO ARTWORK_LIKE (member_id, artwork_id, created_at, last_modified_at) v
 (3, 4, '2022-11-11T23:43:57.764644', '2022-11-16T23:43:57.764644'),
 (1, 3, '2022-11-11T23:44:57.764644', '2022-11-16T23:44:57.764644'),
 (2, 3, '2022-11-11T23:45:57.764644', '2022-11-16T23:45:57.764644');
-
-

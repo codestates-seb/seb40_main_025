@@ -2,10 +2,8 @@ package com.codestates.mainproject.oneyearfourcut.domain.artwork.dto;
 
 import com.codestates.mainproject.oneyearfourcut.domain.artwork.entity.Artwork;
 import lombok.*;
-
 import java.util.List;
 import java.util.stream.Collectors;
-
 
 @NoArgsConstructor
 @Getter
@@ -32,10 +30,10 @@ public class ArtworkResponseDto {
         this.commentCount = commentCount;
     }
 
+
     public static List<ArtworkResponseDto> toListResponse (List<Artwork> artworkList) {
         return artworkList.stream()
                 .map(Artwork::toArtworkResponseDto)
                 .collect(Collectors.toList());
-
     }
 }
