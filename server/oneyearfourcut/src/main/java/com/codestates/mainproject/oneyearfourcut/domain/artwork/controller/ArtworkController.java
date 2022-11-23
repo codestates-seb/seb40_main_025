@@ -4,7 +4,6 @@ package com.codestates.mainproject.oneyearfourcut.domain.artwork.controller;
 import com.codestates.mainproject.oneyearfourcut.domain.artwork.dto.ArtworkRequestDto;
 import com.codestates.mainproject.oneyearfourcut.domain.artwork.dto.ArtworkResponseDto;
 import com.codestates.mainproject.oneyearfourcut.domain.artwork.dto.OneYearFourCutResponseDto;
-import com.codestates.mainproject.oneyearfourcut.domain.artwork.entity.Artwork;
 import com.codestates.mainproject.oneyearfourcut.domain.artwork.mapper.ArtworkMapper;
 import com.codestates.mainproject.oneyearfourcut.domain.artwork.service.ArtworkService;
 import lombok.RequiredArgsConstructor;
@@ -26,8 +25,7 @@ public class ArtworkController {
     @PostMapping("/{gallery-id}/artworks")
     public ResponseEntity<?> postArtwork(@PathVariable("gallery-id") long galleryId,
                                       @ModelAttribute ArtworkRequestDto request) {
-        Artwork artwork = mapper.artworkRequestDtoToArtwork(request);
-        artworkService.createArtwork(galleryId, artwork);
+        artworkService.createArtwork(galleryId, request);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
@@ -56,8 +54,7 @@ public class ArtworkController {
                                           @PathVariable("artwork-id") long artworkId,
                                           @ModelAttribute ArtworkRequestDto request) {
 
-        Artwork artwork = mapper.artworkRequestDtoToArtwork(request);
-        ArtworkResponseDto response = artworkService.updateArtwork(galleryId, artworkId, artwork);
+        ArtworkResponseDto response = artworkService.updateArtwork(galleryId, artworkId, request);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
