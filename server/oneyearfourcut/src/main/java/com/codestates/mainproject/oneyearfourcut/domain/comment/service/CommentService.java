@@ -5,6 +5,7 @@ import com.codestates.mainproject.oneyearfourcut.domain.artwork.repository.Artwo
 import com.codestates.mainproject.oneyearfourcut.domain.comment.dto.CommentRequestDto;
 import com.codestates.mainproject.oneyearfourcut.domain.comment.entity.Comment;
 import com.codestates.mainproject.oneyearfourcut.domain.comment.entity.CommentType;
+import com.codestates.mainproject.oneyearfourcut.domain.comment.mapper.CommentMapper;
 import com.codestates.mainproject.oneyearfourcut.domain.comment.repository.CommentRepository;
 import com.codestates.mainproject.oneyearfourcut.domain.gallery.entity.Gallery;
 import com.codestates.mainproject.oneyearfourcut.domain.gallery.repository.GalleryRepository;
@@ -35,13 +36,12 @@ import static org.springframework.data.domain.Sort.Order.desc;
 @RequiredArgsConstructor
 public class CommentService {
     private final CommentRepository commentRepository;
-    private final MemberRepository memberRepository;
-    private final GalleryRepository galleryRepository;
-    private final ArtworkRepository artworkRepository;
+    private final CommentMapper mapper;
+
 
     private final MemberService memberService;
     private final GalleryService galleryService;
-    private final ArtworkService artworkService;
+
 
     //댓글 생성 메소드, 1)galleryservice 통해서 회원/갤러리검증, 2)댓글VALID설정 3)memberid, gallery set(양쪽) 4)artwork set 5)save
     @Transactional
@@ -104,15 +104,15 @@ public class CommentService {
     public void deleteComment(Long commentId) {
         Comment comment = findComment(commentId);
         comment.setCommentStatus(DELETED);
-        commentRepository.save(comment);
     }
 
     @Transactional
     //comment update
-    public Comment modifyComment(Comment reqeustComment, Comment foundComment){
-        Optional.ofNullable(reqeustComment.getContent())
+    public void modifyComment(Long commentId, CommentRequestDto requestDto){
+        Comment foundComment = findComment(commentId);
+        Comment requestComment = mapper.commentRequestDtoToComment(requestDto);
+        Optional.ofNullable(requestComment.getContent())
                 .ifPresent(foundComment::setContent);
-        return commentRepository.save(foundComment);
     }
 
 

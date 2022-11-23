@@ -51,7 +51,8 @@ public class CommentController {
     @PostMapping("/{gallery-id}/comments")
     public ResponseEntity<Object> postCommentOnGallery(@PathVariable("gallery-id") Long galleryId,
                                                        @RequestBody CommentRequestDto commentRequestDto) {
-        commentService.createCommentOnGallery(commentRequestDto, galleryId, 3L); //저장
+
+        commentService.createCommentOnGallery(commentRequestDto, galleryId, 3L); //save
         String response = "댓글등록성공";
         return new ResponseEntity<>(response,HttpStatus.CREATED);
     }
@@ -64,7 +65,7 @@ public class CommentController {
             @PathVariable("artwork-id") Long artworkId,
             @RequestBody CommentRequestDto commentRequestDto){
 
-        commentService.createCommentOnArtwork(commentRequestDto, galleryId,artworkId,3L); //저장
+        commentService.createCommentOnArtwork(commentRequestDto, galleryId,artworkId,3L); //save
         String response = "댓글등록성공";
         return new ResponseEntity<>(response, (HttpStatus.CREATED)); //생성 댓글 response
     }
@@ -96,10 +97,8 @@ public class CommentController {
     @PatchMapping("/{gallery-id}/comments/{comment-id}")
     public ResponseEntity<Object> patchComment(@PathVariable("gallery-id") Long galleryId,
                                                @PathVariable("comment-id") Long commentId,
-                                               @RequestBody CommentRequestDto commentRequestDto){
-        Comment foundComment = commentService.findComment(commentId);
-        Comment requestComment = commentMapper.commentRequestDtoToComment(commentRequestDto);
-        commentService.modifyComment(requestComment,foundComment);
+                                               @RequestBody CommentRequestDto requestDto){
+        commentService.modifyComment(commentId, requestDto);
         String response = "댓글수정완료!!";
         return new ResponseEntity<>(response, (HttpStatus.OK));
     }
@@ -108,8 +107,7 @@ public class CommentController {
     public ResponseEntity<Object> deleteComment(@PathVariable("gallery-id") Long galleryId,
                                                 @PathVariable("comment-id") Long commentId){
         commentService.deleteComment(commentId);
-        String response = "댓글삭제완료!!!";
-        return new ResponseEntity<>(response,(HttpStatus.NO_CONTENT));
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 }

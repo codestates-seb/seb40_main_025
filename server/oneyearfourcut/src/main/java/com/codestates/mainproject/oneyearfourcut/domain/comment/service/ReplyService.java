@@ -4,6 +4,7 @@ import com.codestates.mainproject.oneyearfourcut.domain.comment.dto.CommentReque
 import com.codestates.mainproject.oneyearfourcut.domain.comment.dto.ReplyResponseDto;
 import com.codestates.mainproject.oneyearfourcut.domain.comment.entity.Comment;
 import com.codestates.mainproject.oneyearfourcut.domain.comment.entity.Reply;
+import com.codestates.mainproject.oneyearfourcut.domain.comment.mapper.ReplyMapper;
 import com.codestates.mainproject.oneyearfourcut.domain.comment.repository.CommentRepository;
 import com.codestates.mainproject.oneyearfourcut.domain.comment.repository.ReplyRepository;
 import com.codestates.mainproject.oneyearfourcut.domain.gallery.entity.Gallery;
@@ -29,7 +30,7 @@ import static com.codestates.mainproject.oneyearfourcut.domain.gallery.entity.Ga
 @RequiredArgsConstructor
 public class ReplyService {
     private final ReplyRepository replyRepository;
-    private final CommentRepository commentRepository;
+    private final ReplyMapper mapper;
     private final CommentService commentService;
     private final MemberService memberService;
 
@@ -87,12 +88,21 @@ public class ReplyService {
         replyRepository.save(reply);
     }
 
-    //comment update
+/*    //comment update
     @Transactional
     public Reply modifyComment(Reply requestReply, Reply foundReply){
         Optional.ofNullable(requestReply.getContent())
                 .ifPresent(foundReply::setContent);
         return replyRepository.save(foundReply);
+    }*/
+
+    @Transactional
+    //comment update
+    public void modifyReply(Long replyId, CommentRequestDto requestDto){
+        Reply foundReply = findReply(replyId);
+        Reply requestReply = mapper.commentRequestDtoToReply(requestDto);
+        Optional.ofNullable(requestReply.getContent())
+                .ifPresent(foundReply::setContent);
     }
 
 }

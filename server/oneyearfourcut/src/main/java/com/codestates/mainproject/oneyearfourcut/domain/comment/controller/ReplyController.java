@@ -46,9 +46,7 @@ public class ReplyController {
     @PatchMapping("/comments/replies/{reply-id}")
     public ResponseEntity<Object> patchReply(@PathVariable("reply-id") Long replyId,
                                                @RequestBody CommentRequestDto requestDto){
-        Reply foundReply = replyService.findReply(replyId);
-        Reply requestReply = mapper.commentRequestDtoToReply(requestDto);
-        replyService.modifyComment(requestReply, foundReply);
+        replyService.modifyReply(replyId, requestDto);
         String response = "댓글수정완료!!";
         return new ResponseEntity<>(response, (HttpStatus.OK));
     }
@@ -56,8 +54,7 @@ public class ReplyController {
     @DeleteMapping("/comments/replies/{reply-id}")
     public ResponseEntity<Object> deleteComment(@PathVariable("reply-id") Long replyId){
         replyService.deleteReply(replyId);
-        String response = "댓글삭제완료!!!";
-        return new ResponseEntity<>(response,(HttpStatus.NO_CONTENT));
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 
