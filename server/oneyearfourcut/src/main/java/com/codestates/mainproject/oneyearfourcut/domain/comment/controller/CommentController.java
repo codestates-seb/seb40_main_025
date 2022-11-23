@@ -1,26 +1,13 @@
 package com.codestates.mainproject.oneyearfourcut.domain.comment.controller;
 
-import com.codestates.mainproject.oneyearfourcut.domain.artwork.entity.Artwork;
-import com.codestates.mainproject.oneyearfourcut.domain.artwork.repository.ArtworkRepository;
-import com.codestates.mainproject.oneyearfourcut.domain.artwork.service.ArtworkService;
 import com.codestates.mainproject.oneyearfourcut.domain.comment.dto.*;
 
 import com.codestates.mainproject.oneyearfourcut.domain.comment.entity.Comment;
-import com.codestates.mainproject.oneyearfourcut.domain.comment.entity.CommentType;
 import com.codestates.mainproject.oneyearfourcut.domain.comment.mapper.CommentMapper;
 import com.codestates.mainproject.oneyearfourcut.domain.comment.service.CommentService;
-import com.codestates.mainproject.oneyearfourcut.domain.gallery.entity.Gallery;
-import com.codestates.mainproject.oneyearfourcut.domain.gallery.repository.GalleryRepository;
-import com.codestates.mainproject.oneyearfourcut.domain.gallery.service.GalleryService;
-import com.codestates.mainproject.oneyearfourcut.domain.member.entity.Member;
-import com.codestates.mainproject.oneyearfourcut.domain.member.repository.MemberRepository;
-import com.codestates.mainproject.oneyearfourcut.domain.member.service.MemberService;
-import com.codestates.mainproject.oneyearfourcut.global.exception.exception.BusinessLogicException;
-import com.codestates.mainproject.oneyearfourcut.global.exception.exception.ExceptionCode;
 import com.codestates.mainproject.oneyearfourcut.global.page.ArtworkPageResponseDto;
 import com.codestates.mainproject.oneyearfourcut.global.page.GalleryPageResponseDto;
 import com.codestates.mainproject.oneyearfourcut.global.page.PageInfo;
-import com.codestates.mainproject.oneyearfourcut.global.page.PageResponseDto;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -30,11 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 
 
 @RestController
