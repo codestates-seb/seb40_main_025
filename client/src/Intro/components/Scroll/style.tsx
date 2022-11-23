@@ -1,4 +1,5 @@
 import { theme } from 'shared/styled/Theme';
+import { rem } from 'polished';
 import styled from 'styled-components';
 
 export const Container = styled.div`
@@ -17,7 +18,7 @@ export const Box = styled.div`
 `;
 
 export const Button = styled.button`
-  width: 100px;
-  height: 50px;
+  width: ${rem(100)};
+  height: ${rem(50)};
   border: 1px solid black;
 `;

@@ -10,13 +10,13 @@ export const Letter = styled.div`
   margin-right: auto;
   height: 90%;
   top: 5%;
-  border-radius: 6px;
-  box-shadow: 0 2px 26px rgba(0, 0, 0, 0.12);
+  border-radius: ${rem(6)};
+  box-shadow: 0 ${rem(2)} ${rem(26)} rgba(0, 0, 0, 0.12);
   padding: 0.5rem;
   text-align: center;
 
   &.close {
-    transform: translateY(0px);
+    transform: translateY(0);
     transition: transform 0.4s ease, z-index 1s;
     z-index: 1;
   }
@@ -35,12 +35,6 @@ export const Letter = styled.div`
     bottom: 0;
     left: 0;
     right: 0;
-    /* background-image: linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0) 25%,
-      rgba(215, 227, 239, 0.7) 95%,
-      #d7e3ef 100%
-    ); */
   }
 `;
 
@@ -50,18 +44,19 @@ export const OpenBtn = styled.button`
   transition: all 0.1s linear;
   -webkit-appearance: none;
   background-color: transparent;
-  border: solid 2px ${({ theme }) => theme.colors.red_001};
-  border-radius: 4px;
+  border: solid ${rem(2)};
+  ${({ theme }) => theme.colors.red_001};
+  border-radius: ${rem(4)};
   color: ${({ theme }) => theme.colors.red_001};
   display: inline-block;
-  font-size: 14px;
+  font-size: ${rem(14)};
   text-align: center;
   text-transform: uppercase;
-  margin: 5px;
-  padding: 10px;
+  margin: ${rem(5)};
+  padding: ${rem(10)};
   line-height: 1em;
   text-decoration: none;
-  min-width: 120px;
+  min-width: ${rem(120)};
   cursor: pointer;
 
   :hover {
