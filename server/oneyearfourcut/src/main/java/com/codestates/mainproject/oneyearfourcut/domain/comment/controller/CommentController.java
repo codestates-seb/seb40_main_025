@@ -95,7 +95,8 @@ public class CommentController {
     //pagination
     @GetMapping("/{gallery-id}/comments")
     public ResponseEntity<Object> getGalleryComment(@PathVariable("gallery-id") Long galleryId,
-                                                      @RequestParam int page, @RequestParam int size){
+                                                      @RequestParam int page/*, @RequestParam int size*/){
+        int size = 10;
         Page<Comment> commentPage = commentService.findCommentByPage(galleryId, null, page, size);
         List<Comment> commentList = commentPage.getContent();
         PageInfo pageInfo = new PageInfo(page, size, (int) commentPage.getTotalElements(), commentPage.getTotalPages());
@@ -106,7 +107,8 @@ public class CommentController {
     @GetMapping("/{gallery-id}/artworks/{artwork-id}/comments")
     public ResponseEntity<Object> getArtworkComment(@PathVariable("gallery-id") Long galleryId,
                                                       @PathVariable("artwork-id") Long artworkId,
-                                                      @RequestParam int page, @RequestParam int size) {
+                                                      @RequestParam int page/*, @RequestParam int size*/) {
+        int size = 10;
         Page<Comment> commentPage = commentService.findCommentByPage(galleryId, artworkId, page, size);
         List<Comment> commentList = commentPage.getContent();
         PageInfo pageInfo = new PageInfo(page, size, (int) commentPage.getTotalElements(), commentPage.getTotalPages());
