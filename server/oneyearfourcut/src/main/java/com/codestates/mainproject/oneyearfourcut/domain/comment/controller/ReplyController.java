@@ -2,9 +2,6 @@ package com.codestates.mainproject.oneyearfourcut.domain.comment.controller;
 
 import com.codestates.mainproject.oneyearfourcut.domain.comment.dto.CommentRequestDto;
 import com.codestates.mainproject.oneyearfourcut.domain.comment.dto.ReplyResponseDto;
-import com.codestates.mainproject.oneyearfourcut.domain.comment.dto.ReplyResponseDtoList;
-import com.codestates.mainproject.oneyearfourcut.domain.comment.entity.Comment;
-import com.codestates.mainproject.oneyearfourcut.domain.comment.entity.Reply;
 import com.codestates.mainproject.oneyearfourcut.domain.comment.mapper.ReplyMapper;
 import com.codestates.mainproject.oneyearfourcut.domain.comment.service.ReplyService;
 import com.codestates.mainproject.oneyearfourcut.global.page.ReplyListResponseDto;
@@ -31,15 +28,12 @@ public class ReplyController {
     public ResponseEntity<Object> postReplyOnGallery(@PathVariable("comment-id") Long commentId,
                                                        @RequestBody CommentRequestDto replyRequestDto) {
         replyService.createReply(replyRequestDto, commentId, 3L);
-        String response = "댓글등록성공";
-        return new ResponseEntity<>(response, HttpStatus.CREATED);
+        return new ResponseEntity<>("댓글등록성공", HttpStatus.CREATED);
     }
 
     @GetMapping("/comments/{comment-id}/replies")
     public ResponseEntity<Object> getReplyOnGallery(@PathVariable("comment-id") Long commentId) {
-
-        List<Reply> replyList = replyService.findReplyList(commentId, 3L);
-        List<ReplyResponseDto> response = mapper.replyToReplyResponseDtoList(replyList);
+        List<ReplyResponseDto> response = replyService.getReplyList(commentId,3L);
         return new ResponseEntity<>(new ReplyListResponseDto<>(commentId, response), HttpStatus.CREATED);
     }
 
@@ -47,8 +41,7 @@ public class ReplyController {
     public ResponseEntity<Object> patchReply(@PathVariable("reply-id") Long replyId,
                                                @RequestBody CommentRequestDto requestDto){
         replyService.modifyReply(replyId, requestDto);
-        String response = "댓글수정완료!!";
-        return new ResponseEntity<>(response, (HttpStatus.OK));
+        return new ResponseEntity<>("댓글수정완료!!", (HttpStatus.OK));
     }
 
     @DeleteMapping("/comments/replies/{reply-id}")
@@ -56,6 +49,5 @@ public class ReplyController {
         replyService.deleteReply(replyId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-
 
 }

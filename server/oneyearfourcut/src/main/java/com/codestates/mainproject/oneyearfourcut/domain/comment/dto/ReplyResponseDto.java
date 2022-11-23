@@ -19,31 +19,6 @@ public class ReplyResponseDto extends Auditable {
     private Long memberId;
     private String nickname;
     private String content;
-
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
-
-
-    public ReplyResponseDto(Long replyId, Long memberId, String nickname, String content) {
-        this.replyId = replyId;
-        this.memberId = memberId;
-        this.nickname = nickname;
-        this.content = content;
-    }
-
-    public static ReplyResponseDto entityToResponse(Reply reply){
-        return reply.getReplyStatus() == CommentStatus.DELETED ?
-                new ReplyResponseDto(
-                        reply.getReplyId(),
-                        null,
-                        null,
-                        "삭제된 대댓글입니다.") :
-                new ReplyResponseDto(
-                        reply.getReplyId(),
-                        reply.getMember().getMemberId(),
-                        reply.getMember().getNickname(),
-                        reply.getContent());
-    }
-
-
 }

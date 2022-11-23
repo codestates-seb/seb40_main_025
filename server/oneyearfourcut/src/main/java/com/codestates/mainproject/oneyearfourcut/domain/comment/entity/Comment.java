@@ -2,13 +2,9 @@
 
 package com.codestates.mainproject.oneyearfourcut.domain.comment.entity;
 
-
-import com.codestates.mainproject.oneyearfourcut.domain.artwork.entity.Artwork;
 import com.codestates.mainproject.oneyearfourcut.domain.gallery.entity.Gallery;
-import com.codestates.mainproject.oneyearfourcut.domain.gallery.entity.GalleryStatus;
 import com.codestates.mainproject.oneyearfourcut.domain.member.entity.Member;
 import com.codestates.mainproject.oneyearfourcut.global.auditable.Auditable;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -67,7 +63,6 @@ public class Comment extends Auditable {
         comment.member = member;
         comment.content = content;
         comment.commentStatus = CommentStatus.VALID;
-
         return comment;
     }
 

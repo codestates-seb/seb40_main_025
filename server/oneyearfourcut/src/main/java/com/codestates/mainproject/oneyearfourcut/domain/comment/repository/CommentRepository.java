@@ -15,16 +15,12 @@ public interface CommentRepository extends JpaRepository<Comment, Long>, PagingA
 
     Page<Comment> findAllByCommentStatusAndGallery_GalleryIdOrderByCommentIdDesc
             (CommentStatus commentStatus,Long galleryId, Pageable pageable);
-
     Page<Comment> findAllByCommentStatusAndArtworkIdOrderByCommentIdDesc
             (CommentStatus commentStatus,Long galleryId, Pageable pageable);
-
-    List<Comment> findAllByCommentStatusAndGallery_GalleryId(CommentStatus commentStatus,Long galleryId, Sort sort);
-    List<Comment> findAllByCommentStatusAndArtworkId(CommentStatus commentStatus, Long artworkId, Sort sort);
-
-    Optional<Comment> findAllByArtworkId(Long artworkId);
-
     Optional<Comment> findById(Long commentId);
 
+/*    List<Comment> findAllByCommentStatusAndGallery_GalleryId(CommentStatus commentStatus,Long galleryId, Sort sort);
+    List<Comment> findAllByCommentStatusAndArtworkId(CommentStatus commentStatus, Long artworkId, Sort sort);
+    Optional<Comment> findAllByArtworkId(Long artworkId);*/
 
 }

@@ -10,7 +10,5 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import java.util.List;
 
 public interface ReplyRepository extends JpaRepository<Reply, Long>, PagingAndSortingRepository<Reply,Long> {
-
-
     List<Reply> findAllByReplyStatusAndComment_CommentIdOrderByReplyIdDesc(CommentStatus replyStatus, Long commentId);
 }

@@ -2,15 +2,14 @@ package com.codestates.mainproject.oneyearfourcut.domain.comment.mapper;
 
 
 import com.codestates.mainproject.oneyearfourcut.domain.comment.dto.CommentRequestDto;
-import com.codestates.mainproject.oneyearfourcut.domain.comment.dto.GalleryCommentResponse;
 import com.codestates.mainproject.oneyearfourcut.domain.comment.dto.ReplyResponseDto;
-import com.codestates.mainproject.oneyearfourcut.domain.comment.entity.Comment;
 import com.codestates.mainproject.oneyearfourcut.domain.comment.entity.Reply;
 import org.mapstruct.Mapper;
+import org.mapstruct.ReportingPolicy;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface ReplyMapper {
 
     Reply commentRequestDtoToReply(CommentRequestDto replyRequestDto);
@@ -32,7 +31,6 @@ public interface ReplyMapper {
 
         return replyResponseDto;
     }
-
 
     List<ReplyResponseDto> replyToReplyResponseDtoList(List<Reply> replyList);
 }

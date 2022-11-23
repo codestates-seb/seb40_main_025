@@ -12,10 +12,15 @@ import com.codestates.mainproject.oneyearfourcut.domain.member.entity.Member;
 import com.codestates.mainproject.oneyearfourcut.domain.member.service.MemberService;
 import com.codestates.mainproject.oneyearfourcut.global.exception.exception.BusinessLogicException;
 import com.codestates.mainproject.oneyearfourcut.global.exception.exception.ExceptionCode;
+import com.codestates.mainproject.oneyearfourcut.global.page.ReplyListResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
@@ -34,12 +39,8 @@ public class ReplyService {
     private final CommentService commentService;
     private final MemberService memberService;
 
-
-
-
     @Transactional
     public void createReply(CommentRequestDto requestDto, Long commentId, Long memberId) {
-
         replyRepository.save(
                 Reply.setReply(
                         requestDto.getContent(), //Content
@@ -49,9 +50,34 @@ public class ReplyService {
                 )
         );
     }
+    public List<ReplyResponseDto> getReplyList(Long commentId, Long memberId)  {
+        List<Reply> replyList = findReplyList(commentId, 3L);
+        List<ReplyResponseDto> result = mapper.replyToReplyResponseDtoList(replyList);
+        return result;
+    }
+    @Transactional
+    public void modifyReply(Long replyId, CommentRequestDto requestDto){
+        Reply foundReply = findReply(replyId);
+        Reply requestReply = mapper.commentRequestDtoToReply(requestDto);
+        Optional.ofNullable(requestReply.getContent())
+                .ifPresent(foundReply::setContent);
+    }
+    @Transactional
+    public void deleteReply(Long replyId) {
+        Reply reply = findReply(replyId);
+        reply.setReplyStatus(DELETED);
+    }
 
-    //find
-    public List<Reply> findReplyList(Long commentId, Long memberId) {
+    //----private-----//
+    @Transactional
+    private Reply findReply(Long replyId){
+        Optional<Reply> reply = replyRepository.findById(replyId);
+        Reply foundReply = reply.orElseThrow(()->new BusinessLogicException(ExceptionCode.COMMENT_NOT_FOUND));
+        if(foundReply.getReplyStatus() == DELETED) throw new BusinessLogicException(ExceptionCode.COMMENT_DELETED);
+        return foundReply;
+    }
+    @Transactional
+    private List<Reply> findReplyList(Long commentId, Long memberId) {
         List<Reply> replyList;
         commentService.findComment(commentId);
         memberService.findMember(memberId);
@@ -69,40 +95,5 @@ public class ReplyService {
     }
 
 
-
-
-
-
-    @Transactional
-    public Reply findReply(Long replyId){
-        Optional<Reply> reply = replyRepository.findById(replyId);
-        Reply foundReply = reply.orElseThrow(()->new BusinessLogicException(ExceptionCode.COMMENT_NOT_FOUND));
-        if(foundReply.getReplyStatus() == DELETED) throw new BusinessLogicException(ExceptionCode.COMMENT_DELETED);
-        return foundReply;
-    }
-
-    @Transactional
-    public void deleteReply(Long replyId) {
-        Reply reply = findReply(replyId);
-        reply.setReplyStatus(DELETED);
-        replyRepository.save(reply);
-    }
-
-/*    //comment update
-    @Transactional
-    public Reply modifyComment(Reply requestReply, Reply foundReply){
-        Optional.ofNullable(requestReply.getContent())
-                .ifPresent(foundReply::setContent);
-        return replyRepository.save(foundReply);
-    }*/
-
-    @Transactional
-    //comment update
-    public void modifyReply(Long replyId, CommentRequestDto requestDto){
-        Reply foundReply = findReply(replyId);
-        Reply requestReply = mapper.commentRequestDtoToReply(requestDto);
-        Optional.ofNullable(requestReply.getContent())
-                .ifPresent(foundReply::setContent);
-    }
 
 }

@@ -1,34 +1,21 @@
 package com.codestates.mainproject.oneyearfourcut.domain.comment.mapper;
 
-import com.codestates.mainproject.oneyearfourcut.domain.artwork.entity.Artwork;
+
 import com.codestates.mainproject.oneyearfourcut.domain.comment.dto.*;
 import com.codestates.mainproject.oneyearfourcut.domain.comment.entity.Comment;
-import com.codestates.mainproject.oneyearfourcut.domain.comment.entity.Reply;
-import com.codestates.mainproject.oneyearfourcut.domain.member.entity.Member;
 import org.mapstruct.Mapper;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
 
-//https://meetup.toast.com/posts/213
-//https://www.youtube.com/watch?v=6n4iL5E-Rwo&list=PLF5X0J2bZ_k42wt16-EWfOa2QEGFfPmMS&index=7
-//https://stackoverflow.com/questions/59333845/mapstruct-many-to-one-mapping
-//https://mapstruct.org/documentation/stable/reference/html/
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface CommentMapper {
 
     CommentMapper INSTANCE = Mappers.getMapper(CommentMapper.class);
 
-    default Comment commentRequestDtoToComment(CommentRequestDto commentRequestDto) {
-        if ( commentRequestDto == null ) {
-            return null;
-        }
-        Comment.CommentBuilder comment = Comment.builder();
 
-        comment.content( commentRequestDto.getContent() );
-
-        return comment.build();
-    }
+    Comment commentRequestDtoToComment(CommentRequestDto commentRequestDto);
 
     default GalleryCommentResponse commentToGalleryCommentResponse(Comment comment) {
         if ( comment == null ) {

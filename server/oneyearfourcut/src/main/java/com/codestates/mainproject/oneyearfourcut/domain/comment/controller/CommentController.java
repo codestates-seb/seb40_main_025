@@ -35,9 +35,8 @@ public class CommentController {
     public ResponseEntity<Object> postCommentOnGallery(@PathVariable("gallery-id") Long galleryId,
                                                        @RequestBody CommentRequestDto commentRequestDto) {
 
-        commentService.createCommentOnGallery(commentRequestDto, galleryId, 3L); //save
-        String response = "댓글등록성공";
-        return new ResponseEntity<>(response,HttpStatus.CREATED);
+        commentService.createCommentOnGallery(commentRequestDto, galleryId, 3L);
+        return new ResponseEntity<>("댓글등록성공",HttpStatus.CREATED);
     }
 
 
@@ -48,9 +47,8 @@ public class CommentController {
             @PathVariable("artwork-id") Long artworkId,
             @RequestBody CommentRequestDto commentRequestDto){
 
-        commentService.createCommentOnArtwork(commentRequestDto, galleryId,artworkId,3L); //save
-        String response = "댓글등록성공";
-        return new ResponseEntity<>(response, (HttpStatus.CREATED)); //생성 댓글 response
+        commentService.createCommentOnArtwork(commentRequestDto, galleryId,artworkId,3L);
+        return new ResponseEntity<>("댓글등록성공", (HttpStatus.CREATED));
     }
 
     //pagination
@@ -82,8 +80,7 @@ public class CommentController {
                                                @PathVariable("comment-id") Long commentId,
                                                @RequestBody CommentRequestDto requestDto){
         commentService.modifyComment(commentId, requestDto);
-        String response = "댓글수정완료!!";
-        return new ResponseEntity<>(response, (HttpStatus.OK));
+        return new ResponseEntity<>("댓글수정완료!!", (HttpStatus.OK));
     }
 
     @DeleteMapping("/{gallery-id}/comments/{comment-id}")

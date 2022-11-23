@@ -37,13 +37,9 @@ import static org.springframework.data.domain.Sort.Order.desc;
 public class CommentService {
     private final CommentRepository commentRepository;
     private final CommentMapper mapper;
-
-
     private final MemberService memberService;
     private final GalleryService galleryService;
 
-
-    //댓글 생성 메소드, 1)galleryservice 통해서 회원/갤러리검증, 2)댓글VALID설정 3)memberid, gallery set(양쪽) 4)artwork set 5)save
     @Transactional
     public void createCommentOnGallery(CommentRequestDto requestDto, Long galleryId, Long memberId) {
         commentRepository.save(
@@ -71,7 +67,6 @@ public class CommentService {
     }
 
     @Transactional
-    //find & Pagination method
     public Page<Comment> findCommentByPage(Long galleryId, Long artworkId, int page, int size) {
         PageRequest pr = PageRequest.of(page - 1, size);
         Page<Comment> commentPage;
@@ -91,8 +86,7 @@ public class CommentService {
 
 
     @Transactional
-    //comment jpa레포 존재여부 검증 메소드
-    public Comment findComment(Long commentId){
+    protected Comment findComment(Long commentId){
         Optional<Comment> comment = commentRepository.findById(commentId);
         Comment foundComment = comment.orElseThrow(()->new BusinessLogicException(ExceptionCode.COMMENT_NOT_FOUND));
         if(foundComment.getCommentStatus() == DELETED) throw new BusinessLogicException(ExceptionCode.COMMENT_DELETED);
@@ -100,14 +94,12 @@ public class CommentService {
     }
 
     @Transactional
-    //comment 삭제 메소드, 1)pathvariable를 통해서 gallery존재 확인, 2)repo존재 확인 3)status deleted 4)save
     public void deleteComment(Long commentId) {
         Comment comment = findComment(commentId);
         comment.setCommentStatus(DELETED);
     }
 
     @Transactional
-    //comment update
     public void modifyComment(Long commentId, CommentRequestDto requestDto){
         Comment foundComment = findComment(commentId);
         Comment requestComment = mapper.commentRequestDtoToComment(requestDto);
