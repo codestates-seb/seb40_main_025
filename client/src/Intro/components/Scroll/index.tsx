@@ -1,5 +1,6 @@
 import * as S from './style';
 import Envelope from '../Envelope';
+import Kakao from '../Kakao';
 import { useEffect, useRef } from 'react';
 
 const Index = () => {
@@ -30,6 +31,7 @@ const Index = () => {
       <S.Button onClick={onHomeClick}>
         누르면 이동한다고? 진짜 가네 오키
       </S.Button>
+      <Kakao />
     </S.Container>
   );
 };
