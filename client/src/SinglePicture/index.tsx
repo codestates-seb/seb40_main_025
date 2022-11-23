@@ -1,5 +1,5 @@
 import Footer from 'shared/components/PicFooter/PicFooter';
-import SinglePicture from './Single picture';
+import SinglePicture from './SinglePicture';
 
 const SinglePicPage = () => {
   return (
