@@ -48,13 +48,16 @@ public class Member extends Auditable {
         this.status = memberStatus;
     }
 
-    //연관관계 맵핑 위해 생성하는 member 엔티티 용 생성자
-    public Member(Long memberId) {  //jpa 연관관계 매핑을 위한 엔티티 생성자
+    //jpa 연관관계 맵핑 위해 생성하는 member 엔티티 용 생성자
+    public Member(Long memberId) {
         this.memberId = memberId;
     }
 
     public void updateNickname(String nickname) {
         this.nickname = nickname;
+    }
+    public void updateProfile(String profile) {
+        this.profile = profile;
     }
 
     public void updateStatus(MemberStatus status) {
