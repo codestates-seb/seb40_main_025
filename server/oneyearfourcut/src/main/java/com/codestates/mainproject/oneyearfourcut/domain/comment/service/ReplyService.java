@@ -89,11 +89,10 @@ public class ReplyService {
 
     //comment update
     @Transactional
-    public void modifyComment(Long replyId){
-        Reply reply = findReply(replyId);
-        Optional.ofNullable(reply.getContent())
-                .ifPresent(reply::setContent);
-        replyRepository.save(reply);
+    public Reply modifyComment(Reply requestReply, Reply foundReply){
+        Optional.ofNullable(requestReply.getContent())
+                .ifPresent(foundReply::setContent);
+        return replyRepository.save(foundReply);
     }
 
 }

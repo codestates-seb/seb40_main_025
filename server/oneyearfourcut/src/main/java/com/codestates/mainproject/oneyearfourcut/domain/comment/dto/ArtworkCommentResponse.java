@@ -19,7 +19,7 @@ public class ArtworkCommentResponse extends Auditable {
     private Long memberId;
     private String nickname;
     private String content;
-    private Long artworkId;
+    /*private Long artworkId;*/
 
     /*private List<ReplyResponseDto> replyList;*/
 

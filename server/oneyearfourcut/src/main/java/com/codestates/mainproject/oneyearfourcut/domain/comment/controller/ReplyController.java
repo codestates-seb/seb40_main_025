@@ -7,6 +7,7 @@ import com.codestates.mainproject.oneyearfourcut.domain.comment.entity.Comment;
 import com.codestates.mainproject.oneyearfourcut.domain.comment.entity.Reply;
 import com.codestates.mainproject.oneyearfourcut.domain.comment.mapper.ReplyMapper;
 import com.codestates.mainproject.oneyearfourcut.domain.comment.service.ReplyService;
+import com.codestates.mainproject.oneyearfourcut.global.page.ReplyListResponseDto;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -39,28 +40,26 @@ public class ReplyController {
 
         List<Reply> replyList = replyService.findReplyList(commentId, 3L);
         List<ReplyResponseDto> response = mapper.replyToReplyResponseDtoList(replyList);
-        return new ResponseEntity<>(response, HttpStatus.CREATED);
+        return new ResponseEntity<>(new ReplyListResponseDto<>(commentId, response), HttpStatus.CREATED);
     }
 
-    @PatchMapping("/comments/comments/replies/{reply-id}")
+    @PatchMapping("/comments/replies/{reply-id}")
     public ResponseEntity<Object> patchReply(@PathVariable("reply-id") Long replyId,
-                                               @RequestBody CommentRequestDto commentRequestDto){
+                                               @RequestBody CommentRequestDto requestDto){
 
-        replyService.modifyComment(replyId);
+        Reply foundReply = replyService.findReply(replyId);
+        Reply requestReply = mapper.commentRequestDtoToReply(requestDto);
+        replyService.modifyComment(requestReply, foundReply);
         String response = "댓글수정완료!!";
         return new ResponseEntity<>(response, (HttpStatus.OK));
     }
 
-    @DeleteMapping("/comments/comments/replies/{reply-id}")
-    public ResponseEntity<Object> deleteComment(@PathVariable("gallery-id") Long replyId,
-                                                @PathVariable("comment-id") Long commentId){
+    @DeleteMapping("/comments/replies/{reply-id}")
+    public ResponseEntity<Object> deleteComment(@PathVariable("reply-id") Long replyId){
         replyService.deleteReply(replyId);
         String response = "댓글삭제완료!!!";
         return new ResponseEntity<>(response,(HttpStatus.NO_CONTENT));
     }
-
-
-
 
 
 }

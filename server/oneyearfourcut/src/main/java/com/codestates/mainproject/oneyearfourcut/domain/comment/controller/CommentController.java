@@ -17,6 +17,8 @@ import com.codestates.mainproject.oneyearfourcut.domain.member.repository.Member
 import com.codestates.mainproject.oneyearfourcut.domain.member.service.MemberService;
 import com.codestates.mainproject.oneyearfourcut.global.exception.exception.BusinessLogicException;
 import com.codestates.mainproject.oneyearfourcut.global.exception.exception.ExceptionCode;
+import com.codestates.mainproject.oneyearfourcut.global.page.ArtworkPageResponseDto;
+import com.codestates.mainproject.oneyearfourcut.global.page.GalleryPageResponseDto;
 import com.codestates.mainproject.oneyearfourcut.global.page.PageInfo;
 import com.codestates.mainproject.oneyearfourcut.global.page.PageResponseDto;
 import lombok.AllArgsConstructor;
@@ -98,7 +100,7 @@ public class CommentController {
         List<Comment> commentList = commentPage.getContent();
         PageInfo pageInfo = new PageInfo(page, size, (int) commentPage.getTotalElements(), commentPage.getTotalPages());
         List<GalleryCommentResponse> response = commentMapper.commentToGalleryCommentResponseList(commentList);
-        return new ResponseEntity<>(new PageResponseDto<>(response, pageInfo), (HttpStatus.OK));
+        return new ResponseEntity<>(new GalleryPageResponseDto<>(galleryId, response, pageInfo), (HttpStatus.OK));
     }
 
     @GetMapping("/{gallery-id}/artworks/{artwork-id}/comments")
@@ -109,7 +111,7 @@ public class CommentController {
         List<Comment> commentList = commentPage.getContent();
         PageInfo pageInfo = new PageInfo(page, size, (int) commentPage.getTotalElements(), commentPage.getTotalPages());
         List<ArtworkCommentResponse> response = commentMapper.commentToArtworkCommentResponseList(commentList);
-        return new ResponseEntity<>(new PageResponseDto<>(response, pageInfo), (HttpStatus.OK));
+        return new ResponseEntity<>(new ArtworkPageResponseDto<>(artworkId, response, pageInfo), (HttpStatus.OK));
     }
 
 

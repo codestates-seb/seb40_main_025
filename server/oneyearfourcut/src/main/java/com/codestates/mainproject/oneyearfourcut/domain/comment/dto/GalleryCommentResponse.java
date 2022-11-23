@@ -21,7 +21,7 @@ public class GalleryCommentResponse extends Auditable {
     private String nickname;
     private String content;
 
-    private Long galleryId;
+    /*private Long galleryId;*/
     private Long artworkId; //it can be NULL
 
     /*private List<ReplyResponseDto> replyList;*/

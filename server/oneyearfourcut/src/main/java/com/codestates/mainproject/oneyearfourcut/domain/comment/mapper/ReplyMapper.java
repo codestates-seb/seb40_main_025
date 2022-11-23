@@ -1,6 +1,7 @@
 package com.codestates.mainproject.oneyearfourcut.domain.comment.mapper;
 
 
+import com.codestates.mainproject.oneyearfourcut.domain.comment.dto.CommentRequestDto;
 import com.codestates.mainproject.oneyearfourcut.domain.comment.dto.GalleryCommentResponse;
 import com.codestates.mainproject.oneyearfourcut.domain.comment.dto.ReplyResponseDto;
 import com.codestates.mainproject.oneyearfourcut.domain.comment.entity.Comment;
@@ -12,6 +13,7 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface ReplyMapper {
 
+    Reply commentRequestDtoToReply(CommentRequestDto replyRequestDto);
 
     default ReplyResponseDto replyToReplyResponseDto(Reply reply) {
         if ( reply == null ) {
