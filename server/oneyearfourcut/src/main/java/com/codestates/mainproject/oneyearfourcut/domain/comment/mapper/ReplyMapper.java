@@ -1,36 +1,35 @@
 package com.codestates.mainproject.oneyearfourcut.domain.comment.mapper;
 
 
-import com.codestates.mainproject.oneyearfourcut.domain.comment.dto.CommentRequestDto;
-import com.codestates.mainproject.oneyearfourcut.domain.comment.dto.ReplyResponseDto;
+import com.codestates.mainproject.oneyearfourcut.domain.comment.dto.CommentReqDto;
+import com.codestates.mainproject.oneyearfourcut.domain.comment.dto.ReplyResDto;
 import com.codestates.mainproject.oneyearfourcut.domain.comment.entity.Reply;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 
 import java.util.List;
-
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface ReplyMapper {
 
-    Reply commentRequestDtoToReply(CommentRequestDto replyRequestDto);
+    Reply commentRequestDtoToReply(CommentReqDto replyRequestDto);
 
-    default ReplyResponseDto replyToReplyResponseDto(Reply reply) {
+    default ReplyResDto replyToReplyResponseDto(Reply reply) {
         if ( reply == null ) {
             return null;
         }
 
-        ReplyResponseDto replyResponseDto = new ReplyResponseDto();
+        ReplyResDto replyResDto = new ReplyResDto();
 
-        replyResponseDto.setReplyId( reply.getReplyId() );
-        replyResponseDto.setCreatedAt( reply.getCreatedAt() );
-        replyResponseDto.setModifiedAt( reply.getModifiedAt() );
-        replyResponseDto.setContent( reply.getContent() );
-        replyResponseDto.setMemberId(reply.getMember().getMemberId());
-        replyResponseDto.setNickname(reply.getMember().getNickname());
+        replyResDto.setReplyId( reply.getReplyId() );
+        replyResDto.setCreatedAt( reply.getCreatedAt() );
+        replyResDto.setModifiedAt( reply.getModifiedAt() );
+        replyResDto.setContent( reply.getContent() );
+        replyResDto.setMemberId(reply.getMember().getMemberId());
+        replyResDto.setNickname(reply.getMember().getNickname());
 
 
-        return replyResponseDto;
+        return replyResDto;
     }
 
-    List<ReplyResponseDto> replyToReplyResponseDtoList(List<Reply> replyList);
+    List<ReplyResDto> replyToReplyResponseDtoList(List<Reply> replyList);
 }

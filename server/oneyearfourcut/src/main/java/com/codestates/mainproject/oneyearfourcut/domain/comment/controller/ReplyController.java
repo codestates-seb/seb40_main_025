@@ -1,7 +1,7 @@
 package com.codestates.mainproject.oneyearfourcut.domain.comment.controller;
 
-import com.codestates.mainproject.oneyearfourcut.domain.comment.dto.CommentRequestDto;
-import com.codestates.mainproject.oneyearfourcut.domain.comment.dto.ReplyResponseDto;
+import com.codestates.mainproject.oneyearfourcut.domain.comment.dto.CommentReqDto;
+import com.codestates.mainproject.oneyearfourcut.domain.comment.dto.ReplyResDto;
 import com.codestates.mainproject.oneyearfourcut.domain.comment.mapper.ReplyMapper;
 import com.codestates.mainproject.oneyearfourcut.domain.comment.service.ReplyService;
 import com.codestates.mainproject.oneyearfourcut.global.page.ReplyListResponseDto;
@@ -26,20 +26,20 @@ public class ReplyController {
 
     @PostMapping("/comments/{comment-id}/replies")
     public ResponseEntity<Object> postReplyOnGallery(@PathVariable("comment-id") Long commentId,
-                                                       @RequestBody CommentRequestDto replyRequestDto) {
+                                                       @RequestBody CommentReqDto replyRequestDto) {
         replyService.createReply(replyRequestDto, commentId, 3L);
         return new ResponseEntity<>("댓글등록성공", HttpStatus.CREATED);
     }
 
     @GetMapping("/comments/{comment-id}/replies")
     public ResponseEntity<Object> getReplyOnGallery(@PathVariable("comment-id") Long commentId) {
-        List<ReplyResponseDto> response = replyService.getReplyList(commentId,3L);
+        List<ReplyResDto> response = replyService.getReplyList(commentId,3L);
         return new ResponseEntity<>(new ReplyListResponseDto<>(commentId, response), HttpStatus.CREATED);
     }
 
     @PatchMapping("/comments/replies/{reply-id}")
     public ResponseEntity<Object> patchReply(@PathVariable("reply-id") Long replyId,
-                                               @RequestBody CommentRequestDto requestDto){
+                                               @RequestBody CommentReqDto requestDto){
         replyService.modifyReply(replyId, requestDto);
         return new ResponseEntity<>("댓글수정완료!!", (HttpStatus.OK));
     }

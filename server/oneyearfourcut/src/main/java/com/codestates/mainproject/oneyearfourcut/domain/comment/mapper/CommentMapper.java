@@ -14,51 +14,50 @@ public interface CommentMapper {
 
     CommentMapper INSTANCE = Mappers.getMapper(CommentMapper.class);
 
+    Comment commentRequestDtoToComment(CommentReqDto commentReqDto);
 
-    Comment commentRequestDtoToComment(CommentRequestDto commentRequestDto);
-
-    default GalleryCommentResponse commentToGalleryCommentResponse(Comment comment) {
+    default CommentGalleryResDto commentToGalleryCommentResponse(Comment comment) {
         if ( comment == null ) {
             return null;
         }
 
-        GalleryCommentResponse galleryCommentResponse = new GalleryCommentResponse();
+        CommentGalleryResDto commentGalleryResDto = new CommentGalleryResDto();
 
-        galleryCommentResponse.setCommentId( comment.getCommentId() );
-        galleryCommentResponse.setCreatedAt( comment.getCreatedAt() );
-        galleryCommentResponse.setModifiedAt( comment.getModifiedAt() );
-        galleryCommentResponse.setContent( comment.getContent() );
-        galleryCommentResponse.setArtworkId( comment.getArtworkId() );
-        galleryCommentResponse.setMemberId(comment.getMember().getMemberId());
-        galleryCommentResponse.setNickname(comment.getMember().getNickname());
-        /*galleryCommentResponse.setGalleryId(comment.getGallery().getGalleryId());*/
+        commentGalleryResDto.setCommentId( comment.getCommentId() );
+        commentGalleryResDto.setCreatedAt( comment.getCreatedAt() );
+        commentGalleryResDto.setModifiedAt( comment.getModifiedAt() );
+        commentGalleryResDto.setContent( comment.getContent() );
+        commentGalleryResDto.setArtworkId( comment.getArtworkId() );
+        commentGalleryResDto.setMemberId(comment.getMember().getMemberId());
+        commentGalleryResDto.setNickname(comment.getMember().getNickname());
+        /*commentGalleryResDto.setGalleryId(comment.getGallery().getGalleryId());*/
 
 
-        return galleryCommentResponse;
+        return commentGalleryResDto;
     }
 
-    List<GalleryCommentResponse> commentToGalleryCommentResponseList(List<Comment> commentList);
+    List<CommentGalleryResDto> commentToGalleryCommentResponseList(List<Comment> commentList);
 
-    default ArtworkCommentResponse commentToArtworkCommentResponse(Comment comment) {
+    default CommentArtworkResDto commentToArtworkCommentResponse(Comment comment) {
         if ( comment == null ) {
             return null;
         }
 
-        ArtworkCommentResponse artworkCommentResponse = new ArtworkCommentResponse();
+        CommentArtworkResDto commentArtworkResDto = new CommentArtworkResDto();
 
-        artworkCommentResponse.setCommentId( comment.getCommentId() );
-        artworkCommentResponse.setCreatedAt( comment.getCreatedAt() );
-        artworkCommentResponse.setModifiedAt( comment.getModifiedAt() );
-        artworkCommentResponse.setContent( comment.getContent() );
-        /*artworkCommentResponse.setArtworkId( comment.getArtworkId() );*/
-        artworkCommentResponse.setMemberId(comment.getMember().getMemberId());
-        artworkCommentResponse.setNickname(comment.getMember().getNickname());
+        commentArtworkResDto.setCommentId( comment.getCommentId() );
+        commentArtworkResDto.setCreatedAt( comment.getCreatedAt() );
+        commentArtworkResDto.setModifiedAt( comment.getModifiedAt() );
+        commentArtworkResDto.setContent( comment.getContent() );
+        /*commentArtworkResDto.setArtworkId( comment.getArtworkId() );*/
+        commentArtworkResDto.setMemberId(comment.getMember().getMemberId());
+        commentArtworkResDto.setNickname(comment.getMember().getNickname());
 
 
-        return artworkCommentResponse;
+        return commentArtworkResDto;
     }
 
-    List<ArtworkCommentResponse> commentToArtworkCommentResponseList(List<Comment> commentList);
+    List<CommentArtworkResDto> commentToArtworkCommentResponseList(List<Comment> commentList);
 
 
 }

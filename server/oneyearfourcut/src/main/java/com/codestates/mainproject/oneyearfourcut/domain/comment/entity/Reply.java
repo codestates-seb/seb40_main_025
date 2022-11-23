@@ -1,6 +1,5 @@
 package com.codestates.mainproject.oneyearfourcut.domain.comment.entity;
 
-import com.codestates.mainproject.oneyearfourcut.domain.gallery.entity.Gallery;
 import com.codestates.mainproject.oneyearfourcut.domain.member.entity.Member;
 import com.codestates.mainproject.oneyearfourcut.global.auditable.Auditable;
 import lombok.*;
@@ -12,6 +11,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Entity
 public class Reply extends Auditable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long replyId;
