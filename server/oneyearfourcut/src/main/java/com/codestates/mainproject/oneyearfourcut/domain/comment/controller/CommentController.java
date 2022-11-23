@@ -27,7 +27,6 @@ import java.util.List;
 @AllArgsConstructor
 public class CommentController {
     private final CommentService commentService;
-    private final CommentMapper mapper;
 
     //POST (Create) Comment On Gallery
     @PostMapping("/{gallery-id}/comments")

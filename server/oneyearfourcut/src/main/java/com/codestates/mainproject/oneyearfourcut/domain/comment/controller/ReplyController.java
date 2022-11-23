@@ -20,7 +20,6 @@ import java.util.List;
 @Slf4j
 @AllArgsConstructor
 public class ReplyController {
-
     private final ReplyService replyService;
 
     //POST (Create) Reply
