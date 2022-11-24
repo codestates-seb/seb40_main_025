@@ -1,8 +1,32 @@
 import { jsonInstance, formdataInstance } from 'shared/utils/axios';
 import img from 'UploadPicture/1.jpg';
 
-const api = {
-  postImageAndContent: async (title: string, content: string) => {
+const apis = {
+  postImageAndContent: async (img: File, title: string, content: string, galleryId:number) => {
+    
+    const formdata = new FormData();
+    formdata.append('img', img);
+    formdata.append('title', title);
+    formdata.append('content', content);
+
+    return await formdataInstance.post(`/galleries/${galleryId}/artworks`, formdata);
+  },
+
+  getTest: async () => {
+    const data = await jsonInstance.get('/galleries/1/artworks');
+      console.log(data);
+      return data;
+    },
+  
+};
+
+export default apis;
+
+/*
+
+추후 지울 예정
+
+postImageAndContent: async (title: string, content: string) => {
     let blob = new Blob([new ArrayBuffer(img)], { type: 'image/jpg' });
 
     let reader = new FileReader();
@@ -33,16 +57,6 @@ const api = {
     const data = await formdataInstance.post('/galleries/1/artworks', formdata);
     console.log(data);
     return data;
-  },
-
-  getTest: async () => {
-    const data = await jsonInstance.get('/galleries/1/artworks');
-      console.log(data);
-      return data;
-    },
-  
-};
-
-export default api;
-
 // let blob = new Blob([new ArrayBuffer(img)], { type: "image/jpg" });
+
+*/

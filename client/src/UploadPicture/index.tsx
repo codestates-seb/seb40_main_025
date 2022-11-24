@@ -5,8 +5,8 @@ import { ModalStore, UploadStore } from 'store/store';
 import { Alert } from 'shared/components/Modal/components/Alert';
 import ModalBackdrop from 'shared/components/Modal/components/ModalBackdrop';
 import { useRef } from 'react';
-import { formdataInstance } from 'shared/utils/axios';
 import useToast from 'shared/components/Toast/hooks/useToast';
+import { UploadAlert } from '../../src/shared/components/Modal/AlertData';
 
 const UploadPicture = () => {
   const { target, openModal, closeModal } = ModalStore();
@@ -40,15 +40,11 @@ const UploadPicture = () => {
       ]);
       return;
     }
-
-    const data = new FormData();
-    data.append('img', UploadData.img!);
-    data.append('title', UploadData.title);
-    data.append('content', UploadData.content);
-
-    // const data2 = new FormData(formRef.current!) 데이터 어떻게 들어가는지 확인해보기
-    formdataInstance.post('/', data);
+    else {
+      openModal("AlertModal")
+    }
   };
+  // const data2 = new FormData(formRef.current!) 데이터 어떻게 들어가는지 확인해보기
 
   return (
     <>
@@ -64,7 +60,7 @@ const UploadPicture = () => {
       {/* 모달 생성부분 */}
       {target.AlertModal ? (
         <ModalBackdrop>
-          <Alert data={data} />
+          <Alert data={UploadAlert(onClick)} />
         </ModalBackdrop>
       ) : null}
     </>

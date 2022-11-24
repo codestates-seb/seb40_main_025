@@ -3,13 +3,7 @@ import { UploadSvg } from './SvgComponents';
 import { UploadStore } from 'store/store';
 import { useRef } from 'react';
 import useToast from 'shared/components/Toast/hooks/useToast';
-interface EmptyImg {
-  setUploadImg: (file: File | undefined) => void;
-}
 
-interface UserImg extends EmptyImg {
-  uploadImg: File | undefined;
-}
 const ALLOW_FILE_EXTENSION = 'jpg, jpeg, png, heic';
 
 const uploadHelper = (name: string) => {
@@ -29,18 +23,17 @@ const UploadUserImgBox = () => {
 
   const handleOnchange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && uploadHelper(event.target.files[0].name))
-      // setUploadImg(event.target.files[0]);
       setData('img', event.target.files[0]);
     else {
-      console.log("hi");
+      if (UploadData.img === undefined || inputRef.current)
+        inputRef.current!.value = ''; //onChange 이벤트 활성화를 위한 초기화
+
       setToast(3000, [
         '아래의 확장자만 사용이 가능합니다 확장자를 확인해주세요',
         ALLOW_FILE_EXTENSION,
       ]);
     }
   };
-  if (UploadData.img === undefined && inputRef.current)
-    inputRef.current.value = '';
 
   return (
     <B.UploadUserImgBox>
