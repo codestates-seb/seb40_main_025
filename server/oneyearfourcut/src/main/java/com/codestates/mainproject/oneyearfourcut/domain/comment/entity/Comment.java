@@ -61,18 +61,6 @@ public class Comment extends Auditable {
         this.commentStatus = commentStatus;
     }
 
-
-    public CommentArtworkResDto toCommentArtworkResponseDto(){
-        return CommentArtworkResDto.builder()
-                .commentId(this.getCommentId())
-                .createdAt(this.getCreatedAt())
-                .modifiedAt(this.getModifiedAt())
-                .content(this.getContent())
-                .memberId(this.getMember().getMemberId())
-                .nickname(this.getMember().getNickname())
-                .build();
-    }
-
     public CommentGalleryResDto toCommentGalleryResponseDto(){
         return CommentGalleryResDto.builder()
                 .commentId(this.getCommentId())
@@ -85,5 +73,15 @@ public class Comment extends Auditable {
                 .build();
     }
 
+    public CommentArtworkResDto toCommentArtworkResponseDto(){
+        return CommentArtworkResDto.builder()
+                .commentId(this.getCommentId())
+                .createdAt(this.getCreatedAt())
+                .modifiedAt(this.getModifiedAt())
+                .content(this.getContent())
+                .memberId(this.getMember().getMemberId())
+                .nickname(this.getMember().getNickname())
+                .build();
+    }
 
 }

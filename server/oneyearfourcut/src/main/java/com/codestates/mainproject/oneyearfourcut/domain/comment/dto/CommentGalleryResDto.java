@@ -31,4 +31,6 @@ public class CommentGalleryResDto extends Auditable {
         }
         return resultList;
     }
+
+
 }

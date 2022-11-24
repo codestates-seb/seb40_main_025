@@ -45,6 +45,7 @@ public class CommentService {
     }
 
 
+
     public void createCommentOnArtwork(CommentRequestDto commentRequestDto, Long galleryId, Long artworkId, Long memberId) {
         Comment comment = Comment.builder()
                 .gallery(galleryService.findGallery(galleryId))
@@ -55,6 +56,8 @@ public class CommentService {
                 .build();
         commentRepository.save(comment);
     }
+
+
 
 
 
@@ -86,6 +89,7 @@ public class CommentService {
     }
 
 
+
     public ArtworkPageResponseDto<Object> getArtworkCommentPage(Long galleryId, Long artworkId, int page, int size, Long memberId) {
         memberService.findMember(memberId);
         Page<Comment> commentPage = findCommentByPage(galleryId, artworkId, page, size);
@@ -102,6 +106,7 @@ public class CommentService {
         if(foundComment.getCommentStatus() == DELETED) throw new BusinessLogicException(ExceptionCode.COMMENT_DELETED);
         return foundComment;
     }
+
 
 
     public void deleteComment(Long galleryId, Long commentId, Long memberId) {

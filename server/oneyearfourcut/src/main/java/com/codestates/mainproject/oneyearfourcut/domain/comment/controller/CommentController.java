@@ -24,13 +24,14 @@ import org.springframework.web.bind.annotation.*;
 public class CommentController {
     private final CommentService commentService;
 
+
     //POST (Create) Comment On Gallery
     @PostMapping("/{gallery-id}/comments")
     public ResponseEntity<Object> postCommentOnGallery(@PathVariable("gallery-id") Long galleryId,
                                                        @RequestBody CommentRequestDto requestDto,
                                                        @LoginMember Long memberId) {
         commentService.createCommentOnGallery(requestDto, galleryId, memberId);
-        return new ResponseEntity<>("댓글등록성공",HttpStatus.CREATED);
+        return new ResponseEntity<>(requestDto ,HttpStatus.CREATED);
     }
 
     //POST (Create) Comment On Artwork
@@ -39,7 +40,7 @@ public class CommentController {
             @PathVariable("artwork-id") Long artworkId, @RequestBody CommentRequestDto requestDto,
                                                        @LoginMember Long memberId){
         commentService.createCommentOnArtwork(requestDto, galleryId,artworkId, memberId);
-        return new ResponseEntity<>("댓글등록성공", HttpStatus.CREATED);
+        return new ResponseEntity<>(requestDto, HttpStatus.CREATED);
     }
 
     //GET (Read) Comment on Gallery (with pagination)
@@ -66,7 +67,7 @@ public class CommentController {
                                                @RequestBody CommentRequestDto requestDto,
                                                @LoginMember Long memberId){
         commentService.modifyComment(galleryId, commentId, requestDto, memberId);
-        return new ResponseEntity<>("댓글수정완료!!", HttpStatus.OK);
+        return new ResponseEntity<>(requestDto, HttpStatus.OK);
     }
 
     //Delete (Delete) Comment (Set Status DELETED)

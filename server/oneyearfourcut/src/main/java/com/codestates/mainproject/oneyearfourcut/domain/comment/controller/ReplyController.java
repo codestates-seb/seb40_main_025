@@ -25,7 +25,7 @@ public class ReplyController {
                                             @RequestBody CommentRequestDto requestDto,
                                             @LoginMember Long memberId) {
         replyService.createReply(requestDto, commentId, memberId);
-        return new ResponseEntity<>("댓글등록성공", HttpStatus.CREATED);
+        return new ResponseEntity<>(requestDto, HttpStatus.CREATED);
     }
 
     //GET (Read) Reply
@@ -41,7 +41,7 @@ public class ReplyController {
                                              @RequestBody CommentRequestDto requestDto,
                                              @LoginMember Long memberId){
         replyService.modifyReply(commentId, replyId, requestDto, memberId);
-        return new ResponseEntity<>("댓글수정완료!!", HttpStatus.OK);
+        return new ResponseEntity<>(requestDto, HttpStatus.OK);
     }
 
     //DELETE (Delete) Reply
