@@ -27,12 +27,13 @@ import static com.codestates.mainproject.oneyearfourcut.domain.comment.entity.Co
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class CommentService {
     private final CommentRepository commentRepository;
     private final MemberService memberService;
     private final GalleryService galleryService;
 
-    @Transactional
+
     public void createCommentOnGallery(CommentRequestDto commentRequestDto, Long galleryId, Long memberId) {
         Comment comment = Comment.builder()
                 .gallery(galleryService.findGallery(galleryId))
@@ -43,7 +44,7 @@ public class CommentService {
         commentRepository.save(comment);
     }
 
-    @Transactional
+
     public void createCommentOnArtwork(CommentRequestDto commentRequestDto, Long galleryId, Long artworkId, Long memberId) {
         Comment comment = Comment.builder()
                 .gallery(galleryService.findGallery(galleryId))
@@ -56,7 +57,7 @@ public class CommentService {
     }
 
 
-    @Transactional
+
     private Page<Comment> findCommentByPage(Long galleryId, Long artworkId, int page, int size) {
         PageRequest pr = PageRequest.of(page - 1, size);
         Page<Comment> commentPage;
@@ -74,6 +75,7 @@ public class CommentService {
         return commentPage;
     }
 
+
     public GalleryPageResponseDto<Object> getGalleryCommentPage(Long galleryId, int page, int size, Long memberId){
         memberService.findMember(memberId);
         Page<Comment> commentPage = findCommentByPage(galleryId, null, page, size);
@@ -82,6 +84,7 @@ public class CommentService {
         List<CommentGalleryResDto> response = CommentGalleryResDto.toCommentGalleryResponseDtoList(commentList);
         return new GalleryPageResponseDto<>(galleryId, response, pageInfo);
     }
+
 
     public ArtworkPageResponseDto<Object> getArtworkCommentPage(Long galleryId, Long artworkId, int page, int size, Long memberId) {
         memberService.findMember(memberId);
@@ -92,7 +95,7 @@ public class CommentService {
         return new ArtworkPageResponseDto<>(artworkId, response, pageInfo);
     }
 
-    @Transactional
+
     protected Comment findComment(Long commentId){
         Optional<Comment> comment = commentRepository.findById(commentId);
         Comment foundComment = comment.orElseThrow(()->new BusinessLogicException(ExceptionCode.COMMENT_NOT_FOUND));
@@ -100,16 +103,16 @@ public class CommentService {
         return foundComment;
     }
 
-    @Transactional
+
     public void deleteComment(Long galleryId, Long commentId, Long memberId) {
         Comment foundComment= findComment(commentId);
         galleryService.findGallery(galleryId);
         memberService.findMember(memberId);
         //--검증완료--
-        foundComment.setCommentStatus(DELETED);
+        foundComment.changeCommentStatus(DELETED);
     }
 
-    @Transactional
+
     public void modifyComment(Long galleryId, Long commentId, CommentRequestDto commentRequestDto, Long memberId){
         Comment foundComment = findComment(commentId);
         galleryService.findGallery(galleryId);
@@ -117,7 +120,7 @@ public class CommentService {
         //--검증완료--
         Comment requestComment = commentRequestDto.toCommentEntity();
         Optional.ofNullable(requestComment.getContent())
-                .ifPresent(foundComment::setContent);
+                .ifPresent(foundComment::changeContent);
     }
 
 }

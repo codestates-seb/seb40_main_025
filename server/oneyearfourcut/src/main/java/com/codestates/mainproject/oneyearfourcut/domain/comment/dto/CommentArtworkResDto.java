@@ -26,7 +26,7 @@ public class CommentArtworkResDto extends Auditable {
         if(commentList == null){ return Collections.emptyList(); }
         List<CommentArtworkResDto> resultList = new ArrayList<>( commentList.size() );
         for ( Comment comment : commentList ) {
-            resultList.add( comment.toArtworkResponseDto( comment ) );
+            resultList.add( comment.toCommentArtworkResponseDto() );
         }
         return resultList;
     }

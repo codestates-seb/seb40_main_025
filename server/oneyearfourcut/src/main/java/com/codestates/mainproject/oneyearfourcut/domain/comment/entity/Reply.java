@@ -8,8 +8,6 @@ import lombok.*;
 import javax.persistence.*;
 
 @Getter
-@Builder
-@AllArgsConstructor
 @NoArgsConstructor
 @Entity
 public class Reply extends Auditable {
@@ -32,11 +30,19 @@ public class Reply extends Auditable {
     @Enumerated(EnumType.STRING)
     private CommentStatus replyStatus; //삭제 여부
 
-    public void setReplyStatus(CommentStatus replyStatus) {
+    @Builder
+    public Reply(String content, Comment comment, Member member, CommentStatus replyStatus) {
+        this.content = content;
+        this.comment = comment;
+        this.member = member;
         this.replyStatus = replyStatus;
     }
 
-    public void setContent(String content) {
+    public void changeReplyStatus(CommentStatus replyStatus) {
+        this.replyStatus = replyStatus;
+    }
+
+    public void changeContent(String content) {
         this.content = content;
     }
 
