@@ -63,7 +63,7 @@ public class ArtworkServiceLocalTest {
             String title = "제목1";
             String content = "작품에 대한 설명";
             artworkRequestDto = ArtworkRequestDto.builder()
-                    .img(image)
+                    .image(image)
                     .title(title)
                     .content(content)
                     .build();
@@ -79,11 +79,10 @@ public class ArtworkServiceLocalTest {
             artwork.setGallery(gallery);
             artwork.setMember(member);
 
-            given(memberService.findMember(memberId)).willReturn(member);
             given(galleryService.findGallery(galleyId)).willReturn(gallery);
             given(artworkRepository.save(any(Artwork.class))).willReturn(artwork);
 
-            artworkService.createArtwork(galleyId, artworkRequestDto);
+            artworkService.createArtwork(memberId, galleyId, artworkRequestDto);
         }
     }
 
@@ -162,7 +161,7 @@ public class ArtworkServiceLocalTest {
                 given(artworkRepository.findAllByGallery_GalleryIdAndStatus(galleryId, Sort.by(desc("createdAt")), ArtworkStatus.REGISTRATION))
                         .willReturn(artworkList);
 
-                List<ArtworkResponseDto> response = artworkService.findArtworkList(galleryId);
+                List<ArtworkResponseDto> response = artworkService.findArtworkList(loginMemberId, galleryId);
 
                 assertThat(response.size()).isEqualTo(artworkList.size());
                 assertThat(response.get(0).getLikeCount()).isNotNull();
@@ -185,7 +184,7 @@ public class ArtworkServiceLocalTest {
                         .willReturn(exceptedLiked);
                 given(artworkRepository.findById(any(Long.class))).willReturn(Optional.of(artwork1));
 
-                ArtworkResponseDto actual = artworkService.findArtwork(galleryId, artwork1.getArtworkId());
+                ArtworkResponseDto actual = artworkService.findArtwork(loginMemberId, galleryId, artwork1.getArtworkId());
 
                 boolean actualLiked = actual.isLiked();
 
