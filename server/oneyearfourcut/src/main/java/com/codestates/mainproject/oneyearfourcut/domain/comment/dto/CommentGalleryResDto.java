@@ -7,6 +7,7 @@ import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Getter
@@ -22,7 +23,8 @@ public class CommentGalleryResDto extends Auditable {
     private String content;
     private Long artworkId; //NULL possible
 
-    public static List<CommentGalleryResDto> toGalleryResponseDtoList(List<Comment> commentList){
+    public static List<CommentGalleryResDto> toCommentGalleryResponseDtoList(List<Comment> commentList){
+        if(commentList == null){ return Collections.emptyList(); }
         List<CommentGalleryResDto> resultList = new ArrayList<>( commentList.size() );
         for ( Comment comment : commentList ) {
             resultList.add( comment.toGalleryResponseDto( comment ) );

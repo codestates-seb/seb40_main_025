@@ -22,7 +22,7 @@ public class CommentArtworkResDto extends Auditable {
     private String nickname;
     private String content;
 
-    public static List<CommentArtworkResDto> toArtworkResponseDtoList(List<Comment> commentList){
+    public static List<CommentArtworkResDto> toCommentArtworkResponseDtoList(List<Comment> commentList){
         if(commentList == null){ return Collections.emptyList(); }
         List<CommentArtworkResDto> resultList = new ArrayList<>( commentList.size() );
         for ( Comment comment : commentList ) {

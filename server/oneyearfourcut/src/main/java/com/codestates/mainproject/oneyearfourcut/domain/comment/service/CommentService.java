@@ -79,7 +79,7 @@ public class CommentService {
         Page<Comment> commentPage = findCommentByPage(galleryId, null, page, size);
         List<Comment> commentList = commentPage.getContent();
         PageInfo<Object> pageInfo = new PageInfo<>(page, size, (int) commentPage.getTotalElements(), commentPage.getTotalPages());
-        List<CommentGalleryResDto> response = CommentGalleryResDto.toGalleryResponseDtoList(commentList);
+        List<CommentGalleryResDto> response = CommentGalleryResDto.toCommentGalleryResponseDtoList(commentList);
         return new GalleryPageResponseDto<>(galleryId, response, pageInfo);
     }
 
@@ -88,7 +88,7 @@ public class CommentService {
         Page<Comment> commentPage = findCommentByPage(galleryId, artworkId, page, size);
         List<Comment> commentList = commentPage.getContent();
         PageInfo<Object> pageInfo = new PageInfo<>(page, size, (int) commentPage.getTotalElements(), commentPage.getTotalPages());
-        List<CommentArtworkResDto> response = CommentArtworkResDto.toArtworkResponseDtoList(commentList);
+        List<CommentArtworkResDto> response = CommentArtworkResDto.toCommentArtworkResponseDtoList(commentList);
         return new ArtworkPageResponseDto<>(artworkId, response, pageInfo);
     }
 
