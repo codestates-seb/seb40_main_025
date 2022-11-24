@@ -11,20 +11,20 @@ import org.springframework.web.multipart.MultipartFile;
 @Getter
 public class ArtworkRequestDto {
 
-    private MultipartFile img;
+    private MultipartFile image;
     private String title;
     private String content;
 
     @Builder
-    public ArtworkRequestDto(MultipartFile img, String title, String content) {
-        this.img = img;
+    public ArtworkRequestDto(MultipartFile image, String title, String content) {
+        this.image = image;
         this.title = title;
         this.content = content;
     }
 
     public Artwork toEntity() {
         return Artwork.builder()
-                .image(img)
+                .image(image)
                 .title(title)
                 .content(content)
                 .build();
