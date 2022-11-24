@@ -83,8 +83,10 @@ public class Artwork extends Auditable {
         this.liked = liked;
     }
 
+
     public void setStatus(ArtworkStatus status) {
         this.status = status;
+
     }
 
     public void modify(Artwork artwork) {
