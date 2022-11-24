@@ -16,6 +16,7 @@ public interface CommentMapper {
 
     Comment commentRequestDtoToComment(CommentReqDto commentReqDto);
 
+/*
     default CommentGalleryResDto commentToGalleryCommentResponse(Comment comment) {
         if ( comment == null ) {
             return null;
@@ -33,10 +34,11 @@ public interface CommentMapper {
 
         return commentGalleryResDto;
     }
+*/
 
-    List<CommentGalleryResDto> commentToGalleryCommentResponseList(List<Comment> commentList);
+/*    List<CommentGalleryResDto> commentToGalleryCommentResponseList(List<Comment> commentList);*/
 
-    default CommentArtworkResDto commentToArtworkCommentResponse(Comment comment) {
+/*    default CommentArtworkResDto commentToArtworkCommentResponse(Comment comment) {
         if ( comment == null ) {
             return null;
         }
@@ -52,9 +54,9 @@ public interface CommentMapper {
 
 
         return commentArtworkResDto;
-    }
+    }*/
 
-    List<CommentArtworkResDto> commentToArtworkCommentResponseList(List<Comment> commentList);
+/*    List<CommentArtworkResDto> commentToArtworkCommentResponseList(List<Comment> commentList);*/
 
 
 }

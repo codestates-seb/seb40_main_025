@@ -1,18 +1,7 @@
 package com.codestates.mainproject.oneyearfourcut.domain.comment.service;
 
-import com.codestates.mainproject.oneyearfourcut.domain.comment.entity.Comment;
-import com.codestates.mainproject.oneyearfourcut.domain.gallery.entity.Gallery;
-import com.codestates.mainproject.oneyearfourcut.global.exception.exception.BusinessLogicException;
-import com.codestates.mainproject.oneyearfourcut.global.exception.exception.ExceptionCode;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.data.domain.Sort;
-
-import java.util.List;
-import java.util.Optional;
-
-import static com.codestates.mainproject.oneyearfourcut.domain.comment.entity.CommentStatus.VALID;
-import static org.springframework.data.domain.Sort.Order.desc;
 
 @ExtendWith(MockitoExtension.class)
 public class CommentServiceTest {

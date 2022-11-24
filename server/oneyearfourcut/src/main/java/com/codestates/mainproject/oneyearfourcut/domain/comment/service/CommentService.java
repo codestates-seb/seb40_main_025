@@ -1,5 +1,6 @@
 package com.codestates.mainproject.oneyearfourcut.domain.comment.service;
 
+import com.codestates.mainproject.oneyearfourcut.domain.comment.dto.CommentArtworkResDto;
 import com.codestates.mainproject.oneyearfourcut.domain.comment.dto.CommentGalleryResDto;
 import com.codestates.mainproject.oneyearfourcut.domain.comment.dto.CommentReqDto;
 import com.codestates.mainproject.oneyearfourcut.domain.comment.entity.Comment;
@@ -78,14 +79,14 @@ public class CommentService {
         Page<Comment> commentPage = findCommentByPage(galleryId, null, page, size);
         List<Comment> commentList = commentPage.getContent();
         PageInfo<Object> pageInfo = new PageInfo<>(page, size, (int) commentPage.getTotalElements(), commentPage.getTotalPages());
-        List<CommentGalleryResDto> response = mapper.commentToGalleryCommentResponseList(commentList);
+        List<CommentGalleryResDto> response = CommentGalleryResDto.toGalleryResponseDtoList(commentList);
         return new GalleryPageResponseDto<>(galleryId, response, pageInfo);
     }
     public ArtworkPageResponseDto<Object> getArtworkCommentPage(Long galleryId, Long artworkId, int page, int size) {
         Page<Comment> commentPage = findCommentByPage(galleryId, artworkId, page, size);
         List<Comment> commentList = commentPage.getContent();
         PageInfo<Object> pageInfo = new PageInfo<>(page, size, (int) commentPage.getTotalElements(), commentPage.getTotalPages());
-        List<CommentGalleryResDto> response = mapper.commentToGalleryCommentResponseList(commentList);
+        List<CommentArtworkResDto> response = CommentArtworkResDto.toArtworkResponseDtoList(commentList);
         return new ArtworkPageResponseDto<>(galleryId, response, pageInfo);
     }
 
@@ -106,7 +107,7 @@ public class CommentService {
     @Transactional
     public void modifyComment(Long commentId, CommentReqDto requestDto){
         Comment foundComment = findComment(commentId);
-        Comment requestComment = mapper.commentRequestDtoToComment(requestDto);
+        Comment requestComment = requestDto.toComment(requestDto);
         Optional.ofNullable(requestComment.getContent())
                 .ifPresent(foundComment::setContent);
     }

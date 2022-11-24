@@ -2,6 +2,8 @@
 
 package com.codestates.mainproject.oneyearfourcut.domain.comment.entity;
 
+import com.codestates.mainproject.oneyearfourcut.domain.comment.dto.CommentArtworkResDto;
+import com.codestates.mainproject.oneyearfourcut.domain.comment.dto.CommentGalleryResDto;
 import com.codestates.mainproject.oneyearfourcut.domain.gallery.entity.Gallery;
 import com.codestates.mainproject.oneyearfourcut.domain.member.entity.Member;
 import com.codestates.mainproject.oneyearfourcut.global.auditable.Auditable;
@@ -12,8 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-@Builder
-@AllArgsConstructor
 @NoArgsConstructor
 @Entity
 public class Comment extends Auditable {
@@ -48,6 +48,44 @@ public class Comment extends Auditable {
     public void setCommentStatus(CommentStatus commentStatus) {
         this.commentStatus = commentStatus;
     }
+
+
+    @Builder
+    public Comment(Long commentId, String content, Member member, Gallery gallery, Long artworkId, List<Reply> replyList, CommentStatus commentStatus) {
+        this.commentId = commentId;
+        this.content = content;
+        this.member = member;
+        this.gallery = gallery;
+        this.artworkId = artworkId;
+        this.replyList = replyList;
+        this.commentStatus = commentStatus;
+    }
+
+    public CommentArtworkResDto toArtworkResponseDto(Comment comment){
+        if(comment == null){return null;}
+        return CommentArtworkResDto.builder()
+                .commentId(comment.getCommentId())
+                .createdAt(comment.getCreatedAt())
+                .modifiedAt(comment.getModifiedAt())
+                .content(comment.getContent())
+                .memberId(comment.getMember().getMemberId())
+                .nickname(comment.getMember().getNickname())
+                .build();
+    }
+
+    public CommentGalleryResDto toGalleryResponseDto(Comment comment){
+        if(comment == null){return null;}
+        return CommentGalleryResDto.builder()
+                .commentId(comment.getCommentId())
+                .createdAt(comment.getCreatedAt())
+                .modifiedAt(comment.getModifiedAt())
+                .content(comment.getContent())
+                .artworkId(comment.getArtworkId())
+                .memberId(comment.getMember().getMemberId())
+                .nickname(comment.getMember().getNickname())
+                .build();
+    }
+
 
 
 }

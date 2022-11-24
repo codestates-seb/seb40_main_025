@@ -2,22 +2,16 @@ package com.codestates.mainproject.oneyearfourcut.domain.comment.controller;
 
 import com.codestates.mainproject.oneyearfourcut.domain.comment.dto.*;
 
-import com.codestates.mainproject.oneyearfourcut.domain.comment.entity.Comment;
-import com.codestates.mainproject.oneyearfourcut.domain.comment.mapper.CommentMapper;
 import com.codestates.mainproject.oneyearfourcut.domain.comment.service.CommentService;
 import com.codestates.mainproject.oneyearfourcut.global.page.ArtworkPageResponseDto;
 import com.codestates.mainproject.oneyearfourcut.global.page.GalleryPageResponseDto;
-import com.codestates.mainproject.oneyearfourcut.global.page.PageInfo;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 
 @RestController
