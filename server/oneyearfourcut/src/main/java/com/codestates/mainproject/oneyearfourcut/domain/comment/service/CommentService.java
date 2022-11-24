@@ -47,8 +47,8 @@ public class CommentService {
     public void createCommentOnArtwork(CommentRequestDto commentRequestDto, Long galleryId, Long artworkId, Long memberId) {
         Comment comment = Comment.builder()
                 .gallery(galleryService.findGallery(galleryId))
-                .artworkId(artworkId)
                 .member(memberService.findMember(memberId))
+                .artworkId(artworkId)
                 .content(commentRequestDto.getContent())
                 .commentStatus(VALID)
                 .build();
@@ -74,14 +74,17 @@ public class CommentService {
         return commentPage;
     }
 
-    public GalleryPageResponseDto<Object> getGalleryCommentPage(Long galleryId, int page, int size){
+    public GalleryPageResponseDto<Object> getGalleryCommentPage(Long galleryId, int page, int size, Long memberId){
+        memberService.findMember(memberId);
         Page<Comment> commentPage = findCommentByPage(galleryId, null, page, size);
         List<Comment> commentList = commentPage.getContent();
         PageInfo<Object> pageInfo = new PageInfo<>(page, size, (int) commentPage.getTotalElements(), commentPage.getTotalPages());
         List<CommentGalleryResDto> response = CommentGalleryResDto.toGalleryResponseDtoList(commentList);
         return new GalleryPageResponseDto<>(galleryId, response, pageInfo);
     }
-    public ArtworkPageResponseDto<Object> getArtworkCommentPage(Long galleryId, Long artworkId, int page, int size) {
+
+    public ArtworkPageResponseDto<Object> getArtworkCommentPage(Long galleryId, Long artworkId, int page, int size, Long memberId) {
+        memberService.findMember(memberId);
         Page<Comment> commentPage = findCommentByPage(galleryId, artworkId, page, size);
         List<Comment> commentList = commentPage.getContent();
         PageInfo<Object> pageInfo = new PageInfo<>(page, size, (int) commentPage.getTotalElements(), commentPage.getTotalPages());
@@ -98,14 +101,20 @@ public class CommentService {
     }
 
     @Transactional
-    public void deleteComment(Long commentId) {
-        Comment comment = findComment(commentId);
-        comment.setCommentStatus(DELETED);
+    public void deleteComment(Long galleryId, Long commentId, Long memberId) {
+        Comment foundComment= findComment(commentId);
+        galleryService.findGallery(galleryId);
+        memberService.findMember(memberId);
+        //--검증완료--
+        foundComment.setCommentStatus(DELETED);
     }
 
     @Transactional
-    public void modifyComment(Long commentId, CommentRequestDto commentRequestDto){
+    public void modifyComment(Long galleryId, Long commentId, CommentRequestDto commentRequestDto, Long memberId){
         Comment foundComment = findComment(commentId);
+        galleryService.findGallery(galleryId);
+        memberService.findMember(memberId);
+        //--검증완료--
         Comment requestComment = commentRequestDto.toCommentEntity();
         Optional.ofNullable(requestComment.getContent())
                 .ifPresent(foundComment::setContent);

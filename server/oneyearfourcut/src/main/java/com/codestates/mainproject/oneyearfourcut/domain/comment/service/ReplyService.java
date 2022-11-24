@@ -25,6 +25,7 @@ public class ReplyService {
     private final CommentService commentService;
     private final MemberService memberService;
 
+    //Create
     @Transactional
     public void createReply(CommentRequestDto commentRequestDto, Long commentId, Long memberId) {
         Reply reply = Reply.builder()
@@ -36,29 +37,36 @@ public class ReplyService {
         replyRepository.save(reply);
     }
 
-
+    //Read
     public ReplyListResponseDto<Object> getReplyList(Long commentId, Long memberId)  {
-        List<Reply> replyList = findReplyList(commentId, 3L);
+        List<Reply> replyList = findReplyList(commentId, memberId); //findReplyList에서 검증진행
         List<ReplyResDto> result = ReplyResDto.toReplyResponseDtoList(replyList);
         return new ReplyListResponseDto<>(commentId, result);
     }
 
-
-
+    //Update
     @Transactional
-    public void modifyReply(Long replyId, CommentRequestDto commentRequestDto){
+    public void modifyReply(Long commentId, Long replyId, CommentRequestDto commentRequestDto,Long memberId){
         Reply foundReply = findReply(replyId);
+        memberService.findMember(memberId);
+        commentService.findComment(commentId);
+        //--검증완료
         Reply requestReply =  commentRequestDto.toReplyEntity();
         Optional.ofNullable(requestReply.getContent())
                 .ifPresent(foundReply::setContent);
     }
+
+    //Delete
     @Transactional
-    public void deleteReply(Long replyId) {
-        Reply reply = findReply(replyId);
-        reply.setReplyStatus(DELETED);
+    public void deleteReply(Long commentId, Long replyId, Long memberId) {
+        Reply foundReply = findReply(replyId);
+        memberService.findMember(memberId);
+        commentService.findComment(commentId);
+        //--검증완료
+        foundReply.setReplyStatus(DELETED);
     }
 
-    //----private-----//
+    //----private-----
     @Transactional
     private Reply findReply(Long replyId){
         Optional<Reply> reply = replyRepository.findById(replyId);

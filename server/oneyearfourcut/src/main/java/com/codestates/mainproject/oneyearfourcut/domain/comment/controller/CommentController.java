@@ -4,6 +4,7 @@ import com.codestates.mainproject.oneyearfourcut.domain.comment.dto.*;
 
 import com.codestates.mainproject.oneyearfourcut.domain.comment.entity.Comment;
 import com.codestates.mainproject.oneyearfourcut.domain.comment.service.CommentService;
+import com.codestates.mainproject.oneyearfourcut.global.config.auth.LoginMember;
 import com.codestates.mainproject.oneyearfourcut.global.page.ArtworkPageResponseDto;
 import com.codestates.mainproject.oneyearfourcut.global.page.GalleryPageResponseDto;
 import lombok.AllArgsConstructor;
@@ -26,48 +27,54 @@ public class CommentController {
     //POST (Create) Comment On Gallery
     @PostMapping("/{gallery-id}/comments")
     public ResponseEntity<Object> postCommentOnGallery(@PathVariable("gallery-id") Long galleryId,
-                                                       @RequestBody CommentRequestDto requestDto) {
-        commentService.createCommentOnGallery(requestDto, galleryId, 3L);
+                                                       @RequestBody CommentRequestDto requestDto,
+                                                       @LoginMember Long memberId) {
+        commentService.createCommentOnGallery(requestDto, galleryId, memberId);
         return new ResponseEntity<>("댓글등록성공",HttpStatus.CREATED);
     }
 
     //POST (Create) Comment On Artwork
     @PostMapping("/{gallery-id}/artworks/{artwork-id}/comments")
     public ResponseEntity<Object> postCommentOnArtwork(@PathVariable("gallery-id") Long galleryId,
-            @PathVariable("artwork-id") Long artworkId, @RequestBody CommentRequestDto requestDto){
-        commentService.createCommentOnArtwork(requestDto, galleryId,artworkId, 3L);
+            @PathVariable("artwork-id") Long artworkId, @RequestBody CommentRequestDto requestDto,
+                                                       @LoginMember Long memberId){
+        commentService.createCommentOnArtwork(requestDto, galleryId,artworkId, memberId);
         return new ResponseEntity<>("댓글등록성공", HttpStatus.CREATED);
     }
 
     //GET (Read) Comment on Gallery (with pagination)
     @GetMapping("/{gallery-id}/comments")
     public ResponseEntity<Object> getGalleryComment(@PathVariable("gallery-id") Long galleryId,
-                                                    @RequestParam int page/*, @RequestParam int size*/){
-        return new ResponseEntity<>(commentService.getGalleryCommentPage(galleryId, page, 10), HttpStatus.OK);
+                                                    @RequestParam int page/*, @RequestParam int size*/,
+                                                    @LoginMember Long memberId){
+        return new ResponseEntity<>(commentService.getGalleryCommentPage(galleryId, page, 10, memberId), HttpStatus.OK);
     }
 
     //GET (Read) Comment on Artwork (with pagination)
     @GetMapping("/{gallery-id}/artworks/{artwork-id}/comments")
     public ResponseEntity<Object> getArtworkComment(@PathVariable("gallery-id") Long galleryId,
                                                       @PathVariable("artwork-id") Long artworkId,
-                                                      @RequestParam int page/*, @RequestParam int size*/) {
-        return new ResponseEntity<>(commentService.getArtworkCommentPage(galleryId, artworkId, page, 10), HttpStatus.OK);
+                                                      @RequestParam int page/*, @RequestParam int size*/,
+                                                    @LoginMember Long memberId) {
+        return new ResponseEntity<>(commentService.getArtworkCommentPage(galleryId, artworkId, page, 10, memberId), HttpStatus.OK);
     }
 
     //PATCH (Update) Comment
     @PatchMapping("/{gallery-id}/comments/{comment-id}")
     public ResponseEntity<Object> patchComment(@PathVariable("gallery-id") Long galleryId,
                                                @PathVariable("comment-id") Long commentId,
-                                               @RequestBody CommentRequestDto requestDto){
-        commentService.modifyComment(commentId, requestDto);
+                                               @RequestBody CommentRequestDto requestDto,
+                                               @LoginMember Long memberId){
+        commentService.modifyComment(galleryId, commentId, requestDto, memberId);
         return new ResponseEntity<>("댓글수정완료!!", HttpStatus.OK);
     }
 
     //Delete (Delete) Comment (Set Status DELETED)
     @DeleteMapping("/{gallery-id}/comments/{comment-id}")
     public ResponseEntity<Object> deleteComment(@PathVariable("gallery-id") Long galleryId,
-                                                @PathVariable("comment-id") Long commentId){
-        commentService.deleteComment(commentId);
+                                                @PathVariable("comment-id") Long commentId,
+                                                @LoginMember Long memberId){
+        commentService.deleteComment(galleryId, commentId, memberId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
