@@ -28,7 +28,7 @@ const ToastBox = styled.div<{ time: number }>`
 
   .ToastContentBox {
     width: ${rem(350)};
-    margin: ${rem(10)} 0 ${rem(5)} 0;
+    margin: ${rem(15)} 0 ${rem(10)} 0;
     font-size: ${rem(12)};
     display: flex;
     align-items: center;

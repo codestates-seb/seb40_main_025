@@ -1,8 +1,8 @@
 import * as B from './Container';
 import { UploadSvg } from './SvgComponents';
-import { ToastStore, UploadStore } from 'store/store';
+import { UploadStore } from 'store/store';
 import { useRef } from 'react';
-
+import useToast from 'shared/components/Toast/hooks/useToast';
 interface EmptyImg {
   setUploadImg: (file: File | undefined) => void;
 }
@@ -11,11 +11,6 @@ interface UserImg extends EmptyImg {
   uploadImg: File | undefined;
 }
 const ALLOW_FILE_EXTENSION = 'jpg, jpeg, png, heic';
-
-const obj = {
-  time: 3000,
-  content: ['아래의 확장자만 사용이 가능합니다 확장자를 확인해주세요', `(${ALLOW_FILE_EXTENSION})`],
-};
 
 const uploadHelper = (name: string) => {
   const result = name.split('.').map((el) => el.toLowerCase());
@@ -28,22 +23,25 @@ const uploadHelper = (name: string) => {
 };
 
 const UploadUserImgBox = () => {
-  const { addToast, removeToast } = ToastStore();
   const { UploadData, setData } = UploadStore();
+  const { setToast } = useToast();
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleOnchange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && uploadHelper(event.target.files[0].name))
       // setUploadImg(event.target.files[0]);
-      setData('img', event.target.files[0])
+      setData('img', event.target.files[0]);
     else {
-      addToast(obj);
-      setTimeout(() => removeToast(), 3000);
+      console.log("hi");
+      setToast(3000, [
+        '아래의 확장자만 사용이 가능합니다 확장자를 확인해주세요',
+        ALLOW_FILE_EXTENSION,
+      ]);
     }
   };
   if (UploadData.img === undefined && inputRef.current)
-    inputRef.current.value= "";
-  
+    inputRef.current.value = '';
+
   return (
     <B.UploadUserImgBox>
       <label htmlFor='input-file'>
@@ -56,7 +54,12 @@ const UploadUserImgBox = () => {
           </>
         )}
       </label>
-      <input type='file' id='input-file' ref={inputRef} onChange={handleOnchange} />
+      <input
+        type='file'
+        id='input-file'
+        ref={inputRef}
+        onChange={handleOnchange}
+      />
     </B.UploadUserImgBox>
   );
 };

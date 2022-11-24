@@ -54,7 +54,7 @@ interface SubToastState {
   time: number;
   content: string[];
 }
-interface ToastState extends SubToastState{
+interface ToastState extends SubToastState {
   id: number;
 }
 
@@ -74,12 +74,7 @@ const ToastStore = create<Components>((set, get) => ({
         ToastList: arr,
       };
     }),
-  removeToast: () =>
-    set(() => {
-      let arr = get().ToastList.slice();
-      arr.shift();
-      return { ToastList: [...arr] };
-    }),
+  removeToast: () => set({ ToastList: [...get().ToastList.slice(1)] }),
 }));
 
 interface UploadState {

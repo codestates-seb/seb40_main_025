@@ -1,6 +1,7 @@
 import * as S from './SvgComponents';
-import { ModalStore, ToastStore } from 'store/store';
+import { ModalStore } from 'store/store';
 import { ModalViewBox, ModalbtnBox } from './ModalContainer';
+import useToast from '../../Toast/hooks/useToast';
 
 interface Data {
   title: string;
@@ -11,17 +12,10 @@ interface Data {
 
 const Alert = ({ data }: { data: Data }) => {
   const { closeModal } = ModalStore();
-  const { addToast, removeToast } = ToastStore();
-
+  const { setToast } = useToast();
   const handleOnClick = () => {
     closeModal('AlertModal');
-
-    const obj = {
-      time: 3000, //ms
-      content: ['작품이 등록되었습니다.', '내 전시관도 만들어보기'], //위,아래에 들어갈 원하는 내용 작성
-    };
-    addToast(obj); //ToastStore에 Toast 추가
-    setTimeout(() => removeToast(), 3000); //ToastStroe에서 만든 Toast요소제거
+    setToast(3000, ['작품이 등록되었습니다.', '내 전시관도 만들어보기']);
   };
 
   return (
