@@ -1,6 +1,7 @@
 package com.codestates.mainproject.oneyearfourcut.domain.comment.controller;
 
 import com.codestates.mainproject.oneyearfourcut.domain.comment.dto.CommentRequestDto;
+import com.codestates.mainproject.oneyearfourcut.domain.comment.dto.ReplyResDto;
 import com.codestates.mainproject.oneyearfourcut.domain.comment.service.ReplyService;
 import com.codestates.mainproject.oneyearfourcut.global.config.auth.LoginMember;
 import lombok.AllArgsConstructor;
@@ -22,10 +23,9 @@ public class ReplyController {
     //POST (Create) Reply
     @PostMapping("/{comment-id}/replies")
     public ResponseEntity<Object> postReply(@PathVariable("comment-id") Long commentId,
-                                            @RequestBody CommentRequestDto requestDto,
-                                            @LoginMember Long memberId) {
-        replyService.createReply(requestDto, commentId, memberId);
-        return new ResponseEntity<>(requestDto, HttpStatus.CREATED);
+                                                 @RequestBody CommentRequestDto requestDto,
+                                                 @LoginMember Long memberId) {
+        return new ResponseEntity<>(replyService.createReply(requestDto, commentId, memberId), HttpStatus.CREATED);
     }
 
     //GET (Read) Reply
@@ -40,8 +40,7 @@ public class ReplyController {
                                              @PathVariable("reply-id") Long replyId,
                                              @RequestBody CommentRequestDto requestDto,
                                              @LoginMember Long memberId){
-        replyService.modifyReply(commentId, replyId, requestDto, memberId);
-        return new ResponseEntity<>(requestDto, HttpStatus.OK);
+        return new ResponseEntity<>(replyService.modifyReply(commentId, replyId, requestDto, memberId), HttpStatus.OK);
     }
 
     //DELETE (Delete) Reply

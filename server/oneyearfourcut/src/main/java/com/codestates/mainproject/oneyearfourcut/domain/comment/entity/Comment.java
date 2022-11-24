@@ -14,7 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-@NoArgsConstructor
+@Table(name = "comment")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 public class Comment extends Auditable {
     @Id
@@ -50,7 +51,6 @@ public class Comment extends Auditable {
         this.artworkId = artworkId;
         this.commentStatus = commentStatus;
     }
-
 
 
     public void changeContent(String content) {

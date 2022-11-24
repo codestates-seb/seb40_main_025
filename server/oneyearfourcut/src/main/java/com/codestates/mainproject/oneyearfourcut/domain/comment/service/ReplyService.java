@@ -1,9 +1,11 @@
 package com.codestates.mainproject.oneyearfourcut.domain.comment.service;
 
+import com.codestates.mainproject.oneyearfourcut.domain.artwork.entity.Artwork;
 import com.codestates.mainproject.oneyearfourcut.domain.comment.dto.ReplyResDto;
 import com.codestates.mainproject.oneyearfourcut.domain.comment.dto.CommentRequestDto;
 import com.codestates.mainproject.oneyearfourcut.domain.comment.entity.Reply;
 import com.codestates.mainproject.oneyearfourcut.domain.comment.repository.ReplyRepository;
+import com.codestates.mainproject.oneyearfourcut.domain.gallery.entity.GalleryStatus;
 import com.codestates.mainproject.oneyearfourcut.domain.member.service.MemberService;
 import com.codestates.mainproject.oneyearfourcut.global.exception.exception.BusinessLogicException;
 import com.codestates.mainproject.oneyearfourcut.global.exception.exception.ExceptionCode;
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import static com.codestates.mainproject.oneyearfourcut.domain.comment.entity.CommentStatus.DELETED;
@@ -28,7 +31,7 @@ public class ReplyService {
 
     //Create
 
-    public void createReply(CommentRequestDto commentRequestDto, Long commentId, Long memberId) {
+    public ReplyListResponseDto<Object> createReply(CommentRequestDto commentRequestDto, Long commentId, Long memberId) {
         Reply reply = Reply.builder()
                 .content(commentRequestDto.getContent())
                 .comment(commentService.findComment(commentId))
@@ -36,6 +39,7 @@ public class ReplyService {
                 .replyStatus(VALID)
                 .build();
         replyRepository.save(reply);
+        return new ReplyListResponseDto<>(commentId, reply.toReplyResponseDto());
     }
 
     //Read
@@ -46,23 +50,31 @@ public class ReplyService {
     }
 
     //Update
-    public void modifyReply(Long commentId, Long replyId, CommentRequestDto commentRequestDto,Long memberId){
+    public ReplyListResponseDto<Object> modifyReply(Long commentId, Long replyId, CommentRequestDto commentRequestDto,Long memberId){
         Reply foundReply = findReply(replyId);
-        memberService.findMember(memberId);
-        commentService.findComment(commentId);
+        checkCommentReplyVerification(commentId, replyId, memberId);
         //--검증완료
         Reply requestReply =  commentRequestDto.toReplyEntity();
         Optional.ofNullable(requestReply.getContent())
                 .ifPresent(foundReply::changeContent);
+        return new ReplyListResponseDto<>(commentId,foundReply.toReplyResponseDto());
     }
 
     //Delete
     public void deleteReply(Long commentId, Long replyId, Long memberId) {
         Reply foundReply = findReply(replyId);
-        memberService.findMember(memberId);
-        commentService.findComment(commentId);
+        checkCommentReplyVerification(commentId, replyId, memberId);
         //--검증완료
         foundReply.changeReplyStatus(DELETED);
+    }
+
+    private void checkCommentReplyVerification(Long commentId, Long replyId, Long memberId) {
+        Reply foundReply = findReply(replyId);
+        memberService.findMember(memberId);
+        commentService.findComment(commentId);
+        if (!Objects.equals(commentId, foundReply.getComment().getCommentId())) {
+            throw new BusinessLogicException(ExceptionCode.REPLY_NOT_FOUND_FROM_COMMENT);
+        }
     }
 
     //----private-----

@@ -14,7 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class ReplyResDto extends Auditable {
-    public Long replyId;
+    private Long replyId;
     private Long memberId;
     private String nickname;
     private String content;
@@ -24,7 +24,7 @@ public class ReplyResDto extends Auditable {
     public static List<ReplyResDto> toReplyResponseDtoList(List<Reply> replyList){
         List<ReplyResDto> resultList = new ArrayList<>( replyList.size() );
         for ( Reply reply : replyList ) {
-            resultList.add( reply.toReplyResponseDto( reply ) );
+            resultList.add( reply.toReplyResponseDto( ) );
         }
         return resultList;
     }

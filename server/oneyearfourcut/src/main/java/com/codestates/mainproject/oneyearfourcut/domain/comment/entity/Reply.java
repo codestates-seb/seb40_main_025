@@ -47,15 +47,14 @@ public class Reply extends Auditable {
         this.content = content;
     }
 
-    public ReplyResDto toReplyResponseDto(Reply reply){
-        if(reply == null){return null;}
+    public ReplyResDto toReplyResponseDto(){
         return ReplyResDto.builder()
-                .replyId(reply.getReplyId())
-                .createdAt(reply.getCreatedAt())
-                .modifiedAt(reply.getModifiedAt())
-                .content(reply.getContent())
-                .memberId(reply.getMember().getMemberId())
-                .nickname(reply.getMember().getNickname())
+                .replyId(this.getReplyId())
+                .createdAt(this.getCreatedAt())
+                .modifiedAt(this.getModifiedAt())
+                .content(this.getContent())
+                .memberId(this.getMember().getMemberId())
+                .nickname(this.getMember().getNickname())
                 .build();
     }
 

@@ -2,11 +2,10 @@ package com.codestates.mainproject.oneyearfourcut.domain.comment.controller;
 
 import com.codestates.mainproject.oneyearfourcut.domain.comment.dto.*;
 
-import com.codestates.mainproject.oneyearfourcut.domain.comment.entity.Comment;
 import com.codestates.mainproject.oneyearfourcut.domain.comment.service.CommentService;
 import com.codestates.mainproject.oneyearfourcut.global.config.auth.LoginMember;
-import com.codestates.mainproject.oneyearfourcut.global.page.ArtworkPageResponseDto;
-import com.codestates.mainproject.oneyearfourcut.global.page.GalleryPageResponseDto;
+import com.codestates.mainproject.oneyearfourcut.global.page.CommentArtworkHeadDto;
+import com.codestates.mainproject.oneyearfourcut.global.page.CommentGalleryHeadDto;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -24,14 +23,13 @@ import org.springframework.web.bind.annotation.*;
 public class CommentController {
     private final CommentService commentService;
 
-
     //POST (Create) Comment On Gallery
     @PostMapping("/{gallery-id}/comments")
     public ResponseEntity<Object> postCommentOnGallery(@PathVariable("gallery-id") Long galleryId,
                                                        @RequestBody CommentRequestDto requestDto,
                                                        @LoginMember Long memberId) {
-        commentService.createCommentOnGallery(requestDto, galleryId, memberId);
-        return new ResponseEntity<>(requestDto ,HttpStatus.CREATED);
+        return new ResponseEntity<>(commentService.createCommentOnGallery(requestDto, galleryId, memberId),
+                HttpStatus.CREATED);
     }
 
     //POST (Create) Comment On Artwork
@@ -39,8 +37,8 @@ public class CommentController {
     public ResponseEntity<Object> postCommentOnArtwork(@PathVariable("gallery-id") Long galleryId,
             @PathVariable("artwork-id") Long artworkId, @RequestBody CommentRequestDto requestDto,
                                                        @LoginMember Long memberId){
-        commentService.createCommentOnArtwork(requestDto, galleryId,artworkId, memberId);
-        return new ResponseEntity<>(requestDto, HttpStatus.CREATED);
+        return new ResponseEntity<>(commentService.createCommentOnArtwork(requestDto, galleryId,artworkId, memberId),
+                HttpStatus.CREATED);
     }
 
     //GET (Read) Comment on Gallery (with pagination)
@@ -66,8 +64,7 @@ public class CommentController {
                                                @PathVariable("comment-id") Long commentId,
                                                @RequestBody CommentRequestDto requestDto,
                                                @LoginMember Long memberId){
-        commentService.modifyComment(galleryId, commentId, requestDto, memberId);
-        return new ResponseEntity<>(requestDto, HttpStatus.OK);
+        return new ResponseEntity<>(commentService.modifyComment(galleryId, commentId, requestDto, memberId), HttpStatus.OK);
     }
 
     //Delete (Delete) Comment (Set Status DELETED)
