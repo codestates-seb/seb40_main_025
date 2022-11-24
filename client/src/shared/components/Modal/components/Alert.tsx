@@ -19,7 +19,6 @@ const Alert = ({ data }: { data: Data }) => {
     const obj = {
       time: 3000, //ms
       content: ['작품이 등록되었습니다.', '내 전시관도 만들어보기'], //위,아래에 들어갈 원하는 내용 작성
-      id: Math.random(), //key값을 위함. uuid를 써도됨
     };
     addToast(obj); //ToastStore에 Toast 추가
     setTimeout(() => removeToast(), 3000); //ToastStroe에서 만든 Toast요소제거

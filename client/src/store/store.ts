@@ -5,17 +5,16 @@ interface ModalState {
   ProfileModal: boolean;
 }
 
-const initTarget: ModalState = {
-  AlertModal: false,
-  ProfileModal: false,
-};
-
 interface Modal {
   target: ModalState;
   openModal: (key: string) => void;
   closeModal: (key: string) => void;
   resetTarget: () => void;
 }
+const initTarget: ModalState = {
+  AlertModal: false,
+  ProfileModal: false,
+};
 
 const ModalStore = create<Modal>((set, get) => ({
   target: { ...initTarget },
@@ -51,15 +50,17 @@ const AlarmStore = create<Alarm>((set) => {
   };
 });
 
-interface ToastState {
+interface SubToastState {
   time: number;
   content: string[];
+}
+interface ToastState extends SubToastState{
   id: number;
 }
 
 interface Components {
   ToastList: ToastState[];
-  addToast: (data: ToastState) => void;
+  addToast: (data: SubToastState) => void;
   removeToast: () => void;
 }
 
@@ -68,7 +69,7 @@ const ToastStore = create<Components>((set, get) => ({
   addToast: (data) =>
     set(() => {
       let arr = get().ToastList.slice();
-      arr.push({ ...data });
+      arr.push({ ...Object.assign({}, data, { id: Math.random() }) });
       return {
         ToastList: arr,
       };
@@ -81,4 +82,31 @@ const ToastStore = create<Components>((set, get) => ({
     }),
 }));
 
-export { ModalStore, AlarmStore, ToastStore };
+interface UploadState {
+  img: File | undefined;
+  title: string;
+  content: string;
+  [key: string]: File | undefined | string;
+}
+
+interface Upload {
+  UploadData: UploadState;
+  setData: (key: string, data: File | string) => void;
+  removeData: () => void;
+}
+
+const initUploadData = {
+  img: undefined,
+  title: '',
+  content: '',
+};
+
+const UploadStore = create<Upload>((set, get) => ({
+  UploadData: { ...initUploadData },
+  setData: (key, data) =>
+    set({
+      UploadData: { ...Object.assign(get().UploadData, { [key]: data }) },
+    }),
+  removeData: () => set({ UploadData: { ...initUploadData } }),
+}));
+export { ModalStore, AlarmStore, ToastStore, UploadStore };

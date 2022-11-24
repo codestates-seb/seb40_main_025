@@ -15,13 +15,12 @@ const jsonInstance = axios.create({
 //form-data용도
 const formdataInstance = axios.create({
 
-  baseURL: 'https://48ce-211-210-144-9.jp.ngrok.io/',
+  baseURL: 'http://localhost:4000',
   timeout: 1000,
   headers: {
     'Content-Type': 'multipart/form-data',
     'ngrok-skip-browser-warning': 'any',
   },
-  // withCredentials: true,
 });
 
 export { jsonInstance, formdataInstance };

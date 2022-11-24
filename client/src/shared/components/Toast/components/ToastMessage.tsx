@@ -1,17 +1,24 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import * as T from './ToastContainer';
 import { OptionSVG } from './SvgComponents';
-
+import { ToastStore } from 'store/store';
 //Toast Message 컴포넌트 1개
-const ToastMessage = ({ time, content }: { time: number; content: string[] }) => {
+const ToastMessage = ({
+  time,
+  content,
+}: {
+  time: number;
+  content: string[];
+}) => {
   const [show, setShow] = useState(true);
+  
   return (
     <>
       {show && (
         <T.ToastBox time={time}>
           <div className='ToastContent'>
             <label>
-              {content[0]} <br></br>
+              {content[0]} <br/>
               {content[1]}
             </label>
             <OptionSVG onClick={() => setShow(false)} />
