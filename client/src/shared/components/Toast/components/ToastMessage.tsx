@@ -16,12 +16,12 @@ const ToastMessage = ({
     <>
       {show && (
         <T.ToastBox time={time}>
-          <div className='ToastContent'>
-            <label>
-              {content[0]} <br/>
+          <div className='ToastContentBox'>
+            <div className='ToastContent'>
+              {content[0]} <br />
               {content[1]}
-            </label>
-            <OptionSVG onClick={() => setShow(false)} />
+              </div>  
+          <OptionSVG onClick={() => setShow(false)} />
           </div>
           <T.ProgressBar className='ProgressBar' time={time}></T.ProgressBar>
         </T.ToastBox>
