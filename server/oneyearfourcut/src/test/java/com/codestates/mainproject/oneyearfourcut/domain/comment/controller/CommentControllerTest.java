@@ -47,13 +47,15 @@ class CommentControllerTest {
         CommentRequestDto requestDto = new CommentRequestDto("Sample Content");
         String content = gson.toJson(requestDto);
 
-/*        CommentGalleryResDto.builder()
+        CommentGalleryResDto.builder()
                 .content("Sample Content")
                 .build();
+
+
         given(commentService.createCommentOnGallery(
                 requestDto
                 ,Mockito.any(Gallery.class).getGalleryId()
-                ,Mockito.any(Member.class).getMemberId()));*/
+                ,Mockito.any(Member.class).getMemberId()));
 
         //When
 
