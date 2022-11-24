@@ -42,13 +42,15 @@ public class Comment extends Auditable {
     private CommentStatus commentStatus;
 
     @Builder
-    public Comment(String content, Member member, Gallery gallery, Long artworkId, CommentStatus commentStatus) {
+    public Comment(Long commentId, String content, Member member, Gallery gallery, Long artworkId, CommentStatus commentStatus) {
+        this.commentId = commentId;
         this.content = content;
         this.member = member;
         this.gallery = gallery;
         this.artworkId = artworkId;
         this.commentStatus = commentStatus;
     }
+
 
 
     public void changeContent(String content) {

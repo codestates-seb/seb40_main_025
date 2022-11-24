@@ -31,7 +31,8 @@ public class Reply extends Auditable {
     private CommentStatus replyStatus; //삭제 여부
 
     @Builder
-    public Reply(String content, Comment comment, Member member, CommentStatus replyStatus) {
+    public Reply(Long replyId, String content, Comment comment, Member member, CommentStatus replyStatus) {
+        this.replyId = replyId;
         this.content = content;
         this.comment = comment;
         this.member = member;
@@ -45,7 +46,6 @@ public class Reply extends Auditable {
     public void changeContent(String content) {
         this.content = content;
     }
-
 
     public ReplyResDto toReplyResponseDto(Reply reply){
         if(reply == null){return null;}
