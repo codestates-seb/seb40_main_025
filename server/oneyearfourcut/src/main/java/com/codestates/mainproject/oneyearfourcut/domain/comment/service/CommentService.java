@@ -2,9 +2,8 @@ package com.codestates.mainproject.oneyearfourcut.domain.comment.service;
 
 import com.codestates.mainproject.oneyearfourcut.domain.comment.dto.CommentArtworkResDto;
 import com.codestates.mainproject.oneyearfourcut.domain.comment.dto.CommentGalleryResDto;
-import com.codestates.mainproject.oneyearfourcut.domain.comment.dto.CommentReqDto;
+import com.codestates.mainproject.oneyearfourcut.domain.comment.dto.CommentRequestDto;
 import com.codestates.mainproject.oneyearfourcut.domain.comment.entity.Comment;
-import com.codestates.mainproject.oneyearfourcut.domain.comment.mapper.CommentMapper;
 import com.codestates.mainproject.oneyearfourcut.domain.comment.repository.CommentRepository;
 import com.codestates.mainproject.oneyearfourcut.domain.gallery.service.GalleryService;
 import com.codestates.mainproject.oneyearfourcut.domain.member.service.MemberService;
@@ -30,32 +29,32 @@ import static com.codestates.mainproject.oneyearfourcut.domain.comment.entity.Co
 @RequiredArgsConstructor
 public class CommentService {
     private final CommentRepository commentRepository;
-    private final CommentMapper mapper;
     private final MemberService memberService;
     private final GalleryService galleryService;
 
     @Transactional
-    public void createCommentOnGallery(CommentReqDto requestDto, Long galleryId, Long memberId) {
+    public void createCommentOnGallery(CommentRequestDto commentRequestDto, Long galleryId, Long memberId) {
         Comment comment = Comment.builder()
                 .gallery(galleryService.findGallery(galleryId))
                 .member(memberService.findMember(memberId))
-                .content(requestDto.getContent())
+                .content(commentRequestDto.getContent())
                 .commentStatus(VALID)
                 .build();
         commentRepository.save(comment);
     }
 
     @Transactional
-    public void createCommentOnArtwork(CommentReqDto requestDto, Long galleryId, Long artworkId, Long memberId) {
+    public void createCommentOnArtwork(CommentRequestDto commentRequestDto, Long galleryId, Long artworkId, Long memberId) {
         Comment comment = Comment.builder()
                 .gallery(galleryService.findGallery(galleryId))
                 .artworkId(artworkId)
                 .member(memberService.findMember(memberId))
-                .content(requestDto.getContent())
+                .content(commentRequestDto.getContent())
                 .commentStatus(VALID)
                 .build();
         commentRepository.save(comment);
     }
+
 
     @Transactional
     private Page<Comment> findCommentByPage(Long galleryId, Long artworkId, int page, int size) {
@@ -87,7 +86,7 @@ public class CommentService {
         List<Comment> commentList = commentPage.getContent();
         PageInfo<Object> pageInfo = new PageInfo<>(page, size, (int) commentPage.getTotalElements(), commentPage.getTotalPages());
         List<CommentArtworkResDto> response = CommentArtworkResDto.toArtworkResponseDtoList(commentList);
-        return new ArtworkPageResponseDto<>(galleryId, response, pageInfo);
+        return new ArtworkPageResponseDto<>(artworkId, response, pageInfo);
     }
 
     @Transactional
@@ -105,9 +104,9 @@ public class CommentService {
     }
 
     @Transactional
-    public void modifyComment(Long commentId, CommentReqDto requestDto){
+    public void modifyComment(Long commentId, CommentRequestDto commentRequestDto){
         Comment foundComment = findComment(commentId);
-        Comment requestComment = requestDto.toComment(requestDto);
+        Comment requestComment = commentRequestDto.toCommentEntity();
         Optional.ofNullable(requestComment.getContent())
                 .ifPresent(foundComment::setContent);
     }

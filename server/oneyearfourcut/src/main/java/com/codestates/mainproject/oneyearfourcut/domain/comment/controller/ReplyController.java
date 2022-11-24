@@ -1,8 +1,7 @@
 package com.codestates.mainproject.oneyearfourcut.domain.comment.controller;
 
-import com.codestates.mainproject.oneyearfourcut.domain.comment.dto.CommentReqDto;
 import com.codestates.mainproject.oneyearfourcut.domain.comment.dto.ReplyResDto;
-import com.codestates.mainproject.oneyearfourcut.domain.comment.mapper.ReplyMapper;
+import com.codestates.mainproject.oneyearfourcut.domain.comment.dto.CommentRequestDto;
 import com.codestates.mainproject.oneyearfourcut.domain.comment.service.ReplyService;
 import com.codestates.mainproject.oneyearfourcut.global.page.ReplyListResponseDto;
 import lombok.AllArgsConstructor;
@@ -25,24 +24,23 @@ public class ReplyController {
     //POST (Create) Reply
     @PostMapping("/comments/{comment-id}/replies")
     public ResponseEntity<Object> postReply(@PathVariable("comment-id") Long commentId,
-                                                       @RequestBody CommentReqDto replyRequestDto) {
-        replyService.createReply(replyRequestDto, commentId, 3L);
+                                                       @RequestBody CommentRequestDto requestDto) {
+        replyService.createReply(requestDto, commentId, 3L);
         return new ResponseEntity<>("댓글등록성공", HttpStatus.CREATED);
     }
 
     //GET (Read) Reply
     @GetMapping("/comments/{comment-id}/replies")
     public ResponseEntity<Object> getReply(@PathVariable("comment-id") Long commentId) {
-        List<ReplyResDto> response = replyService.getReplyList(commentId,3L);
-        return new ResponseEntity<>(new ReplyListResponseDto<>(commentId, response), HttpStatus.CREATED);
+        return new ResponseEntity<>(replyService.getReplyList(commentId, 3L), HttpStatus.CREATED);
     }
 
     //PATCH (Update) Reply
     @PatchMapping("/comments/replies/{reply-id}")
     public ResponseEntity<Object> patchReply(@PathVariable("reply-id") Long replyId,
-                                               @RequestBody CommentReqDto requestDto){
+                                             @RequestBody CommentRequestDto requestDto){
         replyService.modifyReply(replyId, requestDto);
-        return new ResponseEntity<>("댓글수정완료!!", (HttpStatus.OK));
+        return new ResponseEntity<>("댓글수정완료!!", HttpStatus.OK);
     }
 
     //DELETE (Delete) Reply

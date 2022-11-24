@@ -1,13 +1,13 @@
 package com.codestates.mainproject.oneyearfourcut.domain.comment.service;
 
-import com.codestates.mainproject.oneyearfourcut.domain.comment.dto.CommentReqDto;
 import com.codestates.mainproject.oneyearfourcut.domain.comment.dto.ReplyResDto;
+import com.codestates.mainproject.oneyearfourcut.domain.comment.dto.CommentRequestDto;
 import com.codestates.mainproject.oneyearfourcut.domain.comment.entity.Reply;
-import com.codestates.mainproject.oneyearfourcut.domain.comment.mapper.ReplyMapper;
 import com.codestates.mainproject.oneyearfourcut.domain.comment.repository.ReplyRepository;
 import com.codestates.mainproject.oneyearfourcut.domain.member.service.MemberService;
 import com.codestates.mainproject.oneyearfourcut.global.exception.exception.BusinessLogicException;
 import com.codestates.mainproject.oneyearfourcut.global.exception.exception.ExceptionCode;
+import com.codestates.mainproject.oneyearfourcut.global.page.ReplyListResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -22,29 +22,33 @@ import static com.codestates.mainproject.oneyearfourcut.domain.comment.entity.Co
 @RequiredArgsConstructor
 public class ReplyService {
     private final ReplyRepository replyRepository;
-    private final ReplyMapper mapper;
     private final CommentService commentService;
     private final MemberService memberService;
 
     @Transactional
-    public void createReply(CommentReqDto requestDto, Long commentId, Long memberId) {
+    public void createReply(CommentRequestDto commentRequestDto, Long commentId, Long memberId) {
         Reply reply = Reply.builder()
-                .content(requestDto.getContent())
+                .content(commentRequestDto.getContent())
                 .comment(commentService.findComment(commentId))
                 .member(memberService.findMember(memberId))
                 .replyStatus(VALID)
                 .build();
         replyRepository.save(reply);
     }
-    public List<ReplyResDto> getReplyList(Long commentId, Long memberId)  {
+
+
+    public ReplyListResponseDto<Object> getReplyList(Long commentId, Long memberId)  {
         List<Reply> replyList = findReplyList(commentId, 3L);
-        List<ReplyResDto> result = mapper.replyToReplyResponseDtoList(replyList);
-        return result;
+        List<ReplyResDto> result = ReplyResDto.toReplyResponseDtoList(replyList);
+        return new ReplyListResponseDto<>(commentId, result);
     }
+
+
+
     @Transactional
-    public void modifyReply(Long replyId, CommentReqDto requestDto){
+    public void modifyReply(Long replyId, CommentRequestDto commentRequestDto){
         Reply foundReply = findReply(replyId);
-        Reply requestReply = mapper.commentRequestDtoToReply(requestDto);
+        Reply requestReply =  commentRequestDto.toReplyEntity();
         Optional.ofNullable(requestReply.getContent())
                 .ifPresent(foundReply::setContent);
     }

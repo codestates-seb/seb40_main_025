@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
 @Entity
 public class Comment extends Auditable {
@@ -49,17 +51,6 @@ public class Comment extends Auditable {
         this.commentStatus = commentStatus;
     }
 
-
-    @Builder
-    public Comment(Long commentId, String content, Member member, Gallery gallery, Long artworkId, List<Reply> replyList, CommentStatus commentStatus) {
-        this.commentId = commentId;
-        this.content = content;
-        this.member = member;
-        this.gallery = gallery;
-        this.artworkId = artworkId;
-        this.replyList = replyList;
-        this.commentStatus = commentStatus;
-    }
 
     public CommentArtworkResDto toArtworkResponseDto(Comment comment){
         if(comment == null){return null;}

@@ -1,5 +1,6 @@
 package com.codestates.mainproject.oneyearfourcut.domain.comment.entity;
 
+import com.codestates.mainproject.oneyearfourcut.domain.comment.dto.ReplyResDto;
 import com.codestates.mainproject.oneyearfourcut.domain.member.entity.Member;
 import com.codestates.mainproject.oneyearfourcut.global.auditable.Auditable;
 import lombok.*;
@@ -8,8 +9,8 @@ import javax.persistence.*;
 
 @Getter
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
 public class Reply extends Auditable {
 
@@ -37,6 +38,19 @@ public class Reply extends Auditable {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+
+    public ReplyResDto toReplyResponseDto(Reply reply){
+        if(reply == null){return null;}
+        return ReplyResDto.builder()
+                .replyId(reply.getReplyId())
+                .createdAt(reply.getCreatedAt())
+                .modifiedAt(reply.getModifiedAt())
+                .content(reply.getContent())
+                .memberId(reply.getMember().getMemberId())
+                .nickname(reply.getMember().getNickname())
+                .build();
     }
 
 }
