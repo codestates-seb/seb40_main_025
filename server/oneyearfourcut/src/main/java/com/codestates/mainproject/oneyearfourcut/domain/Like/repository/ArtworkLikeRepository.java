@@ -14,5 +14,4 @@ public interface ArtworkLikeRepository extends JpaRepository<ArtworkLike, Long> 
 
     Boolean existsByMember_MemberIdAndArtwork_ArtworkId(Long memberId, Long artworkId);
 
-    List<ArtworkLike> findAllByMember_MemberId(Long memberId);
 }

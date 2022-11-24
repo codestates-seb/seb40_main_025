@@ -9,6 +9,7 @@ import com.codestates.mainproject.oneyearfourcut.domain.artwork.dto.OneYearFourC
 import com.codestates.mainproject.oneyearfourcut.domain.artwork.entity.Artwork;
 import com.codestates.mainproject.oneyearfourcut.domain.artwork.entity.ArtworkStatus;
 import com.codestates.mainproject.oneyearfourcut.domain.artwork.repository.ArtworkRepository;
+import com.codestates.mainproject.oneyearfourcut.domain.gallery.entity.Gallery;
 import com.codestates.mainproject.oneyearfourcut.domain.gallery.entity.GalleryStatus;
 import com.codestates.mainproject.oneyearfourcut.domain.gallery.service.GalleryService;
 import com.codestates.mainproject.oneyearfourcut.domain.member.entity.Member;
@@ -39,11 +40,7 @@ public class ArtworkService {
     private final MemberService memberService;
     private final ArtworkLikeRepository artworkLikeRepository;
 
-    private final Long LOGIN_PERSON_ID = 5L;
-
-    public void createArtwork(long galleryId, ArtworkRequestDto requestDto) {
-        Artwork artwork = requestDto.toEntity();
-        artwork.setGallery(galleryService.findGallery(galleryId));
+    public void createArtwork(long memberId, long galleryId, ArtworkRequestDto requestDto) {
         /*
         ### 이미지 업로드 관련
         MultipartFile img = artwork.getImg();
@@ -56,36 +53,34 @@ public class ArtworkService {
         artwork.setMember(verifiedMember);
         */
 
-        // AccessToken 구현시 아래 로직 수정 예정
-
-        Long ARTWORK_PERSON_ID = 2L;
-        artwork.setMember(Member.builder().memberId(ARTWORK_PERSON_ID).artworkList(new ArrayList<>()).build());
+        Artwork artwork = requestDto.toEntity();
+        artwork.setGallery(galleryService.findGallery(galleryId));
+        artwork.setMember(Member.builder().memberId(memberId).artworkList(new ArrayList<>()).build());
 
         // 이미지 - 로컬환경 : "/파일명.확장자"형태로 DB에 저장 (S3 설정 시 삭제 예정)
         String localImgRoot = "/" + artwork.getImage().getOriginalFilename();
         artwork.setImagePath(localImgRoot);
+
         artwork.setStatus(ArtworkStatus.REGISTRATION);
-
         artworkRepository.save(artwork);
-
     }
 
     @Transactional(readOnly = true)
-    public ArtworkResponseDto findArtwork(long galleryId, long artworkId) {
+    public ArtworkResponseDto findArtwork(long memberId, long galleryId, long artworkId) {
         galleryService.verifiedGalleryExist(galleryId);
 
-        boolean isLiked = artworkLikeRepository.existsByMember_MemberIdAndArtwork_ArtworkId(LOGIN_PERSON_ID, artworkId);
         Artwork verifiedArtwork = findVerifiedArtwork(galleryId, artworkId);
-
+        boolean isLiked =
+                artworkLikeRepository.existsByMember_MemberIdAndArtwork_ArtworkId(memberId, artworkId);
         verifiedArtwork.setLiked(isLiked);
 
         return verifiedArtwork.toArtworkResponseDto();
     }
 
     @Transactional(readOnly = true)
-    public List<ArtworkResponseDto> findArtworkList(long galleryId) {
+    public List<ArtworkResponseDto> findArtworkList(long memberId, long galleryId) {
         galleryService.verifiedGalleryExist(galleryId);
-        Member loginMember = memberService.findMember(LOGIN_PERSON_ID);
+        Member loginMember = memberService.findMember(memberId);
 
         List<Artwork> artworkList = artworkRepository.findAllByGallery_GalleryIdAndStatus(galleryId,
                 Sort.by(desc("createdAt")), ArtworkStatus.REGISTRATION);
@@ -104,9 +99,9 @@ public class ArtworkService {
     }
 
     @Transactional(readOnly = true)
-    public List<OneYearFourCutResponseDto> findOneYearFourCut(long galleryId) {
+    public List<OneYearFourCutResponseDto> findOneYearFourCut(long memberId, long galleryId) {
         galleryService.verifiedGalleryExist(galleryId);
-        Member loginMember = memberService.findMember(LOGIN_PERSON_ID);
+        Member loginMember = memberService.findMember(memberId);
 
         List<Artwork> findArtworkList = artworkRepository.findTop4ByGallery_GalleryIdAndStatus(galleryId,
                 Sort.by(desc("likeCount"), desc("createdAt")), ArtworkStatus.REGISTRATION);
@@ -124,21 +119,23 @@ public class ArtworkService {
         return OneYearFourCutResponseDto.toListResponse(findArtworkList);
     }
 
-    public ArtworkResponseDto updateArtwork(long galleryId, long artworkId, ArtworkRequestDto request) {
+    public ArtworkResponseDto updateArtwork(long memberId, long galleryId, long artworkId, ArtworkRequestDto request) {
         galleryService.verifiedGalleryExist(galleryId);
+
         Artwork artwork = request.toEntity();
-        Artwork verifiedArtwork = findVerifiedArtwork(galleryId, artworkId);
+        Artwork findArtwork = findVerifiedArtwork(galleryId, artworkId);
 
-        verifiedArtwork.modify(artwork);
+        verifyAuthority(memberId, findArtwork);
+        findArtwork.modify(artwork);
 
-        return verifiedArtwork.toArtworkResponseDto();
+        return findArtwork.toArtworkResponseDto();
     }
 
-    public void deleteArtwork(long galleryId, long artworkId) {
+    public void deleteArtwork(long memberId, long galleryId, long artworkId) {
         galleryService.verifiedGalleryExist(galleryId);
         Artwork findArtwork = findVerifiedArtwork(galleryId, artworkId);
+        verifyAuthority(memberId, findArtwork);
         findArtwork.setStatus(ArtworkStatus.DELETED);
-
     }
 
     // ================= 검증 관련 메서드 =================
@@ -158,6 +155,13 @@ public class ArtworkService {
         return findArtwork;
     }
 
+    private void verifyAuthority(long memberId, Artwork artwork) {
+        boolean isWriter = artwork.getMemberId() == memberId;
+        boolean isAdmin = artwork.getGallery().getMember().getMemberId() == memberId;
+        if (!(isWriter || isAdmin)) { // 둘 다 false일 경우 권한 없음
+            throw new BusinessLogicException(ExceptionCode.UNAUTHORIZED);
+        }
+    }
 }
 
 

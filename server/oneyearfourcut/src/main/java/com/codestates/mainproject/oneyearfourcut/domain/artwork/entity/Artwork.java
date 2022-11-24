@@ -38,18 +38,12 @@ public class Artwork extends Auditable {
     @Transient
     private MultipartFile image;
 
-    // <============================
-    // Artwork Repository에서 voteCount를 사용하기 위해 Formula 추가 (JPQL 대신)
     @Formula("(select count(*) from artwork_like v where v.artwork_id = artwork_id)")
     private int likeCount;
-
     @Transient
     private boolean liked;
-
     @Formula("(select count(*) from comment c where c.artwork_id = artwork_id)")
     private int commentCount;
-
-    // <=== 좋아요 로직에 따라 변경될 수 있음.
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "GALLERY_ID")
@@ -111,6 +105,7 @@ public class Artwork extends Auditable {
         this.content = content;
         this.imagePath = imagePath;
         this.image = image;
+        this.artworkLikeList = new ArrayList<>();
 
     }
 

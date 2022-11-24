@@ -10,7 +10,10 @@ public enum ExceptionCode {
     ARTWORK_NOT_FOUND(400, "작품이 존재하지 않습니다."),
     ARTWORK_NOT_FOUND_FROM_GALLERY(400, "해당 작품이 전시관에 존재하지 않습니다."),
     COMMENT_NOT_FOUND(400, "댓글이 존재하지 않습니다."),
-    COMMENT_DELETED(400, "이미 삭제된 댓글입니다.");
+    COMMENT_DELETED(400, "이미 삭제된 댓글입니다."),
+    UNAUTHORIZED(401, "접근 권한이 없습니다.");
+
+
 
     @Getter
     private int status;
