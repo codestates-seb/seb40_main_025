@@ -2,7 +2,6 @@ package com.codestates.mainproject.oneyearfourcut.global.config.auth.filter;
 
 import com.codestates.mainproject.oneyearfourcut.global.config.auth.jwt.JwtTokenizer;
 import com.codestates.mainproject.oneyearfourcut.global.config.auth.jwt.PrincipalDto;
-import com.codestates.mainproject.oneyearfourcut.global.exception.exception.ExceptionCode;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.security.SignatureException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

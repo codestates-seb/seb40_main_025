@@ -1,6 +1,5 @@
 package com.codestates.mainproject.oneyearfourcut.domain.member.controller;
 
-import com.codestates.mainproject.oneyearfourcut.domain.member.dto.MemberRequestDto;
 import com.codestates.mainproject.oneyearfourcut.domain.member.entity.Member;
 import com.codestates.mainproject.oneyearfourcut.domain.member.entity.MemberStatus;
 import com.codestates.mainproject.oneyearfourcut.domain.member.entity.Role;

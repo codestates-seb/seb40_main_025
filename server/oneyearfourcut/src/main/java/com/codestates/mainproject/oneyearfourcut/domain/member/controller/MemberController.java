@@ -23,9 +23,8 @@ public class MemberController {
 
         return new ResponseEntity(member.toMemberResponseDto(), HttpStatus.OK);
     }
-
     //회원 수정
-    @PostMapping("/me")
+    @PostMapping("/me") //form-data는 post요청으로 해야함(?)
     public ResponseEntity patchMember(@LoginMember Long memberId,
                                       @ModelAttribute MemberRequestDto memberRequestDto) {
         //회원 수정 시에 프로필, 이름을 한번에 변경할건지 프론트와 의논해봐야함

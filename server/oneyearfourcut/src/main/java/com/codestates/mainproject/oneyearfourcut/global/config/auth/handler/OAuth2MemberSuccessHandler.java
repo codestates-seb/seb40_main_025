@@ -76,7 +76,7 @@ public class OAuth2MemberSuccessHandler extends SimpleUrlAuthenticationSuccessHa
         Map<String, Object> claims = new HashMap<>();
         claims.put("username", username);
         claims.put("roles", authorities);
-        claims.put("id", String.valueOf(member.getMemberId()));
+        claims.put("id", member.getMemberId());
 
         String subject = username; //subject에 이메일을 저장
         Date expiration = jwtTokenizer.getTokenExpiration(jwtTokenizer.getAccessTokenExpirationMinutes());
