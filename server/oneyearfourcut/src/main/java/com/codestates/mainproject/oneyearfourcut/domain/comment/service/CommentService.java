@@ -59,7 +59,7 @@ public class CommentService {
     }
 
 
-    private Page<Comment> findCommentByPage(Long galleryId, Long artworkId, int page, int size) {
+    public Page<Comment> findCommentByPage(Long galleryId, Long artworkId, int page, int size) {
         PageRequest pr = PageRequest.of(page - 1, size);
         Page<Comment> commentPage;
         galleryService.findGallery(galleryId);

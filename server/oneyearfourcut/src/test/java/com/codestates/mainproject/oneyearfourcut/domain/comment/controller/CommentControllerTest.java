@@ -5,6 +5,7 @@ import com.codestates.mainproject.oneyearfourcut.domain.comment.dto.CommentGalle
 import com.codestates.mainproject.oneyearfourcut.domain.comment.dto.CommentRequestDto;
 import com.codestates.mainproject.oneyearfourcut.domain.comment.entity.Comment;
 import com.codestates.mainproject.oneyearfourcut.domain.comment.entity.CommentStatus;
+import com.codestates.mainproject.oneyearfourcut.domain.comment.repository.CommentRepository;
 import com.codestates.mainproject.oneyearfourcut.domain.comment.service.CommentService;
 import com.codestates.mainproject.oneyearfourcut.domain.gallery.dto.GalleryRequestDto;
 import com.codestates.mainproject.oneyearfourcut.domain.gallery.entity.Gallery;
@@ -17,6 +18,8 @@ import com.codestates.mainproject.oneyearfourcut.domain.member.service.MemberSer
 import com.codestates.mainproject.oneyearfourcut.global.config.auth.jwt.JwtTokenizer;
 import com.codestates.mainproject.oneyearfourcut.global.page.CommentArtworkHeadDto;
 import com.codestates.mainproject.oneyearfourcut.global.page.CommentGalleryHeadDto;
+import com.codestates.mainproject.oneyearfourcut.global.page.CommentGalleryPageResponseDto;
+import com.codestates.mainproject.oneyearfourcut.global.page.PageInfo;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -29,6 +32,8 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
@@ -47,6 +52,7 @@ import static com.codestates.mainproject.oneyearfourcut.domain.member.entity.Mem
 import static com.codestates.mainproject.oneyearfourcut.global.util.ApiDocumentUtils.getRequestPreProcessor;
 import static com.codestates.mainproject.oneyearfourcut.global.util.ApiDocumentUtils.getResponsePreProcessor;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
 import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
@@ -71,6 +77,8 @@ class CommentControllerTest {
     private MemberRepository memberRepository;
     @Autowired
     private GalleryRepository galleryRepository;
+    @Autowired
+    private CommentRepository commentRepository;
     @MockBean
     private CommentService commentService;
     @Autowired
@@ -263,7 +271,77 @@ class CommentControllerTest {
     }
 
     @Test
-    void getGalleryComment() {
+    void testGetGalleryComment() throws Exception{
+        //given
+        //test전 member 등록  //해당 member jwt 생성
+        Member member = memberRepository.save(Member.builder()
+                .nickname("test1")
+                .email("test1@gmail.com")
+                .role(Role.USER)
+                .profile("/path")
+                .status(ACTIVE)
+                .build());
+        String jwt = jwtTokenizer.testJwtGenerator(member);
+        Gallery gallery = galleryRepository.save(new Gallery(1L));
+
+        Comment comment1 = commentRepository.save(Comment.builder()
+                .commentId(1L)
+                .content("댓글1")
+                .member(member)
+                .gallery(gallery)
+                .artworkId(null)
+                .commentStatus(CommentStatus.VALID)
+                .build());
+
+        Comment comment2 = commentRepository.save(Comment.builder()
+                .commentId(2L)
+                .content("댓글2")
+                .member(member)
+                .gallery(gallery)
+                .artworkId(1L)
+                .commentStatus(CommentStatus.VALID)
+                .build());
+
+        int page = 1; int size = 10;
+        PageRequest pr = PageRequest.of(page - 1, size);
+
+        given(this.commentService.findCommentByPage(
+                Mockito.any( gallery.getGalleryId().getClass() ),
+                Mockito.any(),
+                eq(page),
+                eq(size)))
+                .willReturn(
+                commentRepository.findAllByCommentStatusAndGallery_GalleryIdOrderByCommentIdDesc(VALID,1L, pr));
+
+        Page<Comment> commentPage = commentService.findCommentByPage(1L, null, page, size);
+        List<Comment> commentList = commentPage.getContent();
+        PageInfo<Object> pageInfo = new PageInfo<>(page, size, (int) commentPage.getTotalElements(), commentPage.getTotalPages());
+
+        given(this.commentService.getGalleryCommentPage(
+                Mockito.any( gallery.getGalleryId().getClass() ),
+                eq(page),
+                eq(size),
+                Mockito.any( member.getMemberId().getClass() )))
+                .willReturn(new CommentGalleryPageResponseDto<>(gallery.getGalleryId(),commentList,pageInfo));
+
+
+        //test하려는 gallery request
+
+        /*CommentArtworkResDto responseDto = CommentArtworkResDto.builder()
+                .createdAt(LocalDateTime.parse("2022-11-25T11:09:24.940"))
+                .modifiedAt(LocalDateTime.parse("2022-11-25T11:09:24.940"))
+                .commentId(1L)
+                .memberId(member.getMemberId())
+                .nickname(member.getNickname())
+                .content(requestDto.getContent())
+                .build();*/
+
+
+
+
+
+
+
     }
 
     @Test
