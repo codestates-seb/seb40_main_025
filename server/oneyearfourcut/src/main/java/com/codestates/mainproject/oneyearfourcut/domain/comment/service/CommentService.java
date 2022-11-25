@@ -42,7 +42,7 @@ public class CommentService {
                 .commentStatus(VALID)
                 .build();
         commentRepository.save(comment);
-        return new CommentGalleryHeadDto<>(galleryId,comment.toCommentGalleryResponseDto());
+        return new CommentGalleryHeadDto<>(galleryId, comment.toCommentGalleryResponseDto());
     }
 
     public CommentArtworkHeadDto<Object> createCommentOnArtwork(CommentRequestDto commentRequestDto, Long galleryId, Long artworkId, Long memberId) {

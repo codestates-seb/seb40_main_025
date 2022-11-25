@@ -10,8 +10,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-11-17T22:19:56+0900",
-    comments = "version: 1.5.3.Final, compiler: javac, environment: Java 11.0.11 (AdoptOpenJDK)"
+    date = "2022-11-25T14:40:10+0900",
+    comments = "version: 1.5.3.Final, compiler: javac, environment: Java 11.0.16 (Azul Systems, Inc.)"
 )
 @Component
 public class ArtworkMapperImpl implements ArtworkMapper {
@@ -22,28 +22,13 @@ public class ArtworkMapperImpl implements ArtworkMapper {
             return null;
         }
 
-        Artwork.ArtworkBuilder artwork = Artwork.builder();
-        artwork.title( artworkRequestDto.getTitle() );
-        artwork.content( artworkRequestDto.getContent() );
+        Artwork artwork = new Artwork();
 
-        return artwork.build();
-    }
+        artwork.setTitle( artworkRequestDto.getTitle() );
+        artwork.setContent( artworkRequestDto.getContent() );
+        artwork.setImg( artworkRequestDto.getImg() );
 
-    @Override
-    public ArtworkResponseDto artworkToArtworkResponseDto(Artwork artwork) {
-        if ( artwork == null ) {
-            return null;
-        }
-
-        ArtworkResponseDto artworkResponseDto = new ArtworkResponseDto();
-
-        if ( artwork.getArtworkId() != null ) {
-            artworkResponseDto.setArtworkId( artwork.getArtworkId() );
-        }
-        artworkResponseDto.setTitle( artwork.getTitle() );
-        artworkResponseDto.setContent( artwork.getContent() );
-
-        return artworkResponseDto;
+        return artwork;
     }
 
     @Override
@@ -58,5 +43,28 @@ public class ArtworkMapperImpl implements ArtworkMapper {
         }
 
         return list;
+    }
+
+    @Override
+    public ArtworkResponseDto artworkToArtworkResponseDto(Artwork artwork) {
+        if ( artwork == null ) {
+            return null;
+        }
+
+        ArtworkResponseDto.ArtworkResponseDtoBuilder artworkResponseDto = ArtworkResponseDto.builder();
+
+        if ( artwork.getArtworkId() != null ) {
+            artworkResponseDto.artworkId( artwork.getArtworkId() );
+        }
+        if ( artwork.getMemberId() != null ) {
+            artworkResponseDto.memberId( artwork.getMemberId() );
+        }
+        artworkResponseDto.title( artwork.getTitle() );
+        artworkResponseDto.content( artwork.getContent() );
+        artworkResponseDto.imagePath( artwork.getImagePath() );
+        artworkResponseDto.likeCount( artwork.getLikeCount() );
+        artworkResponseDto.commentCount( artwork.getCommentCount() );
+
+        return artworkResponseDto.build();
     }
 }
