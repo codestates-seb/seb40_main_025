@@ -9,7 +9,6 @@ import com.codestates.mainproject.oneyearfourcut.domain.artwork.dto.OneYearFourC
 import com.codestates.mainproject.oneyearfourcut.domain.artwork.entity.Artwork;
 import com.codestates.mainproject.oneyearfourcut.domain.artwork.entity.ArtworkStatus;
 import com.codestates.mainproject.oneyearfourcut.domain.artwork.repository.ArtworkRepository;
-import com.codestates.mainproject.oneyearfourcut.domain.gallery.entity.Gallery;
 import com.codestates.mainproject.oneyearfourcut.domain.gallery.entity.GalleryStatus;
 import com.codestates.mainproject.oneyearfourcut.domain.gallery.service.GalleryService;
 import com.codestates.mainproject.oneyearfourcut.domain.member.entity.Member;
@@ -22,8 +21,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import static org.springframework.data.domain.Sort.Order.desc;
@@ -55,7 +54,7 @@ public class ArtworkService {
 
         Artwork artwork = requestDto.toEntity();
         artwork.setGallery(galleryService.findGallery(galleryId));
-        artwork.setMember(Member.builder().memberId(memberId).artworkList(new ArrayList<>()).build());
+        artwork.setMember(new Member(memberId));
 
         // 이미지 - 로컬환경 : "/파일명.확장자"형태로 DB에 저장 (S3 설정 시 삭제 예정)
         String localImgRoot = "/" + artwork.getImage().getOriginalFilename();
@@ -160,6 +159,16 @@ public class ArtworkService {
         boolean isAdmin = artwork.getGallery().getMember().getMemberId() == memberId;
         if (!(isWriter || isAdmin)) { // 둘 다 false일 경우 권한 없음
             throw new BusinessLogicException(ExceptionCode.UNAUTHORIZED);
+        }
+    }
+
+    public void checkGalleryArtworkVerification(Long galleryId, Long artworkId) {
+        Optional<Artwork> artwork = artworkRepository.findById(artworkId);
+        Artwork foundArtwork = artwork.orElseThrow(
+                () -> new BusinessLogicException(ExceptionCode.ARTWORK_NOT_FOUND));
+
+        if (!Objects.equals(galleryId, foundArtwork.getGallery().getGalleryId())) {
+            throw new BusinessLogicException(ExceptionCode.ARTWORK_NOT_FOUND_FROM_GALLERY);
         }
     }
 }
