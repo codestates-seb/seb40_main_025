@@ -44,25 +44,25 @@ class CommentControllerTest {
     @Test
     void postCommentOnGallery() throws Exception{
         //Given
-        CommentRequestDto requestDto = new CommentRequestDto("Sample Content");
-        String content = gson.toJson(requestDto);
-
-/*        CommentGalleryResDto.builder()
-                .content("Sample Content")
-                .build();
-        given(commentService.createCommentOnGallery(
-                requestDto
-                ,Mockito.any(Gallery.class).getGalleryId()
-                ,Mockito.any(Member.class).getMemberId()));*/
-
-        //When
-
-        ResultActions actions = mockMvc.perform(
-                post("/galleries/{gallery-id}/comments")
-                        .accept(MediaType.APPLICATION_JSON)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(content)
-        );
+//        CommentRequestDto requestDto = new CommentRequestDto("Sample Content");
+//        String content = gson.toJson(requestDto);
+//
+///*        CommentGalleryResDto.builder()
+//                .content("Sample Content")
+//                .build();
+//        given(commentService.createCommentOnGallery(
+//                requestDto
+//                ,Mockito.any(Gallery.class).getGalleryId()
+//                ,Mockito.any(Member.class).getMemberId()));*/
+//
+//        //When
+//
+//        ResultActions actions = mockMvc.perform(
+//                post("/galleries/{gallery-id}/comments")
+//                        .accept(MediaType.APPLICATION_JSON)
+//                        .contentType(MediaType.APPLICATION_JSON)
+//                        .content(content)
+//        );
 
         //Then
     }

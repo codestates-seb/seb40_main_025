@@ -5,6 +5,7 @@
 :toc-title: Table of Contents
 :source-highlighter: prettify
 
+멤버 전시관 작품 좋아요 댓글 대댓글 알림
 
 ***
 == MemberController
