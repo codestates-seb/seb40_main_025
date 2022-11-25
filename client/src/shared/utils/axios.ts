@@ -15,7 +15,7 @@ const jsonInstance = axios.create({
 //form-data용도
 const formdataInstance = axios.create({
 
-  baseURL: 'http://localhost:4000',
+  baseURL: 'https://3770-211-210-144-9.jp.ngrok.io',
   timeout: 1000,
   headers: {
     'Content-Type': 'multipart/form-data',

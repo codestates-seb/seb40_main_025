@@ -1,29 +1,32 @@
 import * as C from './components/Container';
+import ModalBackdrop from 'shared/components/Modal/components/ModalBackdrop';
+import useToast from 'shared/components/Toast/hooks/useToast';
+import useUpload from './hook/useUpload';
 import Upload from './components/Upload';
 import { Input } from './components/Input';
 import { ModalStore, UploadStore } from 'store/store';
 import { Alert } from 'shared/components/Modal/components/Alert';
-import ModalBackdrop from 'shared/components/Modal/components/ModalBackdrop';
 import { useRef } from 'react';
-import useToast from 'shared/components/Toast/hooks/useToast';
 import { UploadAlert } from '../../src/shared/components/Modal/AlertData';
+import { useParams } from 'react-router-dom';
 
 const UploadPicture = () => {
-  const { target, openModal, closeModal } = ModalStore();
+  const { target, openModal } = ModalStore();
   const { UploadData } = UploadStore();
   const { setToast } = useToast();
+  const { galleryId } = useParams();
+  const { mutate } = useUpload();
   const formRef = useRef<HTMLFormElement>(null);
 
-  const onClick = () => {
-    //여기에 progressBtn을 눌렀을때 필요한 로직 작성
-    closeModal('AlertModal');
-  };
+  const handleProgressBtn = () => {
+    const upLoadData = {
+      img: UploadData.img!,
+      title: UploadData.title,
+      content: UploadData.content,
+      galleryId: galleryId!,
+    };
 
-  const data = {
-    title: '작품을 등록하시겠습니까?',
-    content: '등록하기',
-    color: 'green',
-    onClick: onClick,
+    mutate(upLoadData);
   };
 
   const handlePostbtn = (event: React.FormEvent<HTMLFormElement>) => {
@@ -39,9 +42,8 @@ const UploadPicture = () => {
         '제목은 15글자, 설명은 30글자 이하여야합니다.',
       ]);
       return;
-    }
-    else {
-      openModal("AlertModal")
+    } else {
+      openModal('AlertModal');
     }
   };
   // const data2 = new FormData(formRef.current!) 데이터 어떻게 들어가는지 확인해보기
@@ -60,7 +62,7 @@ const UploadPicture = () => {
       {/* 모달 생성부분 */}
       {target.AlertModal ? (
         <ModalBackdrop>
-          <Alert data={UploadAlert(onClick)} />
+          <Alert data={UploadAlert(handleProgressBtn)} />
         </ModalBackdrop>
       ) : null}
     </>

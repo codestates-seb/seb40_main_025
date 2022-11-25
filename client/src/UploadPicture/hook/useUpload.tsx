@@ -1,18 +1,30 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import apis from '../api'
+import { useMutation } from '@tanstack/react-query';
+import apis from '../api';
+import { ModalStore } from 'store/store';
+import useToast from 'shared/components/Toast/hooks/useToast';
+import { FormData } from '../types';
 
-const useUpload = (img: File, title: string, content: string, galleryId:number) => {
-    const queryClient = useQueryClient();
+const useUpload = () => {
+  const { closeModal } = ModalStore();
+  const { setToast } = useToast();
 
-    // const { data } = useMutation(['useUpload'], apis.postImageAndContent(img, title, content, galleryId));
-    const { data, error, status } = useMutation(['useUpload'], () => apis.postImageAndContent(img, title, content, galleryId), {
-        onMutate() {
-            return true;
-        },
-        
-    });
-    
+  const { mutate } = useMutation(
+    ['useUpload'],
+    (formData: FormData) => apis.postImageAndContent(formData),
+    {
+      onMutate() {
+        closeModal('AlertModal');
+      },
+      onSuccess() {
+        setToast(3000, ['작품이 등록되었습니다.', '내 전시관도 만들어보기']);
+      },
+      onError() {
+        alert('작품 업로드 오류');
+      },
+    },
+  );
 
-}
+  return { mutate };
+};
 
 export default useUpload;

@@ -19,7 +19,8 @@ const InputBox = styled.div<{ data: string }>`
     margin-top: ${rem(3)};
   }
   input:focus {
-    outline-color: ${({ theme,data }) => data ? theme.colors.green_002 : theme.colors.red_003};
+    outline-color: ${({ theme, data }) =>
+      data ? theme.colors.green_002 : theme.colors.red_003};
   }
 
   .SVG {
@@ -37,11 +38,10 @@ const InputBox = styled.div<{ data: string }>`
     resize: none;
   }
   textarea:focus {
-    outline-color: ${({ theme,data }) => data ? theme.colors.green_002 : theme.colors.red_003};
+    outline-color: ${({ theme, data }) =>
+      data ? theme.colors.green_002 : theme.colors.red_003};
   }
 `;
-
-
 
 const Input = () => {
   const { UploadData, setData } = UploadStore();
@@ -50,12 +50,24 @@ const Input = () => {
     <>
       <InputBox data={UploadData.title}>
         <label htmlFor='title'>작품 제목</label>
-        <input id='title' value={UploadData.title} onChange={(e: React.ChangeEvent<HTMLInputElement>)=> setData("title",e.target.value)}></input>
-        {/* <S.EmptySVG className='SVG'/> */}
+        <input
+          id='title'
+          value={UploadData.title}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setData('title', e.target.value)
+          }
+        ></input>
       </InputBox>
       <InputBox data={UploadData.content}>
-        <label htmlFor='content' >작품 설명</label>
-        <textarea id='content' maxLength={90} value={UploadData.content} onChange={(e: React.ChangeEvent<HTMLTextAreaElement>)=> setData("content",e.target.value)}></textarea>
+        <label htmlFor='content'>작품 설명</label>
+        <textarea
+          id='content'
+          maxLength={90}
+          value={UploadData.content}
+          onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
+            setData('content', e.target.value)
+          }
+        ></textarea>
       </InputBox>
     </>
   );

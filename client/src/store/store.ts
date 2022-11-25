@@ -1,16 +1,7 @@
 import create from 'zustand';
+import { ModalState, Modal, Alarm, Components, Upload } from './types';
 
-interface ModalState {
-  AlertModal: boolean;
-  ProfileModal: boolean;
-}
-
-interface Modal {
-  target: ModalState;
-  openModal: (key: string) => void;
-  closeModal: (key: string) => void;
-  resetTarget: () => void;
-}
+//모달
 const initTarget: ModalState = {
   AlertModal: false,
   ProfileModal: false,
@@ -30,12 +21,7 @@ const ModalStore = create<Modal>((set, get) => ({
     }),
 }));
 
-interface Alarm {
-  alarmIsOpen: boolean;
-  openAlarm: () => void;
-  closeAlarm: () => void;
-}
-
+//알림눌렀을때인데 삭제예정
 const AlarmStore = create<Alarm>((set) => {
   return {
     alarmIsOpen: false,
@@ -50,20 +36,7 @@ const AlarmStore = create<Alarm>((set) => {
   };
 });
 
-interface SubToastState {
-  time: number;
-  content: string[];
-}
-interface ToastState extends SubToastState {
-  id: number;
-}
-
-interface Components {
-  ToastList: ToastState[];
-  addToast: (data: SubToastState) => void;
-  removeToast: () => void;
-}
-
+//Toast Message
 const ToastStore = create<Components>((set, get) => ({
   ToastList: [],
   addToast: (data) =>
@@ -77,19 +50,7 @@ const ToastStore = create<Components>((set, get) => ({
   removeToast: () => set({ ToastList: [...get().ToastList.slice(1)] }),
 }));
 
-interface UploadState {
-  img: File | undefined;
-  title: string;
-  content: string;
-  [key: string]: File | undefined | string;
-}
-
-interface Upload {
-  UploadData: UploadState;
-  setData: (key: string, data: File | string) => void;
-  removeData: () => void;
-}
-
+//upload
 const initUploadData = {
   img: undefined,
   title: '',
