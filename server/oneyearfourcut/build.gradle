@@ -20,6 +20,11 @@ repositories {
 	mavenCentral()
 }
 
+//배포 설정
+jar {
+	enabled = false
+}
+
 //REST Docs
 ext {
 	set('snippetsDir', file("build/generated-snippets"))
