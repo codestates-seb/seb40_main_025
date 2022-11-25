@@ -40,12 +40,12 @@ public class Member extends Auditable {
     private MemberStatus status;
 
     @Builder
-    public Member(String nickname, String email, String profile, Role role, MemberStatus memberStatus) {
+    public Member(String nickname, String email, String profile, Role role, MemberStatus status) {
         this.nickname = nickname;
         this.email = email;
         this.profile = profile;
         this.role = role;
-        this.status = memberStatus;
+        this.status = status;
     }
 
     //jpa 연관관계 맵핑 위해 생성하는 member 엔티티 용 생성자
@@ -66,7 +66,6 @@ public class Member extends Auditable {
 
     public MemberResponseDto toMemberResponseDto() {
         return MemberResponseDto.builder()
-                .email(this.email)
                 .nickname(this.nickname)
                 .profile(this.profile)
                 .build();

@@ -1,6 +1,7 @@
 package com.codestates.mainproject.oneyearfourcut.global.config.auth.filter;
 
 import com.codestates.mainproject.oneyearfourcut.global.config.auth.jwt.JwtTokenizer;
+import com.codestates.mainproject.oneyearfourcut.global.config.auth.jwt.PrincipalDto;
 import com.codestates.mainproject.oneyearfourcut.global.exception.exception.ExceptionCode;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.security.SignatureException;
@@ -59,9 +60,9 @@ public class JwtVerificationFilter extends OncePerRequestFilter {
 
     private void setAuthenticationToContext(Map<String, Object> claims) {
         String username = (String) claims.get("username");
-        String id = (String) claims.get("id");
+        Long id = Long.valueOf((Integer) claims.get("id")); //Integer 로 변환 후 저장해야함. id값이 id 범위를 넘어가면 어떻게 하지?
         List<GrantedAuthority> authorities = List.of(new SimpleGrantedAuthority("ROLE_USER"));
-        Authentication authentication = new UsernamePasswordAuthenticationToken(username, id, authorities);
+        Authentication authentication = new UsernamePasswordAuthenticationToken(new PrincipalDto(username, id), null, authorities);
         SecurityContextHolder.getContext().setAuthentication(authentication);
     }
 }
