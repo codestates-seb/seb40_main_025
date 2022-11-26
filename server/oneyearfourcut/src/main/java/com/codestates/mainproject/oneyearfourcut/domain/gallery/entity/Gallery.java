@@ -37,6 +37,9 @@ public class Gallery extends Auditable {
         this.member = member;
     }
 
+    public Gallery(Long galleryId) {
+        this.galleryId = galleryId;
+    }
     public void updateTitle(String title) {
         this.title = title;
     }

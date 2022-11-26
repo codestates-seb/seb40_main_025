@@ -9,11 +9,13 @@ import com.codestates.mainproject.oneyearfourcut.domain.artwork.entity.ArtworkSt
 import com.codestates.mainproject.oneyearfourcut.domain.artwork.repository.ArtworkRepository;
 import com.codestates.mainproject.oneyearfourcut.domain.comment.entity.Comment;
 import com.codestates.mainproject.oneyearfourcut.domain.gallery.entity.Gallery;
-import com.codestates.mainproject.oneyearfourcut.domain.gallery.entity.GalleryStatus;
 import com.codestates.mainproject.oneyearfourcut.domain.gallery.service.GalleryService;
 import com.codestates.mainproject.oneyearfourcut.domain.member.entity.Member;
 import com.codestates.mainproject.oneyearfourcut.domain.member.service.MemberService;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -21,9 +23,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Sort;
 import org.springframework.mock.web.MockMultipartFile;
 
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -59,7 +59,7 @@ public class ArtworkServiceLocalTest {
 
         @BeforeEach
         void setUp() throws IOException {
-            MockMultipartFile image = new MockMultipartFile("율무", "율무.jpeg", "image/jpeg", new FileInputStream("/Users/wk/Downloads/율무.jpeg"));
+            MockMultipartFile image = new MockMultipartFile("율무", "율무.jpeg", "image/jpeg", "file".getBytes());
             String title = "제목1";
             String content = "작품에 대한 설명";
             artworkRequestDto = ArtworkRequestDto.builder()
@@ -72,8 +72,8 @@ public class ArtworkServiceLocalTest {
         @Test
         @DisplayName("정상적인 요청")
         void successfulCreateArtwork() {
-            Gallery gallery = Gallery.builder().galleryId(galleyId).artworkList(new ArrayList<>()).status(GalleryStatus.OPEN).build();
-            Member member = Member.builder().memberId(memberId).artworkList(new ArrayList<>()).build();
+            Gallery gallery = new Gallery(galleyId);
+            Member member = new Member(memberId);
             Artwork artwork = artworkRequestDto.toEntity();
 
             artwork.setGallery(gallery);
@@ -95,8 +95,8 @@ public class ArtworkServiceLocalTest {
         Artwork artwork2 = Artwork.builder().artworkId(2L).title("제목2").content("설명2").imagePath("/2.png").build();
         Artwork artwork3 = Artwork.builder().artworkId(3L).title("제목3").content("설명3").imagePath("/3.png").build();
         Artwork artwork4 = Artwork.builder().artworkId(4L).title("제목4").content("설명4").imagePath("/4.png").build();
-        Member loginMember = Member.builder().memberId(loginMemberId).artworkList(new ArrayList<>()).artworkLikeList(new ArrayList<>()).build();
-        Gallery gallery = Gallery.builder().galleryId(galleryId).status(GalleryStatus.OPEN).artworkList(new ArrayList<>()).build();
+        Member loginMember = new Member(loginMemberId);
+        Gallery gallery = new Gallery(galleryId);
         ArtworkLike like1 = new ArtworkLike(1L);
         ArtworkLike like2 = new ArtworkLike(2L);
         ArtworkLike like3 = new ArtworkLike(3L);

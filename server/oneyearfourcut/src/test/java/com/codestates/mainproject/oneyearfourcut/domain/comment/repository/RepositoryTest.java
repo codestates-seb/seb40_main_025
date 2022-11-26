@@ -6,7 +6,6 @@ import com.codestates.mainproject.oneyearfourcut.domain.comment.entity.CommentSt
 import com.codestates.mainproject.oneyearfourcut.domain.comment.entity.Reply;
 import com.codestates.mainproject.oneyearfourcut.domain.gallery.entity.Gallery;
 import com.codestates.mainproject.oneyearfourcut.domain.member.entity.Member;
-import org.aspectj.lang.annotation.After;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -54,12 +53,8 @@ class RepositoryTest {
                 Comment.builder()
                     .content("this is sample test comment")
                     .commentId(1L)
-                    .member(Member.builder()
-                            .memberId(3L)
-                            .build())
-                    .gallery(Gallery.builder()
-                            .galleryId(2L)
-                            .build())
+                    .member(new Member(3L))
+                    .gallery(new Gallery(2L))
                     .artworkId(133333L)
                     .commentStatus(CommentStatus.DELETED)
                     .build()
