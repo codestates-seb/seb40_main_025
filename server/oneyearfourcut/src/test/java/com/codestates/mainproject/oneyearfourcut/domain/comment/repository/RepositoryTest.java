@@ -24,7 +24,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)    // h2에서 mariadb로 변경 시 필요
 @Transactional
 class RepositoryTest {
     @Autowired
@@ -39,7 +38,6 @@ class RepositoryTest {
 
     @DisplayName("Comment-Reply Mapping-Connection Test")
     @Test
-    @Disabled
     void saveTest(){
 
         //Given
