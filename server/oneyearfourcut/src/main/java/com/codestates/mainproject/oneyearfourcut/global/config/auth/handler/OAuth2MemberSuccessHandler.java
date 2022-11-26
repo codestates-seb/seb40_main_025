@@ -106,7 +106,7 @@ public class OAuth2MemberSuccessHandler extends SimpleUrlAuthenticationSuccessHa
         return UriComponentsBuilder
                 .newInstance()
                 .scheme("http")
-                .host("localhost")
+                .host("ec2-43-200-124-243.ap-northeast-2.compute.amazonaws.com")
                 .port(8080)
                 .path("/receive-token")
                 .queryParams(queryParams)
