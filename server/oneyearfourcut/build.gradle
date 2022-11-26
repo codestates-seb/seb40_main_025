@@ -56,6 +56,9 @@ dependencies {
 	//REST Docs
 	testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
 	asciidoctorExtensions 'org.springframework.restdocs:spring-restdocs-asciidoctor'
+
+	//mariadb 드라이버
+	implementation group: 'org.mariadb.jdbc', name: 'mariadb-java-client'
 }
 
 //------------REST Docs ------------//
