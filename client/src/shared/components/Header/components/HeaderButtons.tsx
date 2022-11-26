@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import ModalBackdrop from 'shared/components/Modal/components/ModalBackdrop';
 import { Profile } from 'shared/components/Modal/components/Profile';
 import { ModalStore, AlarmStore } from 'store/store';
-
+import { useEffect } from 'react';
 const HeaderBackbtn = () => {
   const navigate = useNavigate();
 
@@ -26,10 +26,11 @@ const HeaderBackbtn = () => {
 };
 
 const HeaderBellbtn = () => {
-  const { alarmIsOpen, openAlarm } = AlarmStore();
+  const { alarmIsOpen, openAlarm, } = AlarmStore();
   const navigate = useNavigate();
-  const handleOnClick = () =>{
-    openAlarm();
+
+  const handleOnClick = () => {
+    // openAlarm();
     navigate('/alarmList');
   }
 
@@ -37,8 +38,8 @@ const HeaderBellbtn = () => {
     <>
       {!alarmIsOpen && (
         <svg
-          width='18'
-          height='20'
+          width={rem(18)}
+          height={rem(20)}
           viewBox='0 0 18 20'
           fill='none'
           xmlns='http://www.w3.org/2000/svg'
@@ -58,14 +59,13 @@ const HeaderBellbtn = () => {
 const HeaderHamburgerbtn = () => {
   const { openModal } = ModalStore();
   const { alarmIsOpen } = AlarmStore();
-  
 
   return (
     <>
       {!alarmIsOpen &&(
           <svg
-            width='18'
-            height='14'
+            width={rem(18)}
+            height={rem(14)}
             viewBox='0 0 18 14'
             fill='none'
             xmlns='http://www.w3.org/2000/svg'

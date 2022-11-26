@@ -1,10 +1,19 @@
 import * as B from './components/AlarmContainer';
 import Alarm from './components/Alarm';
 import Filter from './components/Filter';
+import { useEffect } from 'react';
 import { AlarmStore } from 'store/store';
 const AlarmList = () => {
   
-  const { alarmIsOpen } = AlarmStore();
+  const { alarmIsOpen, openAlarm, closeAlarm } = AlarmStore();
+
+  useEffect(() => {
+    openAlarm();
+    window.addEventListener("popstate", closeAlarm);
+    return () => {
+      // window.removeEventListener("popstate", closeAlarm);
+    }
+  },[]);
 
   let data = [
     {
@@ -24,14 +33,12 @@ const AlarmList = () => {
 
   return (
     <>
-      {alarmIsOpen && (
         <B.DefualtContainer>
           <Filter />
           {data.map((data) => (
             <Alarm data={data}></Alarm>
           ))}
         </B.DefualtContainer>
-      )}
     </>
   );
 };
