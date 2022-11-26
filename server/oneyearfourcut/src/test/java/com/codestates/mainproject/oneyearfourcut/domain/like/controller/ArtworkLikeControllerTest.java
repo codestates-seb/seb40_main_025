@@ -9,13 +9,14 @@ import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDoc
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
@@ -45,11 +46,13 @@ public class ArtworkLikeControllerTest {
     private Gson gson;
 
     @TestConfiguration
-    static class DefaultConfigWithoutCsrf extends WebSecurityConfigurerAdapter {
-        @Override
-        protected void configure(final HttpSecurity http) throws Exception {
-            super.configure(http);
-            http.csrf().disable();
+    static class testSecurityConfig {
+
+        @Bean
+        SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+            return http
+                    .csrf().disable()
+                    .build();
         }
     }
 
