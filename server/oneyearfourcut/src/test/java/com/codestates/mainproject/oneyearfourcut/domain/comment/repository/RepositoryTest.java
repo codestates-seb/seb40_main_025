@@ -7,6 +7,7 @@ import com.codestates.mainproject.oneyearfourcut.domain.comment.entity.Reply;
 import com.codestates.mainproject.oneyearfourcut.domain.gallery.entity.Gallery;
 import com.codestates.mainproject.oneyearfourcut.domain.member.entity.Member;
 import org.aspectj.lang.annotation.After;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -38,6 +39,7 @@ class RepositoryTest {
 
     @DisplayName("Comment-Reply Mapping-Connection Test")
     @Test
+    @Disabled
     void saveTest(){
 
         //Given
@@ -63,21 +65,21 @@ class RepositoryTest {
                     .build()
         );
 
-//        //when
-//        List<Comment> commentList = commentRepository.findAll();
-//        List<Reply> replyList = replyRepository.findAll();
-//        Comment comment = commentRepository.findById(1L).orElse(null);
-//
-//        //then
-//        Comment savedComment = commentList.get(0);
-//        Reply savedReply = replyList.get(0);
-//        assertThat(savedComment.getContent()).isEqualTo("this is sample test comment");
-//        assertThat(savedComment.getCommentId()).isEqualTo(1L);
-//        assertThat(savedComment.getMember().getMemberId()).isEqualTo(3L);
-//        assertThat(savedComment.getGallery().getGalleryId()).isEqualTo(2L);
-//        assertThat(savedComment.getArtworkId()).isEqualTo(133333L);
-//        assertThat(savedComment.getCommentStatus()).isEqualTo(CommentStatus.DELETED);
-//        assertThat(comment).isEqualTo(savedReply.getComment()); //mapping clear
+        //when
+        List<Comment> commentList = commentRepository.findAll();
+        List<Reply> replyList = replyRepository.findAll();
+        Comment comment = commentRepository.findById(1L).orElse(null);
+
+        //then
+        Comment savedComment = commentList.get(0);
+        Reply savedReply = replyList.get(0);
+        assertThat(savedComment.getContent()).isEqualTo("this is sample test comment");
+        assertThat(savedComment.getCommentId()).isEqualTo(1L);
+        assertThat(savedComment.getMember().getMemberId()).isEqualTo(3L);
+        assertThat(savedComment.getGallery().getGalleryId()).isEqualTo(2L);
+        assertThat(savedComment.getArtworkId()).isEqualTo(133333L);
+        assertThat(savedComment.getCommentStatus()).isEqualTo(CommentStatus.DELETED);
+        assertThat(comment).isEqualTo(savedReply.getComment()); //mapping clear
 
     }
 
