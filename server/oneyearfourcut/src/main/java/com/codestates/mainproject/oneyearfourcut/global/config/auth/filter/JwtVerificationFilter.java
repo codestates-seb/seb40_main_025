@@ -59,7 +59,7 @@ public class JwtVerificationFilter extends OncePerRequestFilter {
 
     private void setAuthenticationToContext(Map<String, Object> claims) {
         String username = (String) claims.get("username");
-        Long id = Long.valueOf((Integer) claims.get("id")); //Integer 로 변환 후 저장해야함. id값이 id 범위를 넘어가면 어떻게 하지?
+        Long id = Long.valueOf((Integer) claims.get("id")); //Integer 로 변환 후 저장해야함. id값이 int 범위를 넘어가면 어떻게 하지?
         List<GrantedAuthority> authorities = List.of(new SimpleGrantedAuthority("ROLE_USER"));
         Authentication authentication = new UsernamePasswordAuthenticationToken(new PrincipalDto(username, id), null, authorities);
         SecurityContextHolder.getContext().setAuthentication(authentication);
