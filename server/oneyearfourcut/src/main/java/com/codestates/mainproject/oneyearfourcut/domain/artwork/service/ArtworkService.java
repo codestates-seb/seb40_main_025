@@ -17,7 +17,6 @@ import com.codestates.mainproject.oneyearfourcut.global.exception.exception.Busi
 import com.codestates.mainproject.oneyearfourcut.global.exception.exception.ExceptionCode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,8 +34,6 @@ import static org.springframework.data.domain.Sort.Order.desc;
 @Slf4j
 public class ArtworkService {
 
-    @Value("${cloud.aws.s3.bucketUrl}")
-    private String bucketUrl;
     private final ArtworkRepository artworkRepository;
     private final GalleryService galleryService;
 
@@ -50,7 +47,7 @@ public class ArtworkService {
         artwork.setMember(new Member(memberId));
 
         // 이미지 - 로컬환경 : "/파일명.확장자"형태로 DB에 저장 (S3 설정 시 삭제 예정)
-        String imageRoot = bucketUrl + awsS3Service.uploadFile(artwork.getImage());
+        String imageRoot = awsS3Service.uploadFile(artwork.getImage());
         artwork.setImagePath(imageRoot);
         artwork.setStatus(ArtworkStatus.REGISTRATION);
 
@@ -123,7 +120,7 @@ public class ArtworkService {
 
         if (image.isPresent()) {
             awsS3Service.deleteImage(findArtwork.getImagePath());
-            String s3Path = bucketUrl + awsS3Service.uploadFile(image.get());
+            String s3Path = awsS3Service.uploadFile(image.get());
             artwork.setImagePath(s3Path);
 
         }

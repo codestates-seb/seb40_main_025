@@ -38,8 +38,7 @@ public class AwsS3Service {
         } catch (IOException e) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "이미지 업로드에 실패했습니다.");
         }
-
-        return fileName;
+        return amazonS3Client.getUrl(bucket, fileName).toString();
     }
 
     // 이미지 수정으로 인해 기존 이미지 삭제 메소드
