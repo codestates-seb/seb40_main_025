@@ -1,5 +1,3 @@
-
-
 server:
   servlet:
     encoding:
@@ -35,3 +33,10 @@ spring:
   sql:
     init:
       data-locations: classpath*:db/data.sql
+
+  # 이미지 크기 설정
+#  servlet:
+#    multipart:
+#      max-file-size:
+#      max-request-size:
+

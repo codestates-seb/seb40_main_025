@@ -1,6 +1,5 @@
 package com.codestates.mainproject.oneyearfourcut.domain.artwork.service;
 
-
 import com.codestates.mainproject.oneyearfourcut.domain.Like.entity.ArtworkLike;
 import com.codestates.mainproject.oneyearfourcut.domain.Like.repository.ArtworkLikeRepository;
 import com.codestates.mainproject.oneyearfourcut.domain.artwork.dto.ArtworkRequestDto;
@@ -13,13 +12,16 @@ import com.codestates.mainproject.oneyearfourcut.domain.gallery.entity.GallerySt
 import com.codestates.mainproject.oneyearfourcut.domain.gallery.service.GalleryService;
 import com.codestates.mainproject.oneyearfourcut.domain.member.entity.Member;
 import com.codestates.mainproject.oneyearfourcut.domain.member.service.MemberService;
+import com.codestates.mainproject.oneyearfourcut.global.aws.service.AwsS3Service;
 import com.codestates.mainproject.oneyearfourcut.global.exception.exception.BusinessLogicException;
 import com.codestates.mainproject.oneyearfourcut.global.exception.exception.ExceptionCode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Objects;
@@ -33,34 +35,25 @@ import static org.springframework.data.domain.Sort.Order.desc;
 @Slf4j
 public class ArtworkService {
 
+    @Value("${cloud.aws.s3.bucketUrl}")
+    private String bucketUrl;
     private final ArtworkRepository artworkRepository;
     private final GalleryService galleryService;
 
     private final MemberService memberService;
     private final ArtworkLikeRepository artworkLikeRepository;
+    private final AwsS3Service awsS3Service;
 
     public void createArtwork(long memberId, long galleryId, ArtworkRequestDto requestDto) {
-        /*
-        ### 이미지 업로드 관련
-        MultipartFile img = artwork.getImg();
-        // 파일명이 같더라도 충돌하지 않도록 UUID를 사용해 고유값을 넣도록 했습니다.
-        String fileName = UUID.randomUUID() + "-" + img.getOriginalFilename();
-        artwork.setImgPath(s3Url + fileName);
-
-        ### 멤버 관련 - 토큰
-        Member verifiedMember = memberRepository.findByEmail(SecurityContextHolder에서 가져온 유저 정보)
-        artwork.setMember(verifiedMember);
-        */
-
         Artwork artwork = requestDto.toEntity();
         artwork.setGallery(galleryService.findGallery(galleryId));
         artwork.setMember(new Member(memberId));
 
         // 이미지 - 로컬환경 : "/파일명.확장자"형태로 DB에 저장 (S3 설정 시 삭제 예정)
-        String localImgRoot = "/" + artwork.getImage().getOriginalFilename();
-        artwork.setImagePath(localImgRoot);
-
+        String imageRoot = bucketUrl + awsS3Service.uploadFile(artwork.getImage());
+        artwork.setImagePath(imageRoot);
         artwork.setStatus(ArtworkStatus.REGISTRATION);
+
         artworkRepository.save(artwork);
     }
 
@@ -121,10 +114,19 @@ public class ArtworkService {
     public ArtworkResponseDto updateArtwork(long memberId, long galleryId, long artworkId, ArtworkRequestDto request) {
         galleryService.verifiedGalleryExist(galleryId);
 
-        Artwork artwork = request.toEntity();
         Artwork findArtwork = findVerifiedArtwork(galleryId, artworkId);
-
         verifyAuthority(memberId, findArtwork);
+
+        Artwork artwork = request.toEntity();
+
+        Optional<MultipartFile> image = Optional.ofNullable(artwork.getImage());
+
+        if (image.isPresent()) {
+            awsS3Service.deleteImage(findArtwork.getImagePath());
+            String s3Path = bucketUrl + awsS3Service.uploadFile(image.get());
+            artwork.setImagePath(s3Path);
+
+        }
         findArtwork.modify(artwork);
 
         return findArtwork.toArtworkResponseDto();
