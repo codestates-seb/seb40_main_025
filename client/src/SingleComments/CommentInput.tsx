@@ -11,7 +11,7 @@ const Body = styled.div`
   position: absolute;
   top: 100vh;
   transform: translateY(-100%);
-  width: inherit;
+  width: ${rem(420)};
   pointer-events: none;
 `;
 
@@ -26,6 +26,9 @@ const InputZone = styled.div`
   justify-content: space-between;
   background-color: ${({ theme }) => theme.colors.black_007};
   pointer-events: auto;
+
+  display: flex;
+  flex-direction: row;
 `;
 
 const Input = styled.input`
