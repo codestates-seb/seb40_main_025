@@ -100,7 +100,7 @@ public class CommentService {
     }
 
 
-    protected Comment findComment(Long commentId){
+    public Comment findComment(Long commentId){
         Optional<Comment> comment = commentRepository.findById(commentId);
         Comment foundComment = comment.orElseThrow(()->new BusinessLogicException(ExceptionCode.COMMENT_NOT_FOUND));
         if(foundComment.getCommentStatus() == DELETED) throw new BusinessLogicException(ExceptionCode.COMMENT_DELETED);

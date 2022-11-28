@@ -497,7 +497,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/members/me' -i -X GET \
     -H 'Content-Type: application/json;charset=UTF-8' \
-    -H 'Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiVVNFUiIsImlkIjoxNCwidXNlcm5hbWUiOiJ0ZXN0MUBnbWFpbC5jb20iLCJzdWIiOiJ0ZXN0MUBnbWFpbC5jb20iLCJpYXQiOjE2Njk2MTYxNDIsImV4cCI6MTY2OTcwMjU0Mn0.YwYtc1ZNPa9B-0Qdxzp5eiU0OMVx2drPCSvxJO9UrQzpp-TGAUGcujIX_y5Q06AN' \
+    -H 'Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiVVNFUiIsImlkIjoxNCwidXNlcm5hbWUiOiJ0ZXN0MUBnbWFpbC5jb20iLCJzdWIiOiJ0ZXN0MUBnbWFpbC5jb20iLCJpYXQiOjE2Njk2MjE2NTUsImV4cCI6MTY2OTcwODA1NX0.PZjuddjGE0XDn-Q5niH_tbGGGgjpqSeMxMDosFMgxqcj3OC5vVScaSwsTnSRk1qm' \
     -H 'Accept: application/json'</code></pre>
 </div>
 </div>
@@ -506,7 +506,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="content">
 <pre class="prettyprint highlight nowrap"><code data-lang="http">GET /members/me HTTP/1.1
 Content-Type: application/json;charset=UTF-8
-Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiVVNFUiIsImlkIjoxNCwidXNlcm5hbWUiOiJ0ZXN0MUBnbWFpbC5jb20iLCJzdWIiOiJ0ZXN0MUBnbWFpbC5jb20iLCJpYXQiOjE2Njk2MTYxNDIsImV4cCI6MTY2OTcwMjU0Mn0.YwYtc1ZNPa9B-0Qdxzp5eiU0OMVx2drPCSvxJO9UrQzpp-TGAUGcujIX_y5Q06AN
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiVVNFUiIsImlkIjoxNCwidXNlcm5hbWUiOiJ0ZXN0MUBnbWFpbC5jb20iLCJzdWIiOiJ0ZXN0MUBnbWFpbC5jb20iLCJpYXQiOjE2Njk2MjE2NTUsImV4cCI6MTY2OTcwODA1NX0.PZjuddjGE0XDn-Q5niH_tbGGGgjpqSeMxMDosFMgxqcj3OC5vVScaSwsTnSRk1qm
 Accept: application/json
 Host: localhost:8080</code></pre>
 </div>
@@ -544,7 +544,7 @@ Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 Pragma: no-cache
 Expires: 0
 X-Frame-Options: SAMEORIGIN
-Content-Length: 53
+Content-Length: 56
 
 {
   "nickname" : "홍길동",
@@ -587,7 +587,7 @@ Content-Length: 53
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/members/me' -i -X POST \
     -H 'Content-Type: multipart/form-data;charset=UTF-8' \
-    -H 'Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiVVNFUiIsImlkIjoxMywidXNlcm5hbWUiOiJ0ZXN0MUBnbWFpbC5jb20iLCJzdWIiOiJ0ZXN0MUBnbWFpbC5jb20iLCJpYXQiOjE2Njk2MTYxNDIsImV4cCI6MTY2OTcwMjU0Mn0.GXGmBypQBs-nIv8qTjFWqsNTW4GiBx99d49MyVTSX0SF7h2JxrAIY5xwQXszVv7T' \
+    -H 'Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiVVNFUiIsImlkIjoxMywidXNlcm5hbWUiOiJ0ZXN0MUBnbWFpbC5jb20iLCJzdWIiOiJ0ZXN0MUBnbWFpbC5jb20iLCJpYXQiOjE2Njk2MjE2NTUsImV4cCI6MTY2OTcwODA1NX0.H9FePFt0Y-asVxYbnL8_VHhODJQzkA071XoHM-ySC6IqIW5N2yN5R5D2TzKT2Yng' \
     -F 'profile=@profile;type=image/jpeg' \
     -F 'nickname=수정된 이름'</code></pre>
 </div>
@@ -597,7 +597,7 @@ Content-Length: 53
 <div class="content">
 <pre class="prettyprint highlight nowrap"><code data-lang="http">POST /members/me HTTP/1.1
 Content-Type: multipart/form-data;charset=UTF-8; boundary=6o2knFse3p53ty9dmcQvWAIx1zInP11uCfbm
-Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiVVNFUiIsImlkIjoxMywidXNlcm5hbWUiOiJ0ZXN0MUBnbWFpbC5jb20iLCJzdWIiOiJ0ZXN0MUBnbWFpbC5jb20iLCJpYXQiOjE2Njk2MTYxNDIsImV4cCI6MTY2OTcwMjU0Mn0.GXGmBypQBs-nIv8qTjFWqsNTW4GiBx99d49MyVTSX0SF7h2JxrAIY5xwQXszVv7T
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiVVNFUiIsImlkIjoxMywidXNlcm5hbWUiOiJ0ZXN0MUBnbWFpbC5jb20iLCJzdWIiOiJ0ZXN0MUBnbWFpbC5jb20iLCJpYXQiOjE2Njk2MjE2NTUsImV4cCI6MTY2OTcwODA1NX0.H9FePFt0Y-asVxYbnL8_VHhODJQzkA071XoHM-ySC6IqIW5N2yN5R5D2TzKT2Yng
 Host: localhost:8080
 
 --6o2knFse3p53ty9dmcQvWAIx1zInP11uCfbm
@@ -695,14 +695,14 @@ X-Frame-Options: SAMEORIGIN
 <div class="title">curl-request</div>
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/members/me' -i -X DELETE \
-    -H 'Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiVVNFUiIsImlkIjoxMiwidXNlcm5hbWUiOiJ0ZXN0MUBnbWFpbC5jb20iLCJzdWIiOiJ0ZXN0MUBnbWFpbC5jb20iLCJpYXQiOjE2Njk2MTYxNDIsImV4cCI6MTY2OTcwMjU0Mn0.ZzLX-CzjOa5zzoKry6tNcWcAEa1pGwvlCpeHNnCLMy1ZfnHaKu8SK2dpnY2vriLO'</code></pre>
+    -H 'Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiVVNFUiIsImlkIjoxMiwidXNlcm5hbWUiOiJ0ZXN0MUBnbWFpbC5jb20iLCJzdWIiOiJ0ZXN0MUBnbWFpbC5jb20iLCJpYXQiOjE2Njk2MjE2NTUsImV4cCI6MTY2OTcwODA1NX0.7hc_5DKWPq0vJ6gIuVFqHZNkw-HkQ7fVFgtY4YHO2l7jS7jik4xOZwX2qgHFcvlN'</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="title">http-request</div>
 <div class="content">
 <pre class="prettyprint highlight nowrap"><code data-lang="http">DELETE /members/me HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiVVNFUiIsImlkIjoxMiwidXNlcm5hbWUiOiJ0ZXN0MUBnbWFpbC5jb20iLCJzdWIiOiJ0ZXN0MUBnbWFpbC5jb20iLCJpYXQiOjE2Njk2MTYxNDIsImV4cCI6MTY2OTcwMjU0Mn0.ZzLX-CzjOa5zzoKry6tNcWcAEa1pGwvlCpeHNnCLMy1ZfnHaKu8SK2dpnY2vriLO
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiVVNFUiIsImlkIjoxMiwidXNlcm5hbWUiOiJ0ZXN0MUBnbWFpbC5jb20iLCJzdWIiOiJ0ZXN0MUBnbWFpbC5jb20iLCJpYXQiOjE2Njk2MjE2NTUsImV4cCI6MTY2OTcwODA1NX0.7hc_5DKWPq0vJ6gIuVFqHZNkw-HkQ7fVFgtY4YHO2l7jS7jik4xOZwX2qgHFcvlN
 Host: localhost:8080</code></pre>
 </div>
 </div>
@@ -758,7 +758,7 @@ X-Frame-Options: SAMEORIGIN
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/galleries' -i -X POST \
     -H 'Content-Type: application/json;charset=UTF-8' \
-    -H 'Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiVVNFUiIsImlkIjoxMCwidXNlcm5hbWUiOiJ0ZXN0MUBnbWFpbC5jb20iLCJzdWIiOiJ0ZXN0MUBnbWFpbC5jb20iLCJpYXQiOjE2Njk2MTYxNDIsImV4cCI6MTY2OTcwMjU0Mn0.91szEFqoSP0_-lVx-Cre56czx4ERAQ83qHlxY9UQfDkp0DznBCWgJnG4YZ-KJjsO' \
+    -H 'Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiVVNFUiIsImlkIjoxMCwidXNlcm5hbWUiOiJ0ZXN0MUBnbWFpbC5jb20iLCJzdWIiOiJ0ZXN0MUBnbWFpbC5jb20iLCJpYXQiOjE2Njk2MjE2NTMsImV4cCI6MTY2OTcwODA1M30.TQfZQsG7gkYScIAZ4jEw8sJ8DkXrRfVt2b7jxdrYKPc5uSYlKgL9LtJ6jCzSLIDx' \
     -H 'Accept: application/json' \
     -d '{
   "title" : "나의 전시관",
@@ -771,9 +771,9 @@ X-Frame-Options: SAMEORIGIN
 <div class="content">
 <pre class="prettyprint highlight nowrap"><code data-lang="http">POST /galleries HTTP/1.1
 Content-Type: application/json;charset=UTF-8
-Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiVVNFUiIsImlkIjoxMCwidXNlcm5hbWUiOiJ0ZXN0MUBnbWFpbC5jb20iLCJzdWIiOiJ0ZXN0MUBnbWFpbC5jb20iLCJpYXQiOjE2Njk2MTYxNDIsImV4cCI6MTY2OTcwMjU0Mn0.91szEFqoSP0_-lVx-Cre56czx4ERAQ83qHlxY9UQfDkp0DznBCWgJnG4YZ-KJjsO
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiVVNFUiIsImlkIjoxMCwidXNlcm5hbWUiOiJ0ZXN0MUBnbWFpbC5jb20iLCJzdWIiOiJ0ZXN0MUBnbWFpbC5jb20iLCJpYXQiOjE2Njk2MjE2NTMsImV4cCI6MTY2OTcwODA1M30.TQfZQsG7gkYScIAZ4jEw8sJ8DkXrRfVt2b7jxdrYKPc5uSYlKgL9LtJ6jCzSLIDx
 Accept: application/json
-Content-Length: 67
+Content-Length: 70
 Host: localhost:8080
 
 {
@@ -842,13 +842,13 @@ Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 Pragma: no-cache
 Expires: 0
 X-Frame-Options: SAMEORIGIN
-Content-Length: 132
+Content-Length: 138
 
 {
   "galleryId" : 4,
   "title" : "나의 전시관",
   "content" : "안녕하세요",
-  "createdAt" : "2022-11-28T15:15:42.732749"
+  "createdAt" : "2022-11-28T16:47:33.9800819"
 }</code></pre>
 </div>
 </div>
@@ -942,13 +942,13 @@ Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 Pragma: no-cache
 Expires: 0
 X-Frame-Options: SAMEORIGIN
-Content-Length: 132
+Content-Length: 137
 
 {
   "galleryId" : 5,
   "title" : "나의 전시관",
   "content" : "안녕하세요",
-  "createdAt" : "2022-11-28T15:15:42.747999"
+  "createdAt" : "2022-11-28T16:47:34.033399"
 }</code></pre>
 </div>
 </div>
@@ -997,7 +997,7 @@ Content-Length: 132
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/galleries/me' -i -X PATCH \
     -H 'Content-Type: application/json;charset=UTF-8' \
-    -H 'Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiVVNFUiIsImlkIjoxMSwidXNlcm5hbWUiOiJ0ZXN0MUBnbWFpbC5jb20iLCJzdWIiOiJ0ZXN0MUBnbWFpbC5jb20iLCJpYXQiOjE2Njk2MTYxNDIsImV4cCI6MTY2OTcwMjU0Mn0.mO4Kyud3YrPQSESTkXZVWsygyTmOvuqBav5EPTSQyK8FdlWerm1gev8PrdFpEqG1' \
+    -H 'Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiVVNFUiIsImlkIjoxMSwidXNlcm5hbWUiOiJ0ZXN0MUBnbWFpbC5jb20iLCJzdWIiOiJ0ZXN0MUBnbWFpbC5jb20iLCJpYXQiOjE2Njk2MjE2NTQsImV4cCI6MTY2OTcwODA1NH0.80Y8DohoSEymhAyuLknnAq2HjTbSH6z7P3i_zxrhHkNRr15Z2o1kYyUZI2-TFkHX' \
     -H 'Accept: application/json' \
     -d '{
   "title" : "수정된 제목",
@@ -1010,9 +1010,9 @@ Content-Length: 132
 <div class="content">
 <pre class="prettyprint highlight nowrap"><code data-lang="http">PATCH /galleries/me HTTP/1.1
 Content-Type: application/json;charset=UTF-8
-Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiVVNFUiIsImlkIjoxMSwidXNlcm5hbWUiOiJ0ZXN0MUBnbWFpbC5jb20iLCJzdWIiOiJ0ZXN0MUBnbWFpbC5jb20iLCJpYXQiOjE2Njk2MTYxNDIsImV4cCI6MTY2OTcwMjU0Mn0.mO4Kyud3YrPQSESTkXZVWsygyTmOvuqBav5EPTSQyK8FdlWerm1gev8PrdFpEqG1
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiVVNFUiIsImlkIjoxMSwidXNlcm5hbWUiOiJ0ZXN0MUBnbWFpbC5jb20iLCJzdWIiOiJ0ZXN0MUBnbWFpbC5jb20iLCJpYXQiOjE2Njk2MjE2NTQsImV4cCI6MTY2OTcwODA1NH0.80Y8DohoSEymhAyuLknnAq2HjTbSH6z7P3i_zxrhHkNRr15Z2o1kYyUZI2-TFkHX
 Accept: application/json
-Content-Length: 68
+Content-Length: 71
 Host: localhost:8080
 
 {
@@ -1094,7 +1094,7 @@ X-Frame-Options: SAMEORIGIN
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/galleries/me' -i -X DELETE \
     -H 'Content-Type: application/json;charset=UTF-8' \
-    -H 'Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiVVNFUiIsImlkIjo5LCJ1c2VybmFtZSI6InRlc3QxQGdtYWlsLmNvbSIsInN1YiI6InRlc3QxQGdtYWlsLmNvbSIsImlhdCI6MTY2OTYxNjE0MiwiZXhwIjoxNjY5NzAyNTQyfQ.iBFCO7B85_N_SvGtzNG0G2SwSUItKr6FW1xz0MzkwVfvgTvmM-yWB7Bfzq7jO9ky' \
+    -H 'Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiVVNFUiIsImlkIjo5LCJ1c2VybmFtZSI6InRlc3QxQGdtYWlsLmNvbSIsInN1YiI6InRlc3QxQGdtYWlsLmNvbSIsImlhdCI6MTY2OTYyMTY1MywiZXhwIjoxNjY5NzA4MDUzfQ.mzRfckJv6Vy3dbjuJ2MCn7Gp7k877nXXEc7vIhkpb4dgo401FuVdAOysh83Dzsia' \
     -H 'Accept: application/json'</code></pre>
 </div>
 </div>
@@ -1103,7 +1103,7 @@ X-Frame-Options: SAMEORIGIN
 <div class="content">
 <pre class="prettyprint highlight nowrap"><code data-lang="http">DELETE /galleries/me HTTP/1.1
 Content-Type: application/json;charset=UTF-8
-Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiVVNFUiIsImlkIjo5LCJ1c2VybmFtZSI6InRlc3QxQGdtYWlsLmNvbSIsInN1YiI6InRlc3QxQGdtYWlsLmNvbSIsImlhdCI6MTY2OTYxNjE0MiwiZXhwIjoxNjY5NzAyNTQyfQ.iBFCO7B85_N_SvGtzNG0G2SwSUItKr6FW1xz0MzkwVfvgTvmM-yWB7Bfzq7jO9ky
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiVVNFUiIsImlkIjo5LCJ1c2VybmFtZSI6InRlc3QxQGdtYWlsLmNvbSIsInN1YiI6InRlc3QxQGdtYWlsLmNvbSIsImlhdCI6MTY2OTYyMTY1MywiZXhwIjoxNjY5NzA4MDUzfQ.mzRfckJv6Vy3dbjuJ2MCn7Gp7k877nXXEc7vIhkpb4dgo401FuVdAOysh83Dzsia
 Accept: application/json
 Host: localhost:8080</code></pre>
 </div>
@@ -1155,172 +1155,840 @@ X-Frame-Options: SAMEORIGIN
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="_작품_등록">3.1. 작품 등록</h3>
-<div class="paragraph">
+<div class="listingblock">
 <div class="title">curl-request</div>
-<p>Unresolved directive in index.adoc - include::/Users/phile/GitHub/CodeStates/seb40_main_025/server/oneyearfourcut/build/generated-snippets/post-artwork/curl-request.adoc[]</p>
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/galleries/1/artworks' -i -X POST \
+    -H 'Content-Type: multipart/form-data;charset=UTF-8' \
+    -H 'Authorization: Bearer (AccessToken)' \
+    -H 'Accept: application/json' \
+    -F 'image=@image.png;type=image/png' \
+    -F 'title=올해 네 컷 - D25' \
+    -F 'content=화이팅!'</code></pre>
 </div>
-<div class="paragraph">
+</div>
+<div class="listingblock">
 <div class="title">http-request</div>
-<p>Unresolved directive in index.adoc - include::/Users/phile/GitHub/CodeStates/seb40_main_025/server/oneyearfourcut/build/generated-snippets/post-artwork/http-request.adoc[]</p>
+<div class="content">
+<pre class="prettyprint highlight nowrap"><code data-lang="http">POST /galleries/1/artworks HTTP/1.1
+Content-Type: multipart/form-data;charset=UTF-8; boundary=6o2knFse3p53ty9dmcQvWAIx1zInP11uCfbm
+Authorization: Bearer (AccessToken)
+Accept: application/json
+Host: localhost:8080
+
+--6o2knFse3p53ty9dmcQvWAIx1zInP11uCfbm
+Content-Disposition: form-data; name=title
+
+올해 네 컷 - D25
+--6o2knFse3p53ty9dmcQvWAIx1zInP11uCfbm
+Content-Disposition: form-data; name=content
+
+화이팅!
+--6o2knFse3p53ty9dmcQvWAIx1zInP11uCfbm
+Content-Disposition: form-data; name=image; filename=image.png
+Content-Type: image/png
+
+&lt;&lt;image.png&gt;&gt;
+--6o2knFse3p53ty9dmcQvWAIx1zInP11uCfbm--</code></pre>
 </div>
-<div class="paragraph">
-<div class="title">request-headers</div>
-<p>Unresolved directive in index.adoc - include::/Users/phile/GitHub/CodeStates/seb40_main_025/server/oneyearfourcut/build/generated-snippets/post-artwork/request-headers.adoc[]</p>
 </div>
-<div class="paragraph">
-<div class="title">path-parameters</div>
-<p>Unresolved directive in index.adoc - include::/Users/phile/GitHub/CodeStates/seb40_main_025/server/oneyearfourcut/build/generated-snippets/post-artwork/path-parameters.adoc[]</p>
-</div>
-<div class="paragraph">
-<div class="title">request-parts</div>
-<p>Unresolved directive in index.adoc - include::/Users/phile/GitHub/CodeStates/seb40_main_025/server/oneyearfourcut/build/generated-snippets/post-artwork/request-parts.adoc[]</p>
-</div>
-<div class="paragraph">
-<div class="title">request-parameters</div>
-<p>Unresolved directive in index.adoc - include::/Users/phile/GitHub/CodeStates/seb40_main_025/server/oneyearfourcut/build/generated-snippets/post-artwork/request-parameters.adoc[]</p>
-</div>
-<div class="paragraph">
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 15. request-headers</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Authorization</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">JWT - Access Token</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 16. /galleries/{gallery-id}/artworks</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>gallery-id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">전시관 식별자</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 17. request-parts</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Part</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>image</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">이미지 파일 첨부</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 18. request-parameters</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>title</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">작품에 대한 제목</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>content</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">작품에 대한 설명</p></td>
+</tr>
+</tbody>
+</table>
+<div class="listingblock">
 <div class="title">http-response</div>
-<p>Unresolved directive in index.adoc - include::/Users/phile/GitHub/CodeStates/seb40_main_025/server/oneyearfourcut/build/generated-snippets/post-artwork/http-response.adoc[]</p>
+<div class="content">
+<pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 201 Created
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
+X-Frame-Options: DENY</code></pre>
+</div>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_작품_전체_조회">3.2. 작품 전체 조회</h3>
-<div class="paragraph">
+<div class="listingblock">
 <div class="title">curl-request</div>
-<p>Unresolved directive in index.adoc - include::/Users/phile/GitHub/CodeStates/seb40_main_025/server/oneyearfourcut/build/generated-snippets/get-artworks/curl-request.adoc[]</p>
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/galleries/1/artworks' -i -X GET \
+    -H 'Content-Type: application/json;charset=UTF-8' \
+    -H 'Accept: application/json' \
+    -H 'Authorization: Bearer (accessToken)'</code></pre>
 </div>
-<div class="paragraph">
+</div>
+<div class="listingblock">
 <div class="title">http-request</div>
-<p>Unresolved directive in index.adoc - include::/Users/phile/GitHub/CodeStates/seb40_main_025/server/oneyearfourcut/build/generated-snippets/get-artworks/http-request.adoc[]</p>
+<div class="content">
+<pre class="prettyprint highlight nowrap"><code data-lang="http">GET /galleries/1/artworks HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Accept: application/json
+Authorization: Bearer (accessToken)
+Host: localhost:8080</code></pre>
 </div>
-<div class="paragraph">
-<div class="title">request-headers</div>
-<p>Unresolved directive in index.adoc - include::/Users/phile/GitHub/CodeStates/seb40_main_025/server/oneyearfourcut/build/generated-snippets/get-artworks/request-headers.adoc[]</p>
 </div>
-<div class="paragraph">
-<div class="title">http-parameters</div>
-<p>Unresolved directive in index.adoc - include::/Users/phile/GitHub/CodeStates/seb40_main_025/server/oneyearfourcut/build/generated-snippets/get-artworks/path-parameters.adoc[]</p>
-</div>
-<div class="paragraph">
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 19. request-headers</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Authorization</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">JWT - Access Token</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 20. /galleries/{gallery-id}/artworks</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>gallery-id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">전시관 식별자</p></td>
+</tr>
+</tbody>
+</table>
+<div class="listingblock">
 <div class="title">http-response</div>
-<p>Unresolved directive in index.adoc - include::/Users/phile/GitHub/CodeStates/seb40_main_025/server/oneyearfourcut/build/generated-snippets/get-artworks/http-response.adoc[]</p>
+<div class="content">
+<pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
+Content-Type: application/json
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
+X-Frame-Options: DENY
+Content-Length: 804
+
+[ {
+  "artworkId" : 4,
+  "memberId" : 5,
+  "title" : "(4) 작품 제목",
+  "content" : "화이팅!",
+  "imagePath" : "/4.png",
+  "likeCount" : 0,
+  "liked" : false,
+  "commentCount" : 0
+}, {
+  "artworkId" : 3,
+  "memberId" : 4,
+  "title" : "(3) 작품 제목",
+  "content" : "화이팅!",
+  "imagePath" : "/3.png",
+  "likeCount" : 0,
+  "liked" : false,
+  "commentCount" : 0
+}, {
+  "artworkId" : 2,
+  "memberId" : 3,
+  "title" : "(2) 작품 제목",
+  "content" : "조금만 더 힘내요!",
+  "imagePath" : "/2.png",
+  "likeCount" : 0,
+  "liked" : false,
+  "commentCount" : 0
+}, {
+  "artworkId" : 1,
+  "memberId" : 2,
+  "title" : "(1) 작품 제목",
+  "content" : "(1) 설명",
+  "imagePath" : "/1.png",
+  "likeCount" : 0,
+  "liked" : false,
+  "commentCount" : 0
+} ]</code></pre>
 </div>
-<div class="paragraph">
-<div class="title">response-fields</div>
-<p>Unresolved directive in index.adoc - include::/Users/phile/GitHub/CodeStates/seb40_main_025/server/oneyearfourcut/build/generated-snippets/get-artworks/response-fields.adoc[]</p>
 </div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 21. response-fields</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[].artworkId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">작품 식별자</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[].memberId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">회원 식별자</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[].title</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">작품에 대한 제목</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[].content</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">작품에 대한 설명</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[].imagePath</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">작품 이미지 경로</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[].likeCount</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">좋아요 수</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[].liked</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Boolean</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">작품에 대한 로그인 유저의 좋아요 확인</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[].commentCount</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">댓글 수</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="sect2">
 <h3 id="_작품_개별_조회">3.3. 작품 개별 조회</h3>
-<div class="paragraph">
+<div class="listingblock">
 <div class="title">curl-request</div>
-<p>Unresolved directive in index.adoc - include::/Users/phile/GitHub/CodeStates/seb40_main_025/server/oneyearfourcut/build/generated-snippets/get-artwork/curl-request.adoc[]</p>
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/galleries/1/artworks/1' -i -X GET \
+    -H 'Content-Type: application/json;charset=UTF-8' \
+    -H 'Accept: application/json' \
+    -H 'Authorization: Bearer (accessToken)'</code></pre>
 </div>
-<div class="paragraph">
+</div>
+<div class="listingblock">
 <div class="title">http-request</div>
-<p>Unresolved directive in index.adoc - include::/Users/phile/GitHub/CodeStates/seb40_main_025/server/oneyearfourcut/build/generated-snippets/get-artwork/http-request.adoc[]</p>
+<div class="content">
+<pre class="prettyprint highlight nowrap"><code data-lang="http">GET /galleries/1/artworks/1 HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Accept: application/json
+Authorization: Bearer (accessToken)
+Host: localhost:8080</code></pre>
 </div>
-<div class="paragraph">
-<div class="title">request-headers</div>
-<p>Unresolved directive in index.adoc - include::/Users/phile/GitHub/CodeStates/seb40_main_025/server/oneyearfourcut/build/generated-snippets/get-artwork/request-headers.adoc[]</p>
 </div>
-<div class="paragraph">
-<div class="title">http-parameters</div>
-<p>Unresolved directive in index.adoc - include::/Users/phile/GitHub/CodeStates/seb40_main_025/server/oneyearfourcut/build/generated-snippets/get-artwork/path-parameters.adoc[]</p>
-</div>
-<div class="paragraph">
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 22. request-headers</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Authorization</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">JWT - Access Token</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 23. /galleries/{gallery-id}/artworks/{artwork-id}</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>gallery-id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">전시관 식별자</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>artwork-id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">작품 식별자</p></td>
+</tr>
+</tbody>
+</table>
+<div class="listingblock">
 <div class="title">http-response</div>
-<p>Unresolved directive in index.adoc - include::/Users/phile/GitHub/CodeStates/seb40_main_025/server/oneyearfourcut/build/generated-snippets/get-artwork/http-response.adoc[]</p>
+<div class="content">
+<pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
+Content-Type: application/json
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
+X-Frame-Options: DENY
+Content-Length: 198
+
+{
+  "artworkId" : 1,
+  "memberId" : 1,
+  "title" : "올해 네 컷 - D25",
+  "content" : "화이팅!",
+  "imagePath" : "/1.png",
+  "likeCount" : 1,
+  "liked" : false,
+  "commentCount" : 0
+}</code></pre>
 </div>
-<div class="paragraph">
-<div class="title">response-fields</div>
-<p>Unresolved directive in index.adoc - include::/Users/phile/GitHub/CodeStates/seb40_main_025/server/oneyearfourcut/build/generated-snippets/get-artwork/response-fields.adoc[]</p>
 </div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 24. response-fields</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>artworkId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">작품 식별자</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>memberId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">회원 식별자</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>title</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">작품에 대한 제목</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>content</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">작품에 대한 설명</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>imagePath</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">작품 이미지 경로</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>likeCount</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">좋아요 수</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>liked</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Boolean</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">작품에 대한 로그인 유저의 좋아요 확인</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>commentCount</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">댓글 수</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="sect2">
 <h3 id="_올해_네_컷_조회">3.4. 올해 네 컷 조회</h3>
-<div class="paragraph">
+<div class="listingblock">
 <div class="title">curl-request</div>
-<p>Unresolved directive in index.adoc - include::/Users/phile/GitHub/CodeStates/seb40_main_025/server/oneyearfourcut/build/generated-snippets/get-oneYearFourCut/curl-request.adoc[]</p>
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/galleries/1/artworks/like' -i -X GET \
+    -H 'Content-Type: application/json;charset=UTF-8' \
+    -H 'Accept: application/json' \
+    -H 'Authorization: Bearer (accessToken)'</code></pre>
 </div>
-<div class="paragraph">
+</div>
+<div class="listingblock">
 <div class="title">http-request</div>
-<p>Unresolved directive in index.adoc - include::/Users/phile/GitHub/CodeStates/seb40_main_025/server/oneyearfourcut/build/generated-snippets/get-oneYearFourCut/http-request.adoc[]</p>
+<div class="content">
+<pre class="prettyprint highlight nowrap"><code data-lang="http">GET /galleries/1/artworks/like HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Accept: application/json
+Authorization: Bearer (accessToken)
+Host: localhost:8080</code></pre>
 </div>
-<div class="paragraph">
-<div class="title">request-headers</div>
-<p>Unresolved directive in index.adoc - include::/Users/phile/GitHub/CodeStates/seb40_main_025/server/oneyearfourcut/build/generated-snippets/get-oneYearFourCut/request-headers.adoc[]</p>
 </div>
-<div class="paragraph">
-<div class="title">http-parameters</div>
-<p>Unresolved directive in index.adoc - include::/Users/phile/GitHub/CodeStates/seb40_main_025/server/oneyearfourcut/build/generated-snippets/get-oneYearFourCut/path-parameters.adoc[]</p>
-</div>
-<div class="paragraph">
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 25. request-headers</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Authorization</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">JWT - Access Token</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 26. /galleries/{gallery-id}/artworks/like</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>gallery-id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">전시관 식별자</p></td>
+</tr>
+</tbody>
+</table>
+<div class="listingblock">
 <div class="title">http-response</div>
-<p>Unresolved directive in index.adoc - include::/Users/phile/GitHub/CodeStates/seb40_main_025/server/oneyearfourcut/build/generated-snippets/get-oneYearFourCut/http-response.adoc[]</p>
+<div class="content">
+<pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
+Content-Type: application/json
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
+X-Frame-Options: DENY
+Content-Length: 290
+
+[ {
+  "artworkId" : 4,
+  "imagePath" : "/4.png",
+  "likeCount" : 4
+}, {
+  "artworkId" : 3,
+  "imagePath" : "/3.png",
+  "likeCount" : 3
+}, {
+  "artworkId" : 2,
+  "imagePath" : "/2.png",
+  "likeCount" : 2
+}, {
+  "artworkId" : 1,
+  "imagePath" : "/1.png",
+  "likeCount" : 1
+} ]</code></pre>
 </div>
-<div class="paragraph">
-<div class="title">response-fields</div>
-<p>Unresolved directive in index.adoc - include::/Users/phile/GitHub/CodeStates/seb40_main_025/server/oneyearfourcut/build/generated-snippets/get-oneYearFourCut/response-fields.adoc[]</p>
 </div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 27. response-fields</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[].artworkId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">작품 식별자</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[].imagePath</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">작품 이미지 경로</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[].likeCount</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">좋아요 수</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="sect2">
 <h3 id="_작품_수정">3.5. 작품 수정</h3>
-<div class="paragraph">
+<div class="listingblock">
 <div class="title">curl-request</div>
-<p>Unresolved directive in index.adoc - include::/Users/phile/GitHub/CodeStates/seb40_main_025/server/oneyearfourcut/build/generated-snippets/patch-artwork/curl-request.adoc[]</p>
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/galleries/1/artworks/1' -i -X PATCH \
+    -H 'Content-Type: multipart/form-data;charset=UTF-8' \
+    -H 'Authorization: Bearer (AccessToken)' \
+    -H 'Accept: application/json' \
+    -F 'image=@image.png;type=image/png' \
+    -F 'title=수정된 제목' \
+    -F 'content=수정된 설명'</code></pre>
 </div>
-<div class="paragraph">
+</div>
+<div class="listingblock">
 <div class="title">http-request</div>
-<p>Unresolved directive in index.adoc - include::/Users/phile/GitHub/CodeStates/seb40_main_025/server/oneyearfourcut/build/generated-snippets/patch-artwork/http-request.adoc[]</p>
+<div class="content">
+<pre class="prettyprint highlight nowrap"><code data-lang="http">PATCH /galleries/1/artworks/1 HTTP/1.1
+Content-Type: multipart/form-data;charset=UTF-8; boundary=6o2knFse3p53ty9dmcQvWAIx1zInP11uCfbm
+Authorization: Bearer (AccessToken)
+Accept: application/json
+Host: localhost:8080</code></pre>
 </div>
-<div class="paragraph">
-<div class="title">request-headers</div>
-<p>Unresolved directive in index.adoc - include::/Users/phile/GitHub/CodeStates/seb40_main_025/server/oneyearfourcut/build/generated-snippets/patch-artwork/request-headers.adoc[]</p>
 </div>
-<div class="paragraph">
-<div class="title">request-headers</div>
-<p>Unresolved directive in index.adoc - include::/Users/phile/GitHub/CodeStates/seb40_main_025/server/oneyearfourcut/build/generated-snippets/patch-artwork/path-parameters.adoc[]</p>
-</div>
-<div class="paragraph">
-<div class="title">request-parts</div>
-<p>Unresolved directive in index.adoc - include::/Users/phile/GitHub/CodeStates/seb40_main_025/server/oneyearfourcut/build/generated-snippets/patch-artwork/request-parts.adoc[]</p>
-</div>
-<div class="paragraph">
-<div class="title">request-parameters</div>
-<p>Unresolved directive in index.adoc - include::/Users/phile/GitHub/CodeStates/seb40_main_025/server/oneyearfourcut/build/generated-snippets/patch-artwork/request-parameters.adoc[]</p>
-</div>
-<div class="paragraph">
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 28. request-headers</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Authorization</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">JWT - Access Token</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 29. /galleries/{gallery-id}/artworks/{artwork-id}</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>gallery-id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">전시관 식별자</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>artwork-id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">작품 식별자</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 30. request-parts</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Part</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>image</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">수정할 이미지</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 31. request-parameters</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>title</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">수정할 작품 제목</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>content</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">수정할 작품 설명</p></td>
+</tr>
+</tbody>
+</table>
+<div class="listingblock">
 <div class="title">http-response</div>
-<p>Unresolved directive in index.adoc - include::/Users/phile/GitHub/CodeStates/seb40_main_025/server/oneyearfourcut/build/generated-snippets/patch-artwork/http-response.adoc[]</p>
+<div class="content">
+<pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
+Content-Type: application/json
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
+X-Frame-Options: DENY
+Content-Length: 200
+
+{
+  "artworkId" : 1,
+  "memberId" : 1,
+  "title" : "수정된 제목",
+  "content" : "수정된 설명",
+  "imagePath" : "/1.png",
+  "likeCount" : 0,
+  "liked" : false,
+  "commentCount" : 0
+}</code></pre>
 </div>
-<div class="paragraph">
-<div class="title">response-fields</div>
-<p>Unresolved directive in index.adoc - include::/Users/phile/GitHub/CodeStates/seb40_main_025/server/oneyearfourcut/build/generated-snippets/patch-artwork/response-fields.adoc[]</p>
 </div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 32. response-fields</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>artworkId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">작품 식별자</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>memberId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">회원 식별자</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>title</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">작품에 대한 제목</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>content</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">작품에 대한 설명</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>imagePath</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">작품 이미지 경로</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>likeCount</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">좋아요 수</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>liked</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Boolean</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">작품에 대한 로그인 유저의 좋아요 확인</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>commentCount</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">댓글 수</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="sect2">
 <h3 id="_작품_삭제">3.6. 작품 삭제</h3>
-<div class="paragraph">
+<div class="listingblock">
 <div class="title">curl-request</div>
-<p>Unresolved directive in index.adoc - include::/Users/phile/GitHub/CodeStates/seb40_main_025/server/oneyearfourcut/build/generated-snippets/delete-artwork/curl-request.adoc[]</p>
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/galleries/1/artworks/1' -i -X DELETE \
+    -H 'Content-Type: application/json;charset=UTF-8' \
+    -H 'Authorization: Bearer (AccessToken)' \
+    -H 'Accept: application/json'</code></pre>
 </div>
-<div class="paragraph">
+</div>
+<div class="listingblock">
 <div class="title">http-request</div>
-<p>Unresolved directive in index.adoc - include::/Users/phile/GitHub/CodeStates/seb40_main_025/server/oneyearfourcut/build/generated-snippets/delete-artwork/http-request.adoc[]</p>
+<div class="content">
+<pre class="prettyprint highlight nowrap"><code data-lang="http">DELETE /galleries/1/artworks/1 HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Authorization: Bearer (AccessToken)
+Accept: application/json
+Host: localhost:8080</code></pre>
 </div>
-<div class="paragraph">
-<div class="title">request-headers</div>
-<p>Unresolved directive in index.adoc - include::/Users/phile/GitHub/CodeStates/seb40_main_025/server/oneyearfourcut/build/generated-snippets/delete-artwork/request-headers.adoc[]</p>
 </div>
-<div class="paragraph">
-<div class="title">request-headers</div>
-<p>Unresolved directive in index.adoc - include::/Users/phile/GitHub/CodeStates/seb40_main_025/server/oneyearfourcut/build/generated-snippets/delete-artwork/path-parameters.adoc[]</p>
-</div>
-<div class="paragraph">
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 33. request-headers</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Authorization</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">JWT - Access Token</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 34. /galleries/{gallery-id}/artworks/{artwork-id}</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>gallery-id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">전시관 식별자</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>artwork-id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">작품 식별자</p></td>
+</tr>
+</tbody>
+</table>
+<div class="listingblock">
 <div class="title">http-response</div>
-<p>Unresolved directive in index.adoc - include::/Users/phile/GitHub/CodeStates/seb40_main_025/server/oneyearfourcut/build/generated-snippets/delete-artwork/http-response.adoc[]</p>
+<div class="content">
+<pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 204 No Content
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
+X-Frame-Options: DENY</code></pre>
+</div>
 </div>
 <hr>
 </div>
@@ -1331,25 +1999,76 @@ X-Frame-Options: SAMEORIGIN
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="_작품_좋아요_업데이트">4.1. 작품 좋아요 업데이트</h3>
-<div class="paragraph">
+<div class="listingblock">
 <div class="title">curl-request</div>
-<p>Unresolved directive in index.adoc - include::/Users/phile/GitHub/CodeStates/seb40_main_025/server/oneyearfourcut/build/generated-snippets/put-artworkLike/curl-request.adoc[]</p>
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/galleries/1/artworks/1/likes' -i -X PUT \
+    -H 'Authorization: Bearer (AccessToken)' \
+    -H 'Accept: application/json'</code></pre>
 </div>
-<div class="paragraph">
+</div>
+<div class="listingblock">
 <div class="title">http-request</div>
-<p>Unresolved directive in index.adoc - include::/Users/phile/GitHub/CodeStates/seb40_main_025/server/oneyearfourcut/build/generated-snippets/put-artworkLike/http-request.adoc[]</p>
+<div class="content">
+<pre class="prettyprint highlight nowrap"><code data-lang="http">PUT /galleries/1/artworks/1/likes HTTP/1.1
+Authorization: Bearer (AccessToken)
+Accept: application/json
+Host: localhost:8080</code></pre>
 </div>
-<div class="paragraph">
-<div class="title">request-headers</div>
-<p>Unresolved directive in index.adoc - include::/Users/phile/GitHub/CodeStates/seb40_main_025/server/oneyearfourcut/build/generated-snippets/put-artworkLike/request-headers.adoc[]</p>
 </div>
-<div class="paragraph">
-<div class="title">path-parameters</div>
-<p>Unresolved directive in index.adoc - include::/Users/phile/GitHub/CodeStates/seb40_main_025/server/oneyearfourcut/build/generated-snippets/put-artworkLike/path-parameters.adoc[]</p>
-</div>
-<div class="paragraph">
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 35. request-headers</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Authorization</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">JWT - Access Token</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 36. /galleries/{gallery-id}/artworks/{artwork-id}/likes</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>gallery-id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">전시관 식별자</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>artwork-id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">작품 식별자</p></td>
+</tr>
+</tbody>
+</table>
+<div class="listingblock">
 <div class="title">http-response</div>
-<p>Unresolved directive in index.adoc - include::/Users/phile/GitHub/CodeStates/seb40_main_025/server/oneyearfourcut/build/generated-snippets/put-artworkLike/http-response.adoc[]</p>
+<div class="content">
+<pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
+X-Frame-Options: DENY</code></pre>
+</div>
 </div>
 </div>
 </div>
@@ -1358,7 +2077,7 @@ X-Frame-Options: SAMEORIGIN
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1-SNAPSHOT<br>
-Last updated 2022-11-28 15:14:22 +0900
+Last updated 2022-11-28 16:20:39 +0900
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
