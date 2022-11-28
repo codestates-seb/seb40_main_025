@@ -27,7 +27,7 @@ const Filter = ({
   return (
     <>
       <B.FilterBox isOpen={isOpen}>
-        <label>{filter}</label>
+        <label>{ALDataType[filter]}</label>
         <div className='DropDownBtn' onClick={() => setIsOpen(!isOpen)}>
           &gt;
         </div>
@@ -37,7 +37,7 @@ const Filter = ({
           <div>
             <ul>
               {Object.keys(ALDataType).map((key, idx) => (
-                <li key={idx} onClick={() => handleOnClick(ALDataType[key])}>
+                <li key={idx} onClick={() => handleOnClick(key)}>
                   {ALDataType[key]}
                 </li>
               ))}

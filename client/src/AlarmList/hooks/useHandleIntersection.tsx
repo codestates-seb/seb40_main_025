@@ -39,7 +39,7 @@ let tempdata: ALData[] = [
 const useHandleIntersection = () => {
   const [isData, setIsData] = useState(true);
   const [alarmListData, setAlarmListData] = useState<ALData[]>(tempdata);
-  const [filter, setFilter] = useState<string>(ALDataType.All);
+  const [filter, setFilter] = useState<string>('All');
   const [page, setPage] = useState<number>(1);
 
   const { refetch } = useGetAlarmListInfinite({ filter, page });

@@ -5,7 +5,6 @@ const apis = {
     return await jsonInstance.get('/members/me/alarms');
   },
   getAlarmList: async (params : getParams) => {
-    // return await jsonInstance.get('/test');
     return await jsonInstance.get(`/members/me/alarms?filter=${params.filter}&page=${params.page}`);
   }
 }
