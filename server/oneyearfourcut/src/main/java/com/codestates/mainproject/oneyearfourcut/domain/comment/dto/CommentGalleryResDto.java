@@ -14,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class CommentGalleryResDto extends Auditable {
+public class CommentGalleryResDto{
     private Long commentId;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
