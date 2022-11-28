@@ -1,6 +1,6 @@
 import Footer from 'shared/components/PicFooter/PicFooter';
 import SinglePicture from './SinglePicture';
-import SAMPLE_PICTURES from './data/Sample';
+
 import styled from 'styled-components';
 import { rem } from 'polished';
 import React from 'react';
@@ -23,7 +23,7 @@ const Body = styled.div`
 
 const SinglePicPage = () => {
   const { open } = CommentStore();
-  const { data } = useGetAllPost();
+  const { data } = useGetAllPost(1);
 
   return (
     <Body>
@@ -36,22 +36,25 @@ const SinglePicPage = () => {
           centeredSlides={true}
           className='swiper'
         >
-          {data.map((el, idx, array) => (
-            <SwiperSlide className='swiper-slide'>
-              <Body className='single'>
-                <SinglePicture
-                  key={el.artwork_id}
-                  idx={idx}
-                  array={array.length}
-                  picture={el.imagePath}
-                  title={el.title}
-                  scrpit={el.content}
-                  username={el.memberId}
-                ></SinglePicture>
-                <Footer like={el.likeCount} comment={el.commentCount}></Footer>
-              </Body>
-            </SwiperSlide>
-          ))}
+          {data &&
+            data.data.map((el: any, idx: number, array: any) => (
+              <SwiperSlide className='swiper-slide' key={el.artworkId}>
+                <Body className='single'>
+                  <SinglePicture
+                    idx={idx}
+                    array={array.length}
+                    picture={el.imagePath}
+                    title={el.title}
+                    scrpit={el.content}
+                    username={el.memberId}
+                  ></SinglePicture>
+                  <Footer
+                    like={el.likeCount}
+                    comment={el.commentCount}
+                  ></Footer>
+                </Body>
+              </SwiperSlide>
+            ))}
         </Swiper>
       )}
     </Body>
