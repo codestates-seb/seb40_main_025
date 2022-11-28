@@ -10,10 +10,15 @@ const Btn = styled.a`
   width: ${rem(183)};
   height: ${rem(45)};
   padding: ${rem(20)};
+  color: ${({ theme }) => theme.colors.black_001};
+  text-decoration: none;
+  outline: none;
 
   & .label {
     font-size: ${rem(15)};
     margin-left: 15px;
+    color: ${({ theme }) => theme.colors.black_001};
+    opacity: 85%;
   }
 `;
 

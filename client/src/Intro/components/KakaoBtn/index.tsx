@@ -3,6 +3,7 @@ import { IoChatbubbleSharp } from 'react-icons/io5';
 import { rem } from 'polished';
 
 const index = () => {
+  
   return (
     <>
       <S.Btn href={process.env.REACT_APP_KAKAO_AUTH_URL}>
