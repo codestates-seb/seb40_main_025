@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+console.log("axios hi");
+
 //json용도
 const jsonInstance = axios.create({
   baseURL: 'http://localhost:4000',

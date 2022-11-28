@@ -1,7 +1,7 @@
 import { AlarmStore } from 'store/store';
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import apis from '../../api';
+import apis from '../api';
 
 const useReceiveAlarm = () => {
   const { alarmIsOpen } = AlarmStore();
@@ -15,6 +15,9 @@ const useReceiveAlarm = () => {
     refetchOnWindowFocus: true,
     refetchOnMount: true,
     refetchIntervalInBackground: true,
+    onError(err) {
+      console.log(err);
+    },
   });
 
   

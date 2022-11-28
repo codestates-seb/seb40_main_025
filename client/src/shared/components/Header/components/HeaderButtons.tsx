@@ -5,7 +5,7 @@ import { Profile } from 'shared/components/Modal/components/Profile';
 import { ModalStore, AlarmStore } from 'store/store';
 import { useEffect } from 'react';
 import { AlarmCheckBox } from './HeaderBox';
-import useReceiveAlarm from './hook/useReceiveAlarm';
+import useReceiveAlarm from '../hook/useReceiveAlarm';
 
 const HeaderBackbtn = () => {
   const navigate = useNavigate();
@@ -49,7 +49,7 @@ const HeaderBellbtn = () => {
               fill='#D99441'
             />
           </svg>
-          {data!.data && <AlarmCheckBox />}
+          {data?.data && <AlarmCheckBox />}
         </div>
       )}
     </>
