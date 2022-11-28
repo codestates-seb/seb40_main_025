@@ -8,7 +8,6 @@ const jsonInstance = axios.create({
   baseURL: process.env.REACT_APP_SERVER_URL,
   timeout: 1000,
   headers: {
-    'Access-Control-Allow-Origin': '*',
     'Content-Type': 'application/json',
     authorization: ACCESS_TOKEN,
   },
@@ -19,7 +18,6 @@ const formdataInstance = axios.create({
   baseURL: process.env.REACT_APP_SERVER_URL,
   timeout: 1000,
   headers: {
-    'Access-Control-Allow-Origin': '*',
     'Content-Type': 'multipart/form-data',
     authorization: ACCESS_TOKEN,
   },
