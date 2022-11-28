@@ -11,4 +11,8 @@ export const StyledLink = styled(Link)`
     text-decoration: none;
     color: #fff;
   }
+
+  &.white {
+    color: ${({ theme }) => theme.colors.black_007};
+  }
 `;
