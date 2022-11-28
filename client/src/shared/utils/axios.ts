@@ -1,24 +1,28 @@
 import axios from 'axios';
+import { getStoredToken } from 'Intro/components/LocalStorage/tokenStorage';
+
+let ACCESS_TOKEN = getStoredToken()?.access_token;
 
 //json용도
 const jsonInstance = axios.create({
-  baseURL: '',
+  baseURL: process.env.REACT_APP_SERVER_URL,
   timeout: 1000,
   headers: {
     'Access-Control-Allow-Origin': '*',
     'Content-Type': 'application/json',
+    authorization: ACCESS_TOKEN,
   },
-  withCredentials: true,
 });
 
 //form-data용도
 const formdataInstance = axios.create({
-  baseURL: '',
+  baseURL: process.env.REACT_APP_SERVER_URL,
   timeout: 1000,
   headers: {
+    'Access-Control-Allow-Origin': '*',
     'Content-Type': 'multipart/form-data',
+    authorization: ACCESS_TOKEN,
   },
-  withCredentials: true,
 });
 
 export { jsonInstance, formdataInstance };
