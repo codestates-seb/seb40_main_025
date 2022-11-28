@@ -86,7 +86,7 @@ class ReplyControllerTest {
         Gallery gallery = galleryRepository.save(new Gallery(1L));
 
         CommentRequestDto requestDto = CommentRequestDto.builder()
-                .content("대댓글입니다")
+                .content("답글입니다")
                 .build();
         String gsonContent = gson.toJson(requestDto);
 
@@ -136,7 +136,7 @@ class ReplyControllerTest {
                 .andExpect(jsonPath("$.replyList.replyId").value(1L))
                 .andExpect(jsonPath("$.replyList.memberId").value(member.getMemberId()))
                 .andExpect(jsonPath("$.replyList.nickname").value("test1"))
-                .andExpect(jsonPath("$.replyList.content").value("대댓글입니다"))
+                .andExpect(jsonPath("$.replyList.content").value("답글입니다"))
 
                 .andDo(document(
                                 "postReply",
@@ -149,7 +149,7 @@ class ReplyControllerTest {
                                 ),
                                 requestFields(
                                         List.of(
-                                                fieldWithPath("content").type(JsonFieldType.STRING).description("대댓글 내용")
+                                                fieldWithPath("content").type(JsonFieldType.STRING).description("답글 내용")
                                         )
                                 )
                         ,pathParameters(
@@ -159,10 +159,10 @@ class ReplyControllerTest {
                                                 fieldWithPath("commentId").type(JsonFieldType.NUMBER).description("댓글 ID"),
                                                 fieldWithPath("replyList.createdAt").type(JsonFieldType.STRING).description("생성일자"),
                                                 fieldWithPath("replyList.modifiedAt").type(JsonFieldType.STRING).description("생성일자"),
-                                                fieldWithPath("replyList.replyId").type(JsonFieldType.NUMBER).description("대댓글 ID"),
+                                                fieldWithPath("replyList.replyId").type(JsonFieldType.NUMBER).description("답글 ID"),
                                                 fieldWithPath("replyList.memberId").type(JsonFieldType.NUMBER).description("회원 ID"),
                                                 fieldWithPath("replyList.nickname").type(JsonFieldType.STRING).description("회원 닉네임"),
-                                                fieldWithPath("replyList.content").type(JsonFieldType.STRING).description("대댓글 내용")
+                                                fieldWithPath("replyList.content").type(JsonFieldType.STRING).description("답글 내용")
 
                                         )
                                 )
@@ -193,7 +193,7 @@ class ReplyControllerTest {
 
         replyRepository.save(Reply.builder()
                 .replyId(4L)
-                .content("대댓글")
+                .content("답글")
                 .member(member)
                 .comment(comment)
                 .replyStatus(CommentStatus.VALID)
@@ -227,7 +227,7 @@ class ReplyControllerTest {
                 .andExpect(jsonPath("$.replyList[0].replyId").value(4L))
                 .andExpect(jsonPath("$.replyList[0].memberId").value(member.getMemberId()))
                 .andExpect(jsonPath("$.replyList[0].nickname").value("test1"))
-                .andExpect(jsonPath("$.replyList[0].content").value("대댓글"))
+                .andExpect(jsonPath("$.replyList[0].content").value("답글"))
 
                 .andDo(document(
                                 "getReply",
@@ -240,10 +240,10 @@ class ReplyControllerTest {
                                                 fieldWithPath("commentId").type(JsonFieldType.NUMBER).description("댓글 ID"),
                                                 fieldWithPath("replyList[].createdAt").type(JsonFieldType.STRING).description("생성일자"),
                                                 fieldWithPath("replyList[].modifiedAt").type(JsonFieldType.STRING).description("생성일자"),
-                                                fieldWithPath("replyList[].replyId").type(JsonFieldType.NUMBER).description("대댓글 ID"),
+                                                fieldWithPath("replyList[].replyId").type(JsonFieldType.NUMBER).description("답글 ID"),
                                                 fieldWithPath("replyList[].memberId").type(JsonFieldType.NUMBER).description("회원 ID"),
                                                 fieldWithPath("replyList[].nickname").type(JsonFieldType.STRING).description("회원 닉네임"),
-                                                fieldWithPath("replyList[].content").type(JsonFieldType.STRING).description("대댓글 내용")
+                                                fieldWithPath("replyList[].content").type(JsonFieldType.STRING).description("답글 내용")
 
                                         )
                                 )
@@ -281,7 +281,7 @@ class ReplyControllerTest {
 
         replyRepository.save(Reply.builder()
                 .replyId(1L)
-                .content("대댓글1")
+                .content("답글1")
                 .member(member)
                 .comment(comment)
                 .replyStatus(CommentStatus.VALID)
@@ -289,7 +289,7 @@ class ReplyControllerTest {
 
         replyRepository.save(Reply.builder()
                 .replyId(2L)
-                .content("대댓글2")
+                .content("답글2")
                 .member(member)
                 .comment(comment)
                 .replyStatus(CommentStatus.VALID)
@@ -357,7 +357,7 @@ class ReplyControllerTest {
                                 ),
                                 pathParameters(
                                         parameterWithName("commentId").description("댓글 Id"),
-                                        parameterWithName("replyId").description("대댓글 Id"))
+                                        parameterWithName("replyId").description("답글 Id"))
                                 ,requestFields(
                                         List.of(
                                                 fieldWithPath("content").type(JsonFieldType.STRING).description("댓글 내용")
@@ -368,7 +368,7 @@ class ReplyControllerTest {
                                                 fieldWithPath("commentId").type(JsonFieldType.NUMBER).description("전시관 ID"),
                                                 fieldWithPath("replyList.createdAt").type(JsonFieldType.STRING).description("생성일자"),
                                                 fieldWithPath("replyList.modifiedAt").type(JsonFieldType.STRING).description("생성일자"),
-                                                fieldWithPath("replyList.replyId").type(JsonFieldType.NUMBER).description("대댓글 ID"),
+                                                fieldWithPath("replyList.replyId").type(JsonFieldType.NUMBER).description("답글 ID"),
                                                 fieldWithPath("replyList.memberId").type(JsonFieldType.NUMBER).description("회원 ID"),
                                                 fieldWithPath("replyList.nickname").type(JsonFieldType.STRING).description("회원 닉네임"),
                                                 fieldWithPath("replyList.content").type(JsonFieldType.STRING).description("댓글 내용")
@@ -407,7 +407,7 @@ class ReplyControllerTest {
 
         replyRepository.save(Reply.builder()
                 .replyId(3L)
-                .content("대댓글3")
+                .content("답글")
                 .member(member)
                 .comment(comment)
                 .replyStatus(CommentStatus.VALID)
@@ -437,7 +437,7 @@ class ReplyControllerTest {
                                 ),
                                 pathParameters(
                                         parameterWithName("commentId").description("댓글 Id"),
-                                        parameterWithName("replyId").description("대댓글 Id"))
+                                        parameterWithName("replyId").description("답글 Id"))
                         )
 
                 );

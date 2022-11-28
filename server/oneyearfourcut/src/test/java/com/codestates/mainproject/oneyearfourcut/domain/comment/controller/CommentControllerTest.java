@@ -475,7 +475,7 @@ class CommentControllerTest {
 
         Comment comment = commentRepository.save(Comment.builder()
                 .commentId(5L)
-                .content("댓글")
+                .content("오리지널댓글")
                 .member(member)
                 .gallery(gallery)
                 .artworkId(null)
@@ -509,8 +509,6 @@ class CommentControllerTest {
                 Mockito.any( member.getMemberId().getClass() )))
                 .willReturn(new CommentGalleryHeadDto<>( gallery.getGalleryId() , responseDto));
 
-        commentService.modifyComment(3L,5L, requestDto, member.getMemberId());
-
         //when
         ResultActions actions = mockMvc.perform(
                 RestDocumentationRequestBuilders
@@ -522,7 +520,7 @@ class CommentControllerTest {
                         .content(gsonContent)
                 /*.with(csrf())*/
         );
-
+        commentService.modifyComment(3L,5L, requestDto, member.getMemberId());
 
         //then
         actions.andExpect(status().isOk())
