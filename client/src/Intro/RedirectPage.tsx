@@ -1,5 +1,5 @@
 import { ReactElement } from 'react';
-import { Link } from 'react-router-dom';
+import { StyledLink } from 'shared/components/LinkButton/style';
 import { setStoredToken } from './components/LocalStorage/tokenStorage';
 
 const RedirectPage = (): ReactElement => {
@@ -24,10 +24,12 @@ const RedirectPage = (): ReactElement => {
         <div>그러면 알아서 access_token 꺼내서 헤더에 들어가용</div>
       </button>
       <button>
-        <Link to={'/gallerySetting'}>전시관 구경 가기</Link>
+        <StyledLink to={'/gallerySetting'}>전시관 구경 가기</StyledLink>
       </button>
       <button>
-        <Link to={'/gallerySetting'}>이전 페이지로 돌아가기(아직 구현 x)</Link>
+        <StyledLink to={'/gallerySetting'}>
+          이전 페이지로 돌아가기(아직 구현 x)
+        </StyledLink>
       </button>
     </>
   );
