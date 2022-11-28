@@ -43,8 +43,8 @@ public class ReplyService {
     }
 
     //Read
-    public ReplyListResponseDto<Object> getReplyList(Long commentId, Long memberId)  {
-        List<Reply> replyList = findReplyList(commentId, memberId); //findReplyList에서 검증진행
+    public ReplyListResponseDto<Object> getReplyList(Long commentId)  {
+        List<Reply> replyList = findReplyList(commentId); //findReplyList에서 검증진행
         List<ReplyResDto> result = ReplyResDto.toReplyResponseDtoList(replyList);
         return new ReplyListResponseDto<>(commentId, result);
     }
@@ -85,16 +85,16 @@ public class ReplyService {
         return foundReply;
     }
 
-    private List<Reply> findReplyList(Long commentId, Long memberId) {
+    public List<Reply> findReplyList(Long commentId) {
         List<Reply> replyList;
         commentService.findComment(commentId);
-        memberService.findMember(memberId);
+        /*memberService.findMember(memberId);*/
         if (commentId != null) {
             replyList =
                     replyRepository.findAllByReplyStatusAndComment_CommentIdOrderByReplyIdDesc(VALID, commentId);
         }
         else {
-           throw new BusinessLogicException(ExceptionCode.COMMENT_NOT_FOUND);
+            throw new BusinessLogicException(ExceptionCode.COMMENT_NOT_FOUND);
         }
         if (replyList.isEmpty()) {
             throw new BusinessLogicException(ExceptionCode.COMMENT_NOT_FOUND);
