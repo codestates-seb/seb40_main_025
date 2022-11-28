@@ -52,9 +52,7 @@ public class JwtVerificationFilter extends OncePerRequestFilter {
     private Map<String, Object> verifyJws(HttpServletRequest request) {
         String jws = request.getHeader("Authorization").replace("Bearer ", "");
         String base64EncodedSecretKey = jwtTokenizer.encodeBase64SecretKey(jwtTokenizer.getSecretKey());
-        Map<String, Object> claims = jwtTokenizer.getClaims(jws, base64EncodedSecretKey).getBody();
-
-        return claims;
+        return jwtTokenizer.getClaims(jws, base64EncodedSecretKey).getBody();
     }
 
     private void setAuthenticationToContext(Map<String, Object> claims) {
