@@ -15,7 +15,7 @@ import java.util.List;
 
 @Getter
 @Table(name = "comment")
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 @Entity
 public class Comment extends Auditable {
     @Id
