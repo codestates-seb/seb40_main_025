@@ -1,19 +1,17 @@
 package com.codestates.mainproject.oneyearfourcut.domain.comment.service;
 
-import com.codestates.mainproject.oneyearfourcut.domain.artwork.entity.Artwork;
 import com.codestates.mainproject.oneyearfourcut.domain.comment.dto.ReplyResDto;
 import com.codestates.mainproject.oneyearfourcut.domain.comment.dto.CommentRequestDto;
 import com.codestates.mainproject.oneyearfourcut.domain.comment.entity.Reply;
 import com.codestates.mainproject.oneyearfourcut.domain.comment.repository.ReplyRepository;
-import com.codestates.mainproject.oneyearfourcut.domain.gallery.entity.GalleryStatus;
 import com.codestates.mainproject.oneyearfourcut.domain.member.service.MemberService;
 import com.codestates.mainproject.oneyearfourcut.global.exception.exception.BusinessLogicException;
 import com.codestates.mainproject.oneyearfourcut.global.exception.exception.ExceptionCode;
 import com.codestates.mainproject.oneyearfourcut.global.page.ReplyListResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -30,7 +28,7 @@ public class ReplyService {
     private final MemberService memberService;
 
     //Create
-
+    @Transactional
     public ReplyListResponseDto<Object> createReply(CommentRequestDto commentRequestDto, Long commentId, Long memberId) {
         Reply reply = Reply.builder()
                 .content(commentRequestDto.getContent())
@@ -43,6 +41,8 @@ public class ReplyService {
     }
 
     //Read
+
+    @Transactional(readOnly = true)
     public ReplyListResponseDto<Object> getReplyList(Long commentId)  {
         List<Reply> replyList = findReplyList(commentId); //findReplyList에서 검증진행
         List<ReplyResDto> result = ReplyResDto.toReplyResponseDtoList(replyList);
@@ -50,6 +50,7 @@ public class ReplyService {
     }
 
     //Update
+    @Transactional
     public ReplyListResponseDto<Object> modifyReply(Long commentId, Long replyId, CommentRequestDto commentRequestDto,Long memberId){
         Reply foundReply = findReply(replyId);
         checkCommentReplyVerification(commentId, replyId, memberId);
@@ -61,6 +62,7 @@ public class ReplyService {
     }
 
     //Delete
+    @Transactional
     public void deleteReply(Long commentId, Long replyId, Long memberId) {
         Reply foundReply = findReply(replyId);
         checkCommentReplyVerification(commentId, replyId, memberId);
@@ -68,6 +70,7 @@ public class ReplyService {
         foundReply.changeReplyStatus(DELETED);
     }
 
+    @Transactional(readOnly = true)
     private void checkCommentReplyVerification(Long commentId, Long replyId, Long memberId) {
         Reply foundReply = findReply(replyId);
         memberService.findMember(memberId);
@@ -77,14 +80,15 @@ public class ReplyService {
         }
     }
 
-    //----private-----
-    private Reply findReply(Long replyId){
+    @Transactional(readOnly = true)
+    public Reply findReply(Long replyId){
         Optional<Reply> reply = replyRepository.findById(replyId);
         Reply foundReply = reply.orElseThrow(()->new BusinessLogicException(ExceptionCode.COMMENT_NOT_FOUND));
         if(foundReply.getReplyStatus() == DELETED) throw new BusinessLogicException(ExceptionCode.COMMENT_DELETED);
         return foundReply;
     }
 
+    @Transactional(readOnly = true)
     public List<Reply> findReplyList(Long commentId) {
         List<Reply> replyList;
         commentService.findComment(commentId);

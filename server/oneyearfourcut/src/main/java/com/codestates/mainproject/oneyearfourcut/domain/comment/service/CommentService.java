@@ -15,8 +15,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -34,6 +34,7 @@ public class CommentService {
     private final GalleryService galleryService;
     private final ArtworkService artworkService;
 
+    @Transactional
     public CommentGalleryHeadDto<Object> createCommentOnGallery(CommentRequestDto commentRequestDto, Long galleryId, Long memberId) {
         Comment comment = Comment.builder()
                 .gallery(galleryService.findGallery(galleryId))
@@ -46,6 +47,7 @@ public class CommentService {
         return new CommentGalleryHeadDto<>(galleryId, comment.toCommentGalleryResponseDto());
     }
 
+    @Transactional
     public CommentArtworkHeadDto<Object> createCommentOnArtwork(CommentRequestDto commentRequestDto, Long galleryId, Long artworkId, Long memberId) {
         artworkService.checkGalleryArtworkVerification(galleryId, artworkId);
         Comment comment = Comment.builder()
@@ -61,6 +63,7 @@ public class CommentService {
     }
 
 
+    @Transactional(readOnly = true)
     public Page<Comment> findCommentByPage(Long galleryId, Long artworkId, int page, int size) {
         PageRequest pr = PageRequest.of(page - 1, size);
         Page<Comment> commentPage;
@@ -80,6 +83,7 @@ public class CommentService {
     }
 
 
+    @Transactional(readOnly = true)
     public CommentGalleryPageResponseDto<Object> getGalleryCommentPage(Long galleryId, int page, int size){
         /*memberService.findMember(memberId);*/
         Page<Comment> commentPage = findCommentByPage(galleryId, null, page, size);
@@ -89,7 +93,7 @@ public class CommentService {
         return new CommentGalleryPageResponseDto<>(galleryId, response, pageInfo);
     }
 
-
+    @Transactional(readOnly = true)
     public CommentArtworkPageResponseDto<Object> getArtworkCommentPage(Long galleryId, Long artworkId, int page, int size) {
         /*memberService.findMember(memberId);*/
         Page<Comment> commentPage = findCommentByPage(galleryId, artworkId, page, size);
@@ -99,7 +103,7 @@ public class CommentService {
         return new CommentArtworkPageResponseDto<>(galleryId, artworkId, response, pageInfo);
     }
 
-
+    @Transactional(readOnly = true)
     public Comment findComment(Long commentId){
         Optional<Comment> comment = commentRepository.findById(commentId);
         Comment foundComment = comment.orElseThrow(()->new BusinessLogicException(ExceptionCode.COMMENT_NOT_FOUND));
@@ -107,8 +111,7 @@ public class CommentService {
         return foundComment;
     }
 
-
-
+    @Transactional
     public void deleteComment(Long galleryId, Long commentId, Long memberId) {
         Comment foundComment= findComment(commentId);
         checkGalleryCommentVerification(galleryId, commentId, memberId);
@@ -116,7 +119,7 @@ public class CommentService {
         foundComment.changeCommentStatus(DELETED);
     }
 
-
+    @Transactional
     public CommentGalleryHeadDto<Object> modifyComment(Long galleryId, Long commentId, CommentRequestDto commentRequestDto, Long memberId){
         Comment foundComment = findComment(commentId);
         checkGalleryCommentVerification(galleryId, commentId, memberId);
@@ -127,7 +130,8 @@ public class CommentService {
         return new CommentGalleryHeadDto<>(galleryId, foundComment.toCommentGalleryResponseDto());
     }
 
-    private void checkGalleryCommentVerification(Long galleryId, Long commentId, Long memberId) {
+    @Transactional(readOnly = true)
+    public void checkGalleryCommentVerification(Long galleryId, Long commentId, Long memberId) {
         Comment foundComment = findComment(commentId);
         memberService.findMember(memberId);
         galleryService.findGallery(galleryId);
