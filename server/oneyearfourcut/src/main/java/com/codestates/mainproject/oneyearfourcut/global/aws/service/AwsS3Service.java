@@ -42,8 +42,7 @@ public class AwsS3Service {
     }
 
     // 이미지 수정으로 인해 기존 이미지 삭제 메소드
-    public void deleteImage(String fileUrl) { // url
-//        https://oneyearfourcut-image.s3.ap-northeast-2.amazonaws.com/44ce61b1-1908-441c-889c-c1358ab1a79d.jpeg
+    public void deleteImage(String fileUrl) {
         String splitStr = ".com/";
         String fileName = fileUrl.substring(fileUrl.lastIndexOf(splitStr) + splitStr.length());
 

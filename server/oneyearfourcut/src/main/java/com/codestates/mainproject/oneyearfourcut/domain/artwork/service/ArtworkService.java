@@ -13,11 +13,13 @@ import com.codestates.mainproject.oneyearfourcut.domain.gallery.service.GalleryS
 import com.codestates.mainproject.oneyearfourcut.domain.member.entity.Member;
 import com.codestates.mainproject.oneyearfourcut.domain.member.service.MemberService;
 import com.codestates.mainproject.oneyearfourcut.global.aws.service.AwsS3Service;
+import com.codestates.mainproject.oneyearfourcut.global.config.auth.jwt.PrincipalDto;
 import com.codestates.mainproject.oneyearfourcut.global.exception.exception.BusinessLogicException;
 import com.codestates.mainproject.oneyearfourcut.global.exception.exception.ExceptionCode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -55,21 +57,26 @@ public class ArtworkService {
     }
 
     @Transactional(readOnly = true)
-    public ArtworkResponseDto findArtwork(long memberId, long galleryId, long artworkId) {
+    public ArtworkResponseDto findArtwork(long galleryId, long artworkId) {
         galleryService.verifiedGalleryExist(galleryId);
 
         Artwork verifiedArtwork = findVerifiedArtwork(galleryId, artworkId);
-        boolean isLiked =
-                artworkLikeRepository.existsByMember_MemberIdAndArtwork_ArtworkId(memberId, artworkId);
-        verifiedArtwork.setLiked(isLiked);
 
+        Object authentication = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (!authentication.equals("anonymousUser")) {
+            PrincipalDto principal = (PrincipalDto) authentication;
+            Long memberId = principal.getId();
+
+            boolean isLiked =
+                    artworkLikeRepository.existsByMember_MemberIdAndArtwork_ArtworkId(memberId, artworkId);
+            verifiedArtwork.setLiked(isLiked);
+        }
         return verifiedArtwork.toArtworkResponseDto();
     }
 
     @Transactional(readOnly = true)
-    public List<ArtworkResponseDto> findArtworkList(long memberId, long galleryId) {
+    public List<ArtworkResponseDto> findArtworkList(long galleryId) {
         galleryService.verifiedGalleryExist(galleryId);
-        Member loginMember = memberService.findMember(memberId);
 
         List<Artwork> artworkList = artworkRepository.findAllByGallery_GalleryIdAndStatus(galleryId,
                 Sort.by(desc("createdAt")), ArtworkStatus.REGISTRATION);
@@ -79,18 +86,26 @@ public class ArtworkService {
             throw new BusinessLogicException(ExceptionCode.ARTWORK_NOT_FOUND);
         }
 
-        List<ArtworkLike> memberLikeList = loginMember.getArtworkLikeList();
-        memberLikeList.
-                forEach(like -> like.getArtwork()
-                        .setLiked(artworkList.contains(like.getArtwork())));
+        Object authentication = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (!authentication.equals("anonymousUser")) {
+            PrincipalDto principal = (PrincipalDto) authentication;
+
+            Long memberId = principal.getId();
+
+            Member loginMember = memberService.findMember(memberId);
+            List<ArtworkLike> memberLikeList = loginMember.getArtworkLikeList();
+            memberLikeList.
+                    forEach(like -> like.getArtwork()
+                            .setLiked(artworkList.contains(like.getArtwork())));
+        }
 
         return ArtworkResponseDto.toListResponse(artworkList);
     }
 
     @Transactional(readOnly = true)
-    public List<OneYearFourCutResponseDto> findOneYearFourCut(long memberId, long galleryId) {
+    public List<OneYearFourCutResponseDto> findOneYearFourCut(long galleryId) {
         galleryService.verifiedGalleryExist(galleryId);
-        Member loginMember = memberService.findMember(memberId);
+//        Member loginMember = memberService.findMember(memberId);
 
         List<Artwork> findArtworkList = artworkRepository.findTop4ByGallery_GalleryIdAndStatus(galleryId,
                 Sort.by(desc("likeCount"), desc("createdAt")), ArtworkStatus.REGISTRATION);
@@ -99,11 +114,11 @@ public class ArtworkService {
         if (findArtworkList.isEmpty()) {
             throw new BusinessLogicException(ExceptionCode.ARTWORK_NOT_FOUND);
         }
-        List<ArtworkLike> memberLikeList = loginMember.getArtworkLikeList();
-
-        memberLikeList.
-                forEach(like -> like.getArtwork()
-                        .setLiked(findArtworkList.contains(like.getArtwork())));
+//        List<ArtworkLike> memberLikeList = loginMember.getArtworkLikeList();
+//
+//        memberLikeList.
+//                forEach(like -> like.getArtwork()
+//                        .setLiked(findArtworkList.contains(like.getArtwork())));
 
         return OneYearFourCutResponseDto.toListResponse(findArtworkList);
     }
