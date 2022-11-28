@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { getStoredToken } from 'Intro/components/LocalStorage/tokenStorage';
+import { getStoredToken } from 'Intro/hooks/tokenStorage';
 
 let ACCESS_TOKEN = getStoredToken()?.access_token;
 

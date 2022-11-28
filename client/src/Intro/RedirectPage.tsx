@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 import { StyledLink } from 'shared/components/LinkButton/style';
-import { setStoredToken } from './components/LocalStorage/tokenStorage';
+import { setStoredToken } from './hooks/tokenStorage';
 
 const RedirectPage = (): ReactElement => {
   const KakaoRedirectHandler = (): void => {
