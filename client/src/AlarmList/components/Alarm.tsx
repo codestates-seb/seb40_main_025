@@ -4,7 +4,6 @@ import { ALData, ALDataType } from 'AlarmList/types';
 const Alarm = ({ data }: { data: ALData }) => {
   const makeContent = (data: ALData): string => {
     let content = `${data.userNickname}님이 `;
-    console.log(data.type)
     switch (ALDataType[data.type]) {
       case ALDataType.LIKE_ARTWORK:
         content += `작품 < ${data.artworkTitle} >에 좋아요를 눌렀습니다.`;
