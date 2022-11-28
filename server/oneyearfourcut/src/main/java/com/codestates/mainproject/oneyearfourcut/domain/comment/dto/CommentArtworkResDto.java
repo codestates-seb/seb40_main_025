@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 @NoArgsConstructor
@@ -22,12 +23,10 @@ public class CommentArtworkResDto {
     private String nickname;
     private String content;
 
-    public static List<CommentArtworkResDto> toCommentArtworkResponseDtoList(List<Comment> commentList){
-        if(commentList == null){ return Collections.emptyList(); }
-        List<CommentArtworkResDto> resultList = new ArrayList<>( commentList.size() );
-        for ( Comment comment : commentList ) {
-            resultList.add( comment.toCommentArtworkResponseDto() );
-        }
-        return resultList;
+    public static List<CommentArtworkResDto>toCommentArtworkResponseDtoList(List<Comment> commentList){
+        return commentList == null ? Collections.emptyList() : commentList
+                        .stream()
+                        .map(Comment::toCommentArtworkResponseDto)
+                        .collect(Collectors.toList());
     }
 }
