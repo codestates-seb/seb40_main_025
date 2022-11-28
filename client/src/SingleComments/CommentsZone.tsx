@@ -1,13 +1,19 @@
 import * as S from './Single Comments.style';
-import SingleComment from 'SingleComments';
+import SingleComment from './SingleComment/SingleComment';
 import COMMENTS_SCRIPT from 'SingleComments/SingleComment/sampledata';
+import XIcon from 'shared/components/Icons/XIcon';
+
+import CommentStore from 'shared/components/PicFooter/OpenComment';
 
 const CommentsList = () => {
+  const { setCloseModal } = CommentStore();
   return (
     <S.CommentBody>
       <S.PicTitle>
-        <S.Title>작품제목 훔쳐갈게요 OK</S.Title>
         <S.CommentCount>댓글 8</S.CommentCount>
+        <div onClick={() => setCloseModal()}>
+          <XIcon />
+        </div>
       </S.PicTitle>
       {COMMENTS_SCRIPT.map((el) => {
         return (
