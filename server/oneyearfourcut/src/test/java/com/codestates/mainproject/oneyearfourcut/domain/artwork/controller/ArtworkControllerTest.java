@@ -7,10 +7,10 @@ import com.codestates.mainproject.oneyearfourcut.domain.artwork.dto.ArtworkRespo
 import com.codestates.mainproject.oneyearfourcut.domain.artwork.dto.OneYearFourCutResponseDto;
 import com.codestates.mainproject.oneyearfourcut.domain.artwork.entity.Artwork;
 import com.codestates.mainproject.oneyearfourcut.domain.artwork.service.ArtworkService;
+import com.codestates.mainproject.oneyearfourcut.domain.member.repository.MemberRepository;
 import com.codestates.mainproject.oneyearfourcut.domain.comment.entity.Comment;
 import com.codestates.mainproject.oneyearfourcut.domain.gallery.entity.Gallery;
 import com.codestates.mainproject.oneyearfourcut.domain.member.entity.Member;
-import com.codestates.mainproject.oneyearfourcut.domain.member.repository.MemberRepository;
 import com.codestates.mainproject.oneyearfourcut.global.config.auth.jwt.PrincipalDto;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.BeforeEach;
@@ -175,7 +175,7 @@ public class ArtworkControllerTest {
 
         List<ArtworkResponseDto> responseListDto = ArtworkResponseDto.toListResponse(artworkList);
 
-        given(artworkService.findArtworkList(any(Long.class), any(Long.class))).willReturn(responseListDto);
+        given(artworkService.findArtworkList(any(Long.class))).willReturn(responseListDto);
 
         ResultActions actions =
                 mockMvc.perform(
@@ -234,7 +234,7 @@ public class ArtworkControllerTest {
 
         String response = gson.toJson(responseDto);
 
-        given(artworkService.findArtwork(any(Long.class), any(Long.class), any(Long.class))).willReturn(responseDto);
+        given(artworkService.findArtwork(any(Long.class), any(Long.class))).willReturn(responseDto);
 
         ResultActions actions =
                 mockMvc.perform(

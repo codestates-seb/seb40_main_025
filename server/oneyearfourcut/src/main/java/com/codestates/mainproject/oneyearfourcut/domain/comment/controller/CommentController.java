@@ -44,18 +44,18 @@ public class CommentController {
     //GET (Read) Comment on Gallery (with pagination)
     @GetMapping("/{gallery-id}/comments")
     public ResponseEntity<Object> getGalleryComment(@Positive @PathVariable("gallery-id") Long galleryId,
-                                                    @RequestParam int page/*, @RequestParam int size*/, // @Min 검증이 필요할 경우 윤재님이 넣어주세요.
-                                                    @LoginMember Long memberId){
-        return new ResponseEntity<>(commentService.getGalleryCommentPage(galleryId, page, 10, memberId), HttpStatus.OK);
+                                                    @RequestParam int page/*, @RequestParam int size*/){ // @Min 검증이 필요할 경우 윤재님이 넣어주세요.
+                                                    
+        return new ResponseEntity<>(commentService.getGalleryCommentPage(galleryId, page, 10), HttpStatus.OK);
     }
 
     //GET (Read) Comment on Artwork (with pagination)
     @GetMapping("/{gallery-id}/artworks/{artwork-id}/comments")
     public ResponseEntity<Object> getArtworkComment(@Positive @PathVariable("gallery-id") Long galleryId,
                                                     @Positive @PathVariable("artwork-id") Long artworkId,
-                                                    @RequestParam int page/*, @RequestParam int size*/,
-                                                    @LoginMember Long memberId) {
-        return new ResponseEntity<>(commentService.getArtworkCommentPage(galleryId, artworkId, page, 10, memberId), HttpStatus.OK);
+                                                    @RequestParam int page/*, @RequestParam int size*/) {
+                                                    
+        return new ResponseEntity<>(commentService.getArtworkCommentPage(galleryId, artworkId, page, 10), HttpStatus.OK);
     }
 
     //PATCH (Update) Comment
