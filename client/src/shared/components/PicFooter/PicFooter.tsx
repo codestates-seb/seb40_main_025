@@ -12,7 +12,7 @@ const Footer = ({ like, comment }: { like: number; comment: number }) => {
   }, []);
 
   return (
-    <S.PicFooter className='Footer' onClick={() => setOpenModal()}>
+    <S.PicFooter className='Footer' onClick={setOpenModal}>
       <S.CountZone>
         <HeartIcon />
         <div>{like}</div>
