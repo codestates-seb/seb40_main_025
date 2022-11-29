@@ -1,14 +1,12 @@
 import { jsonInstance } from 'shared/utils/axios';
-// import { User } from './userType';
 
-const apis = {
-  logout: async () => {
-    const response = await jsonInstance.post<any>(`/logout`);
-    return response.data;
-  },
-  getUser: async () => {
-    return await jsonInstance.get<any>('/members/me');
-  },
-};
 
-export default apis;
+// 로그아웃
+export const logout = async () => {
+  return await jsonInstance.post<any>('/logout');
+}
+
+// 회원 조회
+export const getUser = async () => {
+  return await jsonInstance.get<any>('/members/me');
+}
