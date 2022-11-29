@@ -1,37 +1,27 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import axios from 'axios';
+import { jsonInstance } from 'shared/utils/axios';
 
-const useCreateComment = () => {
+const useCreateComment = (galleryId: number, artworks: number) => {
   const queryClient = useQueryClient();
 
-  const apiClient = axios.create({
-    baseURL:
-      'http://ec2-43-200-124-243.ap-northeast-2.compute.amazonaws.com:8080/',
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-    },
-    withCredentials: true,
-  });
-
-  const createComment = async (context: string) => {
-    const response = await apiClient.post('/galleries/1/artworks/1/comments', {
-      context,
-    });
-
-    return response;
-  };
-
-  const { mutate, status } = useMutation(
-    //'UseMutationResult<AxiosResponse<any, any>, unknown, void, unknown>' 형식에 'state' 속성이 없습니다.
+  const { mutate } = useMutation(
     ['createComment'],
-    (context: string) => createComment(context),
-    //'void' 형식의 인수는 '{ context: string; }' 형식의 매개 변수에 할당될 수 없습니다.
+    (content: string) => {
+      return jsonInstance.post(
+        `galleries/${galleryId}/artworks/${artworks}/comments`,
+        { content: content },
+      );
+    },
     {
-      onSuccess: () => queryClient.invalidateQueries(['createComment']),
+      onError(err) {
+        console.log(err);
+      },
+      onSuccess() {
+        queryClient.invalidateQueries(['singleComment']);
+      },
     },
   );
-
-  return { mutate, status };
+  return { mutate };
 };
 
 export default useCreateComment;
