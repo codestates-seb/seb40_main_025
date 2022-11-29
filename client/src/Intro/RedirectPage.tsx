@@ -1,7 +1,7 @@
 import { ReactElement, useEffect } from 'react';
 import { StyledLink } from 'shared/components/LinkButton/style';
 import { getStoredToken, setStoredToken } from './hooks/tokenStorage';
-import useUser from './hooks/useUser';
+import { GetUser } from './hooks/useUser';
 
 const RedirectPage = (): ReactElement => {
   useEffect(() => {
@@ -15,10 +15,9 @@ const RedirectPage = (): ReactElement => {
         refresh_token: refresh_token,
       }),
     );
-    console.log(getStoredToken());
   }, []);
 
-  // useUser.GetUser();
+  console.log(GetUser());
 
   return (
     <>
