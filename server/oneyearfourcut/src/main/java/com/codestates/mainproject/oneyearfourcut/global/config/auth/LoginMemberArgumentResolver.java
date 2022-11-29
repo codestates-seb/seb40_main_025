@@ -1,10 +1,6 @@
 package com.codestates.mainproject.oneyearfourcut.global.config.auth;
 
-import com.codestates.mainproject.oneyearfourcut.domain.member.repository.MemberRepository;
 import com.codestates.mainproject.oneyearfourcut.global.config.auth.jwt.PrincipalDto;
-import com.codestates.mainproject.oneyearfourcut.global.exception.exception.BusinessLogicException;
-import com.codestates.mainproject.oneyearfourcut.global.exception.exception.ExceptionCode;
-import lombok.RequiredArgsConstructor;
 import org.springframework.core.MethodParameter;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -25,9 +21,8 @@ public class LoginMemberArgumentResolver implements HandlerMethodArgumentResolve
 
     @Override
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
-        //토큰 잘못 입력했을 경우 에러
         if (SecurityContextHolder.getContext().getAuthentication().getPrincipal().equals("anonymousUser")) {
-            throw new BusinessLogicException(ExceptionCode.WRONG_JWT);
+            return -1L;
         }
 
         PrincipalDto principal = (PrincipalDto) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
