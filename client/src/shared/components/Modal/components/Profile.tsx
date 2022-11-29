@@ -3,7 +3,7 @@ import * as S from './SvgComponents';
 import useClipboardCopy from '../hook/useClipboardCopy';
 import { loginStore } from 'store/store';
 const Profile = () => {
-  const { textareaRef, handleCopy } = useClipboardCopy();
+  const { textareaRef, handleCopy, URL } = useClipboardCopy();
   const { isLoggedin } = loginStore();
 
   return (
@@ -27,7 +27,7 @@ const Profile = () => {
             <li className='GalleryDelete Out'>전시회 삭제</li>
             <li className='Unregister Out'>회원탈퇴</li>
           </ul>
-          <B.TextBox readOnly={true} ref={textareaRef} />
+          <B.TextBox readOnly={true} ref={textareaRef} value={URL} />
         </>
       )}
     </B.HambergurBox>

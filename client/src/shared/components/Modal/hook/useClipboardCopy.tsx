@@ -5,9 +5,9 @@ const ClipboardCopy = () => {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const { setToast } = useToast();
   const { user } = loginStore();
+  let URL = window.location.origin + '/galleries/' + user?.galleryId;
 
   const handleCopy = () => {
-    let URL = window.location.origin + '/galleries/' + user?.galleryId;
 
     navigator.clipboard
       .writeText(URL)
@@ -33,7 +33,7 @@ const ClipboardCopy = () => {
       });
   };
 
-  return { textareaRef, handleCopy };
+  return { textareaRef, handleCopy, URL};
 };
 
 export default ClipboardCopy;
