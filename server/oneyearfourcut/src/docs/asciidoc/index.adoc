@@ -104,9 +104,6 @@ include::{snippets}/patchGallery/http-request.adoc[]
 .request-headers
 include::{snippets}/patchGallery/request-headers.adoc[]
 
-.path-parameters
-include::{snippets}/patchGallery/path-parameters.adoc[]
-
 .request-fields
 include::{snippets}/patchGallery/request-fields.adoc[]
 
@@ -122,9 +119,6 @@ include::{snippets}/deleteGallery/http-request.adoc[]
 
 .request-headers
 include::{snippets}/deleteGallery/request-headers.adoc[]
-
-.path-parameters
-include::{snippets}/deleteGallery/path-parameters.adoc[]
 
 .http-response
 include::{snippets}/deleteGallery/http-response.adoc[]
