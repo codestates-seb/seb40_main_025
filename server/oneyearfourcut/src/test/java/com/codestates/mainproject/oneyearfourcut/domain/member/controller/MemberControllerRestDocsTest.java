@@ -96,7 +96,7 @@ class MemberControllerRestDocsTest {
                                 List.of(
                                         fieldWithPath("nickname").type(JsonFieldType.STRING).description("이름"),
                                         fieldWithPath("profile").type(JsonFieldType.STRING).description("프로필 이미지 경로"),
-                                        fieldWithPath("galleryId").type(JsonFieldType.NUMBER).description("오픈 전시관 식별자")
+                                        fieldWithPath("galleryId").type(JsonFieldType.NUMBER).description("오픈 전시관 식별자(없으면 null)")
                                 )
                         )
                 ));
