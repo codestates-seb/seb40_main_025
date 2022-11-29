@@ -4,7 +4,7 @@ import LikeButton from 'shared/components/Buttons/likeButton';
 // import { rem } from 'polished';
 
 import CommentStore from 'shared/components/PicFooter/OpenComment';
-// import SingleComment from 'SingleComments/index';
+import useDeleteSinglePic from 'shared/hooks/useDeleteSinglePic';
 
 const SinglePicture = ({
   picture,
@@ -22,8 +22,12 @@ const SinglePicture = ({
   array: number;
 }) => {
   const { open } = CommentStore();
-  const Check = (): void => {
-    console.log(open);
+  const { mutate } = useDeleteSinglePic(1, idx);
+
+  const Delete = (): void => {
+    console.log('clcick');
+
+    // mutate();
   };
 
   return (
@@ -44,7 +48,7 @@ const SinglePicture = ({
         </S.SinglePic>
         {/* <S.NextPic /> */}
       </S.PicZone>
-      <S.Delete onClick={() => Check()}>삭제</S.Delete>
+      <S.Delete onClick={() => Delete()}>삭제</S.Delete>
       <S.PicIntroduct>
         <S.PicTitle>{title}</S.PicTitle>
         <S.PicDiscription>{scrpit}</S.PicDiscription>
