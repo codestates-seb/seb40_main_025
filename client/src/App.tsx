@@ -11,6 +11,7 @@ import GalleryAllPic from 'Gallery/GalleryAllPic';
 import GalleryFourPic from 'Gallery/GalleryFourPic';
 import RedirectPage from 'Intro/RedirectPage';
 import SinglePicPage from './SinglePicture/index';
+import SingleComment from './SingleComments/index';
 
 const router = createBrowserRouter([
   {
@@ -35,6 +36,7 @@ const router = createBrowserRouter([
       { path: '/allPic', element: <GalleryAllPic /> },
       { path: '/fourPic', element: <GalleryFourPic /> },
       { path: '/SinglePic', element: <SinglePicPage /> },
+      { path: '/testing', element: <SingleComment /> },
     ],
   },
 ]);
