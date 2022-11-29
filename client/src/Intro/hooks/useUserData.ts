@@ -1,10 +1,10 @@
 // 사용자의 상태 관리
 // 서버와 통신하도록 하기
 import { useQuery } from '@tanstack/react-query';
-import apis from '../api';
+import { getUser } from '../api';
 
 const GetUser = (onSuccess: any, onError: any) => {
-  return useQuery(['user'], apis.getUser, {
+  return useQuery(['user'], getUser, {
     onSuccess,
     onError,
     select: (data) => {
