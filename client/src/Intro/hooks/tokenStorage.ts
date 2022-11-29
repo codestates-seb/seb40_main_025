@@ -8,6 +8,7 @@ interface TokenType {
 // 로컬 스토리지 읽기
 export const getStoredToken = (): TokenType | null => {
   const storedToken = localStorage.getItem(TOKEN);
+  console.log("hihihihi");
   return storedToken !== null ? JSON.parse(storedToken) : null;
 };
 
