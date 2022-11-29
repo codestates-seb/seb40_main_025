@@ -14,6 +14,8 @@ import SingleComment from 'SingleComments/index';
 
 import useGetAllPost from '../shared/hooks/useGetAllPost';
 
+import ModalBackdrop from 'shared/components/Modal/components/ModalBackdrop';
+
 const Body = styled.div`
   width: ${rem(420)};
   height: auto;
@@ -25,10 +27,13 @@ const SinglePicPage = () => {
   const { open } = CommentStore();
   const { data } = useGetAllPost(1);
 
+  // console.log(open);
   return (
     <Body>
       {open ? (
-        <SingleComment></SingleComment>
+        <ModalBackdrop>
+          <SingleComment />
+        </ModalBackdrop>
       ) : (
         <Swiper
           slidesPerView={1}
