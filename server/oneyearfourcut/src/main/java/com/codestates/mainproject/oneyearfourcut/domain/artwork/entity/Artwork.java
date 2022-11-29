@@ -1,17 +1,20 @@
 package com.codestates.mainproject.oneyearfourcut.domain.artwork.entity;
 
 
+import com.codestates.mainproject.oneyearfourcut.domain.Like.entity.ArtworkLike;
 import com.codestates.mainproject.oneyearfourcut.domain.artwork.dto.ArtworkResponseDto;
 import com.codestates.mainproject.oneyearfourcut.domain.artwork.dto.OneYearFourCutResponseDto;
 import com.codestates.mainproject.oneyearfourcut.domain.gallery.entity.Gallery;
 import com.codestates.mainproject.oneyearfourcut.domain.member.entity.Member;
-import com.codestates.mainproject.oneyearfourcut.domain.Like.entity.ArtworkLike;
 import com.codestates.mainproject.oneyearfourcut.global.auditable.Auditable;
-import lombok.*;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Formula;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -34,7 +37,7 @@ public class Artwork extends Auditable {
     private String imagePath;
 
     @Enumerated(EnumType.STRING)
-    private ArtworkStatus status;
+    private ArtworkStatus status = ArtworkStatus.REGISTRATION;
 
     @Transient
     private MultipartFile image;
@@ -105,14 +108,20 @@ public class Artwork extends Auditable {
 
     /* ################### 생성자 ################### */
     @Builder
-    public Artwork(Long artworkId, String title, String content, String imagePath, MultipartFile image) {
-        this.artworkId = artworkId;
+    public Artwork(String title, String content, MultipartFile image) {
         this.title = title;
         this.content = content;
-        this.imagePath = imagePath;
         this.image = image;
-        this.artworkLikeList = new ArrayList<>();
+    }
 
+    // 테스트용 생성자
+    public Artwork(Long artworkId, Gallery gallery) {
+        this.artworkId = artworkId;
+        this.title = "테스트 제목";
+        this.content = "테스트 설명";
+        this.imagePath = "/test.jpg";
+        setGallery(gallery);
+        super.createdAt = LocalDateTime.now();
     }
 
     /* ################### toDto ################### */
