@@ -40,4 +40,18 @@ INSERT INTO ARTWORK_LIKE (member_id, artwork_id, created_at, last_modified_at) v
 (1, 3, '2022-11-11T23:44:57.764644', '2022-11-16T23:44:57.764644'),
 (2, 3, '2022-11-11T23:45:57.764644', '2022-11-16T23:45:57.764644');
 
+INSERT INTO ALARM (alarm_id, created_at, last_modified_at, alarm_type , artwork_id, artwork_title, member_id_producer, read_check, user_nickname, member_id) values
+(1, '2022-11-11T23:41:57.764644', '2022-11-16T23:41:57.764644', 'COMMENT_ARTWORK' , 1 , '갤러리1-작품1', 1, FALSE, 'galleryPerson' ,8),
+(2, '2022-11-11T23:42:57.764644', '2022-11-16T23:42:57.764644', 'COMMENT_ARTWORK' , 1 , '갤러리1-작품1', 1, FALSE, 'galleryPerson',8),
+(3, '2022-11-11T23:43:57.764644', '2022-11-16T23:43:57.764644', 'COMMENT_ARTWORK' , 1, '갤러리1-작품1', 1, FALSE, 'galleryPerson',8),
+(4, '2022-11-11T23:44:57.764644', '2022-11-16T23:44:57.764644', 'COMMENT_GALLERY' , null, null, 1, FALSE, 'galleryPerson',8),
+(5, '2022-11-11T23:45:57.764644', '2022-11-16T23:45:57.764644', 'COMMENT_GALLERY' , null, null, 1, FALSE, 'galleryPerson',8),
+(6, '2022-11-11T23:44:57.764644', '2022-11-16T23:44:57.764644', 'COMMENT_GALLERY' , null, null, 1, FALSE, 'galleryPerson',8),
+(7, '2022-11-11T23:45:57.764644', '2022-11-16T23:45:57.764644', 'POST_ARTWORK' , 1, '갤러리1-작품1', 1, FALSE, 'galleryPerson',8),
+(8, '2022-11-11T23:45:57.764644', '2022-11-16T23:45:57.764644', 'POST_ARTWORK' , 1, '갤러리1-작품1', 1, FALSE, 'galleryPerson',8),
+(9, '2022-11-11T23:45:57.764644', '2022-11-16T23:45:57.764644', 'POST_ARTWORK' , 1, '갤러리1-작품1', 1, FALSE, 'galleryPerson',8),
+(10, '2022-11-11T23:45:57.764644', '2022-11-16T23:45:57.764644', 'LIKE_ARTWORK' , 1, '갤러리1-작품1', 1, FALSE, 'galleryPerson',8),
+(11, '2022-11-11T23:45:57.764644', '2022-11-16T23:45:57.764644', 'LIKE_ARTWORK' , 1, '갤러리1-작품1', 1, FALSE, 'galleryPerson',8),
+(12, '2022-11-11T23:45:57.764644', '2022-11-16T23:45:57.764644', 'LIKE_ARTWORK' ,1 , '갤러리1-작품1', 1, FALSE, 'galleryPerson',8);
+
 
