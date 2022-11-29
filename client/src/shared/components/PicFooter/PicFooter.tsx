@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import * as S from './PicFoot.style';
 import HeartIcon from '../Icons/heartIcon';
 import CommentIcon from '../Icons/commentIcon';
-import { useStore } from 'zustand';
 import CommentStore from './OpenComment';
 
 const Footer = ({ like, comment }: { like: number; comment: number }) => {
-  const { setOpenModal } = CommentStore();
+  const { setChangeComment, setOpenModal } = CommentStore();
+
+  useEffect(() => {
+    setChangeComment(comment);
+  }, []);
 
   return (
     <S.PicFooter className='Footer' onClick={() => setOpenModal()}>
