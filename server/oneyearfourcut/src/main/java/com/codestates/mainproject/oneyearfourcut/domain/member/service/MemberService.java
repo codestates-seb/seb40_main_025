@@ -38,10 +38,10 @@ public class MemberService {
         if (multipartFile.isPresent() && !multipartFile.get().isEmpty()) {
             //이미지 저장하고, 해당 경로를 findMember에 넣어주는 로직
             String profile = findMember.getProfile();
+            findMember.setProfile(awsS3Service.uploadFile(multipartFile.get()));
             if (!profile.contains("kakaocdn.net")) {
                 awsS3Service.deleteImage(profile);
             }
-            findMember.setProfile(awsS3Service.uploadFile(multipartFile.get()));
         }
 
 

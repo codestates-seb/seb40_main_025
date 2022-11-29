@@ -59,6 +59,7 @@ public class SecurityConfig {
                         .antMatchers(HttpMethod.GET, "/").permitAll()
                         .antMatchers(HttpMethod.GET, "/receive-token").permitAll()
                         .antMatchers(HttpMethod.GET, "/docs/index.html").permitAll()
+                        .antMatchers("/h2/**").permitAll()
 //                        .antMatchers("/members/**").hasRole("USER")
 //                        .antMatchers("/galleries/**").hasRole("USER")
 //                        .antMatchers(HttpMethod.DELETE, "/galleries/**").hasRole("USER")
