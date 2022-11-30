@@ -6,6 +6,8 @@ import { ModalState, Modal, Alarm, Components, Upload, Login } from './types';
 const initTarget: ModalState = {
   AlertModal: false,
   ProfileModal: false,
+  DeleteGalleryModal: false,
+  DeleteUserModal: false,
 };
 
 const ModalStore = create<Modal>((set, get) => ({
