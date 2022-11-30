@@ -9,7 +9,6 @@ import com.codestates.mainproject.oneyearfourcut.domain.artwork.dto.OneYearFourC
 import com.codestates.mainproject.oneyearfourcut.domain.artwork.entity.Artwork;
 import com.codestates.mainproject.oneyearfourcut.domain.artwork.entity.ArtworkStatus;
 import com.codestates.mainproject.oneyearfourcut.domain.artwork.repository.ArtworkRepository;
-import com.codestates.mainproject.oneyearfourcut.domain.gallery.entity.GalleryStatus;
 import com.codestates.mainproject.oneyearfourcut.domain.gallery.service.GalleryService;
 import com.codestates.mainproject.oneyearfourcut.domain.member.entity.Member;
 import com.codestates.mainproject.oneyearfourcut.domain.member.service.MemberService;
@@ -31,7 +30,7 @@ import static org.springframework.data.domain.Sort.Order.desc;
 
 @Service
 @RequiredArgsConstructor
-@Transactional
+@Transactional(readOnly = true)
 @Slf4j
 public class ArtworkService {
 
@@ -42,7 +41,8 @@ public class ArtworkService {
     private final ArtworkLikeRepository artworkLikeRepository;
     private final AwsS3Service awsS3Service;
 
-    public void createArtwork(long memberId, long galleryId, ArtworkPostDto requestDto) {
+    @Transactional
+    public ArtworkResponseDto createArtwork(long memberId, long galleryId, ArtworkPostDto requestDto) {
         Artwork artwork = requestDto.toEntity();
 
         // 이미지 유효성(null) 검증
@@ -57,10 +57,11 @@ public class ArtworkService {
         String imageRoot = awsS3Service.uploadFile(artwork.getImage());
         artwork.setImagePath(imageRoot);
 
-        artworkRepository.save(artwork);
+        Artwork createdArtwork = artworkRepository.save(artwork);
+
+        return createdArtwork.toArtworkResponseDto();
     }
 
-    @Transactional(readOnly = true)
     public ArtworkResponseDto findArtwork(long memberId, long galleryId, long artworkId) {
         galleryService.verifiedGalleryExist(galleryId);
 
@@ -74,7 +75,6 @@ public class ArtworkService {
         return verifiedArtwork.toArtworkResponseDto();
     }
 
-    @Transactional(readOnly = true)
     public List<ArtworkResponseDto> findArtworkList(long memberId, long galleryId) {
         galleryService.verifiedGalleryExist(galleryId);
 
@@ -97,12 +97,11 @@ public class ArtworkService {
         return ArtworkResponseDto.toListResponse(artworkList);
     }
 
-    @Transactional(readOnly = true)
     public List<OneYearFourCutResponseDto> findOneYearFourCut(long galleryId) {
         galleryService.verifiedGalleryExist(galleryId);
 
         List<Artwork> findArtworkList = artworkRepository.findTop4ByGallery_GalleryIdAndStatus(galleryId,
-                Sort.by(desc("likeCount"), desc("createdAt")), ArtworkStatus.REGISTRATION);
+                ArtworkStatus.REGISTRATION, Sort.by(desc("likeCount"), desc("createdAt")));
 
         // 가져온 작품 리스트가 비어 있을 경우 Exception 발생인데, 그냥 빈 배열로 줘도 괜찮을 듯 합니다.
         if (findArtworkList.isEmpty()) {
@@ -112,6 +111,7 @@ public class ArtworkService {
         return OneYearFourCutResponseDto.toListResponse(findArtworkList);
     }
 
+    @Transactional
     public ArtworkResponseDto updateArtwork(long memberId, long galleryId, long artworkId, ArtworkPatchDto request) {
         galleryService.verifiedGalleryExist(galleryId);
 
@@ -123,8 +123,8 @@ public class ArtworkService {
         Optional<MultipartFile> image = Optional.ofNullable(artwork.getImage());
 
         if (image.isPresent()) {
-            awsS3Service.deleteImage(findArtwork.getImagePath());
             String s3Path = awsS3Service.uploadFile(image.get());
+            awsS3Service.deleteImage(findArtwork.getImagePath());
             artwork.setImagePath(s3Path);
         }
 
@@ -132,7 +132,7 @@ public class ArtworkService {
 
         return findArtwork.toArtworkResponseDto();
     }
-
+    @Transactional
     public void deleteArtwork(long memberId, long galleryId, long artworkId) {
         galleryService.verifiedGalleryExist(galleryId);
         Artwork findArtwork = findVerifiedArtwork(galleryId, artworkId);
@@ -141,7 +141,6 @@ public class ArtworkService {
     }
 
     // ================= 검증 관련 메서드 =================
-    @Transactional(readOnly = true)
     public Artwork findVerifiedArtwork(long galleryId, long artworkId) {
         Optional<Artwork> artworkOptional = artworkRepository.findById(artworkId);
 
@@ -150,19 +149,8 @@ public class ArtworkService {
         if (galleryId != findArtwork.getGallery().getGalleryId()) {
             throw new BusinessLogicException(ExceptionCode.ARTWORK_NOT_FOUND_FROM_GALLERY);
         }
-        if (findArtwork.getGallery().getStatus() == GalleryStatus.CLOSED) {
-            throw new BusinessLogicException(ExceptionCode.CLOSED_GALLERY);
-        }
 
         return findArtwork;
-    }
-
-    private void verifyAuthority(long memberId, Artwork artwork) {
-        boolean isWriter = artwork.getMemberId() == memberId;
-        boolean isAdmin = artwork.getGallery().getMember().getMemberId() == memberId;
-        if (!(isWriter || isAdmin)) { // 둘 다 false일 경우 권한 없음
-            throw new BusinessLogicException(ExceptionCode.UNAUTHORIZED);
-        }
     }
 
     public void checkGalleryArtworkVerification(Long galleryId, Long artworkId) {
@@ -174,6 +162,15 @@ public class ArtworkService {
             throw new BusinessLogicException(ExceptionCode.ARTWORK_NOT_FOUND_FROM_GALLERY);
         }
     }
+
+    private void verifyAuthority(long memberId, Artwork artwork) {
+        boolean isWriter = artwork.getMemberId() == memberId;
+        boolean isAdmin = artwork.getGallery().getMember().getMemberId() == memberId;
+        if (!(isWriter || isAdmin)) { // 둘 다 false일 경우 권한 없음
+            throw new BusinessLogicException(ExceptionCode.UNAUTHORIZED);
+        }
+    }
+
 }
 
 
