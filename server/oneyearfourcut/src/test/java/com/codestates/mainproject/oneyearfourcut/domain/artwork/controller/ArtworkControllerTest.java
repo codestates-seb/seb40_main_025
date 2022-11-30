@@ -165,7 +165,7 @@ public class ArtworkControllerTest {
 
         given(artworkService.updateArtwork(anyLong(), eq(1L), eq(1L), any(ArtworkPatchDto.class)))
                 .willReturn(response);
-
+        
         MockMultipartHttpServletRequestBuilder builder =
                 RestDocumentationRequestBuilders.
                         multipart("/galleries/{gallery-id}/artworks/{artwork-id}", 1L, 1L);

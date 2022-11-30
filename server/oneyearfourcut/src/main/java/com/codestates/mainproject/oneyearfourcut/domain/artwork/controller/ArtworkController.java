@@ -28,8 +28,8 @@ public class ArtworkController {
     // 전시 작품 등록
     @PostMapping("/{gallery-id}/artworks")
     public ResponseEntity<?> postArtwork(@LoginMember Long memberId,
-                                         @PathVariable("gallery-id") long galleryId,
-                                         @ModelAttribute ArtworkPostDto request) {
+                                         @Positive @PathVariable("gallery-id") long galleryId,
+                                         @Valid @ModelAttribute ArtworkPostDto request) {
         artworkService.createArtwork(memberId, galleryId, request);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }

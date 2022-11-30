@@ -3,6 +3,8 @@ package com.codestates.mainproject.oneyearfourcut.domain.Like.service;
 import com.codestates.mainproject.oneyearfourcut.domain.Like.entity.ArtworkLike;
 import com.codestates.mainproject.oneyearfourcut.domain.Like.entity.LikeStatus;
 import com.codestates.mainproject.oneyearfourcut.domain.Like.repository.ArtworkLikeRepository;
+import com.codestates.mainproject.oneyearfourcut.domain.alarm.entity.AlarmType;
+import com.codestates.mainproject.oneyearfourcut.domain.alarm.service.AlarmService;
 import com.codestates.mainproject.oneyearfourcut.domain.artwork.entity.Artwork;
 import com.codestates.mainproject.oneyearfourcut.domain.artwork.service.ArtworkService;
 import com.codestates.mainproject.oneyearfourcut.domain.member.entity.Member;
@@ -21,6 +23,7 @@ public class ArtworkLikeService {
     private final ArtworkLikeRepository artworkLikeRepository;
     private final ArtworkService artworkService;
     private final MemberService memberService;
+    private final AlarmService alarmService;
 
     public void updateArtworkLike(long memberId, long galleryId, long artworkId) {
         Member findMember = memberService.findMember(memberId);
@@ -40,8 +43,7 @@ public class ArtworkLikeService {
                     artworkLike.setMember(findMember);
                     artworkLike.setArtwork(findArtwork);
                     artworkLikeRepository.save(artworkLike);
-                }
-        );
-
+                });
+        alarmService.createAlarm(artworkId, memberId, AlarmType.LIKE_ARTWORK);
     }
 }

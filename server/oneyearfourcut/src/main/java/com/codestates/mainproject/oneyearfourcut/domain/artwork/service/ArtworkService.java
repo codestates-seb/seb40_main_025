@@ -3,6 +3,9 @@ package com.codestates.mainproject.oneyearfourcut.domain.artwork.service;
 import com.codestates.mainproject.oneyearfourcut.domain.Like.entity.ArtworkLike;
 import com.codestates.mainproject.oneyearfourcut.domain.Like.entity.LikeStatus;
 import com.codestates.mainproject.oneyearfourcut.domain.Like.repository.ArtworkLikeRepository;
+
+import com.codestates.mainproject.oneyearfourcut.domain.alarm.entity.AlarmType;
+import com.codestates.mainproject.oneyearfourcut.domain.alarm.service.AlarmService;
 import com.codestates.mainproject.oneyearfourcut.domain.artwork.dto.ArtworkPatchDto;
 import com.codestates.mainproject.oneyearfourcut.domain.artwork.dto.ArtworkPostDto;
 import com.codestates.mainproject.oneyearfourcut.domain.artwork.dto.ArtworkResponseDto;
@@ -41,9 +44,12 @@ public class ArtworkService {
     private final MemberService memberService;
     private final ArtworkLikeRepository artworkLikeRepository;
     private final AwsS3Service awsS3Service;
+    private final AlarmService alarmService;
+
 
     @Transactional
     public ArtworkResponseDto createArtwork(long memberId, long galleryId, ArtworkPostDto requestDto) {
+
         Artwork artwork = requestDto.toEntity();
 
         // 이미지 유효성(null) 검증
@@ -54,13 +60,16 @@ public class ArtworkService {
         artwork.setGallery(galleryService.findGallery(galleryId));
         artwork.setMember(new Member(memberId));
 
-        // 이미지 - 로컬환경 : "/파일명.확장자"형태로 DB에 저장 (S3 설정 시 삭제 예정)
         String imageRoot = awsS3Service.uploadFile(artwork.getImage());
         artwork.setImagePath(imageRoot);
 
-        Artwork createdArtwork = artworkRepository.save(artwork);
+        Artwork savedArtwork = artworkRepository.save(artwork);
 
-        return createdArtwork.toArtworkResponseDto();
+        //알람 생성
+        Long artworkId = savedArtwork.getArtworkId();
+        alarmService.createAlarm(artworkId, memberId, AlarmType.POST_ARTWORK);
+
+        return savedArtwork.toArtworkResponseDto();
     }
 
     public ArtworkResponseDto findArtwork(long memberId, long galleryId, long artworkId) {
