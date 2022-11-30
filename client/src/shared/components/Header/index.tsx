@@ -2,7 +2,7 @@ import * as B from './components/HeaderButtons';
 import * as C from './components/HeaderBox';
 import { ModalStore } from 'store/store';
 import ModalBackdrop from '../Modal/components/ModalBackdrop';
-import { Profile } from '../Modal/components/Profile';
+import { Profile } from '../Modal/Profile';
 const Header = () => {
   const { target } = ModalStore();
   if (window.location.pathname === '/') return null;

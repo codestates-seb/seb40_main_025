@@ -1,10 +1,7 @@
 import { ReactElement, useEffect } from 'react';
 import { StyledLink } from 'shared/components/LinkButton/style';
-import { setStoredToken, getStoredToken } from './hooks/tokenStorage';
-import { GetUser } from './hooks/useUserData';
+import { setStoredToken } from './hooks/tokenStorage';
 import { loginStore } from 'store/store';
-import { jsonInstance } from 'shared/utils/axios';
-import { getUser } from './api';
 import axios from 'axios';
 const RedirectPage = (): ReactElement => {
   const { isLoggedin, setIsLoggedIn, user } = loginStore();

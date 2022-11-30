@@ -4,6 +4,7 @@ import { useGalleryData } from './hooks/useGalleryData';
 import { getGallery, updateGallery, postGallery } from './api';
 import { loginStore } from 'store/store';
 import { useNavigate } from 'react-router-dom';
+
 // const postGallery = (form: { title: string; content: string }) => {
 //   // return jsonInstance.post(`/galleries/${galleryId}`, form);
 //   // return jsonInstance.post(`/galleries`, form);

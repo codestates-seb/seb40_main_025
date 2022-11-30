@@ -88,13 +88,6 @@ const loginStore = create<Login>(
   ),
 );
 
-// const loginStore = create<Login>((set) => ({
-//   isLoggedin: false,
-//   setIsLoggedIn: () => set(() => ({ isLoggedin: true })),
 
-//   user: {},
-//   setUser: (data) => set(() => ({ user: data })),
-//   setLoggedOut: () => set(() => ({ isLoggedin: false, user: {} })),
-// }));
 
 export { ModalStore, AlarmStore, ToastStore, UploadStore, loginStore };
