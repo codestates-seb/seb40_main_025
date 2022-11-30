@@ -1,7 +1,6 @@
 import React from 'react';
 import * as S from './ts-practice/SinglePage.style';
 import LikeButton from 'shared/components/Buttons/likeButton';
-// import { rem } from 'polished';
 
 import CommentStore from 'shared/components/PicFooter/OpenComment';
 import useDeleteSinglePic from 'shared/hooks/useDeleteSinglePic';
@@ -13,6 +12,7 @@ const SinglePicture = ({
   username,
   idx,
   array,
+  artId,
 }: {
   picture: string;
   title: string;
@@ -20,14 +20,13 @@ const SinglePicture = ({
   username: string;
   idx: number;
   array: number;
+  artId: number;
 }) => {
   const { open } = CommentStore();
-  const { mutate } = useDeleteSinglePic(1, idx);
+  const { mutate } = useDeleteSinglePic(1, artId);
 
   const Delete = (): void => {
-    console.log('clcick');
-
-    // mutate();
+    mutate();
   };
 
   return (
@@ -46,7 +45,6 @@ const SinglePicture = ({
         >
           <LikeButton></LikeButton>
         </S.SinglePic>
-        {/* <S.NextPic /> */}
       </S.PicZone>
       <S.Delete onClick={() => Delete()}>삭제</S.Delete>
       <S.PicIntroduct>
