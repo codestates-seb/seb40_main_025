@@ -1,6 +1,7 @@
 package com.codestates.mainproject.oneyearfourcut.domain.artwork.service;
 
 import com.codestates.mainproject.oneyearfourcut.domain.Like.entity.ArtworkLike;
+import com.codestates.mainproject.oneyearfourcut.domain.Like.entity.LikeStatus;
 import com.codestates.mainproject.oneyearfourcut.domain.Like.repository.ArtworkLikeRepository;
 import com.codestates.mainproject.oneyearfourcut.domain.artwork.dto.ArtworkPatchDto;
 import com.codestates.mainproject.oneyearfourcut.domain.artwork.dto.ArtworkPostDto;
@@ -69,7 +70,7 @@ public class ArtworkService {
 
         if (memberId != -1) {
             boolean isLiked =
-                    artworkLikeRepository.existsByMember_MemberIdAndArtwork_ArtworkId(memberId, artworkId);
+                    artworkLikeRepository.existsByMember_MemberIdAndArtwork_ArtworkIdAndStatus(memberId, artworkId, LikeStatus.LIKE);
             verifiedArtwork.setLiked(isLiked);
         }
         return verifiedArtwork.toArtworkResponseDto();
@@ -90,6 +91,7 @@ public class ArtworkService {
             Member loginMember = memberService.findMember(memberId);
             List<ArtworkLike> memberLikeList = loginMember.getArtworkLikeList();
             memberLikeList.
+                    stream().filter(like -> like.getStatus().equals(LikeStatus.LIKE)).
                     forEach(like -> like.getArtwork()
                             .setLiked(artworkList.contains(like.getArtwork())));
         }
