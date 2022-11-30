@@ -125,12 +125,7 @@ public class Artwork extends Auditable {
     }
     // RepositoryTest용 생성자
     public Artwork(Long artworkId, int likeCount) {
-        this.artworkId = artworkId;
-        // nullable = false때문에 에러 발생해서 더미 데이터로 넣어 놨습니다.
-        this.title = "테스트 제목";
-        this.content = "테스트 설명";
-        this.imagePath = "/test.jpg";
-        super.createdAt = LocalDateTime.now();
+        this(artworkId);
         // 테스트할 때 필요한 데이터
         this.likeCount = likeCount;
     }
