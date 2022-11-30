@@ -17,7 +17,8 @@ public enum ExceptionCode {
 
     IMAGE_NOT_FOUND_FROM_REQUEST(400, "요청에 이미지를 넣어주세요."),
 
-    WRONG_JWT(400, "Access Token을 입력하지 않았거나, 잘못된 토큰입니다.");
+    WRONG_JWT(400, "Access Token을 입력하지 않았거나, 잘못된 토큰입니다."),
+    EXPIRED_JWT(456, "만료된 jwt입니다");
 
     @Getter
     private int status;

@@ -1,5 +1,7 @@
 package com.codestates.mainproject.oneyearfourcut.global.config.auth.handler;
 
+import com.codestates.mainproject.oneyearfourcut.global.exception.exception.BusinessLogicException;
+import com.codestates.mainproject.oneyearfourcut.global.exception.exception.ExceptionCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.AuthenticationException;
@@ -17,7 +19,13 @@ public class MemberAuthenticationEntryPoint implements AuthenticationEntryPoint 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
         Exception exception = (Exception) request.getAttribute("exception");
-        ErrorResponder.sendErrorResponse(response, HttpStatus.UNAUTHORIZED);
+        String refresh = (String) request.getAttribute("refresh");
+
+        if (refresh.equals("refresh")) {
+            ErrorResponder.sendErrorResponse(response, HttpStatus.REQUEST_TIMEOUT);
+        } else {
+            ErrorResponder.sendErrorResponse(response, HttpStatus.UNAUTHORIZED);
+        }
 
         logExceptionMessage(authException, exception);
     }
