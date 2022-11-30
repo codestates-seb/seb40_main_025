@@ -66,7 +66,13 @@ const UploadStore = create<Upload>((set, get) => ({
     set({
       UploadData: { ...Object.assign(get().UploadData, { [key]: data }) },
     }),
-  removeData: () => set({ UploadData: { ...initUploadData } }),
+  removeData: () =>
+    set({
+      UploadData: Object.assign(
+        { ...get().UploadData },
+        { img: initUploadData.content },
+      ),
+    }),
 }));
 
 type MyPersist = (

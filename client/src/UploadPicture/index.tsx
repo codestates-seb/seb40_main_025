@@ -15,7 +15,7 @@ const UploadPicture = () => {
   const { target, openModal } = ModalStore();
   const { UploadData } = UploadStore();
   const { setToast } = useToast();
-  const { user , isLoggedin} = loginStore();
+  const { user, isLoggedin } = loginStore();
   const { mutate } = useUpload();
   const formRef = useRef<HTMLFormElement>(null);
 
