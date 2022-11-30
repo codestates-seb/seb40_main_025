@@ -46,6 +46,7 @@ public class Artwork extends Auditable {
     private int likeCount;
     @Transient
     private boolean liked;
+
     @Formula("(select count(*) from comment c where c.artwork_id = artwork_id)")
     private int commentCount;
 
@@ -114,14 +115,24 @@ public class Artwork extends Auditable {
         this.image = image;
     }
 
-    // 테스트용 생성자
-    public Artwork(Long artworkId, Gallery gallery) {
+    // 기본 Test용 생성자
+    public Artwork(Long artworkId) {
         this.artworkId = artworkId;
+        this.title = "test_title";
+        this.content = "test_content";
+        this.imagePath = "/test.png";
+        super.createdAt = LocalDateTime.now();
+    }
+    // RepositoryTest용 생성자
+    public Artwork(Long artworkId, int likeCount) {
+        this.artworkId = artworkId;
+        // nullable = false때문에 에러 발생해서 더미 데이터로 넣어 놨습니다.
         this.title = "테스트 제목";
         this.content = "테스트 설명";
         this.imagePath = "/test.jpg";
-        setGallery(gallery);
         super.createdAt = LocalDateTime.now();
+        // 테스트할 때 필요한 데이터
+        this.likeCount = likeCount;
     }
 
     /* ################### toDto ################### */

@@ -39,14 +39,20 @@ public class ArtworkRepositoryTest {
             gallery2 = new Gallery(2L);
 
             // 갤러리1에 해당하는 작품
-            artwork1 = artworkRepository.save(new Artwork(1L, gallery1, 0));
-            artwork2 = artworkRepository.save(new Artwork(2L, gallery1, 12));
-            artwork3 = artworkRepository.save(new Artwork(3L, gallery1, 32));
-            artwork4 = artworkRepository.save(new Artwork(4L, gallery1, 45));
-            artwork5 = artworkRepository.save(new Artwork(5L, gallery1, 32));
+            artwork1 = artworkRepository.save(new Artwork(1L, 0));
+            artwork1.setGallery(gallery1);
+            artwork2 = artworkRepository.save(new Artwork(2L, 12));
+            artwork2.setGallery(gallery1);
+            artwork3 = artworkRepository.save(new Artwork(3L, 32));
+            artwork3.setGallery(gallery1);
+            artwork4 = artworkRepository.save(new Artwork(4L, 45));
+            artwork4.setGallery(gallery1);
+            artwork5 = artworkRepository.save(new Artwork(5L, 32));
+            artwork5.setGallery(gallery1);
 
             // 갤러리2에 해당하는 작품
-            artwork6 = artworkRepository.save(new Artwork(6L, gallery2, 10));
+            artwork6 = artworkRepository.save(new Artwork(6L, 10));
+            artwork6.setGallery(gallery2);
         }
         @Test
         @DisplayName("해당 galleryId와 status를 가진 작품 리스트 정렬로 불러오기 테스트 - 생성일순 정렬")

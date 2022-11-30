@@ -102,7 +102,7 @@ public class ArtworkServiceTest {
                 artwork.setImagePath(imagePath);
 
                 given(galleryService.findGallery(any())).willReturn(gallery);
-                given(awsS3Service.uploadFile(artwork.getImage())).willReturn(imagePath);
+                given(awsS3Service.uploadFile(any())).willReturn(imagePath);
                 given(artworkRepository.save(any(Artwork.class))).willReturn(artwork);
 
                 ArtworkResponseDto createdArtwork = artworkService.createArtwork(writer.getMemberId(), gallery.getGalleryId(), artworkPostDto);
@@ -167,15 +167,20 @@ public class ArtworkServiceTest {
             nonLoginMember = new Member(3L);
             gallery = new Gallery(1L);
 
-            artwork1 = new Artwork(1L, gallery, 32);
+            artwork1 = new Artwork(1L, 32);
+            artwork1.setGallery(gallery);
             artwork1.setMember(writer);
-            artwork2 = new Artwork(2L, gallery, 23);
+            artwork2 = new Artwork(2L, 23);
+            artwork2.setGallery(gallery);
             artwork2.setMember(writer);
-            artwork3 = new Artwork(3L, gallery, 42);
+            artwork3 = new Artwork(3L, 42);
+            artwork3.setGallery(gallery);
             artwork3.setMember(writer);
-            artwork4 = new Artwork(4L, gallery, 12);
+            artwork4 = new Artwork(4L, 12);
+            artwork4.setGallery(gallery);
             artwork4.setMember(writer);
-            artwork5 = new Artwork(5L, gallery, 3);
+            artwork5 = new Artwork(5L, 3);
+            artwork5.setGallery(gallery);
             artwork5.setMember(writer);
 
             artworkList = List.of(artwork1, artwork2, artwork3, artwork4, artwork5);
