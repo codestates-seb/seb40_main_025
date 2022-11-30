@@ -52,6 +52,7 @@ const SinglePicPage = () => {
                     title={el.title}
                     scrpit={el.content}
                     username={el.memberId}
+                    artId={el.artworkId}
                   ></SinglePicture>
                   <Footer
                     like={el.likeCount}
