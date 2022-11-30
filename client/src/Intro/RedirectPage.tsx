@@ -1,7 +1,10 @@
 import { ReactElement, useEffect } from 'react';
 import { StyledLink } from 'shared/components/LinkButton/style';
-import { setStoredToken } from './hooks/tokenStorage';
+import { setStoredToken, getStoredToken } from './hooks/tokenStorage';
+import { GetUser } from './hooks/useUserData';
 import { loginStore } from 'store/store';
+import { jsonInstance } from 'shared/utils/axios';
+import { getUser } from './api';
 import axios from 'axios';
 const RedirectPage = (): ReactElement => {
   const { isLoggedin, setIsLoggedIn, user } = loginStore();
@@ -49,11 +52,6 @@ const RedirectPage = (): ReactElement => {
       <Child user={user}></Child>
       <button>
         <StyledLink to={'/gallerySetting'}>전시관 구경 가기</StyledLink>
-      </button>
-      <button>
-        <StyledLink to={'/gallerySetting'}>
-          이전 페이지로 돌아가기(아직 구현 x)
-        </StyledLink>
       </button>
     </>
   );
