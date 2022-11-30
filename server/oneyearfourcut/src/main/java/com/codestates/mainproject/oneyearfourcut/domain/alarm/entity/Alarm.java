@@ -15,6 +15,7 @@ import javax.persistence.*;
 @Entity
 @Builder
 @AllArgsConstructor
+@Table(name = "ALARM")
 public class Alarm extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
