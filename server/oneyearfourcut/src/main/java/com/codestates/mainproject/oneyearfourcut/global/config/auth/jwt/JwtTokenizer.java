@@ -1,12 +1,13 @@
 package com.codestates.mainproject.oneyearfourcut.global.config.auth.jwt;
 
 import com.codestates.mainproject.oneyearfourcut.domain.member.entity.Member;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jws;
-import io.jsonwebtoken.Jwts;
+import com.codestates.mainproject.oneyearfourcut.global.exception.exception.BusinessLogicException;
+import com.codestates.mainproject.oneyearfourcut.global.exception.exception.ExceptionCode;
+import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.io.Encoders;
 import io.jsonwebtoken.security.Keys;
+import io.jsonwebtoken.security.SignatureException;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -73,14 +74,45 @@ public class JwtTokenizer {
         return claims;
     }
 
+
     // 단순히 검증만 하는 용도로 쓰일 경우
-    public void verifySignature(String jws, String base64EncodedSecretKey) {
+    public boolean isExpiredToken(String jws, String base64EncodedSecretKey) {
+        Key key = getKeyFromBase64EncodedKey(base64EncodedSecretKey);
+        try {
+            Jwts.parserBuilder()
+                    .setSigningKey(key)
+                    .build()
+                    .parseClaimsJws(jws);
+
+        } catch (ExpiredJwtException e) {
+            return true;
+        } catch (SignatureException e) {    //유효하지 않은 토큰은 에러 던짐
+            throw new BusinessLogicException(ExceptionCode.WRONG_ACCESS_TOKEN);
+        }
+
+        return false;
+    }
+
+    public String getEmail(String jws, String base64EncodedSecretKey) {
         Key key = getKeyFromBase64EncodedKey(base64EncodedSecretKey);
 
-        Jwts.parserBuilder()
-                .setSigningKey(key)
-                .build()
-                .parseClaimsJws(jws);
+        String email = null;
+        try {
+            email = Jwts.parserBuilder()
+                    .setSigningKey(key)
+                    .build()
+                    .parseClaimsJws(jws)
+                    .getBody()
+                    .getSubject();
+        } catch (ExpiredJwtException e) {
+            throw new BusinessLogicException(ExceptionCode.EXPIRED_REFRESH_TOKEN);
+        } catch (SignatureException e) {
+            throw new BusinessLogicException(ExceptionCode.WRONG_REFRESH_TOKEN);
+        } catch (Exception e) {
+            throw new RuntimeException("토큰에서 이메일을 가져오지 못했습니다.");
+        }
+
+        return email;
     }
 
     public Date getTokenExpiration(int expirationMinutes) {
@@ -112,5 +144,12 @@ public class JwtTokenizer {
         String accessToken = generateAccessToken(claims, subject, expiration, base64EncodedSecretKey);
 
         return "Bearer " + accessToken;
+    }
+    public String testRefreshGenerator(Member member) {
+        String subject = String.valueOf(member.getEmail());
+        Date expiration = getTokenExpiration(getAccessTokenExpirationMinutes());
+        String base64EncodedSecretKey = encodeBase64SecretKey(getSecretKey());
+
+        return generateRefreshToken(subject, expiration, base64EncodedSecretKey);
     }
 }
