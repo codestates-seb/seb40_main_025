@@ -1,6 +1,7 @@
 package com.codestates.mainproject.oneyearfourcut.domain.artwork.service;
 
 import com.codestates.mainproject.oneyearfourcut.domain.Like.entity.ArtworkLike;
+import com.codestates.mainproject.oneyearfourcut.domain.Like.entity.LikeStatus;
 import com.codestates.mainproject.oneyearfourcut.domain.Like.repository.ArtworkLikeRepository;
 import com.codestates.mainproject.oneyearfourcut.domain.artwork.dto.ArtworkPatchDto;
 import com.codestates.mainproject.oneyearfourcut.domain.artwork.dto.ArtworkPostDto;
@@ -32,6 +33,7 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.willDoNothing;
 
@@ -202,7 +204,7 @@ public class ArtworkServiceTest {
                 given(artworkRepository.findById(any(Long.class))).willReturn(Optional.of(artwork1));
 
                 given(artworkLikeRepository
-                        .existsByMember_MemberIdAndArtwork_ArtworkId(loginMember.getMemberId(), artwork1.getArtworkId()))
+                        .existsByMember_MemberIdAndArtwork_ArtworkIdAndStatus(loginMember.getMemberId(), artwork1.getArtworkId(), LikeStatus.LIKE))
                         .willReturn(true);
 
                 ArtworkResponseDto response = artworkService.findArtwork(loginMember.getMemberId(), gallery.getGalleryId(), artwork1.getArtworkId());
@@ -221,7 +223,7 @@ public class ArtworkServiceTest {
                 given(artworkRepository.findById(any(Long.class))).willReturn(Optional.of(artwork1));
 
                 given(artworkLikeRepository
-                        .existsByMember_MemberIdAndArtwork_ArtworkId(any(), any()))
+                        .existsByMember_MemberIdAndArtwork_ArtworkIdAndStatus(any(Long.class), any(Long.class), eq(LikeStatus.LIKE)))
                         .willReturn(false);
 
                 ArtworkResponseDto likeResponse = artworkService.findArtwork(nonLoginMember.getMemberId(), gallery.getGalleryId(), artwork1.getArtworkId());
