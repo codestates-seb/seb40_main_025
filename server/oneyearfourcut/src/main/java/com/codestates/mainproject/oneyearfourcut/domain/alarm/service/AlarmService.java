@@ -44,6 +44,7 @@ public class AlarmService {
         }
 
     }
+
     @Transactional
     public AlarmReadCheckResponseDto checkReadAlarm(Long memberId) {
         Boolean alarmExist = alarmRepository.existsByMember_MemberIdAndReadCheck(memberId, Boolean.FALSE);
