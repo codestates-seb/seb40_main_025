@@ -15,9 +15,11 @@ import javax.persistence.*;
 @Entity
 @Builder
 @AllArgsConstructor
+@Table(name = "alarm")
 public class Alarm extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column
     private Long alarmId;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -33,14 +35,13 @@ public class Alarm extends Auditable {
 
     @Column
     private Long artworkId;
-
     @Column
     private String artworkTitle;
 
     @Column
     private String userNickname;
 
-    @Column
+    @Column(name = "READ_CHECK")
     private Boolean readCheck;
 
     public AlarmResponseDto toAlarmResponseDto() {
@@ -53,7 +54,7 @@ public class Alarm extends Auditable {
                 .artworkTitle(this.artworkTitle)
                 .build();
     }
-
-
-
+    public void checkRead() {
+        this.readCheck = true;
+    }
 }
