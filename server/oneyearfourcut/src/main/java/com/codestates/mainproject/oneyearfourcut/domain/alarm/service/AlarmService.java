@@ -89,7 +89,7 @@ public class AlarmService {
                     .alarmType(type)
                     .artworkId(artwork.getArtworkId())
                     .artworkTitle(artwork.getTitle())
-                    .userNickname(memberService.findMember(member.getMemberId()).getNickname())
+                    .userNickname(memberService.findMember(memberIdProducer).getNickname())
                     .readCheck(false)
                     .build();
             alarmRepository.save(alarm);
@@ -100,7 +100,7 @@ public class AlarmService {
                     .member(member)
                     .memberIdProducer(memberIdProducer)
                     .alarmType(type)
-                    .userNickname(memberService.findMember(member.getMemberId()).getNickname())
+                    .userNickname(memberService.findMember(memberIdProducer).getNickname())
                     .readCheck(false)
                     .build();
 
