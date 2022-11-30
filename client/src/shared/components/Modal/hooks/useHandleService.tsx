@@ -10,7 +10,8 @@ const useHandleService = () => {
   const { setToast } = useToast();
   const navigateSearch = useNavigateSearch();
   const { closeModal } = ModalStore();
-  const handleCloseGallery = () => {
+
+  const handleDeleteGallery = () => {
     deleteGalleryById()
       .then(() => {
         getUser().then((res) => {
@@ -42,6 +43,6 @@ const useHandleService = () => {
     });
   };
 
-  return { handleLogout, handleDeleteUser, handleCloseGallery, navigateSearch };
+  return { handleLogout, handleDeleteUser, handleDeleteGallery, navigateSearch };
 };
 export default useHandleService;

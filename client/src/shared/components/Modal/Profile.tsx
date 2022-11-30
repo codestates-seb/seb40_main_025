@@ -1,32 +1,42 @@
 import * as B from './components/ModalContainer';
 import * as S from './components/SvgComponents';
 import { loginStore, ModalStore } from 'store/store';
+import { DeleteGallery, DeleteUser } from './AlertData';
+import { Alert } from './Alert';
 import useHandleService from './hooks/useHandleService';
 import useClipboardCopy from './hooks/useClipboardCopy';
 import ModalBackdrop from './components/ModalBackdrop';
-import { DeleteGallery, DeleteUser } from './AlertData';
-import { Alert } from './Alert';
 
 const Profile = () => {
   const { textareaRef, handleCopy, URL } = useClipboardCopy();
-  const { handleCloseGallery, handleDeleteUser, handleLogout, navigateSearch } =
-    useHandleService();
-  const { isLoggedin } = loginStore();
+  const {
+    handleDeleteGallery,
+    handleDeleteUser,
+    handleLogout,
+    navigateSearch,
+  } = useHandleService();
+  const { isLoggedin, user } = loginStore();
   const { target, openModal } = ModalStore();
 
   return (
     <>
       <B.HambergurBox>
+        {/* Profile */}
         <B.ProfileBox>
           <div>
-            <img src='/images/2.jpg' alt='profileimg'></img>
+            <img
+              src={isLoggedin ? user?.profile : '/images/DefaultProfileImg.png'}
+              alt='profileimg'
+            ></img>
           </div>
           <S.ModifyProfileImg />
         </B.ProfileBox>
         <h4>
-          {isLoggedin ? '팀장승필' : '로그인이 필요합니다.'}
+          {isLoggedin ? user?.nickname : '로그인이 필요합니다.'}
           {isLoggedin && <S.ModifyNickname />}
         </h4>
+
+        {/* 라우팅 */}
         {isLoggedin && (
           <>
             <ul>
@@ -44,10 +54,16 @@ const Profile = () => {
           </>
         )}
       </B.HambergurBox>
+
+      {/* 모달 */}
       {(target.DeleteUserModal || target.DeleteGalleryModal) && (
         <ModalBackdrop>
-          <Alert data={DeleteUser(handleDeleteUser)}></Alert>
-          <Alert data={DeleteGallery(handleCloseGallery)}></Alert>
+          {target.DeleteUserModal && (
+            <Alert data={DeleteUser(handleDeleteUser)}></Alert>
+          )}
+          {target.DeleteGalleryModal && (
+            <Alert data={DeleteGallery(handleDeleteGallery)}></Alert>
+          )}
         </ModalBackdrop>
       )}
     </>

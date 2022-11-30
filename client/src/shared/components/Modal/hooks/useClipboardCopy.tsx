@@ -1,6 +1,5 @@
 import { useRef } from 'react';
 import { loginStore } from 'store/store';
-import { useNavigateSearch } from 'shared/hooks/useNavigateSearch';
 import useToast from 'shared/components/Toast/hooks/useToast';
 
 const ClipboardCopy = () => {
