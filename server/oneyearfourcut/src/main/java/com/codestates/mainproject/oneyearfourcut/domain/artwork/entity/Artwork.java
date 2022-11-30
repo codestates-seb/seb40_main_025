@@ -27,10 +27,10 @@ public class Artwork extends Auditable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long artworkId;
 
-    @Column(length = 30, nullable = false)
+    @Column(length = 15, nullable = false)
     private String title;
 
-    @Column(columnDefinition = "TEXT", nullable = false)
+    @Column(length = 30, nullable = false)
     private String content;
 
     @Column(columnDefinition = "TEXT", nullable = false)
@@ -42,7 +42,7 @@ public class Artwork extends Auditable {
     @Transient
     private MultipartFile image;
 
-    @Formula("(select count(*) from artwork_like v where v.artwork_id = artwork_id)")
+    @Formula("(select count(*) from artwork_like v where v.artwork_id = artwork_id and v.status = 'LIKE')")
     private int likeCount;
     @Transient
     private boolean liked;
@@ -65,7 +65,7 @@ public class Artwork extends Auditable {
     }
 
     public int getLikeCount() {
-        return this.getArtworkLikeList().size();
+        return this.likeCount;
     }
 
     /* ################### Setter ################### */
