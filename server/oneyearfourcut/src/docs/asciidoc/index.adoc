@@ -83,7 +83,7 @@ include::{snippets}/refreshToken/http-response.adoc[]
 
 .response-headers
 include::{snippets}/refreshToken/response-headers.adoc[]
-Refresh Token도 만료된 경우 456 에러메세지
+Refresh Token도 만료된 경우 457 에러메세지
 
 ***
 == GalleryController

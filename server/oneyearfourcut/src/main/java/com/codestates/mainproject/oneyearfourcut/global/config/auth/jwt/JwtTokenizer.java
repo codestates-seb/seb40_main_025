@@ -25,11 +25,9 @@ public class JwtTokenizer {
     @Value("${jwt.key.secret}")
     private String secretKey;
 
-    @Getter
     @Value("${jwt.access-token-expiration-minutes}")
     private int accessTokenExpirationMinutes;
 
-    @Getter
     @Value("${jwt.refresh-token-expiration-minutes}")
     private int refreshTokenExpirationMinutes;
 
@@ -39,7 +37,6 @@ public class JwtTokenizer {
 
     public String generateAccessToken(Map<String, Object> claims,
                                       String subject,
-                                      Date expiration,
                                       String base64EncodedSecretKey) {
         Key key = getKeyFromBase64EncodedKey(base64EncodedSecretKey);
 
@@ -47,18 +44,18 @@ public class JwtTokenizer {
                 .setClaims(claims)
                 .setSubject(subject)
                 .setIssuedAt(Calendar.getInstance().getTime())
-                .setExpiration(expiration)
+                .setExpiration(getTokenExpiration(accessTokenExpirationMinutes))
                 .signWith(key)
                 .compact();
     }
 
-    public String generateRefreshToken(String subject, Date expiration, String base64EncodedSecretKey) {
+    public String generateRefreshToken(String subject, String base64EncodedSecretKey) {
         Key key = getKeyFromBase64EncodedKey(base64EncodedSecretKey);
 
         return Jwts.builder()
                 .setSubject(subject)
                 .setIssuedAt(Calendar.getInstance().getTime())
-                .setExpiration(expiration)
+                .setExpiration(getTokenExpiration(refreshTokenExpirationMinutes))
                 .signWith(key)
                 .compact();
     }
@@ -74,8 +71,6 @@ public class JwtTokenizer {
         return claims;
     }
 
-
-    // 단순히 검증만 하는 용도로 쓰일 경우
     public boolean isExpiredToken(String jws, String base64EncodedSecretKey) {
         Key key = getKeyFromBase64EncodedKey(base64EncodedSecretKey);
         try {
@@ -93,26 +88,22 @@ public class JwtTokenizer {
         return false;
     }
 
-    public String getEmail(String jws, String base64EncodedSecretKey) {
+    public Claims expiredTokenClaims(String jws, String base64EncodedSecretKey) {
         Key key = getKeyFromBase64EncodedKey(base64EncodedSecretKey);
-
-        String email = null;
+        Claims claims = null;
         try {
-            email = Jwts.parserBuilder()
+            Jwts.parserBuilder()
                     .setSigningKey(key)
                     .build()
-                    .parseClaimsJws(jws)
-                    .getBody()
-                    .getSubject();
+                    .parseClaimsJws(jws);
+
         } catch (ExpiredJwtException e) {
-            throw new BusinessLogicException(ExceptionCode.EXPIRED_REFRESH_TOKEN);
-        } catch (SignatureException e) {
-            throw new BusinessLogicException(ExceptionCode.WRONG_REFRESH_TOKEN);
-        } catch (Exception e) {
-            throw new RuntimeException("토큰에서 이메일을 가져오지 못했습니다.");
+            claims = e.getClaims();
+        } catch (SignatureException e) {    //유효하지 않은 토큰은 에러 던짐
+            throw new BusinessLogicException(ExceptionCode.WRONG_ACCESS_TOKEN);
         }
 
-        return email;
+        return claims;
     }
 
     public Date getTokenExpiration(int expirationMinutes) {
@@ -138,18 +129,16 @@ public class JwtTokenizer {
         claims.put("id", member.getMemberId());
 
         String subject = String.valueOf(member.getEmail());
-        Date expiration = getTokenExpiration(getAccessTokenExpirationMinutes());
         String base64EncodedSecretKey = encodeBase64SecretKey(getSecretKey());
 
-        String accessToken = generateAccessToken(claims, subject, expiration, base64EncodedSecretKey);
+        String accessToken = generateAccessToken(claims, subject, base64EncodedSecretKey);
 
         return "Bearer " + accessToken;
     }
     public String testRefreshGenerator(Member member) {
-        String subject = String.valueOf(member.getEmail());
-        Date expiration = getTokenExpiration(getAccessTokenExpirationMinutes());
+        String subject = member.getEmail();
         String base64EncodedSecretKey = encodeBase64SecretKey(getSecretKey());
 
-        return generateRefreshToken(subject, expiration, base64EncodedSecretKey);
+        return generateRefreshToken(subject, base64EncodedSecretKey);
     }
 }

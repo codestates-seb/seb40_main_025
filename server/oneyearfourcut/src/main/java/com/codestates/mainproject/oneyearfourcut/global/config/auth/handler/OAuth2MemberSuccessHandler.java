@@ -78,24 +78,22 @@ public class OAuth2MemberSuccessHandler extends SimpleUrlAuthenticationSuccessHa
         claims.put("id", member.getMemberId());
 
         String subject = member.getEmail(); //subject에 이메일을 저장
-        Date expiration = jwtTokenizer.getTokenExpiration(jwtTokenizer.getAccessTokenExpirationMinutes());
 
         String base64EncodedSecretKey = jwtTokenizer.encodeBase64SecretKey(jwtTokenizer.getSecretKey());
 
-        String accessToken = jwtTokenizer.generateAccessToken(claims, subject, expiration, base64EncodedSecretKey);
+        String accessToken = jwtTokenizer.generateAccessToken(claims, subject, base64EncodedSecretKey);
 
         return "Bearer " + accessToken;
     }
 
     private String delegateRefreshToken(Member member) {
         String subject = member.getEmail();
-        Date expiration = jwtTokenizer.getTokenExpiration(jwtTokenizer.getRefreshTokenExpirationMinutes());
         String base64EncodedSecretKey = jwtTokenizer.encodeBase64SecretKey(jwtTokenizer.getSecretKey());
 
-        String refreshToken = jwtTokenizer.generateRefreshToken(subject, expiration, base64EncodedSecretKey);
+        String refreshToken = jwtTokenizer.generateRefreshToken(subject, base64EncodedSecretKey);
 
         boolean tokenExist = refreshTokenService.isTokenExist(subject);
-        if (tokenExist) refreshTokenService.updateRefreshToken(member, refreshToken);
+        if (tokenExist) refreshTokenService.updateRefreshToken(subject, refreshToken);
         else refreshTokenService.saveRefreshToken(member, refreshToken);    //refresh token 생성과 함께 저장
 
         return refreshToken;

@@ -33,8 +33,8 @@ public class RefreshTokenService {
         return refreshTokenRepository.existsByMember_Email(email);
     }
 
-    public void updateRefreshToken(Member member, String refreshToken) {
-        RefreshToken token = findRefreshTokenByEmail(member.getEmail());
+    public void updateRefreshToken(String email, String refreshToken) {
+        RefreshToken token = findRefreshTokenByEmail(email);
         token.updateToken(refreshToken);
     }
 

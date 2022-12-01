@@ -6,6 +6,9 @@ import com.codestates.mainproject.oneyearfourcut.domain.refreshToken.entity.Refr
 import com.codestates.mainproject.oneyearfourcut.domain.refreshToken.service.RefreshTokenService;
 import com.codestates.mainproject.oneyearfourcut.global.config.auth.jwt.JwtTokenizer;
 import com.codestates.mainproject.oneyearfourcut.global.config.auth.jwt.PrincipalDto;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
+import io.jsonwebtoken.Jwts;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +25,9 @@ import org.springframework.security.oauth2.client.registration.ClientRegistratio
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static com.codestates.mainproject.oneyearfourcut.global.util.ApiDocumentUtils.getRequestPreProcessor;
 import static com.codestates.mainproject.oneyearfourcut.global.util.ApiDocumentUtils.getResponsePreProcessor;
@@ -40,21 +45,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class RefreshTokenControllerRestDocsTest {
     @Autowired
     private MockMvc mockMvc;
-    @MockBean
+    @Autowired
     private JwtTokenizer jwtTokenizer;
     @MockBean
     private RefreshTokenService refreshTokenService;
-
-//    @TestConfiguration
-//    static class testSecurityConfig {
-//        @Bean
-//        public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-//            return http
-//                    .csrf().disable()
-//                    .build();
-//        }
-//    }
-
 
     @BeforeEach
     public void setup() {
@@ -75,23 +69,26 @@ class RefreshTokenControllerRestDocsTest {
                 .role(Role.USER)
                 .build();
 
-
         RefreshToken token = RefreshToken.builder()
                 .member(member)
                 .token(jwt)
                 .build();
+        Claims claims = Jwts.claims().setSubject("test@gmail.com");
 
-        given(refreshTokenService.findRefreshTokenByEmail(any()))
+        given(jwtTokenizer.getSecretKey())
+                .willReturn("test");
+        given(jwtTokenizer.encodeBase64SecretKey(anyString()))
+                .willReturn("test");
+        given(jwtTokenizer.expiredTokenClaims(anyString(), anyString()))
+                .willReturn(claims);
+        given(refreshTokenService.findRefreshTokenByEmail(anyString()))
                 .willReturn(token);
-        given(jwtTokenizer.isExpiredToken(any(), any()))
-                .willReturn(true);
-        given(jwtTokenizer.getEmail(any(), any()))
-                .willReturn("test@gmail.com");
-        given(jwtTokenizer.generateAccessToken(any(), any(), any(), any()))
+        given(jwtTokenizer.generateAccessToken(any(Claims.class), anyString(), anyString()))
                 .willReturn("Bearer " + jwt);
-        given(jwtTokenizer.generateRefreshToken(any(), any(), any()))
+        given(jwtTokenizer.generateRefreshToken(anyString(), anyString()))
                 .willReturn(jwt);
-
+        given(jwtTokenizer.isExpiredToken(anyString(), anyString()))
+                .willReturn(false);
 
         //when
         ResultActions actions = mockMvc.perform(
