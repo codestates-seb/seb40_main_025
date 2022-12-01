@@ -108,7 +108,7 @@ public class ArtworkServiceTest {
                 artwork.setImagePath(imagePath);
 
                 willDoNothing().given(alarmService).createAlarm(any(), any(), any());
-                given(galleryService.findGallery(any())).willReturn(gallery);
+                willDoNothing().given(galleryService).verifiedGalleryExist(any(Long.class));
                 given(awsS3Service.uploadFile(any())).willReturn(imagePath);
                 given(artworkRepository.save(any(Artwork.class))).willReturn(artwork);
 
