@@ -21,7 +21,6 @@ const RedirectPage = (): ReactElement => {
   saveUser();
   const { user } = loginStore();
   AutoRedirect(user?.galleryId!);
-
   return <div></div>;
 };
 
