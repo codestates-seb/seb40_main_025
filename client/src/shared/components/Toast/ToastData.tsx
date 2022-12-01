@@ -6,7 +6,7 @@ export interface ToastData {
 }
 
 const PROFILE_MODIFY_SUCCESS = {
-  time: 3000,
+  time: 1500,
   content: ['프로필이 변경되었습니다.', ''],
 };
 const CHECK_FILE_INFO = {
