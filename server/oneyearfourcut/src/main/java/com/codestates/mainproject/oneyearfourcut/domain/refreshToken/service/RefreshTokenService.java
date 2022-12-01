@@ -22,11 +22,13 @@ public class RefreshTokenService {
                 .build());
     }
 
+    @Transactional(readOnly = true)
     public RefreshToken findRefreshTokenByEmail(String email) {
         return refreshTokenRepository.findByMember_Email(email)
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
     }
 
+    @Transactional(readOnly = true)
     public boolean isTokenExist(String email) {
         return refreshTokenRepository.existsByMember_Email(email);
     }

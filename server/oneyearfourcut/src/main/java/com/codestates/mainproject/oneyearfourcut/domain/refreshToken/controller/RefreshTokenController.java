@@ -40,34 +40,35 @@ public class RefreshTokenController {
             String email = jwtTokenizer.getEmail(refreshToken, jwtTokenizer.encodeBase64SecretKey(jwtTokenizer.getSecretKey()));
             RefreshToken refreshTokenByEmail = refreshTokenService.findRefreshTokenByEmail(email);
 
-            if (refreshTokenByEmail.getToken().equals(refreshToken)) {
-                //검증에 통과한다면 새로운 access, refresh token 발행
-                Member member = refreshTokenByEmail.getMember();
-
-                Map<String, Object> claims = new HashMap<>();
-                String subject = member.getEmail();
-                claims.put("username", subject);
-                claims.put("roles", List.of("USER"));   //모든 유저 역할 통일
-                claims.put("id", member.getMemberId());
-                Date accessExpiration = jwtTokenizer.getTokenExpiration(jwtTokenizer.getAccessTokenExpirationMinutes());
-                Date refreshExpiration = jwtTokenizer.getTokenExpiration(jwtTokenizer.getRefreshTokenExpirationMinutes());
-
-                //토큰들 생성
-                String newAccessToken = jwtTokenizer.generateAccessToken(claims, subject, accessExpiration, base64EncodedSecretKey);
-                String newRefreshToken = jwtTokenizer.generateRefreshToken(subject, refreshExpiration, base64EncodedSecretKey);
-
-                //리프레시 토큰 다시 저장
-                refreshTokenService.updateRefreshToken(member, newRefreshToken);
-
-                response.setHeader("Authorization", "Bearer " + newAccessToken);
-                response.setHeader("refresh", newRefreshToken);
-
-                //결과 리턴
-                return new ResponseEntity("새로 토큰이 발급되었습니다.", HttpStatus.CREATED);
+            if (!refreshTokenByEmail.getToken().equals(refreshToken)) {
+                //access token은 만료되었고, 준 리프레시 토큰이 유효하지만, 해당 이메일 조회해보니 안에있는 토큰은 다르다
+                throw new BusinessLogicException(ExceptionCode.WRONG_REFRESH_TOKEN);
             }
-            //access token은 만료되었고, 준 리프레시 토큰이 유효하지만, 해당 이메일 조회해보니 안에있는 토큰은 다르다
-        }
 
+            //검증에 통과한다면 새로운 access, refresh token 발행
+            Member member = refreshTokenByEmail.getMember();
+
+            Map<String, Object> claims = new HashMap<>();
+            String subject = member.getEmail();
+            claims.put("username", subject);
+            claims.put("roles", List.of("USER"));   //모든 유저 역할 통일
+            claims.put("id", member.getMemberId());
+            Date accessExpiration = jwtTokenizer.getTokenExpiration(jwtTokenizer.getAccessTokenExpirationMinutes());
+            Date refreshExpiration = jwtTokenizer.getTokenExpiration(jwtTokenizer.getRefreshTokenExpirationMinutes());
+
+            //토큰들 생성
+            String newAccessToken = jwtTokenizer.generateAccessToken(claims, subject, accessExpiration, base64EncodedSecretKey);
+            String newRefreshToken = jwtTokenizer.generateRefreshToken(subject, refreshExpiration, base64EncodedSecretKey);
+
+            //리프레시 토큰 다시 저장
+            refreshTokenService.updateRefreshToken(member, newRefreshToken);
+
+            response.setHeader("Authorization", "Bearer " + newAccessToken);
+            response.setHeader("refresh", newRefreshToken);
+
+            //결과 리턴
+            return new ResponseEntity("새로 토큰이 발급되었습니다.", HttpStatus.CREATED);
+        }
         //여기로 오면 만료되지 않은 access 토큰임 -> 만료되지 않은 토큰인데 왜 여기로 요청했지?
         return new ResponseEntity<>("만료되지 않은 access token 이거나 잘못된 refresh token 입니다.", HttpStatus.BAD_REQUEST);
     }
