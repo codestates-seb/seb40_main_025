@@ -59,7 +59,6 @@ export interface Login {
   setLoggedOut: () => void;
 }
 
-
 /**
  * const loginStore = create<any>(
   persist(
@@ -75,3 +74,8 @@ export interface Login {
   ),
 );
  */
+
+export interface History {
+  history: string;
+  setHistory: (data: string) => void;
+}
