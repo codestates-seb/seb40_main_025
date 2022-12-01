@@ -13,6 +13,7 @@ import com.codestates.mainproject.oneyearfourcut.domain.artwork.dto.OneYearFourC
 import com.codestates.mainproject.oneyearfourcut.domain.artwork.entity.Artwork;
 import com.codestates.mainproject.oneyearfourcut.domain.artwork.entity.ArtworkStatus;
 import com.codestates.mainproject.oneyearfourcut.domain.artwork.repository.ArtworkRepository;
+import com.codestates.mainproject.oneyearfourcut.domain.gallery.entity.Gallery;
 import com.codestates.mainproject.oneyearfourcut.domain.gallery.service.GalleryService;
 import com.codestates.mainproject.oneyearfourcut.domain.member.entity.Member;
 import com.codestates.mainproject.oneyearfourcut.domain.member.service.MemberService;
@@ -49,20 +50,17 @@ public class ArtworkService {
 
     @Transactional
     public ArtworkResponseDto createArtwork(long memberId, long galleryId, ArtworkPostDto requestDto) {
-
+        galleryService.verifiedGalleryExist(galleryId);
         Artwork artwork = requestDto.toEntity();
-
         // 이미지 유효성(null) 검증
         if (artwork.getImage() == null) {
             throw new BusinessLogicException(ExceptionCode.IMAGE_NOT_FOUND_FROM_REQUEST);
         }
-
-        artwork.setGallery(galleryService.findGallery(galleryId));
+        artwork.setGallery(new Gallery(galleryId));
         artwork.setMember(new Member(memberId));
 
         String imageRoot = awsS3Service.uploadFile(artwork.getImage());
         artwork.setImagePath(imageRoot);
-
         Artwork savedArtwork = artworkRepository.save(artwork);
 
         //알람 생성
@@ -91,11 +89,6 @@ public class ArtworkService {
         List<Artwork> artworkList = artworkRepository.findAllByGallery_GalleryIdAndStatus(galleryId,
                 ArtworkStatus.REGISTRATION, Sort.by(desc("createdAt")));
 
-        // 가져온 작품 리스트가 비어 있을 경우 Exception 발생인데, 그냥 빈 배열로 줘도 괜찮을 듯 합니다.
-        if (artworkList.isEmpty()) {
-            throw new BusinessLogicException(ExceptionCode.ARTWORK_NOT_FOUND);
-        }
-
         if (memberId != -1) {
             Member loginMember = memberService.findMember(memberId);
             List<ArtworkLike> memberLikeList = loginMember.getArtworkLikeList();
@@ -104,7 +97,6 @@ public class ArtworkService {
                     forEach(like -> like.getArtwork()
                             .setLiked(artworkList.contains(like.getArtwork())));
         }
-
         return ArtworkResponseDto.toListResponse(artworkList);
     }
 
@@ -113,11 +105,6 @@ public class ArtworkService {
 
         List<Artwork> findArtworkList = artworkRepository.findTop4ByGallery_GalleryIdAndStatus(galleryId,
                 ArtworkStatus.REGISTRATION, Sort.by(desc("likeCount"), desc("createdAt")));
-
-        // 가져온 작품 리스트가 비어 있을 경우 Exception 발생인데, 그냥 빈 배열로 줘도 괜찮을 듯 합니다.
-        if (findArtworkList.isEmpty()) {
-            throw new BusinessLogicException(ExceptionCode.ARTWORK_NOT_FOUND);
-        }
 
         return OneYearFourCutResponseDto.toListResponse(findArtworkList);
     }
@@ -157,8 +144,13 @@ public class ArtworkService {
 
         Artwork findArtwork = artworkOptional.orElseThrow(
                 () -> new BusinessLogicException(ExceptionCode.ARTWORK_NOT_FOUND));
+
         if (galleryId != findArtwork.getGallery().getGalleryId()) {
             throw new BusinessLogicException(ExceptionCode.ARTWORK_NOT_FOUND_FROM_GALLERY);
+        }
+        // 작품이 삭제된 상태가 아닌가? 검증
+        if (findArtwork.getStatus().equals(ArtworkStatus.DELETED)) {
+            throw new BusinessLogicException(ExceptionCode.ARTWORK_DELETED);
         }
 
         return findArtwork;
@@ -169,8 +161,12 @@ public class ArtworkService {
         Artwork foundArtwork = artwork.orElseThrow(
                 () -> new BusinessLogicException(ExceptionCode.ARTWORK_NOT_FOUND));
 
-        if (!Objects.equals(galleryId, foundArtwork.getGallery().getGalleryId())) {
+        if ((!Objects.equals(galleryId, foundArtwork.getGallery().getGalleryId()))) {
             throw new BusinessLogicException(ExceptionCode.ARTWORK_NOT_FOUND_FROM_GALLERY);
+        }
+        // 작품이 삭제된 상태가 아닌가? 검증
+        if (foundArtwork.getStatus().equals(ArtworkStatus.DELETED)) {
+            throw new BusinessLogicException(ExceptionCode.ARTWORK_DELETED);
         }
     }
 
