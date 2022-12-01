@@ -22,7 +22,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: create  # 변경된 스키마만 적용
+      ddl-auto: create  # 스키마 자동 생성
     properties:
       hibernate:
 #        dialect: org.hibernate.dialect.MySQL5InnoDBDialect #- mysql문법으로 변경하는 설정
