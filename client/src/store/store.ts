@@ -104,10 +104,13 @@ const loginStore = create<Login>(
   ),
 );
 
-const historyStore = create<History>((set) => ({
-  history: '',
-  setHistory: (data) => set(() => ({ history: data })),
-}));
+const historyStore = create<History>()(
+  persist((set) => ({
+    history: '',
+    setHistory: (data) => set(() => ({ history: data })),
+    setReset: () => set(() => ({ history: '' })),
+  })),
+);
 
 export {
   ModalStore,
