@@ -51,7 +51,7 @@ const SinglePicture = ({
           }}
         >
           <Suspense>
-            <LikePic></LikePic>
+            <LikePic artworkId={artId}></LikePic>
           </Suspense>
           {/* 위 코드에서 render 오류 발생  */}
         </S.SinglePic>

@@ -22,7 +22,7 @@ const SinglePicPage = () => {
   const galleryId = parseInt(params.galleryId!);
   const { data } = useGetAllPost(galleryId);
 
-  console.log(data?.data);
+  // console.log(data?.data);
 
   return (
     <Body>

@@ -11,7 +11,6 @@ import RedirectPage from 'Intro/RedirectPage';
 import SinglePicPage from './SinglePicture/index';
 import SingleComment from './SingleComments/index';
 import OnePicPage from 'SinglePicture/OnePage/OnePicPage';
-import LikeButton from 'shared/components/Buttons/likeButton';
 import AuthCheck from 'shared/hooks/useAuth';
 const GalleryFourPic = React.lazy(() => import('Gallery/GalleryFourPic'));
 const GalleryAllPic = React.lazy(() => import('Gallery/GalleryAllPic'));
@@ -57,7 +56,7 @@ const router = createBrowserRouter([
         ),
       },
       { path: '/localStorage', element: <RedirectPage /> },
-      { path: '/testing', element: <LikeButton /> },
+
       {
         path: '/allPic/:galleryId',
         element: (

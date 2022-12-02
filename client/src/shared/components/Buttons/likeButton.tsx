@@ -16,15 +16,17 @@ const LikeCircle = styled.div`
   align-items: center;
 `;
 
-const LikeButton = () => {
+const LikeButton = ({ artworkId }: { artworkId: number }) => {
   const params = useParams();
   const galleryId = parseInt(params.galleryId!);
   // const artworkId = parseInt(params.artworkId!);
 
-  const { data } = useGetSinglePicture(galleryId, 33);
-  const { mutate } = useLikePictures(galleryId, 33);
+  const { data } = useGetSinglePicture(galleryId, artworkId);
+  const { mutate } = useLikePictures(galleryId, artworkId);
 
   const Like = () => {
+    console.log(artworkId);
+
     mutate();
   };
 
