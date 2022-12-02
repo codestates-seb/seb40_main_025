@@ -8,9 +8,7 @@ import ModalBackdrop from '../Modal/components/ModalBackdrop';
 const Header = () => {
   const { target } = ModalStore();
   const navigateSearch = useNavigateSearch();
-  // console.log(window.location.pathname);
   if (window.location.pathname === '/' || window.location.pathname ==='/localStorage') return null;
-  if (window.location.pathname === '/') return null;
 
   return (
     <>
