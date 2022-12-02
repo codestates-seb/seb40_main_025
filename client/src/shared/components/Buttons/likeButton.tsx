@@ -4,6 +4,7 @@ import { rem } from 'polished';
 import HeartIcon from '../Icons/heartIcon';
 import useLikePictures from 'SinglePicture/hooks/useLikePictures';
 import useGetSinglePicture from 'shared/hooks/useGetSinglePicture';
+import { useParams } from 'react-router-dom';
 
 const LikeCircle = styled.div`
   width: ${rem(49)};
@@ -16,16 +17,20 @@ const LikeCircle = styled.div`
 `;
 
 const LikeButton = () => {
-  const { data } = useGetSinglePicture(17, 33);
-  const { mutate } = useLikePictures(17, 33);
+  const params = useParams();
+  const galleryId = parseInt(params.galleryId!);
+  // const artworkId = parseInt(params.artworkId!);
+
+  const { data } = useGetSinglePicture(galleryId, 33);
+  const { mutate } = useLikePictures(galleryId, 33);
 
   const Like = () => {
     mutate();
-    console.log(data?.data.liked, data?.data.likeCount);
   };
+
   return (
     <LikeCircle onClick={Like}>
-      {data?.data.liked ? (
+      {!data?.data.liked ? (
         <HeartIcon color={'gray'} />
       ) : (
         <HeartIcon color={'red'} />
