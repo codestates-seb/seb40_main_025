@@ -10,6 +10,8 @@ import GallerySetting from 'GallerySetting/GallerySetting';
 import RedirectPage from 'Intro/RedirectPage';
 import SinglePicPage from './SinglePicture/index';
 import SingleComment from './SingleComments/index';
+import OnePicPage from 'SinglePicture/OnePage/OnePicPage';
+import LikeButton from 'shared/components/Buttons/likeButton';
 const GalleryFourPic = React.lazy(() => import('Gallery/GalleryFourPic'));
 const GalleryAllPic = React.lazy(() => import('Gallery/GalleryAllPic'));
 
@@ -33,6 +35,7 @@ const router = createBrowserRouter([
       { path: '/alarmList', element: <AlarmList /> },
       { path: '/uploadPicture', element: <UploadPicture /> },
       { path: '/localStorage', element: <RedirectPage /> },
+      { path: '/testing', element: <LikeButton /> },
       {
         path: '/allPic/:galleryId',
         element: (
@@ -49,8 +52,15 @@ const router = createBrowserRouter([
           </Suspense>
         ),
       },
-      { path: '/SinglePic', element: <SinglePicPage /> },
-      { path: '/testing', element: <SingleComment /> },
+      { path: `/allPic/:galleryId/artworks`, element: <SinglePicPage /> },
+      {
+        path: '/allPic/:galleryId/:artworkId',
+        element: <OnePicPage />,
+      },
+      {
+        path: '/allPic/:galleryId/:artworkId/comments',
+        element: <SingleComment />,
+      },
     ],
   },
 ]);
