@@ -13,6 +13,7 @@ const Btn = styled.button`
   text-align: center;
   padding: ${rem(5)};
   line-height: 120%;
+  cursor:pointer;
 
   &.square {
     border-radius: ${rem(5)};
