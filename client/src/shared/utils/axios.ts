@@ -73,18 +73,13 @@ const responseInterceptorHandle = async (err: AxiosError, type: string) => {
     config, //original request
     response,
   } = err;
-  console.log(err);
   const status = response?.status;
   const originalRequest = config;
-  console.log(status);
   if (status === 457) {
     return ErrorHandler457(err);
   } else if (status === 456) {
-    // console.log('현재토큰 : ', getStoredToken()?.access_token);
-    //true이면 구독에 추가
 
     if (lock) {
-      console.log('lock들어옴');
       return new Promise((resolve) => {
         subscribeTokenRefresh((token: string) => {
           resolve(originalRequestReFetch(originalRequest!, token, type)); //의문 2
@@ -92,8 +87,6 @@ const responseInterceptorHandle = async (err: AxiosError, type: string) => {
       });
     }
 
-    //false 이면
-    //토큰재발급
     lock = true;
     try {
       const { headers } = await axios.get(
@@ -115,19 +108,15 @@ const responseInterceptorHandle = async (err: AxiosError, type: string) => {
           refresh_token: refresh_token,
         }),
       );
-      // console.log('재발급토큰 : ', access_token);
 
-      //요청했던 데이터 토큰 바꿔서 재요청
       const result = await originalRequestReFetch(
         originalRequest!,
         access_token,
         type,
       );
 
-      //구독했던 모든대기하던 통신들 실행(비동기라 실행만시키고 지나감)
       onRrefreshed(access_token!);
 
-      //초기화
       subscribers = [];
       lock = false;
 
