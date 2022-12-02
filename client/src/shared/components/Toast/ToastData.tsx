@@ -25,6 +25,14 @@ const CHECK_FORM = {
   ],
 };
 
+const CHECK_NICKNAME = {
+  time: 3000,
+  content: [
+    '입력하지 않은곳이 있는지 확인해주세요',
+    '닉네임은 최대 7글자까지 가능합니다'
+  ]
+}
+
 const CLIPBOARD_COPY_SUCCESS = {
   time: 3000,
   content: ['클립보드에 복사되었습니다.', '친구에게 해당 링크를 공유해주세요!'],
@@ -75,5 +83,6 @@ export {
   DELETE_GALLERY,
   LOGOUT,
   DELETE_USER,
-  UPLOAD_SUCCESSE
+  UPLOAD_SUCCESSE,
+  CHECK_NICKNAME,
 };

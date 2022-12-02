@@ -10,13 +10,16 @@ const useReceiveAlarm = () => {
     ['useReceiveAlarm'],
     apis.getCheckAlarm,
     {
-      enabled: false, //배포시 삭제
-      refetchInterval: 3000,
+      // enabled: false, //배포시 삭제
+      // refetchInterval: 3000,
       retry: true,
       retryDelay: 1000,
-      refetchOnWindowFocus: false,
-      refetchOnMount: false,
-      refetchIntervalInBackground: false,
+      // refetchOnWindowFocus: false,
+      // refetchOnMount: false,
+      // refetchIntervalInBackground: false,
+      // refetchOnWindowFocus: true,
+      // refetchOnMount: true,
+      // refetchIntervalInBackground: true,
       onError(err) {
         console.log(err);
       },

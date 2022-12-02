@@ -1,5 +1,5 @@
-import React from 'react';
-import Header from 'shared/components/Header';
+import React, { Suspense } from 'react';
+// import Header from 'shared/components/Header';
 import UploadPicture from 'UploadPicture';
 import AlarmList from 'AlarmList';
 import ToastRender from 'shared/components/Toast';
@@ -12,13 +12,16 @@ import GalleryFourPic from 'Gallery/GalleryFourPic';
 import RedirectPage from 'Intro/RedirectPage';
 import SinglePicPage from './SinglePicture/index';
 import SingleComment from './SingleComments/index';
+const Header = React.lazy(() => import('shared/components/Header'));
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: (
       <>
-        <Header />
+        <Suspense fallback={<></>}>
+          <Header />
+        </Suspense>
         <ToastRender />
         <Outlet />
       </>

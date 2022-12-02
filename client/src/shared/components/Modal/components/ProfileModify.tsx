@@ -45,7 +45,7 @@ const ProfileModify = ({
       mutate({ img: profileRef.current!.files[0], nickname: name });
       setIsModifing(!isModifing);
     } else {
-      setToast(TOAST.CHECK_FORM);
+      setToast(TOAST.CHECK_NICKNAME);
     }
   };
 
@@ -75,6 +75,7 @@ const ProfileModify = ({
         id='Nickname'
         readOnly={!isModifing}
         value={isLoggedin ? name : '로그인이 필요합니다.'}
+        maxLength={7}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
           setName(e.target.value)
         }

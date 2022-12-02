@@ -28,6 +28,7 @@ const RedirectPage = (): ReactElement => {
         },
       })
       .then((res) => {
+        console.log(res);
         setIsLoggedIn();
         setUser(res.data);
         setIsRun(true);
