@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react';
-// import Header from 'shared/components/Header';
+import Header from 'shared/components/Header';
 import UploadPicture from 'UploadPicture';
 import AlarmList from 'AlarmList';
 import ToastRender from 'shared/components/Toast';
@@ -7,12 +7,13 @@ import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 import ForBidden from 'ForBidden';
 import Intro from 'Intro/Intro';
 import GallerySetting from 'GallerySetting/GallerySetting';
-import GalleryAllPic from 'Gallery/GalleryAllPic';
-import GalleryFourPic from 'Gallery/GalleryFourPic';
 import RedirectPage from 'Intro/RedirectPage';
 import SinglePicPage from './SinglePicture/index';
 import SingleComment from './SingleComments/index';
 const Header = React.lazy(() => import('shared/components/Header'));
+import AuthCheck from 'shared/hooks/useAuth';
+const GalleryFourPic = React.lazy(() => import('Gallery/GalleryFourPic'));
+const GalleryAllPic = React.lazy(() => import('Gallery/GalleryAllPic'));
 
 const router = createBrowserRouter([
   {
@@ -32,12 +33,47 @@ const router = createBrowserRouter([
         index: true,
         element: <Intro />,
       },
-      { path: '/gallerySetting', element: <GallerySetting /> },
-      { path: '/alarmList', element: <AlarmList /> },
-      { path: '/uploadPicture', element: <UploadPicture /> },
+      {
+        path: '/gallerySetting',
+        element: (
+          <AuthCheck>
+            <GallerySetting />
+          </AuthCheck>
+        ),
+      },
+      {
+        path: '/alarmList',
+        element: (
+          <AuthCheck>
+            <AlarmList />
+          </AuthCheck>
+        ),
+      },
+      {
+        path: '/uploadPicture',
+        element: (
+          <AuthCheck>
+            <UploadPicture />
+          </AuthCheck>
+        ),
+      },
       { path: '/localStorage', element: <RedirectPage /> },
-      { path: '/allPic', element: <GalleryAllPic /> },
-      { path: '/fourPic', element: <GalleryFourPic /> },
+      {
+        path: '/allPic/:galleryId',
+        element: (
+          <Suspense fallback={<div>Loading...</div>}>
+            <GalleryAllPic />
+          </Suspense>
+        ),
+      },
+      {
+        path: `/fourPic/:galleryId`,
+        element: (
+          <Suspense fallback={<div>Loading...</div>}>
+            <GalleryFourPic />
+          </Suspense>
+        ),
+      },
       { path: '/SinglePic', element: <SinglePicPage /> },
       { path: '/testing', element: <SingleComment /> },
     ],

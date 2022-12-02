@@ -9,6 +9,7 @@ export const useModifyProfile = () => {
   const { isLoggedin, user, setIsLoggedIn, setUser } = loginStore();
   const profileRef = useRef<HTMLInputElement>(null);
   const { setToast } = useToast();
+
   const { mutate } = useMutation(
     ['useModifyProfile'],
     (formData: FormData) => apis.postModifyProfile(formData),
@@ -27,4 +28,5 @@ export const useModifyProfile = () => {
   );
 
   return { mutate, isLoggedin, user, profileRef };
+
 };

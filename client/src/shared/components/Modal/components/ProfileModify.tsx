@@ -40,12 +40,13 @@ const ProfileModify = ({
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-   
-    if (profileRef.current?.files && name && profileimg) {
+
+if (profileRef.current?.files && name && profileimg) {
       mutate({ img: profileRef.current!.files[0], nickname: name });
       setIsModifing(!isModifing);
     } else {
       setToast(TOAST.CHECK_NICKNAME);
+
     }
   };
 

@@ -33,6 +33,7 @@ const CHECK_NICKNAME = {
   ]
 }
 
+
 const CLIPBOARD_COPY_SUCCESS = {
   time: 3000,
   content: ['클립보드에 복사되었습니다.', '친구에게 해당 링크를 공유해주세요!'],
