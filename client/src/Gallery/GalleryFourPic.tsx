@@ -13,7 +13,7 @@ const Gallery = () => {
   return (
     <Container>
       <GalleryInfo galleryId={galleryId} />
-      <ButtonBox />
+      <ButtonBox galleryId={galleryId} />
       <FourCut galleryId={galleryId} />
       <BottomButton galleryId={galleryId} />
     </Container>
