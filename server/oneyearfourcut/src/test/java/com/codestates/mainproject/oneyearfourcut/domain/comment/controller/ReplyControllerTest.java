@@ -7,6 +7,7 @@ import com.codestates.mainproject.oneyearfourcut.domain.comment.entity.CommentSt
 import com.codestates.mainproject.oneyearfourcut.domain.comment.entity.Reply;
 import com.codestates.mainproject.oneyearfourcut.domain.comment.repository.CommentRepository;
 import com.codestates.mainproject.oneyearfourcut.domain.comment.repository.ReplyRepository;
+import com.codestates.mainproject.oneyearfourcut.domain.comment.service.CommentService;
 import com.codestates.mainproject.oneyearfourcut.domain.comment.service.ReplyService;
 import com.codestates.mainproject.oneyearfourcut.domain.gallery.entity.Gallery;
 import com.codestates.mainproject.oneyearfourcut.domain.gallery.entity.GalleryStatus;
@@ -18,6 +19,7 @@ import com.codestates.mainproject.oneyearfourcut.global.config.auth.jwt.JwtToken
 import com.codestates.mainproject.oneyearfourcut.global.page.ReplyListResponseDto;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
@@ -40,9 +42,9 @@ import static com.codestates.mainproject.oneyearfourcut.domain.comment.entity.Co
 import static com.codestates.mainproject.oneyearfourcut.domain.member.entity.MemberStatus.ACTIVE;
 import static com.codestates.mainproject.oneyearfourcut.global.util.ApiDocumentUtils.getRequestPreProcessor;
 import static com.codestates.mainproject.oneyearfourcut.global.util.ApiDocumentUtils.getResponsePreProcessor;
-import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.willDoNothing;
 import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
 import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
@@ -75,6 +77,7 @@ class ReplyControllerTest {
     private ReplyService replyService;
     @Autowired
     private Gson gson;
+
 
     @Test
     void testPostReply() throws Exception {
@@ -114,9 +117,9 @@ class ReplyControllerTest {
 
 
         given(this.replyService.createReply(
-                Mockito.any(requestDto.getClass()),
-                Mockito.any( comment.getCommentId().getClass()),
-                Mockito.any( member.getMemberId().getClass() )))
+                any(requestDto.getClass()),
+                any( comment.getCommentId().getClass()),
+                any( member.getMemberId().getClass() )))
                 .willReturn(new ReplyListResponseDto<>(1L,responseDto));
 
         //when
@@ -212,7 +215,7 @@ class ReplyControllerTest {
         List<ReplyResDto> result = ReplyResDto.toReplyResponseDtoList(replyList);
 
         given(this.replyService.getReplyList(
-                Mockito.any( comment.getCommentId().getClass())))
+                any( comment.getCommentId().getClass())))
                 .willReturn(new ReplyListResponseDto<>(1L,result));
 
         //when
@@ -308,7 +311,7 @@ class ReplyControllerTest {
         Long replyId = 1L;
 
         given(this.replyService.findReplyList(
-                Mockito.any( comment.getCommentId().getClass() )))
+                any( comment.getCommentId().getClass() )))
                 .willReturn(replyRepository.findAllByReplyStatusAndComment_CommentIdOrderByReplyIdDesc(VALID, 3L));
 
         List<Reply> replyList = replyService.findReplyList(3L);
@@ -324,10 +327,10 @@ class ReplyControllerTest {
                 .build();
 
         given(this.replyService.modifyReply(
-                Mockito.any( comment.getCommentId().getClass()),
+                any( comment.getCommentId().getClass()),
                 eq(replyId),
-                Mockito.any( requestDto.getClass() ),
-                Mockito.any( member.getMemberId().getClass() )))
+                any( requestDto.getClass() ),
+                any( member.getMemberId().getClass() )))
                 .willReturn(new ReplyListResponseDto<>( gallery.getGalleryId() , responseDto));
 
         replyService.modifyReply(4L,1L, requestDto ,member.getMemberId());
