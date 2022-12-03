@@ -3,6 +3,7 @@ package com.codestates.mainproject.oneyearfourcut.domain.member.controller;
 import com.codestates.mainproject.oneyearfourcut.domain.gallery.entity.Gallery;
 import com.codestates.mainproject.oneyearfourcut.domain.gallery.entity.GalleryStatus;
 import com.codestates.mainproject.oneyearfourcut.domain.gallery.repository.GalleryRepository;
+import com.codestates.mainproject.oneyearfourcut.domain.gallery.service.GalleryService;
 import com.codestates.mainproject.oneyearfourcut.domain.member.entity.Member;
 import com.codestates.mainproject.oneyearfourcut.domain.member.entity.MemberStatus;
 import com.codestates.mainproject.oneyearfourcut.domain.member.entity.Role;
@@ -32,7 +33,9 @@ import java.util.List;
 import static com.codestates.mainproject.oneyearfourcut.global.util.ApiDocumentUtils.getRequestPreProcessor;
 import static com.codestates.mainproject.oneyearfourcut.global.util.ApiDocumentUtils.getResponsePreProcessor;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.willDoNothing;
 import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
 import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
@@ -61,6 +64,8 @@ class MemberControllerRestDocsTest {
     private AwsS3Service awsS3Service;
     @MockBean
     private RestTemplate restTemplate;
+    @MockBean
+    private GalleryService galleryService;
 
     @Test
     void getMember() throws Exception {
@@ -184,6 +189,7 @@ class MemberControllerRestDocsTest {
         given(restTemplate.exchange(any(RequestEntity.class), any(Class.class)))
                 .willReturn(responseEntity);
 
+        willDoNothing().given(galleryService).deleteGallery(anyLong());
         //when
         ResultActions actions = mockMvc.perform(
                 delete("/members/me")
