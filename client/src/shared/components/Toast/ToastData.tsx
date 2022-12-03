@@ -6,14 +6,14 @@ export interface ToastData {
 }
 
 const PROFILE_MODIFY_SUCCESS = {
-  time: 3000,
+  time: 1500,
   content: ['프로필이 변경되었습니다.', ''],
 };
 const CHECK_FILE_INFO = {
   time: 4000,
   content: [
     '확장자와 파일크기를 확인해주세요',
-    `확장자 : ${ALLOW_FILE_EXTENSION}, 크기: 5MB이하`,
+    `확장자 : ${ALLOW_FILE_EXTENSION}, 크기: 10MB이하`,
   ],
 };
 
@@ -21,9 +21,18 @@ const CHECK_FORM = {
   time: 3000,
   content: [
     '입력하지 않은곳이 있는지 확인해주세요',
-    '제목은 15글자, 설명은 30글자 이하여야합니다.',
+    '제목은 15글자, 설명은 60글자 이하여야합니다.',
   ],
 };
+
+const CHECK_NICKNAME = {
+  time: 3000,
+  content: [
+    '입력하지 않은곳이 있는지 확인해주세요',
+    '닉네임은 최대 7글자까지 가능합니다'
+  ]
+}
+
 
 const CLIPBOARD_COPY_SUCCESS = {
   time: 3000,
@@ -51,18 +60,18 @@ const DELETE_GALLERY = {
 };
 
 const LOGOUT = {
-  time: 3000,
+  time: 1500,
   content: ['로그아웃 되었습니다.', ''],
 };
 
 const DELETE_USER = {
   time: 3000,
-  content : ['회원탈퇴가 완료되었습니다', '내년에 다시만나요!'],
+  content : ['회원탈퇴가 완료되었습니다', '이용해주셔서 감사합니다'],
 }
 
 const UPLOAD_SUCCESSE = {
-  time: 3000,
-  content : ['작품이 등록되었습니다.', '내 전시관도 만들어보기']
+  time: 1500,
+  content : ['작품이 등록되었습니다.', '']
 }
 
 export {
@@ -75,5 +84,6 @@ export {
   DELETE_GALLERY,
   LOGOUT,
   DELETE_USER,
-  UPLOAD_SUCCESSE
+  UPLOAD_SUCCESSE,
+  CHECK_NICKNAME,
 };

@@ -74,13 +74,14 @@ const UploadStore = create<Upload>((set, get) => ({
     set({
       UploadData: { ...Object.assign(get().UploadData, { [key]: data }) },
     }),
-  removeData: () =>
+  removeImg: () =>
     set({
       UploadData: Object.assign(
         { ...get().UploadData },
         { img: initUploadData.content },
       ),
     }),
+  resetData: () => set({ UploadData: { ...initUploadData } }),
 }));
 
 type MyPersist = (
@@ -104,12 +105,23 @@ const loginStore = create<Login>(
   ),
 );
 
-const historyStore = create<History>()(
-  persist((set) => ({
-    history: '',
-    setHistory: (data) => set(() => ({ history: data })),
-    setReset: () => set(() => ({ history: '' })),
-  })),
+type HistoryPersist = (
+  config: StateCreator<History>,
+  options: PersistOptions<History>,
+) => StateCreator<History>;
+
+const historyStore = create<History>(
+  (persist as HistoryPersist)(
+    (set) => ({
+      history: '',
+      setHistory: (data) => set(() => ({ history: data })),
+      setReset: () => set(() => ({ history: '' })),
+    }),
+    {
+      name: 'historyPath',
+      getStorage: () => sessionStorage,
+    },
+  ),
 );
 
 export {
