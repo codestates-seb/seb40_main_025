@@ -7,7 +7,7 @@ export const uploadHelper = (img: File) => {
   if (size > 10 * 1024 * 1024) return false;
 
   const result = name.split('.').map((el) => el.toLowerCase());
-  console.log(result[result.length - 1]);
+  
   if (
     result[result.length - 1] &&
     ALLOW_FILE_EXTENSION.indexOf(result[result.length - 1]) > -1
