@@ -30,6 +30,7 @@ import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -38,6 +39,7 @@ import static com.codestates.mainproject.oneyearfourcut.domain.comment.entity.Co
 import static com.codestates.mainproject.oneyearfourcut.domain.member.entity.MemberStatus.ACTIVE;
 import static com.codestates.mainproject.oneyearfourcut.global.util.ApiDocumentUtils.getRequestPreProcessor;
 import static com.codestates.mainproject.oneyearfourcut.global.util.ApiDocumentUtils.getResponsePreProcessor;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
@@ -50,6 +52,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
+@Transactional
 @AutoConfigureMockMvc
 @AutoConfigureRestDocs
 @WithMockUser(username = "test@gmail.com", password = "0000")
@@ -77,7 +80,7 @@ class ReplyControllerTest {
         //given
         Member member = memberRepository.save(Member.builder()
                 .nickname("test1")
-                .email("test1@gmail.com")
+                .email("kang@gmail.com")
                 .role(Role.USER)
                 .profile("/path")
                 .status(ACTIVE)
@@ -174,8 +177,8 @@ class ReplyControllerTest {
     void testGetReply() throws Exception {
         //given
         Member member = memberRepository.save(Member.builder()
-                .nickname("test1")
-                .email("test1@gmail.com")
+                .nickname("kang")
+                .email("kang@gmail.com")
                 .role(Role.USER)
                 .profile("/path")
                 .status(ACTIVE)
@@ -199,8 +202,7 @@ class ReplyControllerTest {
                 .replyStatus(CommentStatus.VALID)
                 .build());
 
-        given(this.replyService.findReplyList(
-                Mockito.any( comment.getCommentId().getClass() )))
+        given(replyService.findReplyList(Mockito.any( comment.getCommentId().getClass())))
                 .willReturn(replyRepository.findAllByReplyStatusAndComment_CommentIdOrderByReplyIdDesc(VALID, 1L));
 
         List<Reply> replyList = replyService.findReplyList(1L);
@@ -256,7 +258,7 @@ class ReplyControllerTest {
         //given
         Member member = memberRepository.save(Member.builder()
                 .nickname("test1")
-                .email("test1@gmail.com")
+                .email("kang@gmail.com")
                 .role(Role.USER)
                 .profile("/path")
                 .status(ACTIVE)
@@ -382,7 +384,7 @@ class ReplyControllerTest {
         //given
         Member member = memberRepository.save(Member.builder()
                 .nickname("test1")
-                .email("test1@gmail.com")
+                .email("kang@gmail.com")
                 .role(Role.USER)
                 .profile("/path")
                 .status(ACTIVE)
