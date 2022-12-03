@@ -30,7 +30,7 @@ public class Artwork extends Auditable {
     @Column(length = 15, nullable = false)
     private String title;
 
-    @Column(length = 30, nullable = false)
+    @Column(length = 60, nullable = false)
     private String content;
 
     @Column(columnDefinition = "TEXT", nullable = false, unique = true)
