@@ -55,13 +55,7 @@ const SinglePicture = ({
       </S.PicZone>
       <S.Delete onClick={() => Delete()}>삭제</S.Delete>
       <S.PicIntroduct>
-        <S.PicTitle
-          onClick={() => {
-            console.log(artId);
-          }}
-        >
-          {title}
-        </S.PicTitle>
+        <S.PicTitle>{title}</S.PicTitle>
         <S.PicDiscription>{scrpit}</S.PicDiscription>
       </S.PicIntroduct>
     </S.Body>
