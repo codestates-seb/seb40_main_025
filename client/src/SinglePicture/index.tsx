@@ -8,9 +8,10 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import './styles.css';
 import useGetAllPost from '../shared/hooks/useGetAllPost';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import CommentStore from 'shared/components/PicFooter/OpenComment';
 import LastPageComponent from './OnePage/LastPageComponent';
+
 
 const Body = styled.div`
   width: ${rem(420)};
@@ -33,6 +34,7 @@ const SinglePicPage = () => {
   const params = useParams();
   const galleryId = parseInt(params.galleryId!);
   const { data } = useGetAllPost(galleryId);
+
   const { lastOpen, setLastOpen } = CommentStore();
   const num = 1;
   let Last = data?.data[data.data.length - 1];
@@ -48,6 +50,7 @@ const SinglePicPage = () => {
   useEffect(() => {
     setLastOpen(swiper);
   }, [swiper]);
+   const { state } = useLocation(); // << artworkId입니다!
 
   return (
     <Body>
