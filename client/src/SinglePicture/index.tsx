@@ -6,15 +6,17 @@ import React, { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
+import 'swiper/css/navigation';
 import './styles.css';
+import { Navigation } from 'swiper';
 import useGetAllPost from '../shared/hooks/useGetAllPost';
 import { useLocation, useParams } from 'react-router-dom';
 import CommentStore from 'shared/components/PicFooter/OpenComment';
 import LastPageComponent from './OnePage/LastPageComponent';
 
 const Body = styled.div`
-  width: ${rem(420)};
-  height: auto;
+  width: ${rem(428)};
+  height: 95vh;
   display: flex;
   flex-direction: column;
 `;
@@ -39,7 +41,6 @@ const SinglePicPage = () => {
 
   const setting = {
     slidesPerView: 1,
-    spaceBetween: 10,
     centeredSlides: true,
     pagination: false,
     initialSlide: lastOpen,
@@ -54,13 +55,15 @@ const SinglePicPage = () => {
     <Body>
       <Swiper
         {...setting}
+        modules={[Navigation]}
         className='swiper one'
         onSlideChange={(e) => setSwiper(e.activeIndex)}
+        navigation
       >
         {data &&
           data.data.map((el: any, idx: number, array: any) => (
             <SwiperSlide className='swiper-slide' key={el.artworkId}>
-              <Body className='single'>
+              <div className='single'>
                 <SinglePicture
                   idx={idx}
                   array={array.length}
@@ -76,7 +79,7 @@ const SinglePicPage = () => {
                   artworkId={el.artworkId}
                   galleryId={galleryId}
                 ></Footer>
-              </Body>
+              </div>
             </SwiperSlide>
           ))}
         <SwiperSlide className='swiper-slide'>
