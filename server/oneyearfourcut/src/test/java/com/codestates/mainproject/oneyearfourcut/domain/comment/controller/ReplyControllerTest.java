@@ -33,6 +33,7 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.codestates.mainproject.oneyearfourcut.domain.comment.entity.CommentStatus.VALID;
@@ -194,7 +195,7 @@ class ReplyControllerTest {
                 .commentStatus(CommentStatus.VALID)
                 .build());
 
-        replyRepository.save(Reply.builder()
+        Reply reply = replyRepository.save(Reply.builder()
                 .replyId(4L)
                 .content("답글")
                 .member(member)
@@ -202,8 +203,10 @@ class ReplyControllerTest {
                 .replyStatus(CommentStatus.VALID)
                 .build());
 
+        List<Reply> replyList1 = new ArrayList<>();
+        replyList1.add(reply);
         given(replyService.findReplyList(Mockito.any( comment.getCommentId().getClass())))
-                .willReturn(replyRepository.findAllByReplyStatusAndComment_CommentIdOrderByReplyIdDesc(VALID, 1L));
+                .willReturn(replyList1);
 
         List<Reply> replyList = replyService.findReplyList(1L);
         List<ReplyResDto> result = ReplyResDto.toReplyResponseDtoList(replyList);
@@ -228,7 +231,7 @@ class ReplyControllerTest {
                 .andExpect(jsonPath("$.commentId").value( comment.getCommentId()))
                 .andExpect(jsonPath("$.replyList[0].replyId").value(4L))
                 .andExpect(jsonPath("$.replyList[0].memberId").value(member.getMemberId()))
-                .andExpect(jsonPath("$.replyList[0].nickname").value("test1"))
+                .andExpect(jsonPath("$.replyList[0].nickname").value("kang"))
                 .andExpect(jsonPath("$.replyList[0].content").value("답글"))
 
                 .andDo(document(
@@ -240,8 +243,8 @@ class ReplyControllerTest {
                                 , responseFields(
                                         List.of(
                                                 fieldWithPath("commentId").type(JsonFieldType.NUMBER).description("댓글 ID"),
-                                                fieldWithPath("replyList[].createdAt").type(JsonFieldType.STRING).description("생성일자"),
-                                                fieldWithPath("replyList[].modifiedAt").type(JsonFieldType.STRING).description("생성일자"),
+                                                fieldWithPath("replyList[].createdAt").type(JsonFieldType.STRING).description("생성일자").optional(),
+                                                fieldWithPath("replyList[].modifiedAt").type(JsonFieldType.STRING).description("생성일자").optional(),
                                                 fieldWithPath("replyList[].replyId").type(JsonFieldType.NUMBER).description("답글 ID"),
                                                 fieldWithPath("replyList[].memberId").type(JsonFieldType.NUMBER).description("회원 ID"),
                                                 fieldWithPath("replyList[].nickname").type(JsonFieldType.STRING).description("회원 닉네임"),
