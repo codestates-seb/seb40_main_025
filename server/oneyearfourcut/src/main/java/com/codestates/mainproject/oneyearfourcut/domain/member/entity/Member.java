@@ -31,6 +31,8 @@ public class Member extends Auditable {
 
     private String profile;
 
+    private Long kakaoId;
+
     @Enumerated(EnumType.STRING)
     private Role role;
 
@@ -38,12 +40,13 @@ public class Member extends Auditable {
     private MemberStatus status;
 
     @Builder
-    public Member(String nickname, String email, String profile, Role role, MemberStatus status) {
+    public Member(String nickname, String email, String profile, Role role, MemberStatus status, Long kakaoId) {
         this.nickname = nickname;
         this.email = email;
         this.profile = profile;
         this.role = role;
         this.status = status;
+        this.kakaoId = kakaoId;
     }
 
     //jpa 연관관계 맵핑 위해 생성하는 member 엔티티 용 생성자
@@ -60,6 +63,9 @@ public class Member extends Auditable {
 
     public void updateStatus(MemberStatus status) {
         this.status = status;
+    }
+    public void updateKakaoId(Long kakaoId) {
+        this.kakaoId = kakaoId;
     }
 
     public MemberResponseDto toMemberResponseDto() {

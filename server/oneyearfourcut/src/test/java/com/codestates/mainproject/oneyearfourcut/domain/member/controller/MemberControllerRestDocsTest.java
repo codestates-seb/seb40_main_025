@@ -16,11 +16,15 @@ import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDoc
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.RequestEntity;
+import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -55,6 +59,8 @@ class MemberControllerRestDocsTest {
     private Gson gson;
     @MockBean
     private AwsS3Service awsS3Service;
+    @MockBean
+    private RestTemplate restTemplate;
 
     @Test
     void getMember() throws Exception {
@@ -167,10 +173,16 @@ class MemberControllerRestDocsTest {
                 .profile("/path")
                 .role(Role.USER)
                 .status(MemberStatus.ACTIVE)
+                        .kakaoId(41234L)
                 .build());
 
         //해당 member jwt 생성
         String jwt = jwtTokenizer.testJwtGenerator(member);
+
+        //kakao 연결끊기 given 처리
+        ResponseEntity responseEntity = new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        given(restTemplate.exchange(any(RequestEntity.class), any(Class.class)))
+                .willReturn(responseEntity);
 
         //when
         ResultActions actions = mockMvc.perform(
