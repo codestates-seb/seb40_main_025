@@ -33,7 +33,7 @@ public class Artwork extends Auditable {
     @Column(length = 30, nullable = false)
     private String content;
 
-    @Column(columnDefinition = "TEXT", nullable = false)
+    @Column(columnDefinition = "TEXT", nullable = false, unique = true)
     private String imagePath;
 
     @Enumerated(EnumType.STRING)
@@ -120,7 +120,7 @@ public class Artwork extends Auditable {
         this.artworkId = artworkId;
         this.title = "test_title";
         this.content = "test_content";
-        this.imagePath = "/test.png";
+        this.imagePath = "/";
         super.createdAt = LocalDateTime.now();
     }
     // RepositoryTest용 생성자
