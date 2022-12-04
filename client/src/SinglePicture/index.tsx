@@ -11,7 +11,7 @@ import './styles.css';
 import { Navigation } from 'swiper';
 import useGetAllPost from '../shared/hooks/useGetAllPost';
 import { useLocation, useParams } from 'react-router-dom';
-import CommentStore from 'shared/components/PicFooter/OpenComment';
+import CommentStore from 'store/store';
 import LastPageComponent from './OnePage/LastPageComponent';
 
 const Body = styled.div`

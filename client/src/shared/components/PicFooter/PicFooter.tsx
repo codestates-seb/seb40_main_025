@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import * as S from './PicFoot.style';
 import HeartIcon from '../Icons/heartIcon';
 import CommentIcon from '../Icons/commentIcon';
-import CommentStore from './OpenComment';
+import CommentStore from 'store/store';
 import { useNavigate } from 'react-router-dom';
 
 const Footer = ({
