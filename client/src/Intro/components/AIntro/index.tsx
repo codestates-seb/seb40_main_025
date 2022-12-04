@@ -7,12 +7,8 @@ const Index = () => {
         <h1>올해 네 컷을 만든 D25는 어떤 팀?</h1>
         <S.divContainer>
           <div>🔸 코드스테이츠 메인 프로젝트 미디어 산업군이에요!</div>
-          <div>
-            🔸 프론트엔드 개발자 3명과 백엔드 개발자 3명으로 이뤄져 있어요!
-          </div>
-          <div>
-            🔸 트래픽이 터질만한 멋진 프로젝트를 만들어보자는 목표로 모였어요!
-          </div>
+          <div>🔸 프론트엔드 개발자 3명과 백엔드 개발자 3명이에요!</div>
+          <div>🔸 목표는 트래픽이 터질만한 멋진 프로젝트를 만들어보자!</div>
         </S.divContainer>
         {/* <S.FourCut>
           <S.Frame src='https://image.rocketpunch.com/company/19718/code-states_logo_1604475831.png?s=400x400&t=inside' />
