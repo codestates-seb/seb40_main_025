@@ -19,7 +19,6 @@ const Header = () => {
 
   const handleHeaderTitle = () => {
     let url = user?.galleryId ? `/fourPic/${user.galleryId}` : '/';
-    console.log(window.location.pathname);
     url === window.location.pathname
       ? window.location.reload()
       : navigateSearch(url, {});
