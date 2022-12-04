@@ -27,6 +27,7 @@ const Delete = styled.div`
   justify-content: right;
   padding-right: ${rem(50)};
   margin: 0.5rem 0 1rem 0;
+  cursor: pointer;
 `;
 
 const PicZone = styled.div`
@@ -37,7 +38,8 @@ const PicZone = styled.div`
 `;
 
 const SinglePic = styled.div`
-  width: ${rem(335)} !important;
+  width: ${rem(335)};
+  max-width: ${rem(335)} !important;
   height: ${rem(487)};
   background-repeat: no-repeat;
   background-position: center;
