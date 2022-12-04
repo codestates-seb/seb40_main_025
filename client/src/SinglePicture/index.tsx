@@ -2,20 +2,20 @@ import Footer from 'shared/components/PicFooter/PicFooter';
 import SinglePicture from './SinglePicture';
 import styled from 'styled-components';
 import { rem } from 'polished';
-import React, { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
+import 'swiper/css/navigation';
 import './styles.css';
+import { Navigation } from 'swiper';
 import useGetAllPost from '../shared/hooks/useGetAllPost';
 import { useLocation, useParams } from 'react-router-dom';
-import CommentStore from 'shared/components/PicFooter/OpenComment';
 import LastPageComponent from './OnePage/LastPageComponent';
-
+import CommentStore from 'store/store';
 
 const Body = styled.div`
-  width: ${rem(420)};
-  height: auto;
+  width: ${rem(428)};
+  height: 95vh;
   display: flex;
   flex-direction: column;
 `;
@@ -30,39 +30,39 @@ const LastPage = styled.div`
 `;
 
 const SinglePicPage = () => {
-  const [swiper, setSwiper] = useState(0);
   const params = useParams();
   const galleryId = parseInt(params.galleryId!);
   const { data } = useGetAllPost(galleryId);
+  const { state } = useLocation();
+  const { lastOpen } = CommentStore();
+  let num = 0;
 
-  const { lastOpen, setLastOpen } = CommentStore();
-  const num = 1;
-  let Last = data?.data[data.data.length - 1];
+  if (state !== null && lastOpen === -1) {
+    num = state;
+  }
+  if (lastOpen !== -1) {
+    num = lastOpen;
+  }
 
   const setting = {
     slidesPerView: 1,
-    spaceBetween: 10,
     centeredSlides: true,
     pagination: false,
-    initialSlide: lastOpen,
+    initialSlide: num,
   };
-
-  useEffect(() => {
-    setLastOpen(swiper);
-  }, [swiper]);
-   const { state } = useLocation(); // << artworkId입니다!
 
   return (
     <Body>
       <Swiper
         {...setting}
+        modules={[Navigation]}
         className='swiper one'
-        onSlideChange={(e) => setSwiper(e.activeIndex)}
+        navigation
       >
         {data &&
           data.data.map((el: any, idx: number, array: any) => (
             <SwiperSlide className='swiper-slide' key={el.artworkId}>
-              <Body className='single'>
+              <div className='single'>
                 <SinglePicture
                   idx={idx}
                   array={array.length}
@@ -77,8 +77,9 @@ const SinglePicPage = () => {
                   comment={el.commentCount}
                   artworkId={el.artworkId}
                   galleryId={galleryId}
+                  idx={idx}
                 ></Footer>
-              </Body>
+              </div>
             </SwiperSlide>
           ))}
         <SwiperSlide className='swiper-slide'>
@@ -92,21 +93,3 @@ const SinglePicPage = () => {
 };
 
 export default SinglePicPage;
-
-// {/* <Body className='single'>
-//   <SinglePicture
-//     idx={data?.data.length - 1}
-//     array={data?.data.length}
-//     picture={Last.imagePath}
-//     title={Last.title}
-//     scrpit={Last.content}
-//     username={Last.memberId}
-//     artId={Last.artworkId}
-//   ></SinglePicture>
-//   <Footer
-//     like={Last.likeCount}
-//     comment={Last.commentCount}
-//     artworkId={Last.artworkId}
-//     galleryId={galleryId}
-//   ></Footer>
-// // </Body> */}
