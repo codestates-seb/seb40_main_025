@@ -8,7 +8,7 @@ export const Container = styled.div`
 `;
 
 export const divContainer = styled.div`
-  margin: ${rem(30)} 0;
+  margin: ${rem(20)} 0;
 
   div {
     margin: ${rem(5)} 0;
