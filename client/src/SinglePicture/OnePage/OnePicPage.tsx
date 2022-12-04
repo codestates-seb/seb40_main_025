@@ -10,7 +10,7 @@ import { useParams } from 'react-router-dom';
 
 const Body = styled.div`
   width: ${rem(428)};
-  height: auto;
+  height: 95vh;
   display: flex;
   flex-direction: column;
 `;
