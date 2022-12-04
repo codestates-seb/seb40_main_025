@@ -57,7 +57,6 @@ const SinglePicPage = () => {
         {...setting}
         modules={[Navigation]}
         className='swiper one'
-        // onSlideChange={(e) => setSwiper(e.activeIndex)}
         navigation
       >
         {data &&
