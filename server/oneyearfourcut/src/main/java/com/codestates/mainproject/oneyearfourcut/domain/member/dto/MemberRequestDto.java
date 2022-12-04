@@ -11,7 +11,7 @@ import javax.validation.constraints.Size;
 
 @Getter
 public class MemberRequestDto { //회원 수정용 requstDto
-    @NotBlank(message = "닉네임은 필수 입력 값입니다.")
+    @NotSpace(message = "닉네임은 필수 입력 값입니다.")
     @Size(min = 1, max = 8)
     private String nickname;
     private MultipartFile profile;
