@@ -63,7 +63,7 @@ public class CommentService {
                 .commentStatus(VALID)
                 .build();
         commentRepository.save(comment);
-        alarmService.createAlarmBasedOnArtworkAndGallery(artworkId, memberId, AlarmType.COMMENT_ARTWORK);
+        alarmService.createAlarmBasedOnArtworkAndGallery(artworkId, galleryId, memberId, AlarmType.COMMENT_ARTWORK);
         return new CommentArtworkHeadDto<>(galleryId, artworkId, comment.toCommentArtworkResponseDto());
     }
 

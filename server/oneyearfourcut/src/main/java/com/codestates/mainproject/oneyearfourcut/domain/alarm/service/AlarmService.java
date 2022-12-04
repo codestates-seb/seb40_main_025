@@ -117,12 +117,12 @@ public class AlarmService {
     }
 
     @Transactional
-    public void createAlarmBasedOnArtworkAndGallery(Long artworkId, Long memberIdProducer, AlarmType ALARMTYPE) { //type -> LikeArtwork, CommentArtwork
+    public void createAlarmBasedOnArtworkAndGallery(Long artworkId, Long galleryId, Long memberIdProducer, AlarmType ALARMTYPE) { //type -> LikeArtwork, CommentArtwork
         Member memberArtworkReceiver, memberGalleryReceiver = new Member();
         Artwork artwork = new Artwork();
 
         memberArtworkReceiver = artworkRepository.findById(artworkId).orElseThrow().getMember();
-        memberGalleryReceiver = artworkRepository.findById(artworkId).orElseThrow().getGallery().getMember();
+        memberGalleryReceiver = galleryService.findGallery(galleryId).getMember();
         if (!Objects.equals(memberArtworkReceiver.getMemberId(), memberIdProducer) )
         {
             artwork = artworkRepository.findById(artworkId).orElseThrow();
