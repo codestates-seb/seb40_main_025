@@ -15,7 +15,7 @@ import LastPageComponent from './OnePage/LastPageComponent';
 
 const Body = styled.div`
   width: ${rem(420)};
-  height: auto;
+  height: 95vh;
   display: flex;
   flex-direction: column;
 `;

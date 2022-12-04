@@ -3,7 +3,7 @@ import { rem } from 'polished';
 
 const Body = styled.div`
   width: ${rem('428px')};
-  height: ${rem('926px')};
+  height: 95vh;
   max-width: ${rem(540)};
   background-color: ${({ theme }) => theme.colors.black_007};
   display: flex;
