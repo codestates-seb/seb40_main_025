@@ -520,7 +520,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/members/me' -i -X GET \
     -H 'Content-Type: application/json;charset=UTF-8' \
-    -H 'Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiVVNFUiIsImlkIjoxMSwidXNlcm5hbWUiOiJ0ZXN0MUBnbWFpbC5jb20iLCJzdWIiOiJ0ZXN0MUBnbWFpbC5jb20iLCJpYXQiOjE2NzAwODQ5MzcsImV4cCI6MTY3MDA4NTUzN30.Dr9KEJDhtbBBPbmNFrXeiLtv4pTRntNHyrPGQF4HdjGud_Qv0ICpoYJjyR1PhzUD' \
+    -H 'Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiVVNFUiIsImlkIjoxMSwidXNlcm5hbWUiOiJrYW5nMUBnbWFpbC5jb20iLCJzdWIiOiJrYW5nMUBnbWFpbC5jb20iLCJpYXQiOjE2NzAxNjI2NTcsImV4cCI6MTY3MDE2MzI1N30.VmBDmHuPUKMRG8pjcwDZBeCWRMZv8VpGFr6Mw1fo8hfP6Y9NoY9osRCP3g35R-mX' \
     -H 'Accept: application/json'</code></pre>
 </div>
 </div>
@@ -529,7 +529,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="content">
 <pre class="prettyprint highlight nowrap"><code data-lang="http">GET /members/me HTTP/1.1
 Content-Type: application/json;charset=UTF-8
-Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiVVNFUiIsImlkIjoxMSwidXNlcm5hbWUiOiJ0ZXN0MUBnbWFpbC5jb20iLCJzdWIiOiJ0ZXN0MUBnbWFpbC5jb20iLCJpYXQiOjE2NzAwODQ5MzcsImV4cCI6MTY3MDA4NTUzN30.Dr9KEJDhtbBBPbmNFrXeiLtv4pTRntNHyrPGQF4HdjGud_Qv0ICpoYJjyR1PhzUD
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiVVNFUiIsImlkIjoxMSwidXNlcm5hbWUiOiJrYW5nMUBnbWFpbC5jb20iLCJzdWIiOiJrYW5nMUBnbWFpbC5jb20iLCJpYXQiOjE2NzAxNjI2NTcsImV4cCI6MTY3MDE2MzI1N30.VmBDmHuPUKMRG8pjcwDZBeCWRMZv8VpGFr6Mw1fo8hfP6Y9NoY9osRCP3g35R-mX
 Accept: application/json
 Host: localhost:8080</code></pre>
 </div>
@@ -616,7 +616,7 @@ Content-Length: 72
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/members/me' -i -X POST \
     -H 'Content-Type: multipart/form-data;charset=UTF-8' \
-    -H 'Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiVVNFUiIsImlkIjoxMCwidXNlcm5hbWUiOiJ0ZXN0MUBnbWFpbC5jb20iLCJzdWIiOiJ0ZXN0MUBnbWFpbC5jb20iLCJpYXQiOjE2NzAwODQ5MzcsImV4cCI6MTY3MDA4NTUzN30.iqRH3JS-2OUyspJjfXIPneY36hYjB5CyAL5Vq4Z2N5fK_Dv6VBVZKjpPoG8K60uE' \
+    -H 'Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiVVNFUiIsImlkIjoxMCwidXNlcm5hbWUiOiJrYW5nMkBnbWFpbC5jb20iLCJzdWIiOiJrYW5nMkBnbWFpbC5jb20iLCJpYXQiOjE2NzAxNjI2NTcsImV4cCI6MTY3MDE2MzI1N30.AtMORagdI-FwUWHmmQlDElUWCidNejJWoAQJRaGhryIzAS-Qq9b3mM1ayv3mOq02' \
     -F 'profile=@profile;type=image/jpeg' \
     -F 'nickname=수정된 이름'</code></pre>
 </div>
@@ -626,7 +626,7 @@ Content-Length: 72
 <div class="content">
 <pre class="prettyprint highlight nowrap"><code data-lang="http">POST /members/me HTTP/1.1
 Content-Type: multipart/form-data;charset=UTF-8; boundary=6o2knFse3p53ty9dmcQvWAIx1zInP11uCfbm
-Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiVVNFUiIsImlkIjoxMCwidXNlcm5hbWUiOiJ0ZXN0MUBnbWFpbC5jb20iLCJzdWIiOiJ0ZXN0MUBnbWFpbC5jb20iLCJpYXQiOjE2NzAwODQ5MzcsImV4cCI6MTY3MDA4NTUzN30.iqRH3JS-2OUyspJjfXIPneY36hYjB5CyAL5Vq4Z2N5fK_Dv6VBVZKjpPoG8K60uE
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiVVNFUiIsImlkIjoxMCwidXNlcm5hbWUiOiJrYW5nMkBnbWFpbC5jb20iLCJzdWIiOiJrYW5nMkBnbWFpbC5jb20iLCJpYXQiOjE2NzAxNjI2NTcsImV4cCI6MTY3MDE2MzI1N30.AtMORagdI-FwUWHmmQlDElUWCidNejJWoAQJRaGhryIzAS-Qq9b3mM1ayv3mOq02
 Host: localhost:8080
 
 --6o2knFse3p53ty9dmcQvWAIx1zInP11uCfbm
@@ -724,14 +724,14 @@ X-Frame-Options: SAMEORIGIN
 <div class="title">curl-request</div>
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/members/me' -i -X DELETE \
-    -H 'Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiVVNFUiIsImlkIjo5LCJ1c2VybmFtZSI6InRlc3QxQGdtYWlsLmNvbSIsInN1YiI6InRlc3QxQGdtYWlsLmNvbSIsImlhdCI6MTY3MDA4NDkzNywiZXhwIjoxNjcwMDg1NTM3fQ.UfIdvZy-5LSTt9yAuIPgLGTfiZLroDNMp1HJEdFIr4X9eUTpte-EuGw4DLiHlGRC'</code></pre>
+    -H 'Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiVVNFUiIsImlkIjo5LCJ1c2VybmFtZSI6ImthbmczQGdtYWlsLmNvbSIsInN1YiI6ImthbmczQGdtYWlsLmNvbSIsImlhdCI6MTY3MDE2MjY1NywiZXhwIjoxNjcwMTYzMjU3fQ.zi_NWIcpUFdEWq0GmswsogOC9rRmJSu9a3jTnImhO_vTkUzUOeMDzfrUZqjCEH5b'</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="title">http-request</div>
 <div class="content">
 <pre class="prettyprint highlight nowrap"><code data-lang="http">DELETE /members/me HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiVVNFUiIsImlkIjo5LCJ1c2VybmFtZSI6InRlc3QxQGdtYWlsLmNvbSIsInN1YiI6InRlc3QxQGdtYWlsLmNvbSIsImlhdCI6MTY3MDA4NDkzNywiZXhwIjoxNjcwMDg1NTM3fQ.UfIdvZy-5LSTt9yAuIPgLGTfiZLroDNMp1HJEdFIr4X9eUTpte-EuGw4DLiHlGRC
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiVVNFUiIsImlkIjo5LCJ1c2VybmFtZSI6ImthbmczQGdtYWlsLmNvbSIsInN1YiI6ImthbmczQGdtYWlsLmNvbSIsImlhdCI6MTY3MDE2MjY1NywiZXhwIjoxNjcwMTYzMjU3fQ.zi_NWIcpUFdEWq0GmswsogOC9rRmJSu9a3jTnImhO_vTkUzUOeMDzfrUZqjCEH5b
 Host: localhost:8080</code></pre>
 </div>
 </div>
@@ -923,7 +923,7 @@ X-Frame-Options: DENY
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/galleries' -i -X POST \
     -H 'Content-Type: application/json;charset=UTF-8' \
-    -H 'Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiVVNFUiIsImlkIjoxMCwidXNlcm5hbWUiOiJ0ZXN0MUBnbWFpbC5jb20iLCJzdWIiOiJ0ZXN0MUBnbWFpbC5jb20iLCJpYXQiOjE2NzAwODQ5MzYsImV4cCI6MTY3MDA4NTUzNn0._2aEVQ3JtM5i2P6GH-Y1r1z3gZ0TfPtd_sDb7l6oucyM69sfxiK8_Dl1fUR3mLjG' \
+    -H 'Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiVVNFUiIsImlkIjoxMCwidXNlcm5hbWUiOiJrYW5nQGdtYWlsLmNvbSIsInN1YiI6ImthbmdAZ21haWwuY29tIiwiaWF0IjoxNjcwMTYyNjU2LCJleHAiOjE2NzAxNjMyNTZ9.jijKRX3lOX_vtIRKa_ijrsk1bGKrfdNz0QKZ-xGS3l_pHdYP57vyx_SUYgeP9jqw' \
     -H 'Accept: application/json' \
     -d '{
   "title" : "나의 전시관",
@@ -936,7 +936,7 @@ X-Frame-Options: DENY
 <div class="content">
 <pre class="prettyprint highlight nowrap"><code data-lang="http">POST /galleries HTTP/1.1
 Content-Type: application/json;charset=UTF-8
-Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiVVNFUiIsImlkIjoxMCwidXNlcm5hbWUiOiJ0ZXN0MUBnbWFpbC5jb20iLCJzdWIiOiJ0ZXN0MUBnbWFpbC5jb20iLCJpYXQiOjE2NzAwODQ5MzYsImV4cCI6MTY3MDA4NTUzNn0._2aEVQ3JtM5i2P6GH-Y1r1z3gZ0TfPtd_sDb7l6oucyM69sfxiK8_Dl1fUR3mLjG
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiVVNFUiIsImlkIjoxMCwidXNlcm5hbWUiOiJrYW5nQGdtYWlsLmNvbSIsInN1YiI6ImthbmdAZ21haWwuY29tIiwiaWF0IjoxNjcwMTYyNjU2LCJleHAiOjE2NzAxNjMyNTZ9.jijKRX3lOX_vtIRKa_ijrsk1bGKrfdNz0QKZ-xGS3l_pHdYP57vyx_SUYgeP9jqw
 Accept: application/json
 Content-Length: 67
 Host: localhost:8080
@@ -1013,7 +1013,7 @@ Content-Length: 132
   "galleryId" : 4,
   "title" : "나의 전시관",
   "content" : "안녕하세요",
-  "createdAt" : "2022-12-04T01:28:56.145184"
+  "createdAt" : "2022-12-04T23:04:16.281954"
 }</code></pre>
 </div>
 </div>
@@ -1113,7 +1113,7 @@ Content-Length: 132
   "galleryId" : 5,
   "title" : "나의 전시관",
   "content" : "안녕하세요",
-  "createdAt" : "2022-12-04T01:28:56.170374"
+  "createdAt" : "2022-12-04T23:04:16.294877"
 }</code></pre>
 </div>
 </div>
@@ -1162,7 +1162,7 @@ Content-Length: 132
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/galleries/me' -i -X PATCH \
     -H 'Content-Type: application/json;charset=UTF-8' \
-    -H 'Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiVVNFUiIsImlkIjoxMSwidXNlcm5hbWUiOiJ0ZXN0MUBnbWFpbC5jb20iLCJzdWIiOiJ0ZXN0MUBnbWFpbC5jb20iLCJpYXQiOjE2NzAwODQ5MzYsImV4cCI6MTY3MDA4NTUzNn0.BfbCcybdr0ZUan3tNDeH1Rt4LgOVEQ9FlhG1dSQjQWhmSymX84Ko2lrYqHqOJ3dF' \
+    -H 'Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiVVNFUiIsImlkIjoxMSwidXNlcm5hbWUiOiJrYW5nQGdtYWlsLmNvbSIsInN1YiI6ImthbmdAZ21haWwuY29tIiwiaWF0IjoxNjcwMTYyNjU2LCJleHAiOjE2NzAxNjMyNTZ9.n1V4tjiuuoUAC3dR9Cc2HMHx8YGVvOPH24pXgDoWK32JSihD8U-o0oQxrIdQXBgn' \
     -H 'Accept: application/json' \
     -d '{
   "title" : "수정된 제목",
@@ -1175,7 +1175,7 @@ Content-Length: 132
 <div class="content">
 <pre class="prettyprint highlight nowrap"><code data-lang="http">PATCH /galleries/me HTTP/1.1
 Content-Type: application/json;charset=UTF-8
-Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiVVNFUiIsImlkIjoxMSwidXNlcm5hbWUiOiJ0ZXN0MUBnbWFpbC5jb20iLCJzdWIiOiJ0ZXN0MUBnbWFpbC5jb20iLCJpYXQiOjE2NzAwODQ5MzYsImV4cCI6MTY3MDA4NTUzNn0.BfbCcybdr0ZUan3tNDeH1Rt4LgOVEQ9FlhG1dSQjQWhmSymX84Ko2lrYqHqOJ3dF
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiVVNFUiIsImlkIjoxMSwidXNlcm5hbWUiOiJrYW5nQGdtYWlsLmNvbSIsInN1YiI6ImthbmdAZ21haWwuY29tIiwiaWF0IjoxNjcwMTYyNjU2LCJleHAiOjE2NzAxNjMyNTZ9.n1V4tjiuuoUAC3dR9Cc2HMHx8YGVvOPH24pXgDoWK32JSihD8U-o0oQxrIdQXBgn
 Accept: application/json
 Content-Length: 68
 Host: localhost:8080
@@ -1259,7 +1259,7 @@ X-Frame-Options: SAMEORIGIN
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/galleries/me' -i -X DELETE \
     -H 'Content-Type: application/json;charset=UTF-8' \
-    -H 'Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiVVNFUiIsImlkIjo5LCJ1c2VybmFtZSI6InRlc3QxQGdtYWlsLmNvbSIsInN1YiI6InRlc3QxQGdtYWlsLmNvbSIsImlhdCI6MTY3MDA4NDkzNiwiZXhwIjoxNjcwMDg1NTM2fQ.omcKZIHd3CQxbQuaSeStHIS9M1a2Ss3eX5r6UvHfwmknBLovJ3_7D9EG8e1tWAJJ' \
+    -H 'Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiVVNFUiIsImlkIjo5LCJ1c2VybmFtZSI6ImthbmdAZ21haWwuY29tIiwic3ViIjoia2FuZ0BnbWFpbC5jb20iLCJpYXQiOjE2NzAxNjI2NTYsImV4cCI6MTY3MDE2MzI1Nn0.NUo3Ep_mGc27N96EydcJtuDAdIKjhQLUC39hRBV782QY4hXaCIumhYPsikOQKAmn' \
     -H 'Accept: application/json'</code></pre>
 </div>
 </div>
@@ -1268,7 +1268,7 @@ X-Frame-Options: SAMEORIGIN
 <div class="content">
 <pre class="prettyprint highlight nowrap"><code data-lang="http">DELETE /galleries/me HTTP/1.1
 Content-Type: application/json;charset=UTF-8
-Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiVVNFUiIsImlkIjo5LCJ1c2VybmFtZSI6InRlc3QxQGdtYWlsLmNvbSIsInN1YiI6InRlc3QxQGdtYWlsLmNvbSIsImlhdCI6MTY3MDA4NDkzNiwiZXhwIjoxNjcwMDg1NTM2fQ.omcKZIHd3CQxbQuaSeStHIS9M1a2Ss3eX5r6UvHfwmknBLovJ3_7D9EG8e1tWAJJ
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiVVNFUiIsImlkIjo5LCJ1c2VybmFtZSI6ImthbmdAZ21haWwuY29tIiwic3ViIjoia2FuZ0BnbWFpbC5jb20iLCJpYXQiOjE2NzAxNjI2NTYsImV4cCI6MTY3MDE2MzI1Nn0.NUo3Ep_mGc27N96EydcJtuDAdIKjhQLUC39hRBV782QY4hXaCIumhYPsikOQKAmn
 Accept: application/json
 Host: localhost:8080</code></pre>
 </div>
@@ -2223,7 +2223,7 @@ X-Frame-Options: DENY</code></pre>
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/galleries/1/comments' -i -X POST \
     -H 'Content-Type: application/json;charset=UTF-8' \
-    -H 'Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiVVNFUiIsImlkIjoxNCwidXNlcm5hbWUiOiJ0ZXN0MUBnbWFpbC5jb20iLCJzdWIiOiJ0ZXN0MUBnbWFpbC5jb20iLCJpYXQiOjE2NzAwODQ5MzMsImV4cCI6MTY3MDA4NTUzM30.uksku7UbXNDQzA7zPU1bhOhHes47QQujDCk8cSYKSbhRPLZ0x2qFUDC930hrfR3q' \
+    -H 'Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiVVNFUiIsImlkIjoxNCwidXNlcm5hbWUiOiJrYW5nQGdtYWlsLmNvbSIsInN1YiI6ImthbmdAZ21haWwuY29tIiwiaWF0IjoxNjcwMTYyNjU0LCJleHAiOjE2NzAxNjMyNTR9.zOEOnmTk4XXjTQyueiaEDm_ndmAEzHyYSp0qVsUbRzs_gR33_jB9l4BrzFkdEk0v' \
     -H 'Accept: application/json' \
     -d '{
   "content" : "댓글입니다"
@@ -2235,7 +2235,7 @@ X-Frame-Options: DENY</code></pre>
 <div class="content">
 <pre class="prettyprint highlight nowrap"><code data-lang="http">POST /galleries/1/comments HTTP/1.1
 Content-Type: application/json;charset=UTF-8
-Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiVVNFUiIsImlkIjoxNCwidXNlcm5hbWUiOiJ0ZXN0MUBnbWFpbC5jb20iLCJzdWIiOiJ0ZXN0MUBnbWFpbC5jb20iLCJpYXQiOjE2NzAwODQ5MzMsImV4cCI6MTY3MDA4NTUzM30.uksku7UbXNDQzA7zPU1bhOhHes47QQujDCk8cSYKSbhRPLZ0x2qFUDC930hrfR3q
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiVVNFUiIsImlkIjoxNCwidXNlcm5hbWUiOiJrYW5nQGdtYWlsLmNvbSIsInN1YiI6ImthbmdAZ21haWwuY29tIiwiaWF0IjoxNjcwMTYyNjU0LCJleHAiOjE2NzAxNjMyNTR9.zOEOnmTk4XXjTQyueiaEDm_ndmAEzHyYSp0qVsUbRzs_gR33_jB9l4BrzFkdEk0v
 Accept: application/json
 Content-Length: 35
 Host: localhost:8080
@@ -2321,7 +2321,7 @@ Content-Length: 261
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/galleries/1/artworks/1/comments' -i -X POST \
     -H 'Content-Type: application/json;charset=UTF-8' \
-    -H 'Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiVVNFUiIsImlkIjoxMywidXNlcm5hbWUiOiJ0ZXN0MUBnbWFpbC5jb20iLCJzdWIiOiJ0ZXN0MUBnbWFpbC5jb20iLCJpYXQiOjE2NzAwODQ5MzMsImV4cCI6MTY3MDA4NTUzM30.X9i5K6sEj5WQ9gOIXKQ4hP2jyeBmTPnsHCyWNNw_-m6aY4vFX8370NFawc9Xb_9C' \
+    -H 'Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiVVNFUiIsImlkIjoxMywidXNlcm5hbWUiOiJrYW5nQGdtYWlsLmNvbSIsInN1YiI6ImthbmdAZ21haWwuY29tIiwiaWF0IjoxNjcwMTYyNjU0LCJleHAiOjE2NzAxNjMyNTR9.8pfHUZ7H23uyTQBR3Epuvu1UNWHIl8mK1nDosQNlSyrJy8lGn4iCCIi7sdBq1MWK' \
     -H 'Accept: application/json' \
     -d '{
   "content" : "댓글입니다"
@@ -2333,7 +2333,7 @@ Content-Length: 261
 <div class="content">
 <pre class="prettyprint highlight nowrap"><code data-lang="http">POST /galleries/1/artworks/1/comments HTTP/1.1
 Content-Type: application/json;charset=UTF-8
-Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiVVNFUiIsImlkIjoxMywidXNlcm5hbWUiOiJ0ZXN0MUBnbWFpbC5jb20iLCJzdWIiOiJ0ZXN0MUBnbWFpbC5jb20iLCJpYXQiOjE2NzAwODQ5MzMsImV4cCI6MTY3MDA4NTUzM30.X9i5K6sEj5WQ9gOIXKQ4hP2jyeBmTPnsHCyWNNw_-m6aY4vFX8370NFawc9Xb_9C
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiVVNFUiIsImlkIjoxMywidXNlcm5hbWUiOiJrYW5nQGdtYWlsLmNvbSIsInN1YiI6ImthbmdAZ21haWwuY29tIiwiaWF0IjoxNjcwMTYyNjU0LCJleHAiOjE2NzAxNjMyNTR9.8pfHUZ7H23uyTQBR3Epuvu1UNWHIl8mK1nDosQNlSyrJy8lGn4iCCIi7sdBq1MWK
 Accept: application/json
 Content-Length: 35
 Host: localhost:8080
@@ -2487,7 +2487,7 @@ Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 Pragma: no-cache
 Expires: 0
 X-Frame-Options: SAMEORIGIN
-Content-Length: 840
+Content-Length: 822
 
 {
   "galleryId" : 4,
@@ -2496,7 +2496,7 @@ Content-Length: 840
     "createdAt" : "2022-11-14T23:41:52.764644",
     "modifiedAt" : "2022-11-16T23:41:57.764644",
     "memberId" : 4,
-    "nickname" : "replyPerson",
+    "nickname" : "reply",
     "content" : "comment444",
     "artworkId" : null
   }, {
@@ -2504,7 +2504,7 @@ Content-Length: 840
     "createdAt" : "2022-11-12T23:41:58.764644",
     "modifiedAt" : "2022-11-16T23:41:57.764644",
     "memberId" : 1,
-    "nickname" : "galleryPerson",
+    "nickname" : "gallery",
     "content" : "comment2",
     "artworkId" : 2
   }, {
@@ -2512,7 +2512,7 @@ Content-Length: 840
     "createdAt" : "2022-11-11T23:41:57.764644",
     "modifiedAt" : "2022-11-16T23:41:57.764644",
     "memberId" : 1,
-    "nickname" : "galleryPerson",
+    "nickname" : "gallery",
     "content" : "comment1댓글대스",
     "artworkId" : 1
   } ],
@@ -2601,7 +2601,7 @@ Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 Pragma: no-cache
 Expires: 0
 X-Frame-Options: SAMEORIGIN
-Content-Length: 381
+Content-Length: 375
 
 {
   "galleryId" : 6,
@@ -2611,7 +2611,7 @@ Content-Length: 381
     "createdAt" : "2022-11-11T23:41:57.764644",
     "modifiedAt" : "2022-11-16T23:41:57.764644",
     "memberId" : 1,
-    "nickname" : "galleryPerson",
+    "nickname" : "gallery",
     "content" : "comment1댓글대스"
   } ],
   "pageInfo" : {
@@ -2629,9 +2629,9 @@ Content-Length: 381
 <div class="listingblock">
 <div class="title">curl-request</div>
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/galleries/5/comments/5' -i -X PATCH \
+<pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/galleries/5/comments/6' -i -X PATCH \
     -H 'Content-Type: application/json;charset=UTF-8' \
-    -H 'Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiVVNFUiIsImlkIjoxMSwidXNlcm5hbWUiOiJ0ZXN0MUBnbWFpbC5jb20iLCJzdWIiOiJ0ZXN0MUBnbWFpbC5jb20iLCJpYXQiOjE2NzAwODQ5MzMsImV4cCI6MTY3MDA4NTUzM30.4WLKZTD-JIVLbx5Q_IRDqkdOPkjL5lE8-ErloXQDWnTjVyZnIhlX1VtgCqrycaRo' \
+    -H 'Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiVVNFUiIsImlkIjoxMSwidXNlcm5hbWUiOiJrYW5nQGdtYWlsLmNvbSIsInN1YiI6ImthbmdAZ21haWwuY29tIiwiaWF0IjoxNjcwMTYyNjU0LCJleHAiOjE2NzAxNjMyNTR9.8c1shbB8VRlb1Me-2peUxhAUXCSJmIl-Gditav6moYyuqdyetQLFYFp45QxKaPtb' \
     -H 'Accept: application/json' \
     -d '{
   "content" : "수정댓글입니다."
@@ -2641,9 +2641,9 @@ Content-Length: 381
 <div class="listingblock">
 <div class="title">http-request</div>
 <div class="content">
-<pre class="prettyprint highlight nowrap"><code data-lang="http">PATCH /galleries/5/comments/5 HTTP/1.1
+<pre class="prettyprint highlight nowrap"><code data-lang="http">PATCH /galleries/5/comments/6 HTTP/1.1
 Content-Type: application/json;charset=UTF-8
-Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiVVNFUiIsImlkIjoxMSwidXNlcm5hbWUiOiJ0ZXN0MUBnbWFpbC5jb20iLCJzdWIiOiJ0ZXN0MUBnbWFpbC5jb20iLCJpYXQiOjE2NzAwODQ5MzMsImV4cCI6MTY3MDA4NTUzM30.4WLKZTD-JIVLbx5Q_IRDqkdOPkjL5lE8-ErloXQDWnTjVyZnIhlX1VtgCqrycaRo
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiVVNFUiIsImlkIjoxMSwidXNlcm5hbWUiOiJrYW5nQGdtYWlsLmNvbSIsInN1YiI6ImthbmdAZ21haWwuY29tIiwiaWF0IjoxNjcwMTYyNjU0LCJleHAiOjE2NzAxNjMyNTR9.8c1shbB8VRlb1Me-2peUxhAUXCSJmIl-Gditav6moYyuqdyetQLFYFp45QxKaPtb
 Accept: application/json
 Content-Length: 42
 Host: localhost:8080
@@ -2714,7 +2714,7 @@ Content-Length: 268
 {
   "galleryId" : 5,
   "commentList" : {
-    "commentId" : 5,
+    "commentId" : 6,
     "createdAt" : "2022-11-25T11:09:24.94",
     "modifiedAt" : "2022-11-25T11:09:24.94",
     "memberId" : 11,
@@ -2733,7 +2733,7 @@ Content-Length: 268
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/galleries/3/comments/5' -i -X DELETE \
     -H 'Content-Type: application/json;charset=UTF-8' \
-    -H 'Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiVVNFUiIsImlkIjo5LCJ1c2VybmFtZSI6InRlc3QxQGdtYWlsLmNvbSIsInN1YiI6InRlc3QxQGdtYWlsLmNvbSIsImlhdCI6MTY3MDA4NDkzMywiZXhwIjoxNjcwMDg1NTMzfQ.ateHpY_FGisYEIb9IM3lxCOrWugxJuiJYOGMbMo_7tNa8CiZirDEGWOdK2LgUO4j' \
+    -H 'Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiVVNFUiIsImlkIjo5LCJ1c2VybmFtZSI6ImthbmdAZ21haWwuY29tIiwic3ViIjoia2FuZ0BnbWFpbC5jb20iLCJpYXQiOjE2NzAxNjI2NTQsImV4cCI6MTY3MDE2MzI1NH0.VNWCNGUTSU9_B4RWK8ucLy_Vg3aLSTiHK4zQMatl-XGXytzTtiw1pVIA_dUKkLv7' \
     -H 'Accept: application/json'</code></pre>
 </div>
 </div>
@@ -2742,7 +2742,7 @@ Content-Length: 268
 <div class="content">
 <pre class="prettyprint highlight nowrap"><code data-lang="http">DELETE /galleries/3/comments/5 HTTP/1.1
 Content-Type: application/json;charset=UTF-8
-Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiVVNFUiIsImlkIjo5LCJ1c2VybmFtZSI6InRlc3QxQGdtYWlsLmNvbSIsInN1YiI6InRlc3QxQGdtYWlsLmNvbSIsImlhdCI6MTY3MDA4NDkzMywiZXhwIjoxNjcwMDg1NTMzfQ.ateHpY_FGisYEIb9IM3lxCOrWugxJuiJYOGMbMo_7tNa8CiZirDEGWOdK2LgUO4j
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiVVNFUiIsImlkIjo5LCJ1c2VybmFtZSI6ImthbmdAZ21haWwuY29tIiwic3ViIjoia2FuZ0BnbWFpbC5jb20iLCJpYXQiOjE2NzAxNjI2NTQsImV4cCI6MTY3MDE2MzI1NH0.VNWCNGUTSU9_B4RWK8ucLy_Vg3aLSTiHK4zQMatl-XGXytzTtiw1pVIA_dUKkLv7
 Accept: application/json
 Host: localhost:8080</code></pre>
 </div>
@@ -2818,7 +2818,7 @@ X-Frame-Options: SAMEORIGIN</code></pre>
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/galleries/comments/1/replies' -i -X POST \
     -H 'Content-Type: application/json;charset=UTF-8' \
-    -H 'Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiVVNFUiIsImlkIjoxMCwidXNlcm5hbWUiOiJ0ZXN0MUBnbWFpbC5jb20iLCJzdWIiOiJ0ZXN0MUBnbWFpbC5jb20iLCJpYXQiOjE2NzAwODQ5MzQsImV4cCI6MTY3MDA4NTUzNH0.DkmBX1Poqu_uJh7O3CCcidCxFStlAQ_ScknOTSVukGgO4RVBzWi_pHrSqLVU7kl3' \
+    -H 'Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiVVNFUiIsImlkIjoxMCwidXNlcm5hbWUiOiJrYW5nQGdtYWlsLmNvbSIsInN1YiI6ImthbmdAZ21haWwuY29tIiwiaWF0IjoxNjcwMTYyNjU1LCJleHAiOjE2NzAxNjMyNTV9.jB8Pcm363IFGZvwIAQJy14o5U5vOku2zHyMWCOYA6c3vS9pWcSdq0p9ET2ay8zYJ' \
     -H 'Accept: application/json' \
     -d '{
   "content" : "답글입니다"
@@ -2830,7 +2830,7 @@ X-Frame-Options: SAMEORIGIN</code></pre>
 <div class="content">
 <pre class="prettyprint highlight nowrap"><code data-lang="http">POST /galleries/comments/1/replies HTTP/1.1
 Content-Type: application/json;charset=UTF-8
-Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiVVNFUiIsImlkIjoxMCwidXNlcm5hbWUiOiJ0ZXN0MUBnbWFpbC5jb20iLCJzdWIiOiJ0ZXN0MUBnbWFpbC5jb20iLCJpYXQiOjE2NzAwODQ5MzQsImV4cCI6MTY3MDA4NTUzNH0.DkmBX1Poqu_uJh7O3CCcidCxFStlAQ_ScknOTSVukGgO4RVBzWi_pHrSqLVU7kl3
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiVVNFUiIsImlkIjoxMCwidXNlcm5hbWUiOiJrYW5nQGdtYWlsLmNvbSIsInN1YiI6ImthbmdAZ21haWwuY29tIiwiaWF0IjoxNjcwMTYyNjU1LCJleHAiOjE2NzAxNjMyNTV9.jB8Pcm363IFGZvwIAQJy14o5U5vOku2zHyMWCOYA6c3vS9pWcSdq0p9ET2ay8zYJ
 Accept: application/json
 Content-Length: 35
 Host: localhost:8080
@@ -2960,31 +2960,17 @@ Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 Pragma: no-cache
 Expires: 0
 X-Frame-Options: SAMEORIGIN
-Content-Length: 648
+Content-Length: 187
 
 {
   "commentId" : 1,
   "replyList" : [ {
     "replyId" : 4,
     "memberId" : 11,
-    "nickname" : "test1",
+    "nickname" : "kang",
     "content" : "답글",
-    "createdAt" : "2022-11-14T23:41:52.764644",
-    "modifiedAt" : "2022-12-04T01:28:54.924666"
-  }, {
-    "replyId" : 2,
-    "memberId" : 1,
-    "nickname" : "galleryPerson",
-    "content" : "대댓글22",
-    "createdAt" : "2022-11-12T23:41:58.764644",
-    "modifiedAt" : "2022-11-16T23:41:57.764644"
-  }, {
-    "replyId" : 1,
-    "memberId" : 1,
-    "nickname" : "galleryPerson",
-    "content" : "대댓글",
-    "createdAt" : "2022-11-11T23:41:57.764644",
-    "modifiedAt" : "2022-11-16T23:41:57.764644"
+    "createdAt" : null,
+    "modifiedAt" : null
   } ]
 }</code></pre>
 </div>
@@ -2997,7 +2983,7 @@ Content-Length: 648
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/galleries/comments/4/replies/1' -i -X PATCH \
     -H 'Content-Type: application/json;charset=UTF-8' \
-    -H 'Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiVVNFUiIsImlkIjoxMiwidXNlcm5hbWUiOiJ0ZXN0MUBnbWFpbC5jb20iLCJzdWIiOiJ0ZXN0MUBnbWFpbC5jb20iLCJpYXQiOjE2NzAwODQ5MzQsImV4cCI6MTY3MDA4NTUzNH0.bH3AUEov0hDi0vxZnEwU0HXtWGwQR4I74tjGvmOxnuFHy1mNOCk3S64AYN3CCk4t' \
+    -H 'Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiVVNFUiIsImlkIjoxMiwidXNlcm5hbWUiOiJrYW5nQGdtYWlsLmNvbSIsInN1YiI6ImthbmdAZ21haWwuY29tIiwiaWF0IjoxNjcwMTYyNjU1LCJleHAiOjE2NzAxNjMyNTV9.GZ1pu7Fl6SRib9ABaMpqWA2AqjjRGnqBTh6yiAeR5lO1uGdQRWRlG9IJjAlVgsjM' \
     -H 'Accept: application/json' \
     -d '{
   "content" : "수정대댓글입니다."
@@ -3009,7 +2995,7 @@ Content-Length: 648
 <div class="content">
 <pre class="prettyprint highlight nowrap"><code data-lang="http">PATCH /galleries/comments/4/replies/1 HTTP/1.1
 Content-Type: application/json;charset=UTF-8
-Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiVVNFUiIsImlkIjoxMiwidXNlcm5hbWUiOiJ0ZXN0MUBnbWFpbC5jb20iLCJzdWIiOiJ0ZXN0MUBnbWFpbC5jb20iLCJpYXQiOjE2NzAwODQ5MzQsImV4cCI6MTY3MDA4NTUzNH0.bH3AUEov0hDi0vxZnEwU0HXtWGwQR4I74tjGvmOxnuFHy1mNOCk3S64AYN3CCk4t
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiVVNFUiIsImlkIjoxMiwidXNlcm5hbWUiOiJrYW5nQGdtYWlsLmNvbSIsInN1YiI6ImthbmdAZ21haWwuY29tIiwiaWF0IjoxNjcwMTYyNjU1LCJleHAiOjE2NzAxNjMyNTV9.GZ1pu7Fl6SRib9ABaMpqWA2AqjjRGnqBTh6yiAeR5lO1uGdQRWRlG9IJjAlVgsjM
 Accept: application/json
 Content-Length: 45
 Host: localhost:8080
@@ -3098,7 +3084,7 @@ Content-Length: 243
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/galleries/comments/3/replies/3' -i -X DELETE \
     -H 'Content-Type: application/json;charset=UTF-8' \
-    -H 'Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiVVNFUiIsImlkIjo5LCJ1c2VybmFtZSI6InRlc3QxQGdtYWlsLmNvbSIsInN1YiI6InRlc3QxQGdtYWlsLmNvbSIsImlhdCI6MTY3MDA4NDkzNCwiZXhwIjoxNjcwMDg1NTM0fQ.W3HjRKGEdlWuc0LxQo3TY6hFqlew-WDgR40KXsu08KxAspX6aNhyKJRHuud18Plt' \
+    -H 'Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiVVNFUiIsImlkIjo5LCJ1c2VybmFtZSI6ImthbmdAZ21haWwuY29tIiwic3ViIjoia2FuZ0BnbWFpbC5jb20iLCJpYXQiOjE2NzAxNjI2NTUsImV4cCI6MTY3MDE2MzI1NX0.SzR71y6N7toUeSZNs4UDeGxdKv9yWCq_lvFN29lfpiHVMyKWWvuvkSzs2bgYtqvx' \
     -H 'Accept: application/json'</code></pre>
 </div>
 </div>
@@ -3107,7 +3093,7 @@ Content-Length: 243
 <div class="content">
 <pre class="prettyprint highlight nowrap"><code data-lang="http">DELETE /galleries/comments/3/replies/3 HTTP/1.1
 Content-Type: application/json;charset=UTF-8
-Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiVVNFUiIsImlkIjo5LCJ1c2VybmFtZSI6InRlc3QxQGdtYWlsLmNvbSIsInN1YiI6InRlc3QxQGdtYWlsLmNvbSIsImlhdCI6MTY3MDA4NDkzNCwiZXhwIjoxNjcwMDg1NTM0fQ.W3HjRKGEdlWuc0LxQo3TY6hFqlew-WDgR40KXsu08KxAspX6aNhyKJRHuud18Plt
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiVVNFUiIsImlkIjo5LCJ1c2VybmFtZSI6ImthbmdAZ21haWwuY29tIiwic3ViIjoia2FuZ0BnbWFpbC5jb20iLCJpYXQiOjE2NzAxNjI2NTUsImV4cCI6MTY3MDE2MzI1NX0.SzR71y6N7toUeSZNs4UDeGxdKv9yWCq_lvFN29lfpiHVMyKWWvuvkSzs2bgYtqvx
 Accept: application/json
 Host: localhost:8080</code></pre>
 </div>
@@ -3183,7 +3169,7 @@ X-Frame-Options: SAMEORIGIN</code></pre>
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/members/me/alarms?page=1&amp;filter=ALL' -i -X GET \
     -H 'Content-Type: application/json;charset=UTF-8' \
-    -H 'Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiVVNFUiIsImlkIjoxMCwidXNlcm5hbWUiOiJ0ZXN0MUBnbWFpbC5jb20iLCJzdWIiOiJ0ZXN0MUBnbWFpbC5jb20iLCJpYXQiOjE2NzAwODQ5MzAsImV4cCI6MTY3MDA4NTUzMH0.HZUNlTDeYFNBc5QaU8vmxv9dY6PzbWN2Vwz5OhLObesB49khpb9he0QI1fLjmjQV' \
+    -H 'Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiVVNFUiIsImlkIjoxMCwidXNlcm5hbWUiOiJrYW5nQGdtYWlsLmNvbSIsInN1YiI6ImthbmdAZ21haWwuY29tIiwiaWF0IjoxNjcwMTYyNjUyLCJleHAiOjE2NzAxNjMyNTJ9.O11wgGoiYbLNotYpjxj6Q_xNGxmT8L_fBUa-sZmPwejcpPSm9idhmXg5v1swfB6l' \
     -H 'Accept: application/json'</code></pre>
 </div>
 </div>
@@ -3192,7 +3178,7 @@ X-Frame-Options: SAMEORIGIN</code></pre>
 <div class="content">
 <pre class="prettyprint highlight nowrap"><code data-lang="http">GET /members/me/alarms?page=1&amp;filter=ALL HTTP/1.1
 Content-Type: application/json;charset=UTF-8
-Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiVVNFUiIsImlkIjoxMCwidXNlcm5hbWUiOiJ0ZXN0MUBnbWFpbC5jb20iLCJzdWIiOiJ0ZXN0MUBnbWFpbC5jb20iLCJpYXQiOjE2NzAwODQ5MzAsImV4cCI6MTY3MDA4NTUzMH0.HZUNlTDeYFNBc5QaU8vmxv9dY6PzbWN2Vwz5OhLObesB49khpb9he0QI1fLjmjQV
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiVVNFUiIsImlkIjoxMCwidXNlcm5hbWUiOiJrYW5nQGdtYWlsLmNvbSIsInN1YiI6ImthbmdAZ21haWwuY29tIiwiaWF0IjoxNjcwMTYyNjUyLCJleHAiOjE2NzAxNjMyNTJ9.O11wgGoiYbLNotYpjxj6Q_xNGxmT8L_fBUa-sZmPwejcpPSm9idhmXg5v1swfB6l
 Accept: application/json
 Host: localhost:8080</code></pre>
 </div>
@@ -3253,13 +3239,13 @@ Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 Pragma: no-cache
 Expires: 0
 X-Frame-Options: SAMEORIGIN
-Content-Length: 641
+Content-Length: 640
 
 [ {
   "alarmId" : 2,
   "alarmType" : "POST_ARTWORK",
   "userNickname" : "행위유저 1",
-  "createdAt" : "2022-12-04T01:28:50.357969",
+  "createdAt" : "2022-12-04T23:04:12.67187",
   "read" : false,
   "artworkId" : 1,
   "artworkTitle" : "Test 작품 입니다."
@@ -3267,7 +3253,7 @@ Content-Length: 641
   "alarmId" : 3,
   "alarmType" : "LIKE_ARTWORK",
   "userNickname" : "행위유저 2",
-  "createdAt" : "2022-12-04T01:28:50.359299",
+  "createdAt" : "2022-12-04T23:04:12.672499",
   "read" : false,
   "artworkId" : 1,
   "artworkTitle" : "Test 작품 입니다."
@@ -3275,7 +3261,7 @@ Content-Length: 641
   "alarmId" : 4,
   "alarmType" : "COMMENT_GALLERY",
   "userNickname" : "행위유저 3",
-  "createdAt" : "2022-12-04T01:28:50.360578",
+  "createdAt" : "2022-12-04T23:04:12.672842",
   "read" : true,
   "artworkId" : null,
   "artworkTitle" : null
@@ -3290,7 +3276,7 @@ Content-Length: 641
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/members/me/alarms/read' -i -X GET \
     -H 'Content-Type: application/json;charset=UTF-8' \
-    -H 'Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiVVNFUiIsImlkIjo5LCJ1c2VybmFtZSI6InRlc3QxQGdtYWlsLmNvbSIsInN1YiI6InRlc3QxQGdtYWlsLmNvbSIsImlhdCI6MTY3MDA4NDkzMCwiZXhwIjoxNjcwMDg1NTMwfQ._h8uSlN8lbKWS49G-5-S1JtaNlIruz6i_xI3YIpgWAdVFThsaF-W2HZAFC5HQgrW' \
+    -H 'Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiVVNFUiIsImlkIjo5LCJ1c2VybmFtZSI6ImthbmdAZ21haWwuY29tIiwic3ViIjoia2FuZ0BnbWFpbC5jb20iLCJpYXQiOjE2NzAxNjI2NTIsImV4cCI6MTY3MDE2MzI1Mn0.NlUmv2LVro7CRchzhHwFZ4gBhTYslYKWZr6LPx-S62to76YBh_MFcCAn3B_pOzlK' \
     -H 'Accept: application/json'</code></pre>
 </div>
 </div>
@@ -3299,7 +3285,7 @@ Content-Length: 641
 <div class="content">
 <pre class="prettyprint highlight nowrap"><code data-lang="http">GET /members/me/alarms/read HTTP/1.1
 Content-Type: application/json;charset=UTF-8
-Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiVVNFUiIsImlkIjo5LCJ1c2VybmFtZSI6InRlc3QxQGdtYWlsLmNvbSIsInN1YiI6InRlc3QxQGdtYWlsLmNvbSIsImlhdCI6MTY3MDA4NDkzMCwiZXhwIjoxNjcwMDg1NTMwfQ._h8uSlN8lbKWS49G-5-S1JtaNlIruz6i_xI3YIpgWAdVFThsaF-W2HZAFC5HQgrW
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiVVNFUiIsImlkIjo5LCJ1c2VybmFtZSI6ImthbmdAZ21haWwuY29tIiwic3ViIjoia2FuZ0BnbWFpbC5jb20iLCJpYXQiOjE2NzAxNjI2NTIsImV4cCI6MTY3MDE2MzI1Mn0.NlUmv2LVro7CRchzhHwFZ4gBhTYslYKWZr6LPx-S62to76YBh_MFcCAn3B_pOzlK
 Accept: application/json
 Host: localhost:8080</code></pre>
 </div>
