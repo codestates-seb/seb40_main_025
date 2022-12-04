@@ -27,10 +27,10 @@ public class Artwork extends Auditable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long artworkId;
 
-    @Column(length = 15, nullable = false)
+    @Column(length = 20, nullable = false)
     private String title;
 
-    @Column(length = 60, nullable = false)
+    @Column(length = 70, nullable = false)
     private String content;
 
     @Column(columnDefinition = "TEXT", nullable = false, unique = true)
