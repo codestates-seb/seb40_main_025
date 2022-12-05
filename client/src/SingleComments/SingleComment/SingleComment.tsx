@@ -3,6 +3,17 @@ import useDeleteComment from 'SingleComments/hooks/useDeleteComment';
 import 'moment/locale/ko';
 import moment from 'moment';
 import { useParams } from 'react-router-dom';
+import { ModalStore, UploadStore } from 'store/store';
+import { Alert } from 'shared/components/Modal/Alert';
+import { DeleteComment } from '../../shared/components/Modal/AlertData';
+import ModalBackdrop from 'shared/components/Modal/components/ModalBackdrop';
+import styled from 'styled-components';
+import { getUser } from 'Intro/api';
+
+const Back = styled.div`
+  position: absolute;
+  left: 0;
+`;
 
 const SingleComment = ({
   commentId,
@@ -18,12 +29,17 @@ const SingleComment = ({
   const params = useParams();
   const galleryId = parseInt(params.galleryId!);
   const { mutate } = useDeleteComment(galleryId, commentId);
-
-  const Delete = (): void => {
-    mutate();
+  const { target, openModal, closeModal } = ModalStore();
+  const { resetData } = UploadStore();
+  let nowTime = moment(time).format('YYMMDD HH:mm');
+  const OpenModal = () => {
+    openModal('AlertModal');
   };
-  var nowTime = moment(time).format('YYMMDD HH:mm');
-
+  const handleProgressBtn = () => {
+    mutate();
+    resetData();
+    closeModal('AlertModal');
+  };
   return (
     <S.Body>
       <S.Info>
@@ -32,11 +48,18 @@ const SingleComment = ({
       </S.Info>
       <S.Comment>
         {comment}
-        <S.Delete onClick={Delete}>삭제</S.Delete>
+        <S.Delete onClick={OpenModal}>삭제</S.Delete>
       </S.Comment>
       <S.ButtonZone>
         <S.Button type='button'>답글</S.Button>
       </S.ButtonZone>
+      {target.AlertModal ? (
+        <Back>
+          <ModalBackdrop>
+            <Alert data={DeleteComment(handleProgressBtn)} />
+          </ModalBackdrop>
+        </Back>
+      ) : null}
     </S.Body>
   );
 };

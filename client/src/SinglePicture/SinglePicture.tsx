@@ -5,6 +5,10 @@ import useDeleteSinglePic from 'shared/hooks/useDeleteSinglePic';
 import { useParams } from 'react-router-dom';
 import LikeButton from 'shared/components/Buttons/likeButton';
 import { loginStore } from 'store/store';
+import { ModalStore, UploadStore } from 'store/store';
+import ModalBackdrop from 'shared/components/Modal/components/ModalBackdrop';
+import { Alert } from 'shared/components/Modal/Alert';
+import { DeleteAlert } from '../shared/components/Modal/AlertData';
 
 const Back = styled.div`
   position: fixed;
@@ -16,6 +20,7 @@ const Back = styled.div`
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
+  z-index: 3;
 `;
 
 const Pic = styled.div`
@@ -42,11 +47,20 @@ const SinglePicture = ({
   const params = useParams();
   const galleryId = parseInt(params.galleryId!);
   const { mutate } = useDeleteSinglePic(galleryId, artId);
-  const Delete = (): void => {
-    mutate();
-  };
+  const { target, openModal, closeModal } = ModalStore();
+  const { resetData } = UploadStore();
   const [open, setOpen] = useState(false);
   const { user } = loginStore();
+
+  const OpenModal = () => {
+    openModal('AlertModal');
+  };
+
+  const handleProgressBtn = () => {
+    mutate();
+    resetData();
+    closeModal('AlertModal');
+  };
 
   return (
     <S.Body>
@@ -83,10 +97,19 @@ const SinglePicture = ({
             {idx + 1}/{array}
           </S.PageCount>
         ) : null}
-        <S.ButtonZone>
-          <S.Delete onClick={() => console.log(user)}>수정</S.Delete>
-          <S.Delete onClick={() => Delete()}>삭제</S.Delete>
-        </S.ButtonZone>
+        {galleryId === user?.galleryId ? (
+          <S.ButtonZone>
+            <S.Delete onClick={() => console.log(user.nickname, username)}>
+              수정
+            </S.Delete>
+            <S.Delete onClick={OpenModal}>삭제</S.Delete>
+          </S.ButtonZone>
+        ) : username === user?.nickname ? (
+          <S.ButtonZone>
+            <S.Delete onClick={() => console.log(user.nickname)}>수정</S.Delete>
+            <S.Delete onClick={OpenModal}>삭제</S.Delete>
+          </S.ButtonZone>
+        ) : null}
       </S.Buttons>
       <S.PicIntroduct>
         <S.PicTitle>
@@ -94,6 +117,11 @@ const SinglePicture = ({
         </S.PicTitle>
         <S.PicDiscription>{scrpit}</S.PicDiscription>
       </S.PicIntroduct>
+      {target.AlertModal ? (
+        <ModalBackdrop>
+          <Alert data={DeleteAlert(handleProgressBtn)} />
+        </ModalBackdrop>
+      ) : null}
     </S.Body>
   );
 };
