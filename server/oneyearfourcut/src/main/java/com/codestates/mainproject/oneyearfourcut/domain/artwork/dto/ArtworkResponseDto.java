@@ -11,7 +11,7 @@ public class ArtworkResponseDto {
 
     private long artworkId;
     private long memberId;
-제    private String nickName;
+    private String nickName;
     private String title;
     private String content;
     private String imagePath;
