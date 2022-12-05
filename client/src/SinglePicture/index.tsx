@@ -35,6 +35,7 @@ const SinglePicPage = () => {
   const { data } = useGetAllPost(galleryId);
   const { state } = useLocation();
   const { lastOpen } = CommentStore();
+
   let num = 0;
 
   if (state !== null && lastOpen === -1) {
