@@ -73,7 +73,7 @@ const SinglePicture = ({
           onClick={() => setOpen(true)}
         >
           <Suspense>
-            <LikeButton artworkId={artId}></LikeButton>
+            <LikeButton artworkId={artId} idx={idx}></LikeButton>
           </Suspense>
         </S.SinglePic>
       </S.PicZone>
