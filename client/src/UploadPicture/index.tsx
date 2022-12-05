@@ -19,8 +19,9 @@ const UploadPicture = () => {
   const { setToast } = useToast();
   const { mutate } = useUpload();
   const formRef = useRef<HTMLFormElement>(null);
-  const { state } = useLocation(); 
+  const { state } = useLocation();
   const navigate = useNavigateSearch();
+
   const handleProgressBtn = () => {
     if (!state) {
       alert('비 정상적인 접근입니다.');
