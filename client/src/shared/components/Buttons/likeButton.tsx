@@ -29,7 +29,13 @@ const LikeButton = ({ artworkId }: { artworkId: number }) => {
   };
 
   return (
-    <LikeCircle onClick={Like}>
+    <LikeCircle
+      onClick={(e) => {
+        Like();
+        e.stopPropagation();
+        //이벤트 버블링 방지
+      }}
+    >
       {!data?.data.liked ? (
         <HeartIcon color={'gray'} />
       ) : (

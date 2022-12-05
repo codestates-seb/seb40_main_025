@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import useDeleteSinglePic from 'shared/hooks/useDeleteSinglePic';
 import { useParams } from 'react-router-dom';
 import LikeButton from 'shared/components/Buttons/likeButton';
+import { loginStore } from 'store/store';
 
 const Back = styled.div`
   position: fixed;
@@ -44,16 +45,11 @@ const SinglePicture = ({
   const Delete = (): void => {
     mutate();
   };
-
   const [open, setOpen] = useState(false);
+  const { user } = loginStore();
 
   return (
     <S.Body>
-      {idx !== undefined ? (
-        <S.PageCount>
-          {idx + 1}/{array}
-        </S.PageCount>
-      ) : null}
       {open ? (
         <Back onClick={() => setOpen(false)}>
           <Pic
@@ -81,9 +77,21 @@ const SinglePicture = ({
           </Suspense>
         </S.SinglePic>
       </S.PicZone>
-      <S.Delete onClick={() => Delete()}>삭제</S.Delete>
+      <S.Buttons>
+        {idx !== undefined ? (
+          <S.PageCount>
+            {idx + 1}/{array}
+          </S.PageCount>
+        ) : null}
+        <S.ButtonZone>
+          <S.Delete onClick={() => console.log(user)}>수정</S.Delete>
+          <S.Delete onClick={() => Delete()}>삭제</S.Delete>
+        </S.ButtonZone>
+      </S.Buttons>
       <S.PicIntroduct>
-        <S.PicTitle>{title}</S.PicTitle>
+        <S.PicTitle>
+          [{user?.nickname}] {title}
+        </S.PicTitle>
         <S.PicDiscription>{scrpit}</S.PicDiscription>
       </S.PicIntroduct>
     </S.Body>
