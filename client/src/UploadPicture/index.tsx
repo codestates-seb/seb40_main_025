@@ -6,9 +6,9 @@ import useUpload from './hook/useUpload';
 import useModifyartwork from './hook/useModifyartwork';
 import Upload from './components/Upload';
 import { Input } from './components/Input';
-import { ModalStore, UploadStore } from 'store/store';
+import { ModalStore, UploadStore, loginStore } from 'store/store';
 import { Alert } from 'shared/components/Modal/Alert';
-import { useRef } from 'react';
+import { useLayoutEffect, useRef } from 'react';
 import { UploadAlert } from '../shared/components/Modal/AlertData';
 import { useParams } from 'react-router-dom';
 import { useNavigateSearch } from 'shared/hooks/useNavigateSearch';
@@ -23,9 +23,9 @@ const UploadPicture = () => {
   const galleryId = parseInt(params.galleryId!);
   const formRef = useRef<HTMLFormElement>(null);
   const navigate = useNavigateSearch();
-
   const uploadMutate = useUpload(galleryId);
   const modifyMutate = useModifyartwork(galleryId, UploadData.artworkId);
+
 
   const handleProgressBtn = () => {
     if (!galleryId) {

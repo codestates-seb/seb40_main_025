@@ -7,6 +7,7 @@ import { FormData } from '../types';
 import { useQueryClient } from '@tanstack/react-query';
 import { useNavigateSearch } from 'shared/hooks/useNavigateSearch';
 
+
 const useUpload = (galleryId: number) => {
   const { closeModal } = ModalStore();
   const { setToast } = useToast();
