@@ -18,6 +18,7 @@ import com.codestates.mainproject.oneyearfourcut.global.config.auth.jwt.JwtToken
 import com.codestates.mainproject.oneyearfourcut.global.page.ReplyListResponseDto;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
@@ -40,8 +41,7 @@ import static com.codestates.mainproject.oneyearfourcut.domain.comment.entity.Co
 import static com.codestates.mainproject.oneyearfourcut.domain.member.entity.MemberStatus.ACTIVE;
 import static com.codestates.mainproject.oneyearfourcut.global.util.ApiDocumentUtils.getRequestPreProcessor;
 import static com.codestates.mainproject.oneyearfourcut.global.util.ApiDocumentUtils.getResponsePreProcessor;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
 import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
@@ -53,7 +53,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
-@Transactional
 @AutoConfigureMockMvc
 @AutoConfigureRestDocs
 @WithMockUser(username = "test@gmail.com", password = "0000")
