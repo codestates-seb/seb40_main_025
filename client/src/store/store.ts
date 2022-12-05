@@ -27,7 +27,7 @@ const ModalStore = create<Modal>((set, get) => ({
     set({
       target: { ...Object.assign({ ...get().target }, { [key]: false }) },
     }),
-  resetTarget: () =>
+  resetModal: () =>
     set(() => {
       return { target: { ...initTarget } };
     }),
@@ -67,6 +67,7 @@ const initUploadData = {
   img: undefined,
   title: '',
   content: '',
+  artworkId : undefined,
 };
 
 const UploadStore = create<Upload>((set, get) => ({

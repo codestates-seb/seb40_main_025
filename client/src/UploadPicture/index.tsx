@@ -3,26 +3,32 @@ import * as TOAST from 'shared/components/Toast/ToastData';
 import ModalBackdrop from 'shared/components/Modal/components/ModalBackdrop';
 import useToast from 'shared/components/Toast/hooks/useToast';
 import useUpload from './hook/useUpload';
+import useModifyartwork from './hook/useModifyartwork';
 import Upload from './components/Upload';
 import { Input } from './components/Input';
-import { ModalStore, UploadStore } from 'store/store';
+import { ModalStore, UploadStore, loginStore } from 'store/store';
 import { Alert } from 'shared/components/Modal/Alert';
-import { useRef } from 'react';
+import { useLayoutEffect, useRef } from 'react';
 import { UploadAlert } from '../shared/components/Modal/AlertData';
-import { useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useNavigateSearch } from 'shared/hooks/useNavigateSearch';
 import type { FormData } from './types';
 
 const UploadPicture = () => {
   const { target, openModal } = ModalStore();
-  const { UploadData, resetData } = UploadStore();
+  const { UploadData } = UploadStore();
   const { setToast } = useToast();
-  const { mutate } = useUpload();
+
+  const params = useParams();
+  const galleryId = parseInt(params.galleryId!);
   const formRef = useRef<HTMLFormElement>(null);
-  const { state } = useLocation();
   const navigate = useNavigateSearch();
+  const uploadMutate = useUpload(galleryId);
+  const modifyMutate = useModifyartwork(galleryId, UploadData.artworkId);
+
+
   const handleProgressBtn = () => {
-    if (!state) {
+    if (!galleryId) {
       alert('비 정상적인 접근입니다.');
       navigate('/', {});
       return;
@@ -32,19 +38,19 @@ const UploadPicture = () => {
       img: UploadData.img!,
       title: UploadData.title,
       content: UploadData.content,
-      galleryId: state,
+      artworkId: UploadData.artworkId,
+      galleryId: galleryId,
     };
-
-    mutate(upLoadData);
-    resetData();
-    navigate(`/fourPic/${state}`, {});
+    UploadData.artworkId ? modifyMutate(upLoadData) : uploadMutate(upLoadData);
   };
 
   const handlePostbtn = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     if (
-      Object.values(UploadData).filter((el) => !el).length > 0 ||
+      !UploadData.img ||
+      !UploadData.content ||
+      !UploadData.title ||
       UploadData.content.length > 70 ||
       UploadData.title.length > 20
     ) {
@@ -54,7 +60,6 @@ const UploadPicture = () => {
       openModal('AlertModal');
     }
   };
-  // const data2 = new FormData(formRef.current!) 데이터 어떻게 들어가는지 확인해보기
 
   return (
     <>
@@ -64,7 +69,9 @@ const UploadPicture = () => {
           <Input />
         </C.InputContainer>
         <C.UploadBtnContainer>
-          <button type='submit'>등록하기</button>
+          <button type='submit'>
+            {UploadData.artworkId ? '수정하기' : '등록하기'}
+          </button>
         </C.UploadBtnContainer>
       </C.DefualtContainer>
       {/* 모달 생성부분 */}

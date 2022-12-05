@@ -9,7 +9,7 @@ export interface Modal {
   target: ModalState;
   openModal: (key: string) => void;
   closeModal: (key: string) => void;
-  resetTarget: () => void;
+  resetModal: () => void;
 }
 
 export interface Alarm {
@@ -21,6 +21,7 @@ export interface Alarm {
 export interface SubToastState {
   time: number;
   content: string[];
+  color: string;
 }
 export interface ToastState extends SubToastState {
   id: number;
@@ -36,12 +37,13 @@ export interface UploadState {
   img: File | undefined;
   title: string;
   content: string;
-  [key: string]: File | undefined | string;
+  artworkId: number | undefined;
+  [key: string]: File | undefined | string | number;
 }
 
 export interface Upload {
   UploadData: UploadState;
-  setData: (key: string, data: File | string) => void;
+  setData: (key: string, data: File | string | number) => void;
   removeImg: () => void;
   resetData: () => void;
 }
