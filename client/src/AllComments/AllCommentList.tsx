@@ -18,17 +18,20 @@ const AllCommentsList = () => {
     const { data } = useGetSinglePicture(galleryId, artworkId);
     return data?.data.imagePath;
   };
+
   return (
     <S.CommentBody>
       <S.PicTitle>
-        <S.CommentCount onClick={() => console.log(data?.data)}>
-          댓글 {data?.data.commentList.length}
+        <S.CommentCount>
+          {data?.data === ''
+            ? `댓글 0`
+            : `댓글 ${data?.data.commentList.length}`}
         </S.CommentCount>
         <div onClick={() => navigate(-1)}>
           <XIcon />
         </div>
       </S.PicTitle>
-      {data?.data.length === 0 ? (
+      {data?.data === '' ? (
         <div>아무것도없음 </div>
       ) : (
         data &&
@@ -40,7 +43,6 @@ const AllCommentsList = () => {
               nickname={el.nickname}
               time={el.createdAt}
               comment={el.content}
-              picPath={GetPicData(galleryId, el.artworkId)}
             />
           );
         })
