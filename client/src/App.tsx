@@ -51,7 +51,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: '/uploadPicture',
+        path: '/uploadPicture/:galleryId',
         element: (
           <AuthCheck>
             <UploadPicture />
