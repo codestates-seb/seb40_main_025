@@ -15,7 +15,7 @@ const Index = ({ galleryId }: GalleryType) => {
   };
 
   const disabledClick = () => {
-    alert('아직 구현 중입니다');
+    alert('서비스를 준비 중입니다');
   };
 
   const createdAt = data?.createdAt;
