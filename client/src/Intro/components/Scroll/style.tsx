@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   margin-top: -5vh;
+  background-color: ${({ theme }) => theme.colors.green_001};
   ${({ theme }) => theme.mixins.flexBox('column', 'center', 'center')}
 `;
 export const Box = styled.div`
