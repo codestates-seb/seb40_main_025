@@ -15,7 +15,7 @@ export const ImgBox = styled.button`
   transform-style: preserve-3d;
   transition: transform 150ms cubic-bezier(0, 0, 0.58, 1),
     background 150ms cubic-bezier(0, 0, 0.58, 1);
-  margin-top: ${rem(20)};
+  margin-top: ${rem(60)};
 
   ::before {
     position: absolute;
