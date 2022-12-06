@@ -16,5 +16,4 @@ public interface ArtworkRepository extends JpaRepository<Artwork, Long> {
 
     List<Artwork> findTop4ByGallery_GalleryIdAndStatus(Long galleryId, ArtworkStatus status, Sort sort);
 
-    Artwork findByGallery_GalleryId(Long memberId);
 }
