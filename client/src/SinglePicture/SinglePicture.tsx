@@ -63,7 +63,6 @@ const SinglePicture = ({
 
   const handleProgressBtn = () => {
     mutate();
-    resetData();
     closeModal('AlertModal');
   };
 
