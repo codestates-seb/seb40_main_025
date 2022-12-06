@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import { rem } from 'polished';
-import HeartIcon from '../Icons/heartIcon';
 import useLikePictures from 'SinglePicture/hooks/useLikePictures';
 import useGetAllPost from 'shared/hooks/useGetAllPost';
 import { useParams } from 'react-router-dom';
@@ -16,7 +15,6 @@ const LikeCircle = styled.div`
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  /* position: relative; */
 `;
 
 const Box = styled.div`
@@ -54,9 +52,7 @@ const LikeButton = ({
         {idx !== undefined && data?.data[idx].liked === false ? (
           <div className='heart'></div>
         ) : (
-          // <HeartIcon color={'gray'} />
           <div className='heart check'></div>
-          // <HeartIcon color={'red'} />
         )}
       </Box>
     </LikeCircle>
