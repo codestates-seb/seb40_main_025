@@ -1,48 +1,11 @@
-import { Canvas, useFrame } from '@react-three/fiber';
-import {
-  ScrollControls,
-  Scroll,
-  Image,
-  OrbitControls,
-  PerspectiveCamera,
-  Stars,
-  KeyboardControls,
-  KeyboardControlsEntry,
-  PresentationControls,
-} from '@react-three/drei';
+import { Canvas } from '@react-three/fiber';
+import { PerspectiveCamera, PresentationControls } from '@react-three/drei';
 import * as S from './style';
 
-import { Suspense, useMemo, useRef } from 'react';
+import { Suspense } from 'react';
 import Model from './components/Model';
 
 const Index = () => {
-  // const ref = useRef<Mesh>(null!);
-  // document.addEventListener('keydown', onKeyDown, false);
-  // // function when a key is pressed, execute this function
-
-  // useFrame(() => {
-  //   ref.current.rotation.x += 0.01;
-  // });
-  // function onKeyDown(event: any) {
-  //   let keycode = event.which;
-
-  //   // right arrow key
-  //   if (keycode === 39) {
-  //     camera.translateX(-0.05);
-  //   }
-  //   // left arrow key
-  //   else if (keycode === 37) {
-  //     camera.translateX(0.05);
-  //   }
-  //   // up arrow key
-  //   else if (keycode === 38) {
-  //     camera.translateY(-0.05);
-  //   }
-  //   // down arrow key
-  //   else if (keycode === 40) {
-  //     camera.translateY(0.05);
-  //   }
-  // }
   return (
     <S.Box>
       {/* dpr은 디바이스 크기에 따라 반응형으로 보이도록 함 */}
