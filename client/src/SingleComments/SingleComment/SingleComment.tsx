@@ -49,9 +49,7 @@ const SingleComment = ({
       </S.Info>
       <S.Comment>
         {comment}
-        {galleryId === user?.galleryId ? (
-          <S.Delete onClick={OpenModal}>삭제</S.Delete>
-        ) : nickname === user?.nickname ? (
+        {nickname === user?.nickname ? (
           <S.Delete onClick={OpenModal}>삭제</S.Delete>
         ) : null}
       </S.Comment>
