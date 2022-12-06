@@ -1,4 +1,3 @@
-import Envelope from './components/Envelope';
 import Scroll from './components/Scroll';
 
 const Intro = () => {
