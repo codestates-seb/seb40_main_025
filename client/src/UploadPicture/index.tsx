@@ -61,7 +61,7 @@ const UploadPicture = () => {
       openModal('AlertModal');
     }
   };
-  console.log(UploadData);
+
   return (
     <>
       <C.DefualtContainer onSubmit={handlePostbtn} ref={formRef}>
