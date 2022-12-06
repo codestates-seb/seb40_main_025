@@ -44,6 +44,9 @@ public class Alarm extends Auditable {
     @Column(name = "READ_CHECK")
     private Boolean readCheck;
 
+    @Column
+    private Long galleryId;
+
     public AlarmResponseDto toAlarmResponseDto() {
         return AlarmResponseDto.builder()
                 .alarmId(this.alarmId)
@@ -51,6 +54,7 @@ public class Alarm extends Auditable {
                 .userNickname(this.getUserNickname())
                 .createdAt(this.getCreatedAt())
                 .read(this.getReadCheck())
+                .galleryId(this.galleryId)
                 .artworkId(this.artworkId)
                 .artworkTitle(this.artworkTitle)
                 .build();
