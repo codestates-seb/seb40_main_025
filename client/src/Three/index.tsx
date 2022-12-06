@@ -71,23 +71,3 @@ const Index = () => {
 };
 
 export default Index;
-// <S.Box>
-// {/* dpr은 디바이스 크기에 따라 반응형으로 보이도록 함 */}
-// <Canvas dpr={[1, 1.5]} camera={{ fov: 70, position: [0, 2, 15] }}>
-//   <PerspectiveCamera makeDefault position={[5, 10, 2]} />
-//   {/* 마우스 움직임에 따라 움직임 */}
-//   <OrbitControls />
-//   {/* 조명 */}
-//   <ambientLight intensity={0.5} />
-//   <spotLight position={[10, 10, 10]} angle={0.5} penumbra={1} />
-//   <pointLight position={[-10, -10, -10]} />
-//   <Stars />
-//   {/* 박스 */}
-//   <Box position={[0, 2, 0]} />
-//   {/* 바닥 */}
-//   <Plane />
-//   <Suspense fallback={null}>
-//     <ambientLight
-
-// </Canvas>
-// </S.Box>
