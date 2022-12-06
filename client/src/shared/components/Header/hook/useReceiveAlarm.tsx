@@ -5,7 +5,6 @@ import apis from '../api';
 
 const useReceiveAlarm = (isLoggedin: boolean) => {
   const { alarmIsOpen } = AlarmStore();
-  console.log(isLoggedin);
   const navigate = useNavigate();
   const { data, status, refetch, isStale } = useQuery(
     ['useReceiveAlarm'],
