@@ -11,7 +11,6 @@ import SinglePicPage from './SinglePicture/index';
 import OnePicPage from 'SinglePicture/OnePage/OnePicPage';
 import AuthCheck from 'shared/hooks/useAuth';
 import { TriggerBox } from 'AlarmList/components/AlarmContainer';
-import Three from './Three';
 const Header = React.lazy(() => import('shared/components/Header'));
 const GalleryFourPic = React.lazy(() => import('Gallery/GalleryFourPic'));
 const GalleryAllPic = React.lazy(() => import('Gallery/GalleryAllPic'));
@@ -102,11 +101,6 @@ const router = createBrowserRouter([
         ),
       },
     ],
-  },
-  {
-    path: '/three',
-    // path: '/three/:galleryId',
-    element: <Three />,
   },
 ]);
 

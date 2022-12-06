@@ -15,7 +15,6 @@ const Index = ({ galleryId }: GalleryType) => {
   };
 
   const disabledClick = () => {
-    // navigate(`/three/${galleryId}`);
     alert('아직 구현 중입니다');
   };
 
