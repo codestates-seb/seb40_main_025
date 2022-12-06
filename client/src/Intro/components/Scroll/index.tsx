@@ -1,11 +1,11 @@
 import * as S from './style';
-import Envelope from '../Envelope';
 import Kakao from '../KakaoBtn';
 import Letter from '../Letter';
 import { useEffect, useRef, useState } from 'react';
 import AIntro from '../AIntro';
 import BIntro from '../BIntro';
 import CIntro from '../CIntro';
+import Demo from '../Demo';
 
 const Index = () => {
   const homeRef = useRef<HTMLInputElement>(null);
@@ -41,6 +41,7 @@ const Index = () => {
   return (
     <S.Container>
       <Kakao />
+      <Demo />
       <div>
         <S.EnvelopeWrapper ref={homeRef}>
           <S.Envelope className={isOpen ? 'open' : 'close'}>

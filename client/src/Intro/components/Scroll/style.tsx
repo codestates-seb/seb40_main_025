@@ -24,7 +24,7 @@ export const Button = styled.button`
 
 export const EnvelopeWrapper = styled.div`
   ${({ theme }) => theme.mixins.flexBox('column', 'center', 'center')};
-  height: 100vh;
+  height: 90vh;
 `;
 
 export const Envelope = styled.div`
