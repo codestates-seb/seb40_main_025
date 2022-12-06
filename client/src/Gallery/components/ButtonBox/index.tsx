@@ -15,7 +15,7 @@ const Index = ({ galleryId }: GalleryType) => {
   };
 
   const disabledClick = () => {
-    alert('서비스를 준비 중입니다');
+    navigate('/three');
   };
 
   const createdAt = data?.createdAt;
@@ -23,7 +23,7 @@ const Index = ({ galleryId }: GalleryType) => {
   return (
     <div>
       <S.BtnContainer>
-        <Btn className='mr disabled' onClick={disabledClick}>
+        <Btn className='mr' onClick={disabledClick}>
           3D 전시관 보러가기
         </Btn>
         <IconBtn onClick={handleClick} className='white' icon={<Camera />}>
