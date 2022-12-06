@@ -47,7 +47,7 @@ public class Artwork extends Auditable {
     @Transient
     private boolean liked;
 
-    @Formula("(select count(*) from comment c where c.artwork_id = artwork_id)")
+    @Formula("(select count(*) from comment c where c.artwork_id = artwork_id and c.comment_status = 'VALID')")
     private int commentCount;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -66,6 +66,10 @@ public class Artwork extends Auditable {
 
     public int getLikeCount() {
         return this.likeCount;
+    }
+
+    public int getCommentCount() {
+        return this.commentCount;
     }
 
     /* ################### Setter ################### */
@@ -135,6 +139,7 @@ public class Artwork extends Auditable {
         return ArtworkResponseDto.builder()
                 .artworkId(getArtworkId())
                 .memberId(getMemberId())
+                .nickName(member.getNickname())
                 .title(getTitle())
                 .content(getContent())
                 .imagePath(getImagePath())
