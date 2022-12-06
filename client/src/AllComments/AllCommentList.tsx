@@ -32,7 +32,9 @@ const AllCommentsList = () => {
         </div>
       </S.PicTitle>
       {data?.data === '' ? (
-        <div>아무것도없음 </div>
+        <S.NoComment>
+          아직 등록된 덧글이 없습니다. 작품에 덧글을 남겨보세요
+        </S.NoComment>
       ) : (
         data &&
         data.data.commentList.map((el: any) => {
@@ -43,6 +45,7 @@ const AllCommentsList = () => {
               nickname={el.nickname}
               time={el.createdAt}
               comment={el.content}
+              picPath={GetPicData(galleryId, el.artworkId)}
             />
           );
         })

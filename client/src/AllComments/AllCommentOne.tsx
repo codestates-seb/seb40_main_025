@@ -77,7 +77,7 @@ const AllSingleComment = ({
         </Zone>
         <Pic
           style={{
-            backgroundImage: `url(${process.env.PUBLIC_URL + picPath})`,
+            backgroundImage: `url(${picPath})`,
             backgroundSize: 'cover',
             backgroundRepeat: 'no-repeat',
             backgroundPosition: 'center',
