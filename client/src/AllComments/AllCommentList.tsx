@@ -1,9 +1,7 @@
 import * as S from '../SingleComments/Single Comments.style';
-
 import XIcon from 'shared/components/Icons/XIcon';
 import useGetAllComments from 'AllComments/hooks/usGetAllComment';
 import { useParams, useNavigate } from 'react-router-dom';
-import GetPicData from './hooks/GetPicData';
 import React from 'react';
 import useGetSinglePicture from 'shared/hooks/useGetSinglePicture';
 
@@ -35,8 +33,6 @@ const AllCommentsList = () => {
       ) : (
         data &&
         data.data.commentList.map((el: any) => {
-          console.log(galleryId, el.artworkId);
-
           return (
             <AllSingleComment
               key={el.commentId}
