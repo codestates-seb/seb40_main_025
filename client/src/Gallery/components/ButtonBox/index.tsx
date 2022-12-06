@@ -15,7 +15,8 @@ const Index = ({ galleryId }: GalleryType) => {
   };
 
   const disabledClick = () => {
-    navigate('/three');
+    // navigate(`/three/${galleryId}`);
+    alert('아직 구현 중입니다');
   };
 
   const createdAt = data?.createdAt;
@@ -23,7 +24,7 @@ const Index = ({ galleryId }: GalleryType) => {
   return (
     <div>
       <S.BtnContainer>
-        <Btn className='mr' onClick={disabledClick}>
+        <Btn className='mr disabled' onClick={disabledClick}>
           3D 전시관 보러가기
         </Btn>
         <IconBtn onClick={handleClick} className='white' icon={<Camera />}>
