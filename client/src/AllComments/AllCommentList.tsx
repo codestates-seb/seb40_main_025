@@ -14,6 +14,11 @@ const AllCommentsList = () => {
   const navigate = useNavigate();
   const { data } = useGetAllComments(galleryId, Page);
 
+  const GetPicData = (galleryId: number, artworkId: number) => {
+    const { data } = useGetSinglePicture(galleryId, artworkId);
+    return data?.data.imagePath;
+  };
+
   return (
     <S.CommentBody>
       <S.PicTitle>

@@ -38,6 +38,7 @@ const AllSingleComment = ({
   nickname: string;
   time: number;
   comment: string;
+  picPath?: any;
 }) => {
   const params = useParams();
   const galleryId = parseInt(params.galleryId!);
