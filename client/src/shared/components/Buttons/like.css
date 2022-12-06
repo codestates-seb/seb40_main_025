@@ -2,14 +2,12 @@
     width: 5rem;
     height: 5rem;
       position: absolute;
-      left: -20%;
-      top: -10%;
+      left: -15%;
+      top: -5%;
       transform: translate(-50%, -50%);
     background: url(https://cssanimation.rocks/images/posts/steps/heart.png) no-repeat;
     background-position: 0 0;
     cursor: pointer;
-    animation: fave-heart 1s steps(28);
-
   }
 
   @keyframes fave-heart {
