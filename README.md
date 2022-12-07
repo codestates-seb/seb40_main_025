@@ -6,7 +6,7 @@
 <br/>
 친구들이 꾸며주는 나만의 전시회, "올해 네 컷"이라는 프로젝트입니다.
 
-배포 주소 : 
+배포 주소 : http://oneyearfourcut-front.s3-website.ap-northeast-2.amazonaws.com/
 
 <br/>
 
